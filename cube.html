@@ -285,6 +285,36 @@
   .v-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:400;max-width:88%;padding:12px 18px;border-radius:14px;background:var(--verde);color:var(--negro);font-size:.82rem;font-weight:600;text-align:center;transition:opacity .25s,transform .25s}
   .v-toast.on{opacity:1;transform:translate(-50%,0)}
   #grilla .portada,#lGrilla .portada,#listaGrilla .portada{cursor:pointer}
+
+  /* ===== Lotes (packs con descuento) ===== */
+  .lote-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+  @media(min-width:640px){.lote-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:960px){.lote-grid{grid-template-columns:repeat(3,1fr)}}
+  .lote-card{display:flex;flex-direction:column;gap:8px;width:100%;text-align:left;padding:16px;border:0;border-radius:22px;background:var(--panel);color:var(--texto);cursor:pointer;transition:transform .12s}
+  .lote-card:active{transform:scale(.98)}
+  .lote-card:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
+  .lote-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .lote-top h3{font-size:1.1rem;font-weight:700}
+  .lote-badge{padding:3px 10px;border-radius:999px;background:var(--verde);color:var(--negro);font-size:.7rem;font-weight:700;white-space:nowrap}
+  .lote-sub{color:var(--texto-suave);font-size:.76rem}
+  .lote-precio{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .lote-precio b{font-size:1.5rem;font-weight:600}
+  .lote-precio s{color:var(--texto-suave);font-size:.85rem}
+  .lote-precio small{color:var(--texto-suave);font-size:.72rem}
+  .lote-ahorro{color:var(--verde);font-size:.78rem;font-weight:600}
+  .lote-lista{max-height:260px;overflow-y:auto;margin:10px 0 0;padding:0}
+  .lote-lista .v-item{padding:8px 0}
+  .lote-lista .v-th{flex-basis:64px}
+  .lote-lista .v-pr{color:var(--texto-suave);font-weight:500}
+  .lote-tot{display:flex;justify-content:space-between;margin:10px 2px 0;font-size:.8rem;color:var(--texto-suave)}
+  .lote-tot b{color:var(--texto);font-weight:600}
+  #lSheet .v-card{max-width:380px}
+  .t-lotes{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 4px}
+  .t-lotes:empty{display:none}
+  .t-lotes .hero-lote{margin-top:8px}
+  .lote-max{color:var(--texto-suave);font-size:.68rem;font-weight:600;margin-left:6px}
+  .v-cancel{flex:0 0 auto;min-height:34px;padding:0 12px;border-radius:10px;background:var(--fondo);color:var(--texto);font-size:.74rem;font-weight:600}
+  .v-cancel:active{transform:scale(.95)}
   .t-precio{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 2px}
   .t-precio svg{width:24px;height:24px;color:var(--verde)}
   .t-precio b{font-size:1.8rem;font-weight:600;line-height:1.1}
@@ -405,7 +435,7 @@
     <button class="volver-btn" id="cerrarVender" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <h1 style="font-size:1.3rem;font-weight:700;">Vender</h1>
   </div>
-  <p class="v-intro">Vende una de tus historias para ganar créditos.</p>
+  <p class="v-intro">Vende una de tus historias para ganar créditos. Máximo 10 ventas activas. Si cancelas una venta, esa historia debe esperar 24 horas para volver a ponerse en venta.</p>
   <button class="v-add" id="vAgregar" type="button" aria-label="Agregar una historia para vender" title="Agregar historia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
   <h2 class="cw-h2 v-h2">Mis ventas</h2>
   <div id="vLista"></div>
@@ -432,9 +462,9 @@
     <button class="volver-btn" id="cerrarLotes" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <h1 style="font-size:1.3rem;font-weight:700;">Agregar lotes</h1>
   </div>
-  <p class="l-intro">Toca una portada para comprarla. Por ahora todas están juntas; pronto cada una estará en su lote.</p>
-  <h2>Todas las portadas</h2>
-  <div class="grilla" id="lGrilla"></div>
+  <p class="l-intro">Cada lote reúne varias historias a un precio menor que comprarlas por separado. Toca un lote para ver qué incluye.</p>
+  <h2>Lotes disponibles</h2>
+  <div class="lote-grid" id="lGrilla"></div>
 </section>
 
 <!-- VENDER · PRECIO -->
@@ -456,7 +486,15 @@
   <div class="v-card" role="dialog" aria-modal="true" aria-label="Historia">
     <div class="v-cover"><img id="tImg" alt=""></div>
     <p class="v-card-t" id="tTitulo"></p>
+    <div class="t-lotes" id="tLotes"></div>
     <div id="tCuerpo"></div>
+  </div>
+</div>
+<!-- LOTE · DETALLE Y COMPRA -->
+<div class="v-sheet" id="lSheet" hidden>
+  <div class="v-card" role="dialog" aria-modal="true" aria-label="Lote">
+    <p class="v-card-t" id="lTitulo" style="margin-top:4px"></p>
+    <div id="lCuerpo"></div>
   </div>
 </div>
 <div class="v-toast" id="vToast" role="status" aria-live="polite"></div>
@@ -897,22 +935,28 @@ actualizarHeader();
   const $ = id => document.getElementById(id);
 
   // ---- Mis lotes: un usuario nuevo no tiene ninguno. Cargar aquí los lotes reales: { n, productos, creditos } ----
-  const LOTES = [];
-  const PASO = 3;            // mínimo visible y cantidad que suma "Ver más"
-  let visibles = PASO;
+  const PASO = 3;            // mínimo visible; "Ver más" muestra todos
+  let todos = false;
+  // Un lote aparece si tienes al menos una de sus historias; solo se listan las que tienes.
+  function misLotes() {
+    if (!window.cubeLotes || !window.cubeInv) return [];
+    return window.cubeLotes.def.map(l => {
+      const mias = l.items.filter(i => i.img && window.cubeInv.cantidad(i.img) > 0);
+      return { nombre: l.nombre, mias, valor: mias.reduce((a, i) => a + i.precio, 0) };
+    }).filter(l => l.mias.length);
+  }
   function renderLotes() {
-    if (!LOTES.length) { $('cwLotes').innerHTML = '<p class="cw-vacio">Aún no tienes lotes.</p>'; $('cwMas').hidden = true; return; }
-    $('cwLotes').innerHTML = LOTES.slice(0, visibles).map(l =>
-      `<div class="cw-lot"><div class="ic"><svg viewBox="0 0 24 24"><use href="#wbx"/></svg></div><div class="tx">Lote #${l.n}<span>${l.productos} productos</span></div><em>${l.creditos}</em></div>`
+    const L = misLotes();
+    if (!L.length) { $('cwLotes').innerHTML = '<p class="cw-vacio">Aún no tienes lotes.</p>'; $('cwMas').hidden = true; return; }
+    $('cwLotes').innerHTML = (todos ? L : L.slice(0, PASO)).map(l =>
+      `<div class="cw-lot"><div class="ic"><svg viewBox="0 0 24 24"><use href="#wbx"/></svg></div><div class="tx">Lote ${l.nombre}<span>${l.mias.map(i => i.nombre).join(' · ')}</span></div><em>${l.mias.length} ${l.mias.length === 1 ? 'historia' : 'historias'}</em></div>`
     ).join('');
     const mas = $('cwMas');
-    mas.hidden = LOTES.length <= PASO;
-    mas.textContent = visibles >= LOTES.length ? 'Ver menos' : 'Ver más';
+    mas.hidden = L.length <= PASO;
+    mas.textContent = todos ? 'Ver menos' : 'Ver más';
   }
-  $('cwMas').onclick = () => {
-    visibles = visibles >= LOTES.length ? PASO : Math.min(visibles + PASO, LOTES.length);
-    renderLotes();
-  };
+  $('cwMas').onclick = () => { todos = !todos; renderLotes(); };
+  window.addEventListener('cube:inventario', renderLotes);
   renderLotes();
 
   // ---- Te ofrecemos: heroes (las imágenes ya están en el repositorio de GitHub; no se incrustan) ----
@@ -1147,7 +1191,10 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   const $ = id => document.getElementById(id);
   const PRECIO_BASE = 100;           // si una historia no tiene precio propio en Supabase
   const precios = {};                // archivo -> precio (tabla historias_vendibles)
-  const inv = new Set();             // historias que tiene el usuario
+  const inv = new Map(), pend = new Map(), espera = new Map();   // copias en inventario / en venta / esperas tras cancelar
+  const MAX_COPIAS = 3;
+  const cant = img => inv.get(img) || 0;
+  const total = img => cant(img) + (pend.get(img) || 0);   // las copias en venta cuentan para el límite
   let actual = null, ocupado = false;
 
   const sesion = () => { const u = window.usuario && window.usuario(); return u && u.supa ? u : null; };
@@ -1178,18 +1225,28 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
     } catch (e) { console.warn('No se pudieron cargar los precios', e); }
   }
   async function recargar() {
-    inv.clear();
+    inv.clear(); pend.clear(); espera.clear();
     if (sesion() && window.cubeDb) {
       try {
-        const { data, error } = await window.cubeDb.from('inventario').select('historia');
-        if (error) throw error;
-        (data || []).forEach(r => inv.add(r.historia));
+        const [a, b, c] = await Promise.all([
+          window.cubeDb.from('inventario').select('historia'),
+          window.cubeDb.from('ventas').select('historia').eq('estado', 'pendiente'),
+          window.cubeDb.from('ventas_espera').select('historia,hasta')]);
+        if (a.error) throw a.error;
+        (a.data || []).forEach(r => inv.set(r.historia, cant(r.historia) + 1));
+        (b.data || []).forEach(r => pend.set(r.historia, (pend.get(r.historia) || 0) + 1));
+        (c.data || []).forEach(r => { if (new Date(r.hasta) > new Date()) espera.set(r.historia, r.hasta); });
       } catch (e) { console.warn('No se pudo cargar el inventario', e); }
     }
     window.dispatchEvent(new Event('cube:inventario'));
     if (actual && !$('tSheet').hidden) pintar();
   }
-  window.cubeInv = { tiene: img => inv.has(img), lista: () => Array.from(inv), recargar, precio };
+  window.cubeInv = {
+    tiene: img => cant(img) > 0, cantidad: cant, total, MAX: MAX_COPIAS,
+    ventasActivas: () => Array.from(pend.values()).reduce((x, y) => x + y, 0),
+    espera: img => espera.get(img) || null,
+    lista: () => Array.from(inv.keys()), recargar, precio
+  };
   window.addEventListener('cube:usuario-listo', () => { cargarPrecios().then(recargar); });
 
   // ---- Iconos ----
@@ -1199,25 +1256,24 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
 
   // ---- Panel de la historia ----
   function pintar(nota) {
-    const img = actual, p = precio(img);
+    const img = actual, p = precio(img), n = cant(img), t = total(img);
     $('tImg').src = IMG_BASE + img;
     $('tImg').alt = titulo(img);
     $('tTitulo').textContent = titulo(img);
-    if (inv.has(img)) {
-      $('tCuerpo').innerHTML =
-        `<p class="v-nota">${nota || 'Esta historia está en tu inventario.'}</p>` +
-        `<div class="v-acc"><button class="b-pri" type="button" data-t="ver">Ver ahora</button>` +
+    const lotes = window.cubeLotes ? window.cubeLotes.de(img) : [];
+    $('tLotes').innerHTML = lotes.map(l => `<span class="hero-lote"><svg viewBox="0 0 24 24"><use href="#wbx"/></svg><b>${l.nombre}</b></span>`).join('');
+    const s = saldo(), lleno = t >= MAX_COPIAS, falta = s != null && s < p;
+    const precioHTML = lleno ? '' : `<div class="t-precio"><svg viewBox="0 0 24 24"><use href="#wcr"/></svg><b>${p.toLocaleString('es')}</b><small>créditos</small></div>`;
+    const msg = nota || (lleno ? `Ya tienes ${MAX_COPIAS} copias (el máximo).`
+      : n > 0 ? `Tienes ${t} de ${MAX_COPIAS} copias.${falta ? ` Te faltan ${(p - s).toLocaleString('es')} créditos.` : ''}`
+      : falta ? `Te faltan ${(p - s).toLocaleString('es')} créditos.` : 'La historia pasará a tu inventario.');
+    const comprarBtn = `<button class="b-pri" type="button" data-t="comprar"${(lleno || falta) ? ' disabled' : ''}>${n > 0 ? 'Comprar otra' : 'Comprar'}</button>`;
+    const extra = n > 0
+      ? `<button class="b-sec" type="button" data-t="ver">Ver ahora</button>${comprarBtn}` +
         `<button class="t-ico${esFav(img) ? ' on' : ''}" type="button" data-t="fav" aria-label="Favoritos" title="Favoritos">${HEART(esFav(img))}</button>` +
-        `<button class="t-ico" type="button" data-t="lista" aria-label="Agregar a una lista" title="Agregar a una lista">${LISTA}</button></div>`;
-    } else {
-      const s = saldo(), falta = s != null && s < p;
-      const msg = nota || (falta ? `Te faltan ${(p - s).toLocaleString('es')} créditos.` : 'La historia pasará a tu inventario.');
-      $('tCuerpo').innerHTML =
-        `<div class="t-precio"><svg viewBox="0 0 24 24"><use href="#wcr"/></svg><b>${p.toLocaleString('es')}</b><small>créditos</small></div>` +
-        `<p class="v-nota">${msg}</p>` +
-        `<div class="v-acc"><button class="b-sec" type="button" data-t="cerrar">Cancelar</button>` +
-        `<button class="b-pri" type="button" data-t="comprar"${falta ? ' disabled' : ''}>Comprar</button></div>`;
-    }
+        `<button class="t-ico" type="button" data-t="lista" aria-label="Agregar a una lista" title="Agregar a una lista">${LISTA}</button>`
+      : `<button class="b-sec" type="button" data-t="cerrar">Cancelar</button>${comprarBtn}`;
+    $('tCuerpo').innerHTML = precioHTML + `<p class="v-nota">${msg}</p><div class="v-acc">${extra}</div>`;
   }
   function abrir(img) {
     actual = img;
@@ -1229,7 +1285,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   function mensajeError(e) {
     const m = String((e && e.message) || e || '');
     if (m.includes('saldo_insuficiente')) return 'No tienes suficientes créditos.';
-    if (m.includes('ya_la_tienes')) return 'Ya tienes esta historia.';
+    if (m.includes('limite_copias')) return 'Ya tienes 3 copias de esta historia.';
     if (m.includes('no_autenticado')) return 'Inicia sesión para comprar.';
     if (m.includes('historia_invalida')) return 'Esa historia no está disponible.';
     return 'No se pudo completar la compra. Intenta de nuevo.';
@@ -1243,15 +1299,15 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
     try {
       const { error } = await window.cubeDb.rpc('comprar_historia', { p_historia: img });
       if (error) throw error;
-      inv.add(img);
+      inv.set(img, cant(img) + 1);
       if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
       window.dispatchEvent(new Event('cube:inventario'));
-      if (actual === img) pintar('¡Listo! Ya está en tu inventario.');
+      if (actual === img) pintar();
       aviso('Historia agregada a tu inventario.');
     } catch (e) {
       console.warn('Compra fallida', e);
       const m = String((e && e.message) || '');
-      if (m.includes('ya_la_tienes')) { await recargar(); } else aviso(mensajeError(e));
+      if (m.includes('limite_copias')) { await recargar(); } aviso(mensajeError(e));
     } finally { ocupado = false; }
   }
 
@@ -1308,7 +1364,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   const body = document.body;
 
   // ---- Reglas visibles (el servidor aplica las mismas: ver cube-ventas.sql) ----
-  const BASE = 100, PASO = 25, SUBIDA_MAX = 500, MIN = 25, COMISION_PCT = 5;
+  const MAX_VENTAS = 10, BASE = 100, PASO = 25, SUBIDA_MAX = 500, MIN = 25, COMISION_PCT = 5;
   const MAX = BASE + SUBIDA_MAX;
 
   const vendibles = () => (window.catalogo || []).filter(p => !p.pronto && !p.v);
@@ -1334,12 +1390,109 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   }
 
   // ---- Agregar lotes: todas las portadas juntas (luego se reparten por lote) ----
+  // Precios individuales (créditos). Los lotes salen siempre más baratos que la suma.
+  const P = {
+    bigfoot: 250, express: 90, ratman: 350, ev1: 550, ev2: 550, ev345: 250,
+    triangle: 500, menem: 250, mama: 100, entrevistas: 500, golem: 100,
+    rani: 300, telefono: 150, divina: 100 /* sin precio dado: se asume 100 (precio base) */
+  };
+  const H = (nombre, precio, img) => ({ nombre, precio, img });
+  const EXP = {
+    metalosis: H('Metalosis Maligna', P.express, 'metalosis-maligna.webp'),
+    muevete:   H('Muévete al Minuto', P.express, 'muevete-al-minuto.webp'),
+    retorcidos:H('Retorcidos', P.express, 'retorcidos.webp'),
+    nada:      H('Nada', P.express, 'nada.webp'),
+    obedece:   H('Obedece', P.express, 'obedece.webp'),
+    georgeus:  H('Georgeus Vortex', P.express, 'gorgeous-vortex.webp'),
+    ultimate:  H('Ultimate', P.express, 'ultimate.webp'),
+    valentine: H('Valentine', P.express, 'valentine.webp')
+  };
+  // precioLote = precio final del lote (redondeado a múltiplos de 10)
+  const LOTES_DEF = [
+    { id: 'express', nombre: 'Express', precioLote: 610, items: Object.values(EXP) },
+    { id: 'rush', nombre: 'Rush', precioLote: 390, items: [H('Bigfoot', P.bigfoot, 'bigfoot-2.webp'), EXP.ultimate, EXP.valentine] },
+    { id: 'lost', nombre: 'Lost Tapes', precioLote: 470, items: [H('Ratman', P.ratman, 'ratman.webp'), EXP.georgeus, EXP.metalosis] },
+    { id: 'void', nombre: 'Void', precioLote: 1480, items: [
+      H('Eternamente Vivo 1', P.ev1, 'eternamente-vivo.webp'), H('Eternamente Vivo 2', P.ev2, 'eternamente-vivo-dante.webp'),
+      H('Eternamente Vivo 3', P.ev345, 'eternamente-vivo-valak.webp'), H('Eternamente Vivo 4', P.ev345), H('Eternamente Vivo 5', P.ev345)] },
+    { id: 'blacklist', nombre: 'Blacklist', precioLote: 940, items: [
+      H('Las Entrevistas', P.entrevistas, 'las-entrevistas.webp'), H('Divina Comedia', P.divina, 'divina-comedia.webp'), H('Triangle Room', P.triangle, 'triangle-room.webp')] },
+    { id: 'natural', nombre: 'Natural', precioLote: 790, items: [
+      H('Triangle Room', P.triangle, 'triangle-room.webp'), H('El Teléfono', P.telefono, 'el-telefono.webp'), H('Menem', P.menem, 'menem.webp')] },
+    { id: 'taboo', nombre: 'Taboo', precioLote: 450, items: [
+      H('La Familia Rani', P.rani, 'la-familia-rani.webp'), H('Mama Dogs', P.mama, 'mama-dogs.webp'), H('Golem', P.golem, 'golem.webp')] }
+  ].map(l => {
+    const suma = l.items.reduce((a, i) => a + i.precio, 0);
+    return Object.assign(l, { suma, ahorro: suma - l.precioLote, pct: Math.floor((suma - l.precioLote) * 100 / suma) });
+  });
+  window.cubeLotes = { def: LOTES_DEF, de: img => LOTES_DEF.filter(l => l.items.some(i => i.img === img)) };
+  window.dispatchEvent(new Event('cube:inventario'));
+  const fmt = n => n.toLocaleString('es');
+  const escL = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let loteActual = null, comprandoLote = false;
+
+  function pintarLotes() {
+    $('lGrilla').innerHTML = LOTES_DEF.map(l =>
+      `<button type="button" class="lote-card" data-lote="${l.id}">` +
+      `<div class="lote-top"><h3>${l.nombre}</h3><span class="lote-badge">Ahorras el ${l.pct}%</span></div>` +
+      `<span class="lote-sub">${l.items.length} historias</span>` +
+      `<div class="lote-precio"><b>${fmt(l.precioLote)}</b><small>créditos</small><s>${fmt(l.suma)}</s></div>` +
+      `<span class="lote-ahorro">Te ahorras ${fmt(l.ahorro)} créditos</span></button>`).join('');
+  }
+  function pintarLoteSheet(nota) {
+    const l = loteActual; if (!l) return;
+    $('lTitulo').textContent = 'Lote ' + l.nombre;
+    const s = typeof window.cubeSaldo === 'number' ? window.cubeSaldo : null;
+    const falta = s != null && s < l.precioLote;
+    const filas = l.items.map(i => {
+      const th = i.img ? `<div class="v-th"><img src="${IMG_BASE}${i.img}" alt="" loading="lazy" onerror="this.style.display='none'"></div>` : '<div class="v-th"></div>';
+      const max = i.img && window.cubeInv.total(i.img) >= window.cubeInv.MAX;
+      return `<div class="v-item">${th}<div class="v-it">${escL(i.nombre)}${max ? '<span>Ya tienes 3: no se suma</span>' : ''}</div><div class="v-pr">${fmt(i.precio)}</div></div>`;
+    }).join('');
+    const todas = l.items.every(i => i.img && window.cubeInv.total(i.img) >= window.cubeInv.MAX);
+    const algunas = l.items.some(i => i.img && window.cubeInv.total(i.img) >= window.cubeInv.MAX);
+    $('lCuerpo').innerHTML =
+      `<div class="lote-lista">${filas}</div>` +
+      `<div class="lote-tot"><span>Por separado</span><b><s>${fmt(l.suma)}</s></b></div>` +
+      `<div class="t-precio"><svg viewBox="0 0 24 24"><use href="#wcr"/></svg><b>${fmt(l.precioLote)}</b><small>créditos</small></div>` +
+      `<p class="v-nota">${nota || (todas ? 'Ya tienes 3 copias de todas las historias de este lote.' : falta ? `Te faltan ${fmt(l.precioLote - s)} créditos.` : `Te ahorras el ${l.pct}% (${fmt(l.ahorro)} créditos).${algunas ? ' Las historias que ya tienes 3 veces no se suman.' : ''}`)}</p>` +
+      `<div class="v-acc"><button class="b-sec" type="button" data-l="cerrar">Cancelar</button>` +
+      `<button class="b-pri" type="button" data-l="comprar"${(falta || todas) ? ' disabled' : ''}>Comprar lote</button></div>`;
+  }
+  async function comprarLote() {
+    const l = loteActual;
+    if (!l || comprandoLote) return;
+    if (!sesion()) { window.abrirModal('auth'); return; }
+    comprandoLote = true;
+    try {
+      // El servidor debe cobrar el precio del lote (ver nota: RPC comprar_lote)
+      const { error } = await window.cubeDb.rpc('comprar_lote', { p_lote: l.id });
+      if (error) throw error;
+      if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
+      await window.cubeInv.recargar();
+      pintarLoteSheet('¡Listo! Las historias del lote están en tu inventario.');
+      aviso('Lote agregado a tu inventario.');
+    } catch (e) {
+      console.warn('Compra de lote fallida', e);
+      const m = String((e && e.message) || '');
+      aviso(m.includes('saldo_insuficiente') ? 'No tienes suficientes créditos.' : 'No se pudo completar la compra del lote.');
+    } finally { comprandoLote = false; }
+  }
+  $('lGrilla').addEventListener('click', e => {
+    const b = e.target.closest('[data-lote]'); if (!b) return;
+    loteActual = LOTES_DEF.find(x => x.id === b.dataset.lote);
+    pintarLoteSheet(); $('lSheet').hidden = false;
+  });
+  $('lCuerpo').addEventListener('click', e => {
+    const b = e.target.closest('[data-l]'); if (!b) return;
+    if (b.dataset.l === 'cerrar') { $('lSheet').hidden = true; loteActual = null; }
+    else comprarLote();
+  });
+  $('lSheet').addEventListener('click', e => { if (e.target === $('lSheet')) { $('lSheet').hidden = true; loteActual = null; } });
+
   let lotesListo = false;
   function abrirLotes() {
-    if (!lotesListo) {
-      lotesListo = true;
-      $('lGrilla').innerHTML = vendibles().map(p => window.card(p)).join('');
-    }
+    if (!lotesListo) { lotesListo = true; pintarLotes(); }
     ir('en-lotes');
   }
   $('cerrarLotes').onclick = () => cerrarModales();
@@ -1431,6 +1584,9 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   }
   async function abrirSheet(img) {
     if (!sesion()) { window.abrirModal('auth'); return; }
+    if (window.cubeInv.ventasActivas() >= MAX_VENTAS) { aviso('Ya tienes 10 ventas activas (el máximo).'); return; }
+    const esp = window.cubeInv.espera(img);
+    if (esp) { aviso('Cancelaste esta venta hace poco. ' + faltaEspera(esp)); return; }
     try { await refrescarCreditos(); } catch (e) { /* usa el saldo que ya hay */ }
     sel = img; precio = BASE;
     $('vSheetImg').src = IMG_BASE + img;
@@ -1453,6 +1609,8 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
     if (m.includes('no_autenticado')) return 'Inicia sesión para vender.';
     if (m.includes('historia_invalida')) return 'Esa historia no se puede vender.';
     if (m.includes('precio_invalido')) return 'El precio no es válido.';
+    if (m.includes('limite_ventas')) return 'Ya tienes 10 ventas activas (el máximo).';
+    if (m.includes('en_espera')) return 'Esa historia aún está en espera tras cancelar su venta.';
     return 'No se pudo completar la venta. Intenta de nuevo.';
   }
 
@@ -1477,6 +1635,22 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   };
 
   // ---- Lista de ventas ----
+  function faltaEspera(iso) {
+    const h = (new Date(iso).getTime() - Date.now()) / 3600000;
+    return h >= 1 ? `Podrás venderla en ${Math.ceil(h)} h.` : 'Podrás venderla en menos de 1 h.';
+  }
+  async function cancelarVenta(id) {
+    try {
+      const { error } = await window.cubeDb.rpc('cancelar_venta', { p_venta: id });
+      if (error) throw error;
+      aviso('Venta cancelada. Podrás volver a ponerla en venta en 24 h.');
+      await Promise.all([window.cubeInv.recargar(), cargarVentas()]);
+    } catch (e) { console.warn(e); aviso('No se pudo cancelar la venta.'); }
+  }
+  $('vLista').addEventListener('click', e => {
+    const b = e.target.closest('[data-cancelar]');
+    if (b && confirm('¿Cancelar esta venta? No podrás volver a ponerla en venta durante 24 h.')) cancelarVenta(b.dataset.cancelar);
+  });
   function falta(iso) {
     const ms = new Date(iso).getTime() - Date.now();
     if (ms <= 0) return 'Resolviendo…';
@@ -1500,7 +1674,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
       else if (v.estado === 'vendida') { estado = 'Vendida'; extra = ' ok'; pr = '+' + v.ganancia; }
       else { estado = 'No se vendió'; pr = '0'; }
       return `<div class="v-item"><div class="v-th"><img src="${IMG_BASE}${esc(v.historia)}" alt="" loading="lazy" onerror="this.style.display='none'"></div>` +
-        `<div class="v-it">${esc(titulo(v.historia))}<span class="${extra.trim()}">${estado}</span></div><div class="v-pr">${pr}</div></div>`;
+        `<div class="v-it">${esc(titulo(v.historia))}<span class="${extra.trim()}">${estado}</span></div><div class="v-pr">${v.estado === 'pendiente' ? `<button class="v-cancel" type="button" data-cancelar="${v.id}">Cancelar</button>` : pr}</div></div>`;
     }).join('');
   }
 
