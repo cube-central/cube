@@ -1406,24 +1406,32 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   let sel = null, precio = BASE;
   const pasos = () => (precio - BASE) / PASO;
   const saldo = () => (typeof window.cubeSaldo === 'number' ? window.cubeSaldo : null);
+  // Cada +25 cuesta el 5% de tus créditos, con un mínimo de 1 crédito por escalón.
+  // Solo puedes subir hasta donde te alcancen los créditos.
+  const maxPrecio = () => {
+    const s = saldo() || 0;
+    return Math.min(MAX, BASE + PASO * Math.min(SUBIDA_MAX / PASO, Math.floor(s)));
+  };
   function comision() {
-    const s = saldo(), n = pasos();
-    if (s == null || n <= 0) return 0;
-    return Math.min(s, Math.floor(s * COMISION_PCT * n / 100));
+    const s = saldo() || 0, n = pasos();
+    if (n <= 0) return 0;
+    return Math.min(s, Math.max(n, Math.floor(s * COMISION_PCT * n / 100)));
   }
   function pintarSheet() {
+    if (precio > maxPrecio()) precio = Math.max(BASE, maxPrecio());
     $('vPrecio').textContent = precio;
     $('vMenos').disabled = precio <= MIN;
-    $('vMas').disabled = precio >= MAX;
+    $('vMas').disabled = precio >= maxPrecio();
     const n = pasos(), c = comision();
-    $('vNota').textContent = n > 0
-      ? (saldo() == null
-        ? `Subir el precio cuesta el ${COMISION_PCT}% de tus créditos por cada +${PASO}. Puede que no se venda.`
-        : `Subir el precio te cuesta ${c.toLocaleString('es')} créditos (${COMISION_PCT}% por cada +${PASO}). Puede que no se venda.`)
+    let nota = n > 0
+      ? `Subir el precio te cuesta ${c.toLocaleString('es')} créditos (${COMISION_PCT}% por cada +${PASO}, mínimo 1). Puede que no se venda.`
       : 'Sabrás el resultado pasados unos días. Puede que no se venda.';
+    if (precio >= maxPrecio() && maxPrecio() < MAX) nota += ' No te alcanzan los créditos para subir más.';
+    $('vNota').textContent = nota;
   }
-  function abrirSheet(img) {
+  async function abrirSheet(img) {
     if (!sesion()) { window.abrirModal('auth'); return; }
+    try { await refrescarCreditos(); } catch (e) { /* usa el saldo que ya hay */ }
     sel = img; precio = BASE;
     $('vSheetImg').src = IMG_BASE + img;
     $('vSheetImg').alt = titulo(img);
@@ -1433,13 +1441,14 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   }
   function cerrarSheet() { $('vSheet').hidden = true; sel = null; }
   $('vMenos').onclick = () => { if (precio > MIN) { precio -= PASO; pintarSheet(); } };
-  $('vMas').onclick = () => { if (precio < MAX) { precio += PASO; pintarSheet(); } };
+  $('vMas').onclick = () => { if (precio < maxPrecio()) { precio += PASO; pintarSheet(); } };
   $('vCancelar').onclick = cerrarSheet;
   $('vSheet').addEventListener('click', e => { if (e.target === $('vSheet')) cerrarSheet(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('vSheet').hidden) cerrarSheet(); });
 
   function mensajeError(e) {
     const m = String((e && e.message) || e || '');
+    if (m.includes('saldo_insuficiente')) return 'No te alcanzan los créditos para ese precio.';
     if (m.includes('no_la_tienes')) return 'Ya no tienes esa historia.';
     if (m.includes('no_autenticado')) return 'Inicia sesión para vender.';
     if (m.includes('historia_invalida')) return 'Esa historia no se puede vender.';
