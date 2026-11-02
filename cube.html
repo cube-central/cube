@@ -233,6 +233,57 @@
   .alm-lb img{max-width:100%;max-height:78vh;border-radius:12px}
   .alm-lb p{color:var(--texto-suave);font-size:.85rem;text-align:center}
   @media (prefers-reduced-motion:reduce){.tl-it{opacity:1!important;transform:none!important;transition:none!important}}
+
+  /* ===== Vender y Agregar lotes ===== */
+  body.en-vender #home,body.en-vbuscar #home,body.en-lotes #home{display:none}
+  body.en-vender .pie,body.en-vbuscar .pie,body.en-lotes .pie{display:none}
+  body.en-vender,body.en-vbuscar,body.en-lotes{padding-bottom:90px}
+  #vender,#vbuscar,#lotes{display:none;margin:0 auto;padding:14px var(--margen) 40px}
+  #vender{max-width:640px}
+  #vbuscar,#lotes{max-width:1100px}
+  body.en-vender #vender,body.en-vbuscar #vbuscar,body.en-lotes #lotes{display:block}
+  #vbuscar h2,#lotes h2{font-weight:700;font-size:clamp(1.25rem,5.4vw,1.9rem);margin:30px 0 18px;letter-spacing:-.2px;color:var(--texto)}
+  #vbuscar .grilla,#lotes .grilla{margin-top:0}
+  #vbuscar .portada,#lotes .portada{aspect-ratio:16/8.5}
+  .v-pick{display:block;width:100%;padding:0;border:0;cursor:pointer;transition:transform .12s}
+  .v-pick:active{transform:scale(.97)}
+  .v-pick:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
+  .v-intro,.l-intro{color:var(--texto-suave);font-size:.85rem;line-height:1.5;margin:18px 0 16px}
+  .l-intro{margin:6px 0 0}
+  .v-add{display:grid;place-items:center;width:100%;aspect-ratio:16/8.5;border-radius:26px;background:var(--panel);border:2px dashed #2f3633;color:var(--verde);transition:transform .12s,border-color .2s}
+  .v-add svg{width:46px;height:46px}
+  .v-add:active{transform:scale(.98)}
+  .v-add:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
+  .v-h2{margin-top:30px}
+  .v-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--panel)}
+  .v-th{flex:0 0 96px;aspect-ratio:16/8.5;border-radius:10px;overflow:hidden;background:var(--panel)}
+  .v-th img{width:100%;height:100%;object-fit:cover;display:block}
+  .v-it{flex:1;min-width:0;font-size:.88rem;font-weight:500}
+  .v-it span{display:block;color:var(--texto-suave);font-size:.74rem;font-weight:400;margin-top:2px}
+  .v-it span.ok{color:var(--verde)}
+  .v-pr{font-weight:600;font-size:.9rem;color:var(--verde);white-space:nowrap}
+  .v-sheet{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.66)}
+  .v-sheet[hidden]{display:none}
+  .v-card{width:100%;max-width:340px;background:var(--panel);border-radius:22px;padding:14px 14px 16px}
+  .v-cover{aspect-ratio:16/8.5;border-radius:14px;overflow:hidden;background:var(--fondo)}
+  .v-cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .v-card-t{font-weight:600;font-size:1rem;margin:12px 4px 0;text-align:center}
+  .v-precio{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 6px}
+  .v-precio button{width:46px;height:46px;border-radius:14px;background:var(--fondo);color:var(--verde);display:grid;place-items:center}
+  .v-precio button:disabled{opacity:.3;cursor:default}
+  .v-precio button:not(:disabled):active{transform:scale(.94)}
+  .v-precio button svg{width:24px;height:24px}
+  .v-precio div{text-align:center}
+  .v-precio b{display:block;font-size:2rem;font-weight:600;line-height:1.1}
+  .v-precio small{color:var(--texto-suave);font-size:.7rem}
+  .v-nota{color:var(--texto-suave);font-size:.74rem;line-height:1.45;text-align:center;min-height:3em;margin:6px 2px 12px}
+  .v-acc{display:flex;gap:10px}
+  .v-acc button{flex:1;min-height:46px;border-radius:14px;font-weight:600;font-size:.9rem}
+  #vCancelar{background:var(--fondo);color:var(--texto)}
+  #vAceptar{background:var(--verde);color:var(--negro)}
+  #vAceptar:disabled{opacity:.5}
+  .v-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:400;max-width:88%;padding:12px 18px;border-radius:14px;background:var(--verde);color:var(--negro);font-size:.82rem;font-weight:600;text-align:center;transition:opacity .25s,transform .25s}
+  .v-toast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
@@ -333,6 +384,60 @@
   <p class="alm-intro">El archivo del proyecto: logos, cambios de marca y versiones del sitio, de la más antigua a la más reciente.</p>
   <div class="tl" id="tl"></div>
 </section>
+
+<!-- VENDER -->
+<section id="vender" aria-label="Vender">
+  <div class="buscar-top">
+    <button class="volver-btn" id="cerrarVender" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <h1 style="font-size:1.3rem;font-weight:700;">Vender</h1>
+  </div>
+  <p class="v-intro">Pon una historia en venta para ganar créditos.</p>
+  <button class="v-add" id="vAgregar" type="button" aria-label="Agregar una historia para vender" title="Agregar historia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  <h2 class="cw-h2 v-h2">Mis ventas</h2>
+  <div id="vLista"></div>
+  <p class="cw-vacio" id="vVacio">Aún no has puesto historias en venta.</p>
+</section>
+
+<!-- VENDER · BUSCAR HISTORIA -->
+<section id="vbuscar" aria-label="Elegir historia para vender">
+  <div class="buscar-top">
+    <button class="volver-btn" id="vCerrarBuscar" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <label class="buscador">
+      <input id="vCampo" type="search" placeholder="¿Qué historia quieres vender?" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar historia para vender">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </label>
+  </div>
+  <h2 id="vTituloBuscar">Todas las historias</h2>
+  <div class="grilla" id="vGrilla"></div>
+  <p class="sin-resultados" id="vSinRes" hidden>No encontramos historias con ese nombre.</p>
+</section>
+
+<!-- AGREGAR LOTES -->
+<section id="lotes" aria-label="Agregar lotes">
+  <div class="buscar-top">
+    <button class="volver-btn" id="cerrarLotes" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <h1 style="font-size:1.3rem;font-weight:700;">Agregar lotes</h1>
+  </div>
+  <p class="l-intro">Por ahora todas las portadas están juntas. Pronto cada una estará en su lote.</p>
+  <h2>Todas las portadas</h2>
+  <div class="grilla" id="lGrilla"></div>
+</section>
+
+<!-- VENDER · PRECIO -->
+<div class="v-sheet" id="vSheet" hidden>
+  <div class="v-card" role="dialog" aria-modal="true" aria-label="Vender historia">
+    <div class="v-cover"><img id="vSheetImg" alt=""></div>
+    <p class="v-card-t" id="vSheetT"></p>
+    <div class="v-precio">
+      <button id="vMenos" type="button" aria-label="Bajar 25 créditos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div><b id="vPrecio">100</b><small>créditos</small></div>
+      <button id="vMas" type="button" aria-label="Subir 25 créditos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
+    </div>
+    <p class="v-nota" id="vNota"></p>
+    <div class="v-acc"><button id="vCancelar" type="button">Cancelar</button><button id="vAceptar" type="button">Aceptar</button></div>
+  </div>
+</div>
+<div class="v-toast" id="vToast" role="status" aria-live="polite"></div>
 
 <!-- PERFIL MODAL (Sustituido con Supabase) -->
 <aside class="perfil-modal" id="perfilModal" aria-label="Perfil">
@@ -472,7 +577,7 @@ window.abrirModal = function (tipo) {
 };
 
 function cerrarModales() {
-  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen');
+  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-vender', 'en-vbuscar', 'en-lotes');
   activarItemNav('navWallet');
   window.scrollTo(0, 0);
   iniciarAuto();
@@ -835,16 +940,18 @@ actualizarHeader();
   // ---- Caja de créditos: viene de Supabase (tabla "wallets"; cada cuenta nueva empieza con 100) ----
   async function cargarCreditos() {
     const el = $('cwCreditos'), u = window.usuario();
-    if (!u || !u.supa || !window.cubeDb) { el.textContent = '0'; return; }
+    if (!u || !u.supa || !window.cubeDb) { window.cubeSaldo = 0; el.textContent = '0'; return; }
     try {
       const { data, error } = await window.cubeDb.from('wallets').select('creditos').eq('user_id', u.id).maybeSingle();
       if (error) throw error;
-      el.textContent = Number(data ? data.creditos : 0).toLocaleString('es');
+      window.cubeSaldo = Number(data ? data.creditos : 0);
+      el.textContent = window.cubeSaldo.toLocaleString('es');
     } catch (e) {
       console.warn('No se pudieron cargar los créditos', e);
       el.textContent = '—';
     }
   }
+  window.cubeRefrescarCreditos = cargarCreditos;
   window.addEventListener('cube:usuario-listo', cargarCreditos);
   cargarCreditos();
 
@@ -1010,6 +1117,227 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   };
   document.getElementById('cerrarBuscar').onclick = () => cerrarModales();
 })();
+</script>
+
+<!-- ================= VENDER HISTORIAS / AGREGAR LOTES ================= -->
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const body = document.body;
+
+  // ---- Reglas visibles (el servidor aplica las mismas: ver cube-ventas.sql) ----
+  const BASE = 100, PASO = 25, SUBIDA_MAX = 500, MIN = 25, COMISION_PCT = 5;
+  const MAX = BASE + SUBIDA_MAX;
+
+  const vendibles = () => (window.catalogo || []).filter(p => !p.pronto && !p.v);
+  const titulo = img => {
+    const p = (window.catalogo || []).find(x => x.img === img);
+    return p ? p.alt : img.replace(/\.webp$/, '').replace(/-/g, ' ');
+  };
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const normal = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  const compacto = t => normal(t).replace(/[^a-z0-9]/g, '');
+  const sesion = () => { const u = window.usuario && window.usuario(); return u && u.supa ? u : null; };
+  const refrescarCreditos = () => (window.cubeRefrescarCreditos ? window.cubeRefrescarCreditos() : null);
+
+  let tTimer = null;
+  function aviso(txt) {
+    const t = $('vToast');
+    t.textContent = txt; t.classList.add('on');
+    clearTimeout(tTimer); tTimer = setTimeout(() => t.classList.remove('on'), 3800);
+  }
+
+  // ---- Navegación entre vistas ----
+  function ir(clase) {
+    body.classList.remove('perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-vender', 'en-vbuscar', 'en-lotes');
+    if (clase) body.classList.add(clase);
+    if (typeof detenerAuto === 'function') detenerAuto();
+    window.scrollTo(0, 0);
+  }
+
+  // ---- Agregar lotes: todas las portadas juntas (luego se reparten por lote) ----
+  let lotesListo = false;
+  function abrirLotes() {
+    if (!lotesListo) {
+      lotesListo = true;
+      $('lGrilla').innerHTML = vendibles().map(p => window.card(p)).join('');
+    }
+    ir('en-lotes');
+  }
+  $('cerrarLotes').onclick = () => cerrarModales();
+
+  // ---- Vender ----
+  function abrirVender() {
+    if (!sesion()) { window.abrirModal('auth'); return; }
+    ir('en-vender');
+    cargarVentas();
+  }
+  $('cerrarVender').onclick = () => cerrarModales();
+
+  window.addEventListener('cube-wallet-accion', e => {
+    const a = e.detail && e.detail.accion;
+    if (a === 'agregar-creditos') { e.preventDefault(); abrirVender(); }
+    else if (a === 'agregar-lotes') { e.preventDefault(); abrirLotes(); }
+  });
+
+  // Búsqueda de la historia a vender
+  let tarj = [];
+  function pintarBuscar() {
+    const g = $('vGrilla');
+    if (g.dataset.ok) return;
+    g.dataset.ok = '1';
+    tarj = vendibles().map(p => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'portada v-pick'; b.dataset.id = p.img;
+      b.setAttribute('aria-label', 'Vender ' + p.alt);
+      const im = new Image();
+      im.src = IMG_BASE + p.img; im.alt = p.alt; im.loading = 'lazy';
+      im.onerror = () => { const s = document.createElement('span'); s.className = 'sin-img'; s.textContent = p.alt; im.replaceWith(s); };
+      b.appendChild(im); g.appendChild(b);
+      return { el: b, n: normal(p.alt), c: compacto(p.alt) };
+    });
+  }
+  function filtrar() {
+    const q = normal($('vCampo').value), qc = compacto($('vCampo').value);
+    let vis = 0;
+    tarj.forEach(t => {
+      const ok = !q || t.n.includes(q) || (qc && t.c.includes(qc));
+      t.el.style.display = ok ? '' : 'none';
+      if (ok) vis++;
+    });
+    $('vTituloBuscar').textContent = q ? 'Resultados' : 'Todas las historias';
+    $('vSinRes').hidden = vis > 0;
+  }
+  $('vAgregar').onclick = () => { pintarBuscar(); ir('en-vbuscar'); $('vCampo').focus(); };
+  $('vCerrarBuscar').onclick = () => { $('vCampo').blur(); ir('en-vender'); };
+  $('vCampo').addEventListener('input', filtrar);
+  $('vCampo').addEventListener('keydown', e => { if (e.key === 'Enter') $('vCampo').blur(); });
+  $('vGrilla').addEventListener('click', e => {
+    const b = e.target.closest('.v-pick');
+    if (b) abrirSheet(b.dataset.id);
+  });
+
+  // ---- Panel de precio ----
+  let sel = null, precio = BASE;
+  const pasos = () => (precio - BASE) / PASO;
+  const saldo = () => (typeof window.cubeSaldo === 'number' ? window.cubeSaldo : null);
+  function comision() {
+    const s = saldo(), n = pasos();
+    if (s == null || n <= 0) return 0;
+    return Math.min(s, Math.floor(s * COMISION_PCT * n / 100));
+  }
+  function pintarSheet() {
+    $('vPrecio').textContent = precio;
+    $('vMenos').disabled = precio <= MIN;
+    $('vMas').disabled = precio >= MAX;
+    const n = pasos(), c = comision();
+    $('vNota').textContent = n > 0
+      ? (saldo() == null
+        ? `Subir el precio cuesta el ${COMISION_PCT}% de tus créditos por cada +${PASO}. Puede que no se venda.`
+        : `Subir el precio te cuesta ${c.toLocaleString('es')} créditos (${COMISION_PCT}% por cada +${PASO}). Puede que no se venda.`)
+      : 'Sabrás el resultado pasados unos días. Puede que no se venda.';
+  }
+  function abrirSheet(img) {
+    if (!sesion()) { window.abrirModal('auth'); return; }
+    sel = img; precio = BASE;
+    $('vSheetImg').src = IMG_BASE + img;
+    $('vSheetImg').alt = titulo(img);
+    $('vSheetT').textContent = titulo(img);
+    pintarSheet();
+    $('vSheet').hidden = false;
+  }
+  function cerrarSheet() { $('vSheet').hidden = true; sel = null; }
+  $('vMenos').onclick = () => { if (precio > MIN) { precio -= PASO; pintarSheet(); } };
+  $('vMas').onclick = () => { if (precio < MAX) { precio += PASO; pintarSheet(); } };
+  $('vCancelar').onclick = cerrarSheet;
+  $('vSheet').addEventListener('click', e => { if (e.target === $('vSheet')) cerrarSheet(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('vSheet').hidden) cerrarSheet(); });
+
+  function mensajeError(e) {
+    const m = String((e && e.message) || e || '');
+    if (m.includes('ya_en_venta')) return 'Esa historia ya fue puesta en venta.';
+    if (m.includes('no_autenticado')) return 'Inicia sesión para vender.';
+    if (m.includes('historia_invalida')) return 'Esa historia no se puede vender.';
+    if (m.includes('precio_invalido')) return 'El precio no es válido.';
+    return 'No se pudo completar la venta. Intenta de nuevo.';
+  }
+
+  // Al aceptar, el servidor cobra la comisión y decide en secreto el resultado y la espera.
+  $('vAceptar').onclick = async () => {
+    if (!sel) return;
+    const btn = $('vAceptar');
+    btn.disabled = true;
+    try {
+      const { error } = await window.cubeDb.rpc('vender_historia', { p_historia: sel, p_precio: precio });
+      if (error) throw error;
+      cerrarSheet();
+      ir('en-vender');
+      aviso('Tu historia está en venta. Te avisaremos cuando se resuelva.');
+      await Promise.all([cargarVentas(), refrescarCreditos()]);
+    } catch (e) {
+      console.warn('Venta fallida', e);
+      aviso(mensajeError(e));
+    } finally {
+      btn.disabled = false;
+    }
+  };
+
+  // ---- Lista de ventas ----
+  function falta(iso) {
+    const ms = new Date(iso).getTime() - Date.now();
+    if (ms <= 0) return 'Resolviendo…';
+    const h = ms / 3600000;
+    if (h >= 24) { const d = Math.ceil(h / 24); return `Faltan ${d} ${d === 1 ? 'día' : 'días'}`; }
+    if (h >= 1) return `Faltan ${Math.ceil(h)} h`;
+    return 'Falta menos de 1 h';
+  }
+  async function cargarVentas() {
+    const lista = $('vLista'), vacio = $('vVacio');
+    if (!sesion() || !window.cubeDb) { lista.innerHTML = ''; vacio.textContent = 'Inicia sesión para vender tus historias.'; vacio.hidden = false; return; }
+    const { data, error } = await window.cubeDb.from('ventas')
+      .select('id,historia,precio,creado_en,resuelve_en,estado,ganancia')
+      .order('creado_en', { ascending: false }).limit(30);
+    if (error) { console.warn(error); lista.innerHTML = ''; vacio.textContent = 'No se pudieron cargar tus ventas.'; vacio.hidden = false; return; }
+    vacio.textContent = 'Aún no has puesto historias en venta.';
+    vacio.hidden = !!(data && data.length);
+    lista.innerHTML = (data || []).map(v => {
+      let estado, extra = '', pr = v.precio;
+      if (v.estado === 'pendiente') estado = `En venta · ${falta(v.resuelve_en)}`;
+      else if (v.estado === 'vendida') { estado = 'Vendida'; extra = ' ok'; pr = '+' + v.ganancia; }
+      else { estado = 'No se vendió'; pr = '0'; }
+      return `<div class="v-item"><div class="v-th"><img src="${IMG_BASE}${esc(v.historia)}" alt="" loading="lazy" onerror="this.style.display='none'"></div>` +
+        `<div class="v-it">${esc(titulo(v.historia))}<span class="${extra.trim()}">${estado}</span></div><div class="v-pr">${pr}</div></div>`;
+    }).join('');
+  }
+
+  // ---- Resolver ventas vencidas (el servidor paga si hubo venta) ----
+  async function resolver() {
+    if (!sesion() || !window.cubeDb) return;
+    try {
+      const { data, error } = await window.cubeDb.rpc('resolver_mis_ventas');
+      if (error) throw error;
+      if (!data || !data.length) return;
+      data.forEach(v => {
+        if (!window.cubeNotificar) return;
+        const ok = v.estado === 'vendida';
+        window.cubeNotificar({
+          id: 'venta-' + v.id, tipo: 'venta',
+          titulo: ok ? 'Historia vendida' : 'La venta no se concretó',
+          texto: ok ? `Vendiste “${titulo(v.historia)}” y ganaste ${v.ganancia} créditos.`
+                    : `No se logró vender “${titulo(v.historia)}”. La historia ya no está disponible.`,
+          ts: Date.now()
+        });
+      });
+      refrescarCreditos();
+      if (body.classList.contains('en-vender')) cargarVentas();
+      aviso(data.length === 1 ? 'Se resolvió una de tus ventas.' : `Se resolvieron ${data.length} de tus ventas.`);
+    } catch (e) { console.warn('No se pudieron resolver las ventas', e); }
+  }
+  window.addEventListener('cube:usuario-listo', resolver);
+  setInterval(resolver, 60000);
+  if (sesion()) resolver();
+})();
+
 </script>
 
 <!-- ================= SUPABASE INTEGRATION ================= -->
