@@ -284,6 +284,20 @@
   #vAceptar:disabled{opacity:.5}
   .v-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:400;max-width:88%;padding:12px 18px;border-radius:14px;background:var(--verde);color:var(--negro);font-size:.82rem;font-weight:600;text-align:center;transition:opacity .25s,transform .25s}
   .v-toast.on{opacity:1;transform:translate(-50%,0)}
+  #grilla .portada,#lGrilla .portada,#listaGrilla .portada{cursor:pointer}
+  .t-precio{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 2px}
+  .t-precio svg{width:24px;height:24px;color:var(--verde)}
+  .t-precio b{font-size:1.8rem;font-weight:600;line-height:1.1}
+  .t-precio small{color:var(--texto-suave);font-size:.75rem}
+  #tCuerpo .v-nota{margin-top:10px}
+  #tCuerpo .v-acc{align-items:stretch}
+  .b-pri,.b-sec{flex:1}
+  .b-pri{background:var(--verde);color:var(--negro)}
+  .b-sec{background:var(--fondo);color:var(--texto)}
+  .b-pri:disabled{opacity:.4;cursor:default}
+  #tCuerpo .v-acc .t-ico{flex:0 0 46px;min-height:46px;border-radius:14px;background:var(--fondo);color:var(--verde);display:grid;place-items:center;transition:transform .12s}
+  #tCuerpo .v-acc .t-ico svg{width:22px;height:22px}
+  #tCuerpo .v-acc .t-ico:active{transform:scale(.93)}
 </style>
 </head>
 <body>
@@ -391,7 +405,7 @@
     <button class="volver-btn" id="cerrarVender" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <h1 style="font-size:1.3rem;font-weight:700;">Vender</h1>
   </div>
-  <p class="v-intro">Pon una historia en venta para ganar créditos.</p>
+  <p class="v-intro">Vende una de tus historias para ganar créditos.</p>
   <button class="v-add" id="vAgregar" type="button" aria-label="Agregar una historia para vender" title="Agregar historia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
   <h2 class="cw-h2 v-h2">Mis ventas</h2>
   <div id="vLista"></div>
@@ -403,11 +417,11 @@
   <div class="buscar-top">
     <button class="volver-btn" id="vCerrarBuscar" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <label class="buscador">
-      <input id="vCampo" type="search" placeholder="¿Qué historia quieres vender?" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar historia para vender">
+      <input id="vCampo" type="search" placeholder="Busca entre tus historias" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar entre tus historias">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </label>
   </div>
-  <h2 id="vTituloBuscar">Todas las historias</h2>
+  <h2 id="vTituloBuscar">Mis historias</h2>
   <div class="grilla" id="vGrilla"></div>
   <p class="sin-resultados" id="vSinRes" hidden>No encontramos historias con ese nombre.</p>
 </section>
@@ -418,7 +432,7 @@
     <button class="volver-btn" id="cerrarLotes" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <h1 style="font-size:1.3rem;font-weight:700;">Agregar lotes</h1>
   </div>
-  <p class="l-intro">Por ahora todas las portadas están juntas. Pronto cada una estará en su lote.</p>
+  <p class="l-intro">Toca una portada para comprarla. Por ahora todas están juntas; pronto cada una estará en su lote.</p>
   <h2>Todas las portadas</h2>
   <div class="grilla" id="lGrilla"></div>
 </section>
@@ -435,6 +449,14 @@
     </div>
     <p class="v-nota" id="vNota"></p>
     <div class="v-acc"><button id="vCancelar" type="button">Cancelar</button><button id="vAceptar" type="button">Aceptar</button></div>
+  </div>
+</div>
+<!-- HISTORIA · COMPRAR / VER -->
+<div class="v-sheet" id="tSheet" hidden>
+  <div class="v-card" role="dialog" aria-modal="true" aria-label="Historia">
+    <div class="v-cover"><img id="tImg" alt=""></div>
+    <p class="v-card-t" id="tTitulo"></p>
+    <div id="tCuerpo"></div>
   </div>
 </div>
 <div class="v-toast" id="vToast" role="status" aria-live="polite"></div>
@@ -1082,7 +1104,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   const tituloBuscar = document.getElementById('tituloBuscar');
   const sinResultados = document.getElementById('sinResultados');
 
-  const tarjetas = catalogo.map(p => {
+  const tarjetas = catalogo.filter(p => !p.pronto && !p.v).map(p => {
     const t = document.createElement('template'); t.innerHTML = card(p);
     const el = t.content.firstElementChild;
     grilla.appendChild(el);
@@ -1123,6 +1145,166 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
 <script>
 (function () {
   const $ = id => document.getElementById(id);
+  const PRECIO_BASE = 100;           // si una historia no tiene precio propio en Supabase
+  const precios = {};                // archivo -> precio (tabla historias_vendibles)
+  const inv = new Set();             // historias que tiene el usuario
+  let actual = null, ocupado = false;
+
+  const sesion = () => { const u = window.usuario && window.usuario(); return u && u.supa ? u : null; };
+  const saldo = () => (typeof window.cubeSaldo === 'number' ? window.cubeSaldo : null);
+  const precio = img => (precios[img] != null ? precios[img] : PRECIO_BASE);
+  const esVendible = img => { const p = (window.catalogo || []).find(x => x.img === img); return !!p && !p.pronto && !p.v; };
+  const titulo = img => {
+    const p = (window.catalogo || []).find(x => x.img === img);
+    return p ? p.alt : img.replace(/\.webp$/, '').replace(/-/g, ' ');
+  };
+
+  // ---- Aviso breve (lo usa también vender.js) ----
+  let tTimer = null;
+  window.cubeAviso = txt => {
+    const t = $('vToast');
+    t.textContent = txt; t.classList.add('on');
+    clearTimeout(tTimer); tTimer = setTimeout(() => t.classList.remove('on'), 3800);
+  };
+  const aviso = txt => window.cubeAviso(txt);
+
+  // ---- Inventario y precios (vienen de Supabase) ----
+  async function cargarPrecios() {
+    if (!window.cubeDb) return;
+    try {
+      const { data, error } = await window.cubeDb.from('historias_vendibles').select('archivo,precio');
+      if (error) throw error;
+      (data || []).forEach(r => { precios[r.archivo] = r.precio; });
+    } catch (e) { console.warn('No se pudieron cargar los precios', e); }
+  }
+  async function recargar() {
+    inv.clear();
+    if (sesion() && window.cubeDb) {
+      try {
+        const { data, error } = await window.cubeDb.from('inventario').select('historia');
+        if (error) throw error;
+        (data || []).forEach(r => inv.add(r.historia));
+      } catch (e) { console.warn('No se pudo cargar el inventario', e); }
+    }
+    window.dispatchEvent(new Event('cube:inventario'));
+    if (actual && !$('tSheet').hidden) pintar();
+  }
+  window.cubeInv = { tiene: img => inv.has(img), lista: () => Array.from(inv), recargar, precio };
+  window.addEventListener('cube:usuario-listo', () => { cargarPrecios().then(recargar); });
+
+  // ---- Iconos ----
+  const HEART = on => `<svg viewBox="0 0 24 24" fill="${on ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>`;
+  const LISTA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v8M14 17h8"/></svg>';
+  const esFav = img => { const u = window.usuario && window.usuario(); return !!(u && (u.favoritos || []).some(f => f.img === img)); };
+
+  // ---- Panel de la historia ----
+  function pintar(nota) {
+    const img = actual, p = precio(img);
+    $('tImg').src = IMG_BASE + img;
+    $('tImg').alt = titulo(img);
+    $('tTitulo').textContent = titulo(img);
+    if (inv.has(img)) {
+      $('tCuerpo').innerHTML =
+        `<p class="v-nota">${nota || 'Esta historia está en tu inventario.'}</p>` +
+        `<div class="v-acc"><button class="b-pri" type="button" data-t="ver">Ver ahora</button>` +
+        `<button class="t-ico${esFav(img) ? ' on' : ''}" type="button" data-t="fav" aria-label="Favoritos" title="Favoritos">${HEART(esFav(img))}</button>` +
+        `<button class="t-ico" type="button" data-t="lista" aria-label="Agregar a una lista" title="Agregar a una lista">${LISTA}</button></div>`;
+    } else {
+      const s = saldo(), falta = s != null && s < p;
+      const msg = nota || (falta ? `Te faltan ${(p - s).toLocaleString('es')} créditos.` : 'La historia pasará a tu inventario.');
+      $('tCuerpo').innerHTML =
+        `<div class="t-precio"><svg viewBox="0 0 24 24"><use href="#wcr"/></svg><b>${p.toLocaleString('es')}</b><small>créditos</small></div>` +
+        `<p class="v-nota">${msg}</p>` +
+        `<div class="v-acc"><button class="b-sec" type="button" data-t="cerrar">Cancelar</button>` +
+        `<button class="b-pri" type="button" data-t="comprar"${falta ? ' disabled' : ''}>Comprar</button></div>`;
+    }
+  }
+  function abrir(img) {
+    actual = img;
+    pintar();
+    $('tSheet').hidden = false;
+  }
+  function cerrar() { $('tSheet').hidden = true; actual = null; }
+
+  function mensajeError(e) {
+    const m = String((e && e.message) || e || '');
+    if (m.includes('saldo_insuficiente')) return 'No tienes suficientes créditos.';
+    if (m.includes('ya_la_tienes')) return 'Ya tienes esta historia.';
+    if (m.includes('no_autenticado')) return 'Inicia sesión para comprar.';
+    if (m.includes('historia_invalida')) return 'Esa historia no está disponible.';
+    return 'No se pudo completar la compra. Intenta de nuevo.';
+  }
+
+  async function comprar() {
+    const img = actual;
+    if (!img || ocupado) return;
+    if (!sesion()) { window.abrirModal('auth'); return; }
+    ocupado = true;
+    try {
+      const { error } = await window.cubeDb.rpc('comprar_historia', { p_historia: img });
+      if (error) throw error;
+      inv.add(img);
+      if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
+      window.dispatchEvent(new Event('cube:inventario'));
+      if (actual === img) pintar('¡Listo! Ya está en tu inventario.');
+      aviso('Historia agregada a tu inventario.');
+    } catch (e) {
+      console.warn('Compra fallida', e);
+      const m = String((e && e.message) || '');
+      if (m.includes('ya_la_tienes')) { await recargar(); } else aviso(mensajeError(e));
+    } finally { ocupado = false; }
+  }
+
+  function favorito() {
+    const u = sesion();
+    if (!u) { window.abrirModal('auth'); return; }
+    const img = actual, f = u.favoritos || [], i = f.findIndex(x => x.img === img);
+    if (i >= 0) f.splice(i, 1); else f.push({ img });
+    u.favoritos = f;
+    if (typeof guardarUsuario === 'function') guardarUsuario(u);
+    pintar();
+    aviso(i >= 0 ? 'Quitada de Favoritos.' : 'Guardada en Favoritos.');
+  }
+
+  function verAhora() {
+    const img = actual;
+    const ev = new CustomEvent('cube-ver-historia', { detail: { img }, cancelable: true });
+    if (typeof window.abrirHistoria === 'function') { window.abrirHistoria(img); return; }
+    if (window.dispatchEvent(ev)) aviso('La lectura estará disponible muy pronto.');
+  }
+
+  function agregarALista() {
+    if (!sesion()) { window.abrirModal('auth'); return; }
+    // cube-listas.js puede definir este gancho; mientras tanto avisa.
+    if (typeof window.cubeAgregarALista === 'function') { window.cubeAgregarALista(actual); return; }
+    aviso('Las listas personalizadas estarán disponibles muy pronto.');
+  }
+
+  $('tCuerpo').addEventListener('click', e => {
+    const b = e.target.closest('[data-t]');
+    if (!b) return;
+    const k = b.dataset.t;
+    if (k === 'cerrar') cerrar();
+    else if (k === 'comprar') comprar();
+    else if (k === 'ver') verAhora();
+    else if (k === 'fav') favorito();
+    else if (k === 'lista') agregarALista();
+  });
+  $('tSheet').addEventListener('click', e => { if (e.target === $('tSheet')) cerrar(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('tSheet').hidden) cerrar(); });
+
+  // Cualquier portada de Buscar, Agregar lotes o Favoritos abre el panel (salvo Próximamente y Premium)
+  document.addEventListener('click', e => {
+    const el = e.target.closest('#grilla .portada, #lGrilla .portada, #listaGrilla .portada');
+    if (!el || !el.dataset.id || !esVendible(el.dataset.id)) return;
+    abrir(el.dataset.id);
+  });
+})();
+
+</script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
   const body = document.body;
 
   // ---- Reglas visibles (el servidor aplica las mismas: ver cube-ventas.sql) ----
@@ -1140,12 +1322,8 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   const sesion = () => { const u = window.usuario && window.usuario(); return u && u.supa ? u : null; };
   const refrescarCreditos = () => (window.cubeRefrescarCreditos ? window.cubeRefrescarCreditos() : null);
 
-  let tTimer = null;
-  function aviso(txt) {
-    const t = $('vToast');
-    t.textContent = txt; t.classList.add('on');
-    clearTimeout(tTimer); tTimer = setTimeout(() => t.classList.remove('on'), 3800);
-  }
+  const aviso = txt => window.cubeAviso(txt);
+  const propias = () => vendibles().filter(p => window.cubeInv.tiene(p.img));
 
   // ---- Navegación entre vistas ----
   function ir(clase) {
@@ -1180,13 +1358,14 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
     else if (a === 'agregar-lotes') { e.preventDefault(); abrirLotes(); }
   });
 
-  // Búsqueda de la historia a vender
+  // Búsqueda: solo las historias que el usuario tiene en su inventario
   let tarj = [];
   function pintarBuscar() {
-    const g = $('vGrilla');
-    if (g.dataset.ok) return;
-    g.dataset.ok = '1';
-    tarj = vendibles().map(p => {
+    const g = $('vGrilla'), lista = propias();
+    g.innerHTML = '';
+    $('vCampo').value = '';
+    $('vTituloBuscar').textContent = 'Mis historias';
+    tarj = lista.map(p => {
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'portada v-pick'; b.dataset.id = p.img;
       b.setAttribute('aria-label', 'Vender ' + p.alt);
@@ -1196,6 +1375,8 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
       b.appendChild(im); g.appendChild(b);
       return { el: b, n: normal(p.alt), c: compacto(p.alt) };
     });
+    $('vSinRes').textContent = lista.length ? 'No encontramos historias con ese nombre.' : 'Aún no tienes historias para vender. Consigue una en Agregar lotes o en Buscar.';
+    $('vSinRes').hidden = lista.length > 0;
   }
   function filtrar() {
     const q = normal($('vCampo').value), qc = compacto($('vCampo').value);
@@ -1205,10 +1386,14 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
       t.el.style.display = ok ? '' : 'none';
       if (ok) vis++;
     });
-    $('vTituloBuscar').textContent = q ? 'Resultados' : 'Todas las historias';
-    $('vSinRes').hidden = vis > 0;
+    $('vTituloBuscar').textContent = q ? 'Resultados' : 'Mis historias';
+    if (tarj.length) $('vSinRes').hidden = vis > 0;
   }
-  $('vAgregar').onclick = () => { pintarBuscar(); ir('en-vbuscar'); $('vCampo').focus(); };
+  $('vAgregar').onclick = async () => {
+    await window.cubeInv.recargar();
+    pintarBuscar(); ir('en-vbuscar');
+    if (tarj.length) $('vCampo').focus();
+  };
   $('vCerrarBuscar').onclick = () => { $('vCampo').blur(); ir('en-vender'); };
   $('vCampo').addEventListener('input', filtrar);
   $('vCampo').addEventListener('keydown', e => { if (e.key === 'Enter') $('vCampo').blur(); });
@@ -1255,7 +1440,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
 
   function mensajeError(e) {
     const m = String((e && e.message) || e || '');
-    if (m.includes('ya_en_venta')) return 'Esa historia ya fue puesta en venta.';
+    if (m.includes('no_la_tienes')) return 'Ya no tienes esa historia.';
     if (m.includes('no_autenticado')) return 'Inicia sesión para vender.';
     if (m.includes('historia_invalida')) return 'Esa historia no se puede vender.';
     if (m.includes('precio_invalido')) return 'El precio no es válido.';
@@ -1273,7 +1458,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
       cerrarSheet();
       ir('en-vender');
       aviso('Tu historia está en venta. Te avisaremos cuando se resuelva.');
-      await Promise.all([cargarVentas(), refrescarCreditos()]);
+      await Promise.all([cargarVentas(), refrescarCreditos(), window.cubeInv.recargar()]);
     } catch (e) {
       console.warn('Venta fallida', e);
       aviso(mensajeError(e));
