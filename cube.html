@@ -3,85 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>cube – Billetera</title>
+<meta name="theme-color" content="#ECECEC">
+<title>cube – Inicio</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
 <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
-  /* Paleta: fondo #111313 · acento verde ácido · paneles #1D2220 · texto #F4F5F2 · secundario #858D87 */
-  :root{--verde:#c6ff00;--fondo:#111313;--panel:#1D2220;--texto:#F4F5F2;--texto-suave:#858D87;--negro:#111313;--margen:4vw;color-scheme:dark}
+/* Diseño nuevo: fondo #ECECEC · verde ácido #C6FF00 · tarjetas blancas · texto negro */
+:root{--verde:#C6FF00;--fondo:#ECECEC;--panel:#FFFFFF;--texto:#0A0A0A;--texto-suave:#6B6F68;--negro:#0A0A0A;--acento:#0A0A0A;--oscuro:#171917;--margen:3.4vw;color-scheme:light}
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html,body{background:var(--fondo)}
   body{font-family:'Poppins',sans-serif;color:var(--texto);min-height:100vh}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   @media (min-width:700px){:root{--margen:28px}}
+  [hidden]{display:none!important}
 
   .app{max-width:1100px;margin:0 auto}
-  header{display:flex;align-items:center;justify-content:space-between;padding:12px var(--margen);min-height:64px}
-  .logo{font-weight:800;font-size:clamp(1.7rem,8vw,2.4rem);line-height:1;letter-spacing:-.5px;text-transform:lowercase;color:var(--verde);padding-bottom:4px}
+  .logo{font-weight:800;font-size:clamp(1.7rem,8vw,2.4rem);line-height:1;letter-spacing:-.5px;text-transform:lowercase;color:var(--acento);padding-bottom:4px}
 
-  /* ayuda arriba a la derecha */
-  .ayuda-btn{margin-left:auto;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;color:var(--texto);transition:color .2s,transform .15s}
-  .ayuda-btn svg{width:26px;height:26px}
-  .ayuda-btn:hover{color:var(--verde)}
-  .ayuda-btn:active{transform:scale(.92)}
 
-  .cw-body{max-width:520px;margin:0 auto;padding:10px var(--margen) 40px}
+  /* ===== Inicio ===== */
+  #home{max-width:560px;margin:0 auto;min-height:100vh;min-height:100svh;padding-bottom:110px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:calc(env(safe-area-inset-top,0px) + 12px) var(--margen) 8px}
+  .perfil-pill{display:flex;align-items:center;gap:8px;min-width:0;max-width:46%;height:46px;padding:5px 16px 5px 5px;background:#fff;border-radius:999px;font-weight:700;font-size:.98rem;color:var(--negro);transition:transform .12s}
+  .perfil-pill:active{transform:scale(.97)}
+  .pp-av{flex:none;width:36px;height:36px;border-radius:50%;background:var(--verde);display:grid;place-items:center;overflow:hidden;color:var(--negro)}
+  .pp-av svg{width:20px;height:20px}
+  .pp-av img{width:100%;height:100%;object-fit:cover;display:block}
+  .pp-nombre{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .top-acciones{display:flex;align-items:center}
+  .top-ico{position:relative;flex:none;width:40px;height:44px;display:grid;place-items:center;color:var(--negro);transition:transform .12s}
+  .top-ico svg{width:25px;height:25px}
+  .top-ico:active{transform:scale(.9)}
+  .top-ico .cw-badge{top:3px;right:0}
+  .top-ico:focus-visible,.circ:focus-visible,.riesgo:focus-visible,.platinum:focus-visible,.perfil-pill:focus-visible{outline:2px solid var(--negro);outline-offset:2px;border-radius:14px}
 
-  /* Caja de créditos: cuadrado verde ácido, todo en negro */
-  .cw-balance{background:var(--verde);color:var(--negro);border-radius:22px;padding:20px;margin-bottom:22px}
-  .cw-balance small{color:var(--negro);font-size:.8rem;font-weight:500}
-  .cw-monto{display:flex;align-items:center;gap:12px;margin-top:6px}
-  .cw-monto svg{width:36px;height:36px;flex:none;color:var(--negro)}
-  .cw-monto b{font-size:2.3rem;font-weight:600;letter-spacing:-1px;color:var(--negro)}
+  /* Pestañas Inicio / Portafolio: la activa es blanca y se funde con la tarjeta */
+  .fold{--r:clamp(26px,9vw,44px);--th:clamp(48px,13.6vw,64px);--f:calc(var(--r) * .55);position:relative;margin:14px var(--margen) 0}
+  .fold::before{content:"";position:absolute;top:var(--th);width:var(--r);height:var(--r);background:var(--verde);z-index:0}
+  .fold[data-tab="inicio"]::before{right:0}
+  .fold[data-tab="portafolio"]::before{left:0}
+  .fold-tabs{position:relative;z-index:2;height:var(--th)}
+  .fold-tab{position:absolute;top:0;height:var(--th);background:var(--verde);color:var(--negro);font-weight:500;font-size:clamp(.95rem,4.1vw,1.2rem)}
+  .fold-tab[aria-selected="true"]{background:#fff;border-radius:var(--r) var(--r) 0 0;z-index:2}
+  .fold-tab[aria-selected="false"]{z-index:1}
+  #tabInicio{left:0;width:50%}
+  #tabPortafolio{left:50%;right:0}
+  .fold[data-tab="inicio"] #tabPortafolio{left:calc(50% - var(--r));padding-left:var(--r);border-radius:0 var(--r) 0 0}
+  .fold[data-tab="portafolio"] #tabInicio{width:calc(50% + var(--r));padding-right:var(--r);border-radius:var(--r) 0 0 0}
+  .fold-tab[aria-selected="true"]::after{content:"";position:absolute;bottom:0;width:var(--f);height:var(--f);background:#fff;pointer-events:none}
+  #tabInicio[aria-selected="true"]::after{left:calc(100% - 1px);-webkit-mask:radial-gradient(circle at 100% 0,transparent var(--f),#000 calc(var(--f) + .6px));mask:radial-gradient(circle at 100% 0,transparent var(--f),#000 calc(var(--f) + .6px))}
+  #tabPortafolio[aria-selected="true"]::after{right:calc(100% - 1px);-webkit-mask:radial-gradient(circle at 0 0,transparent var(--f),#000 calc(var(--f) + .6px));mask:radial-gradient(circle at 0 0,transparent var(--f),#000 calc(var(--f) + .6px))}
+  .fold-tab:focus-visible{outline:2px solid var(--negro);outline-offset:-5px}
+  .fold-card{position:relative;z-index:1;background:#fff;padding:clamp(26px,8vw,40px) clamp(22px,7.4vw,34px) clamp(30px,9vw,44px)}
+  .fold[data-tab="inicio"] .fold-card{border-radius:0 var(--r) var(--r) var(--r)}
+  .fold[data-tab="portafolio"] .fold-card{border-radius:var(--r) 0 var(--r) var(--r)}
 
-  /* opciones: icono en cuadro de panel, nombre debajo */
-  .cw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 6px;margin-bottom:28px}
-  .cw-btn{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px;padding:0;color:var(--texto);font-weight:500;font-size:.66rem;line-height:1.25;text-align:center}
-  .cw-ico{position:relative;display:grid;place-items:center;width:58px;height:58px;background:var(--panel);border-radius:16px;transition:transform .12s}
-  .cw-ico svg{width:27px;height:27px;color:var(--verde)}
-  .cw-btn:active .cw-ico{transform:scale(.94)}
-  .cw-btn:focus-visible .cw-ico{outline:2px solid var(--verde);outline-offset:2px}
-  .cw-badge{position:absolute;top:-6px;right:-6px;min-width:18px;padding:1px 5px;border-radius:999px;background:var(--verde);color:var(--negro);font-size:.62rem;font-weight:700;line-height:1.4}
-  .cw-badge[hidden]{display:none}
+  .lbl-g{font-size:clamp(1.1rem,4.6vw,1.45rem);font-weight:500;line-height:1.2}
+  .lbl-p{font-size:clamp(.8rem,3.1vw,.95rem);font-weight:400;line-height:1.2}
+  .monto{display:flex;align-items:baseline;font-weight:700;letter-spacing:-.035em;line-height:1.05;color:var(--negro)}
+  .monto.g{font-size:clamp(2.6rem,13vw,4.3rem);margin-top:6px}
+  .monto.p{font-size:clamp(1.7rem,7vw,2.3rem);margin-top:6px}
+  .gana{display:inline-flex;align-items:center;margin-top:clamp(12px,3.6vw,18px);min-height:clamp(32px,9vw,42px);padding:0 clamp(16px,5.4vw,24px);background:var(--verde);border-radius:999px;font-size:clamp(.82rem,3.7vw,1rem);color:var(--negro)}
+  .circulos{display:flex;justify-content:center;gap:clamp(18px,7.6vw,40px);margin-top:clamp(28px,8.5vw,44px)}
+  .circ{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:clamp(.82rem,3.4vw,1rem);color:var(--negro)}
+  .circ-ico{width:clamp(54px,14.6vw,76px);height:clamp(54px,14.6vw,76px);border-radius:50%;background:var(--oscuro);display:grid;place-items:center;color:var(--acento);transition:transform .12s}
+  .circ-ico svg{width:46%;height:46%}
+  .circ:active .circ-ico{transform:scale(.94)}
 
-  .cw-h2{font-size:1.1rem;font-weight:600;margin-bottom:6px;color:var(--texto)}
-  .cw-vacio{padding:18px 0;color:var(--texto-suave);font-size:.85rem}
-  .cw-mas{display:block;width:100%;margin-top:14px;min-height:42px;padding:9px 12px;background:var(--panel);border-radius:10px;font-weight:600;font-size:.84rem;color:var(--verde);text-align:center}
-  .cw-mas:active{transform:scale(.98)}
-  .cw-mas[hidden]{display:none}
+  /* Banner Platinum Card (solo en Inicio) */
+  .platinum{position:relative;z-index:0;display:flex;align-items:center;gap:12px;width:100%;margin-top:calc(var(--r) * -1);padding:calc(var(--r) + 10px) clamp(14px,4.4vw,22px) clamp(14px,4.6vw,22px);background:var(--verde);border-radius:0 0 var(--r) var(--r);color:var(--negro);text-align:left}
+  .fold[data-tab="portafolio"] .platinum{display:none}
+  .plat-img{flex:none;width:clamp(58px,17vw,84px);height:auto}
+  .plat-txt{flex:1;min-width:0}
+  .plat-txt b{display:block;font-weight:700;font-size:clamp(.9rem,3.8vw,1.15rem);line-height:1.25}
+  .plat-txt span{display:block;font-size:clamp(.86rem,3.7vw,1.1rem);line-height:1.25}
+  .plat-logo{flex:none;font-weight:800;font-size:clamp(1.7rem,8vw,2.4rem);letter-spacing:-.04em;text-transform:lowercase;line-height:1}
+
 
   /* Te ofrecemos: heroes */
-  .cw-te{margin-top:34px}
-  .hero-wrap{margin:8px 0 0}
-  .hero-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-radius:15px}
+  .te{margin:30px var(--margen) 0}
+  .te h2{font-size:1.25rem;font-weight:700;color:var(--negro)}
+  .hero-wrap{margin-top:12px}
+  .hero-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-radius:22px}
   .hero-track::-webkit-scrollbar{display:none}
   .hero-item{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
-  .hero{position:relative;width:100%;height:auto;aspect-ratio:16/9;border-radius:15px;background:var(--panel);overflow:hidden}
+  .hero{position:relative;width:100%;aspect-ratio:16/9;border-radius:22px;background:#fff;overflow:hidden}
   .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-  .hero-datos{padding:12px 2px 0}
-  .hero-titulo{font-weight:700;font-size:1.15rem;line-height:1.15;color:var(--texto)}
-  .hero-meta{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin-top:6px;color:var(--texto-suave);font-size:.82rem}
+  .hero-datos{padding:12px 4px 0}
+  .hero-titulo{font-weight:700;font-size:1.15rem;line-height:1.15;color:var(--negro)}
+  .hero-meta{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin-top:5px;color:var(--texto-suave);font-size:.84rem}
   .hero-meta i{font-style:normal;opacity:.6}
-  .clasif{display:inline-block;padding:1px 7px;border:1px solid var(--texto-suave);border-radius:6px;color:var(--texto);font-size:.7rem;font-weight:600;letter-spacing:.3px}
-  .hero-lote{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:4px 10px 4px 8px;border-radius:999px;background:var(--panel);color:var(--texto);font-size:.76rem;font-weight:500}
-  .hero-lote svg{width:15px;height:15px;color:var(--verde)}
-  .hero-lote b{color:var(--verde);font-weight:600}
+  .clasif{display:inline-block;padding:1px 7px;border:1px solid var(--texto-suave);border-radius:6px;color:var(--negro);font-size:.7rem;font-weight:600;letter-spacing:.3px}
+  .rareza{display:inline-block;margin-top:9px;padding:3px 12px;border-radius:999px;font-size:.74rem;font-weight:600;line-height:1.4}
+  .rareza.comun{background:#FFD60A;color:#0A0A0A}
+  .rareza.raro{background:#E5484D;color:#fff}
+  .rareza.extraordinario{background:#8B5CF6;color:#fff}
+  .rareza.legendario{background:#D4A72C;color:#0A0A0A}
   .dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
-  .dot{width:8px;height:8px;padding:0;border-radius:50%;background:var(--panel);transition:background .2s}
-  .dot.activo{background:var(--verde)}
+  .dot{width:8px;height:8px;padding:0;border-radius:50%;background:#C9CBC6;transition:background .2s}
+  .dot.activo{background:var(--negro)}
 
-  /* barra inferior: panel sólido, sin degradado ni transparencia */
-  .bottom-nav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);width:min(92%,460px);height:64px;background:var(--panel);border-radius:32px;display:flex;align-items:center;justify-content:space-around;z-index:100;padding:0 12px;transition:opacity .35s ease,visibility .35s ease,transform .35s ease}
+  /* Portafolio: tarjetas de riesgo */
+  .riesgos{margin-top:clamp(14px,4.4vw,22px);display:flex;flex-direction:column;gap:clamp(10px,3vw,16px)}
+  .riesgo{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:clamp(58px,15.6vw,76px);padding:0 clamp(20px,6.2vw,30px);background:var(--verde);border-radius:999px;color:var(--negro);text-align:left;transition:transform .12s}
+  .riesgo:active{transform:scale(.985)}
+  .r-info{text-align:right;flex:none;white-space:nowrap}
+  .r-info b{display:block;font-weight:500;font-size:clamp(.85rem,3.6vw,1.1rem);line-height:1.25}
+  .r-info span{display:block;font-size:clamp(.7rem,2.9vw,.9rem);color:rgba(10,10,10,.58);line-height:1.25;margin-top:1px}
+  .l-cube{flex:1;min-width:0;font-weight:800;font-size:clamp(1.7rem,8vw,2.5rem);letter-spacing:-.04em;line-height:1;text-transform:lowercase}
+  .l-parallax{flex:1;min-width:0;font-weight:800;font-style:italic;font-size:clamp(1rem,4.8vw,1.5rem);letter-spacing:.005em;line-height:1}
+  .l-living{flex:1;min-width:0;font-family:'Playfair Display',Georgia,serif;font-weight:400;font-size:clamp(1.1rem,5.2vw,1.65rem);letter-spacing:.05em;line-height:1}
+  .l-living i{font-size:1.18em;margin-right:-.05em}
+
+
+  /* indicador de notificaciones y vacío */
+  .cw-badge{position:absolute;top:-6px;right:-6px;min-width:18px;padding:1px 5px;border-radius:999px;background:var(--verde);color:var(--negro);font-size:.62rem;font-weight:700;line-height:1.4}
+  .cw-badge[hidden]{display:none}
+  .cw-vacio{padding:18px 0;color:var(--texto-suave);font-size:.85rem}
+
+  /* barra inferior: píldora blanca + círculo verde de perfil */
+  .bottom-nav{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:min(calc(100% - 2 * var(--margen)),540px);display:flex;align-items:flex-end;gap:12px;z-index:100;pointer-events:none;transition:opacity .35s ease,visibility .35s ease,transform .35s ease}
+  .bottom-nav>*{pointer-events:auto}
   .bottom-nav.oculto{opacity:0;visibility:hidden;transform:translate(-50%,30px)}
-  .bottom-nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;width:20%;height:100%;color:var(--texto-suave);transition:color .2s,transform .15s}
-  .bottom-nav-item svg{width:24px;height:24px}
+  .nav-pill{flex:1;min-width:0;height:clamp(54px,15vw,64px);display:flex;align-items:center;justify-content:space-around;padding:0 6px;background:#fff;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+  .bottom-nav-item{display:flex;align-items:center;justify-content:center;color:#8D918A;transition:color .2s,transform .15s,background .2s}
+  .nav-pill .bottom-nav-item{flex:0 0 auto;width:clamp(46px,13.6vw,58px);height:clamp(42px,11.6vw,50px);border-radius:50%}
+  .nav-pill .bottom-nav-item svg{width:24px;height:24px}
   .bottom-nav-item:active{transform:scale(.92)}
-  .bottom-nav-item.activo{color:var(--verde)}
-  .bottom-nav-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover}
+  .nav-pill .bottom-nav-item.activo{background:var(--fondo);color:var(--negro)}
+  #navPerfil{flex:0 0 auto;width:clamp(62px,17.4vw,72px);height:clamp(62px,17.4vw,72px);border-radius:50%;background:var(--verde);color:var(--negro);overflow:hidden}
+  #navPerfil svg{width:52%;height:52%}
+  .nav-foto{width:100%;height:100%;object-fit:cover;display:block}
+  .bottom-nav-item:focus-visible{outline:2px solid var(--negro);outline-offset:2px}
 
   /* ---------- PIE DE PÁGINA ---------- */
   .pie{background:#000;margin-top:70px;padding:64px var(--margen) calc(60px + env(safe-area-inset-bottom,0px))}
@@ -106,6 +163,7 @@
   .pie-enlaces{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 18px;margin-top:22px}
   .pie-enlaces a{color:var(--texto-suave);font-size:.76rem;text-decoration:none;transition:color .2s}
   .pie-enlaces a:hover{color:var(--texto)}
+  .pie{--texto:#0A0A0A;--texto-suave:#6B6F68;--panel:#D9DAD5;background:#F7F7F5}
 
   /* ===== Vistas: notificaciones, almacén y listas (reemplazan al home mientras están abiertas) ===== */
   body.buscando #home,body.en-lista #home,body.en-notif #home,body.en-almacen #home{display:none}
@@ -123,11 +181,11 @@
   .buscador input::placeholder{color:var(--texto-suave)}
   .buscador input::-webkit-search-cancel-button{display:none}
   .buscador svg{flex:0 0 auto;width:26px;height:26px}
-  .buscador:focus-within{outline:2px solid var(--verde)}
+  .buscador:focus-within{outline:2px solid var(--negro)}
   #buscar h2{font-weight:700;font-size:clamp(1.25rem,5.4vw,1.9rem);margin:30px 0 18px;letter-spacing:-.2px;color:var(--texto)}
   #buscar .grilla{margin-top:0}
   .tags{position:absolute;bottom:8px;right:8px;z-index:2;display:flex;flex-direction:row;align-items:center;gap:4px}
-  .badge{background:var(--fondo);color:var(--verde);font-size:clamp(.45rem,1.8vw,.58rem);font-weight:600;letter-spacing:.3px;padding:3px 7px;border-radius:999px}
+  .badge{background:var(--fondo);color:var(--acento);font-size:clamp(.45rem,1.8vw,.58rem);font-weight:600;letter-spacing:.3px;padding:3px 7px;border-radius:999px}
   .premium{display:inline-flex;align-items:center;justify-content:center;padding:2px 6px;border-radius:999px;font-size:clamp(.38rem,1.5vw,.5rem);line-height:1.5;background:var(--texto);color:var(--negro)}
   .premium svg{width:1.3em;height:1.3em}
   .sin-img{display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:10px;text-align:center;font-weight:700;font-size:.85rem;color:var(--texto-suave);background:var(--panel)}
@@ -154,13 +212,13 @@
   .perfil-foto{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--verde)}
   .perfil-info b{font-size:1.2rem;color:var(--texto)}
   .perfil-info small{color:var(--texto-suave);font-size:.85rem}
-  .cambiar-foto{font-size:.8rem;font-weight:500;color:var(--verde);padding:6px 10px}
+  .cambiar-foto{font-size:.8rem;font-weight:500;color:var(--acento);padding:6px 10px}
   .perfil-opciones{display:flex;flex-direction:column;gap:7px;flex:0 0 auto}
   .perfil-opciones>*{flex:0 0 auto;width:100%;height:auto}
   .perfil-opcion,.perfil-modal .perfil-opciones button,.perfil-modal .perfil-opciones a{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:42px;padding:9px 12px;background:var(--fondo);border-radius:10px;color:var(--texto);font-weight:500;font-size:.84rem;line-height:1.25;text-align:left;text-decoration:none}
   .perfil-opcion .opcion-izq{display:flex;align-items:center;gap:10px;min-width:0}
   .perfil-opcion svg,.perfil-modal .perfil-opciones svg{width:17px;height:17px;flex:0 0 auto}
-  .perfil-opcion .opcion-izq svg{color:var(--verde)}
+  .perfil-opcion .opcion-izq svg{color:var(--acento)}
   .perfil-opcion .opcion-flecha{width:14px;height:14px;opacity:.45}
   .perfil-modal .perfil-opciones img{max-height:22px;width:auto}
   .perfil-opcion.salir{margin-top:12px;justify-content:flex-start;color:var(--texto-suave)}
@@ -173,7 +231,7 @@
   /* ===== Notificaciones y push ===== */
   .notif-ajustes{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;padding:14px;background:var(--panel);border-radius:12px}
   .notif-ajustes-info{display:flex;align-items:flex-start;gap:10px;min-width:0}
-  .notif-ajustes-info svg{width:20px;height:20px;color:var(--verde);flex:0 0 auto}
+  .notif-ajustes-info svg{width:20px;height:20px;color:var(--acento);flex:0 0 auto}
   .notif-ajustes-info b{display:block;font-size:.88rem;color:var(--texto)}
   .notif-ajustes-info small{display:block;color:var(--texto-suave);font-size:.72rem;line-height:1.45;margin-top:3px}
   .switch{position:relative;width:42px;height:24px;flex:0 0 auto}
@@ -182,14 +240,14 @@
   .switch span:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:var(--texto-suave);border-radius:50%;transition:transform .2s,background .2s}
   .switch input:checked + span{background:var(--verde)}
   .switch input:checked + span:before{transform:translateX(18px);background:var(--negro)}
-  .switch input:focus-visible + span{outline:2px solid var(--verde);outline-offset:3px}
+  .switch input:focus-visible + span{outline:2px solid var(--negro);outline-offset:3px}
   .notif-acciones{display:flex;justify-content:flex-end;margin-top:12px}
   .notif-limpiar{color:var(--texto-suave);background:var(--panel);padding:8px 12px;border-radius:9px;font-size:.78rem}
-  .notif-limpiar:hover{color:var(--verde)}
+  .notif-limpiar:hover{color:var(--acento)}
   .notif-lista{margin-top:22px;display:flex;flex-direction:column;gap:10px}
   .notif{position:relative;display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--panel);border-radius:15px}
   .notif.nueva::after{content:"";position:absolute;top:14px;right:14px;width:8px;height:8px;border-radius:50%;background:var(--verde)}
-  .notif-ico{flex:0 0 44px;height:44px;border-radius:12px;background:var(--fondo);color:var(--verde);display:flex;align-items:center;justify-content:center}
+  .notif-ico{flex:0 0 44px;height:44px;border-radius:12px;background:var(--fondo);color:var(--acento);display:flex;align-items:center;justify-content:center}
   .notif-ico svg{width:22px;height:22px}
   .notif-cuerpo{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;padding-right:14px}
   .notif-cuerpo b{font-size:.98rem;font-weight:700;color:var(--texto)}
@@ -213,12 +271,12 @@
   .tl-it.izq::after{right:-22px;transform:translateX(50%)}
   .tl-it.der::after{left:-22px;transform:translateX(-50%)}
   .tl-it.full::after{left:50%;top:-8px;transform:translateX(-50%)}
-  .tl-it.vis::after{background:var(--verde);border-color:var(--verde)}
+  .tl-it.vis::after{background:var(--verde);border-color:var(--acento)}
   .tl-img{display:block;position:relative;width:100%;overflow:hidden;border-radius:12px;background:var(--panel);transition:transform .2s}
   .tl-img:active{transform:scale(.97)}
   .tl-img img{display:block;width:100%;height:auto}
   .tl-quad{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .tl-tag{display:inline-block;margin:8px 0 4px;padding:2px 8px;border-radius:999px;background:var(--fondo);color:var(--verde);font-size:.6rem;font-weight:600}
+  .tl-tag{display:inline-block;margin:8px 0 4px;padding:2px 8px;border-radius:999px;background:var(--fondo);color:var(--acento);font-size:.6rem;font-weight:600}
   .tl-it.full .tl-tag{background:var(--fondo)}
   .tl-it h3{font-size:.88rem;font-weight:700;line-height:1.25;color:var(--texto)}
   .tl-it p{margin-top:3px;color:var(--texto-suave);font-size:.72rem;line-height:1.5}
@@ -228,72 +286,26 @@
   .alm-lb p{color:var(--texto-suave);font-size:.85rem;text-align:center}
   @media (prefers-reduced-motion:reduce){.tl-it{opacity:1!important;transform:none!important;transition:none!important}}
 
-  /* ===== Vender y Lotes ===== */
-  body.en-vender #home,body.en-vbuscar #home,body.en-lotes #home{display:none}
-  body.en-vender .pie,body.en-vbuscar .pie,body.en-lotes .pie{display:none}
-  body.en-vender,body.en-vbuscar,body.en-lotes{padding-bottom:90px}
-  #vender,#vbuscar,#lotes{display:none;margin:0 auto;padding:14px var(--margen) 40px}
-  #vender{max-width:640px}
-  #vbuscar,#lotes{max-width:1100px}
-  body.en-vender #vender,body.en-vbuscar #vbuscar,body.en-lotes #lotes{display:block}
-  #vbuscar h2,#lotes h2{font-weight:700;font-size:clamp(1.25rem,5.4vw,1.9rem);margin:30px 0 18px;letter-spacing:-.2px;color:var(--texto)}
-  #vbuscar .grilla,#lotes .grilla{margin-top:0}
-  #vbuscar .portada,#lotes .portada{aspect-ratio:16/8.5}
-  .v-pick{display:block;width:100%;padding:0;border:0;cursor:pointer;transition:transform .12s}
-  .v-pick:active{transform:scale(.97)}
-  .v-pick:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
-  .v-intro,.l-intro{color:var(--texto-suave);font-size:.85rem;line-height:1.5;margin:18px 0 16px}
-  .l-intro{margin:6px 0 0}
-  .v-add{display:grid;place-items:center;width:100%;aspect-ratio:16/8.5;border-radius:26px;background:var(--panel);border:2px dashed #2f3633;color:var(--verde);transition:transform .12s,border-color .2s}
-  .v-add svg{width:46px;height:46px}
-  .v-add:active{transform:scale(.98)}
-  .v-add:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
-  .v-h2{margin-top:30px}
+  /* ===== Hojas, aviso y lista de historias ===== */
   .v-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--panel)}
   .v-th{flex:0 0 96px;aspect-ratio:16/8.5;border-radius:10px;overflow:hidden;background:var(--panel)}
   .v-th img{width:100%;height:100%;object-fit:cover;display:block}
   .v-it{flex:1;min-width:0;font-size:.88rem;font-weight:500}
   .v-it span{display:block;color:var(--texto-suave);font-size:.74rem;font-weight:400;margin-top:2px}
-  .v-it span.ok{color:var(--verde)}
-  .v-pr{font-weight:600;font-size:.9rem;color:var(--verde);white-space:nowrap}
+  .v-it span.ok{color:var(--acento)}
+  .v-pr{font-weight:600;font-size:.9rem;color:var(--acento);white-space:nowrap}
   .v-sheet{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.66)}
   .v-sheet[hidden]{display:none}
   .v-card{width:100%;max-width:340px;background:var(--panel);border-radius:22px;padding:14px 14px 16px}
   .v-cover{aspect-ratio:16/8.5;border-radius:14px;overflow:hidden;background:var(--fondo)}
   .v-cover img{width:100%;height:100%;object-fit:cover;display:block}
   .v-card-t{font-weight:600;font-size:1rem;margin:12px 4px 0;text-align:center}
-  .v-precio{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 6px}
-  .v-precio button{width:46px;height:46px;border-radius:14px;background:var(--fondo);color:var(--verde);display:grid;place-items:center}
-  .v-precio button:disabled{opacity:.3;cursor:default}
-  .v-precio button:not(:disabled):active{transform:scale(.94)}
-  .v-precio button svg{width:24px;height:24px}
-  .v-precio div{text-align:center}
-  .v-precio b{display:block;font-size:2rem;font-weight:600;line-height:1.1}
-  .v-precio small{color:var(--texto-suave);font-size:.7rem}
   .v-nota{color:var(--texto-suave);font-size:.74rem;line-height:1.45;text-align:center;min-height:3em;margin:6px 2px 12px}
   .v-acc{display:flex;gap:10px}
   .v-acc button{flex:1;min-height:46px;border-radius:14px;font-weight:600;font-size:.9rem}
-  #vCancelar{background:var(--fondo);color:var(--texto)}
-  #vAceptar{background:var(--verde);color:var(--negro)}
-  #vAceptar:disabled{opacity:.5}
   .v-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:400;max-width:88%;padding:12px 18px;border-radius:14px;background:var(--verde);color:var(--negro);font-size:.82rem;font-weight:600;text-align:center;transition:opacity .25s,transform .25s}
   .v-toast.on{opacity:1;transform:translate(-50%,0)}
-  #grilla .portada,#listaGrilla .portada,#cwInv .portada{cursor:pointer}
-
-  /* ===== Lotes: rectángulo 15 × 6 (cuadro de imagen a la izquierda, nombre y cantidad) ===== */
-  .lote-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
-  @media(min-width:640px){.lote-grid{grid-template-columns:1fr 1fr}}
-  @media(min-width:960px){.lote-grid{grid-template-columns:repeat(3,1fr)}}
-  #cwInv{margin-top:10px}
-  #cwInv .cw-vacio{grid-column:1/-1;padding:6px 0}
-  .lote-rect{display:flex;align-items:center;gap:14px;width:100%;aspect-ratio:15/6;padding:4%;border-radius:22px;background:var(--panel);color:var(--texto)}
-  .lote-img{flex:0 0 auto;width:34.8%;aspect-ratio:1/1;border-radius:18%;background:var(--fondo);overflow:hidden}
-  .lote-img img{width:100%;height:100%;object-fit:cover;display:block}
-  .lote-info{min-width:0}
-  .lote-info h3{font-size:1.1rem;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
-  .lote-info span{display:block;margin-top:4px;color:var(--texto-suave);font-size:.8rem}
-  .v-cancel{flex:0 0 auto;min-height:34px;padding:0 12px;border-radius:10px;background:var(--fondo);color:var(--texto);font-size:.74rem;font-weight:600}
-  .v-cancel:active{transform:scale(.95)}
+  #grilla .portada,#listaGrilla .portada{cursor:pointer}
 
   /* ===== Panel de historia: portada, título, info, sinopsis y botón ===== */
   #tSheet .v-card{max-height:90vh;overflow-y:auto}
@@ -305,14 +317,6 @@
   .b-pri{background:var(--verde);color:var(--negro)}
   .b-sec{background:var(--fondo);color:var(--texto)}
   .b-pri:disabled{opacity:.4;cursor:default}
-
-  /* ===== Lotes tocables + hoja de compra ===== */
-  #lGrilla .lote-rect{cursor:pointer;transition:transform .12s}
-  #lGrilla .lote-rect:active{transform:scale(.98)}
-  .t-precio{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 2px}
-  .t-precio svg{width:24px;height:24px;color:var(--verde)}
-  .t-precio b{font-size:1.8rem;font-weight:600;line-height:1.1}
-  .t-precio small{color:var(--texto-suave);font-size:.75rem}
   #rCuerpo .v-acc{margin-top:14px}
   #rCuerpo .v-cover{margin-top:10px}
 
@@ -323,11 +327,11 @@
   body.en-profit #profit{display:block}
   /* Obtener: panel de historias, octágono con aguja y portada */
   .o-panel{margin-top:16px;padding:14px;background:var(--panel);border-radius:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .o-slot{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:rgba(244,245,242,.06);display:grid;place-items:center;color:var(--verde);transition:transform .12s}
+  .o-slot{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:rgba(0,0,0,.06);display:grid;place-items:center;color:var(--acento);transition:transform .12s}
   .o-slot:active{transform:scale(.95)}
   .o-slot svg{width:26px;height:26px}
   .o-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-  .o-slot .o-x{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:rgba(17,19,19,.78);color:var(--texto);display:grid;place-items:center}
+  .o-slot .o-x{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:rgba(17,19,19,.78);color:#fff;display:grid;place-items:center}
   .o-slot .o-x svg{width:10px;height:10px}
   .o-bloq .o-slot{pointer-events:none}
   .o-oct{display:block;width:min(78vw,340px);height:auto;margin:26px auto 0;overflow:visible}
@@ -346,28 +350,24 @@
 
   /* Etiqueta de precio en el panel de la historia */
   .t-fila{margin:12px 2px 0;text-align:left}
-  .t-etiqueta{display:inline-flex;align-items:center;gap:6px;padding:5px 12px 5px 9px;border-radius:999px;background:var(--fondo);color:var(--verde);font-weight:600;font-size:.8rem;line-height:1.3}
+  .t-etiqueta{display:inline-flex;align-items:center;gap:6px;padding:5px 12px 5px 9px;border-radius:999px;background:var(--fondo);color:var(--acento);font-weight:600;font-size:.8rem;line-height:1.3}
   .t-etiqueta svg{width:16px;height:16px;flex:none}
 
-  /* ===== Lote: lista de historias y ruletas ===== */
   #rSheet .v-card{max-height:90vh;overflow-y:auto}
-  .l-lista{margin:6px 0 4px;max-height:44vh;overflow-y:auto}
-  .l-lista .v-item:last-child{border-bottom:none}
-  .l-reel{width:80%;aspect-ratio:16/9;margin:12px auto 0;border-radius:14px;overflow:hidden;background:var(--fondo);outline:2px solid transparent;outline-offset:-2px;transition:outline-color .25s}
-  .l-reel.listo{outline-color:var(--verde)}
-  .l-cell{width:100%;aspect-ratio:16/9}
-  .l-cell img{width:100%;height:100%;object-fit:cover;display:block}
-  .l-cap{margin:6px 0 0;text-align:center;font-size:.8rem;font-weight:600;min-height:1.3em;opacity:0;transition:opacity .25s}
-  .l-cap.on{opacity:1}
 
-  /* ===== Historia del inventario: Ver ahora + favorito + lista ===== */
-  .i-acc{display:flex;gap:10px;align-items:stretch;margin-top:14px}
-  .i-acc .b-pri{flex:1;min-height:46px;border-radius:14px;font-weight:600;font-size:.9rem}
-  .i-ico{flex:0 0 46px;height:46px;border-radius:14px;background:var(--fondo);color:var(--texto);display:grid;place-items:center;transition:transform .12s}
-  .i-ico svg{width:22px;height:22px}
-  .i-ico:active{transform:scale(.94)}
-  .i-ico.on{color:var(--verde)}
-  .i-ico.on svg{fill:currentColor}
+  /* ===== Ajustes del tema claro ===== */
+  .circ-ico{color:var(--verde)}
+  .pie .logo{color:var(--negro)}
+  .perfil-modal .logo{color:var(--negro)}
+  .cambiar-foto{font-weight:600}
+  .notif.nueva::after{background:var(--negro)}
+  .tl::before{background:#D6D8D3}
+  .tl-fill{background:var(--negro)}
+  .tl-it.vis::after{background:var(--verde);border-color:var(--negro)}
+  .tl-tag,.t-etiqueta,.badge{background:var(--verde);color:var(--negro)}
+  .premium{background:var(--panel);color:var(--negro)}
+  .alm-lb p{color:#cfd2cb}
+  .v-item{border-bottom-color:var(--fondo)}
 </style>
 </head>
 <body>
@@ -378,38 +378,78 @@
 
 <div class="app">
 <div id="home">
-  <header>
-    <div class="logo">cube</div>
-    <button class="ayuda-btn" id="btnAyuda" type="button" aria-label="Ayuda" title="Ayuda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 0 1 5.6 1c0 1.9-2.8 2.4-2.8 4.2"/><circle cx="12" cy="17.6" r=".6" fill="currentColor"/></svg></button>
+  <header class="top">
+    <button class="perfil-pill" id="btnPerfilTop" type="button" aria-label="Abrir perfil">
+      <span class="pp-av" id="ppAv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+      <span class="pp-nombre" id="ppNombre">Iniciar sesión</span>
+    </button>
+    <div class="top-acciones">
+      <button class="top-ico" type="button" data-a="crear-lista" aria-label="Crear lista" title="Crear lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v8M14 17h8"/></svg></button>
+      <button class="top-ico" type="button" data-a="almacen" aria-label="Almacén" title="Almacén"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9"/><path d="M10 13h4"/></svg></button>
+      <button class="top-ico" type="button" data-a="edicion-coleccionista" aria-label="Colección" title="Colección"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-1.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98 1.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></button>
+      <button class="top-ico" type="button" data-a="notificaciones" aria-label="Notificaciones" title="Notificaciones"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><b class="cw-badge" id="cwBadge" hidden>0</b></button>
+    </div>
   </header>
 
-  <div class="cw-body">
-    <section class="cw-balance">
-      <small>Caja de créditos</small>
-      <div class="cw-monto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></svg><b id="cwCreditos">0</b></div>
-    </section>
-
-    <div class="cw-grid">
-      <button class="cw-btn" type="button" data-a="agregar-creditos" aria-label="Agregar créditos" title="Agregar créditos"><span class="cw-ico"><svg viewBox="0 0 24 24"><use href="#wcr"/><circle cx="19" cy="19" r="5" fill="#1D2220"/><path d="M19 16.4v5.2M16.4 19h5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>Agregar créditos</button>
-      <button class="cw-btn" type="button" data-a="agregar-lotes" aria-label="Lotes" title="Lotes"><span class="cw-ico"><svg viewBox="0 0 24 24"><use href="#wbx"/><text x="12" y="14" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="700" font-size="5.6" fill="currentColor">LOT</text></svg></span>Lotes</button>
-      <button class="cw-btn" type="button" data-a="lote-free" aria-label="Lote free" title="Lote free"><span class="cw-ico"><svg viewBox="0 0 24 24"><use href="#wbx"/><text x="12" y="14" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="700" font-size="5.2" fill="currentColor">FREE</text></svg></span>Lote free</button>
-      <button class="cw-btn" type="button" data-a="notificaciones" aria-label="Notificaciones" title="Notificaciones"><span class="cw-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><b class="cw-badge" id="cwBadge" hidden>0</b></span>Notificaciones</button>
-      <button class="cw-btn" type="button" data-a="edicion-coleccionista" aria-label="Colección" title="Colección"><span class="cw-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h9a2 2 0 0 1 2 2v11"/><rect x="4" y="7" width="12" height="14" rx="2"/></svg></span>Colección</button>
-      <button class="cw-btn" type="button" data-a="logros" aria-label="Logros" title="Logros"><span class="cw-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-1.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98 1.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>Logros</button>
-      <button class="cw-btn" type="button" data-a="almacen" aria-label="Almacén" title="Almacén"><span class="cw-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9"/><path d="M10 13h4"/></svg></span>Almacén</button>
-      <button class="cw-btn" type="button" data-a="crear-lista" aria-label="Crear lista" title="Crear lista"><span class="cw-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v8M14 17h8"/></svg></span>Crear lista</button>
+  <div class="fold" id="fold" data-tab="inicio">
+    <div class="fold-tabs" role="tablist" aria-label="Secciones">
+      <button class="fold-tab" id="tabInicio" type="button" role="tab" aria-selected="true" aria-controls="paneInicio">Inicio</button>
+      <button class="fold-tab" id="tabPortafolio" type="button" role="tab" aria-selected="false" aria-controls="panePortafolio" tabindex="-1">Portafolio</button>
     </div>
 
-    <h2 class="cw-h2">Mi inventario</h2>
-    <div class="grilla" id="cwInv"></div>
-    <button class="cw-mas" id="cwMas" type="button" hidden>Ver más</button>
+    <div class="fold-card">
+      <!-- INICIO -->
+      <section id="paneInicio" role="tabpanel" aria-labelledby="tabInicio">
+        <div class="lbl-g">Créditos</div>
+        <div class="monto g"><span>$</span><span id="cwCreditos" class="js-creditos">0</span></div>
+        <div class="gana" id="cwGana" hidden></div>
+        <div class="circulos">
+          <button class="circ" type="button" data-a="ventas" aria-label="Ventas">
+            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 8.2C16 6.4 14.3 5.3 12 5.3c-2.5 0-4.2 1.3-4.2 3.2 0 4.4 8.6 2.4 8.6 7 0 2-1.8 3.4-4.4 3.4-2.4 0-4.2-1.1-4.7-3"/><path d="M12 2.5v19"/></svg></span>Ventas
+          </button>
+          <button class="circ" type="button" data-a="lotes" aria-label="Lotes">
+            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="3" width="13" height="18" rx="2"/><path d="M5.5 6.8h13M5.5 17.2h13"/><path d="M12 9.6l2.8 1.6v3.2L12 16l-2.8-1.6v-3.2z"/></svg></span>Lotes
+          </button>
+          <button class="circ" type="button" data-a="ofertas" aria-label="Ofertas">
+            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.1"/><path d="M10.2 15l4.4-4.4"/><circle cx="10.6" cy="11" r=".7"/><circle cx="14.2" cy="14.6" r=".7"/></svg></span>Ofertas
+          </button>
+        </div>
+      </section>
 
-    <h2 class="cw-h2 cw-te">Te ofrecemos</h2>
-    <section class="hero-wrap" aria-label="Te ofrecemos">
+      <!-- PORTAFOLIO -->
+      <section id="panePortafolio" role="tabpanel" aria-labelledby="tabPortafolio" hidden>
+        <div class="lbl-p">Créditos disponibles</div>
+        <div class="monto p"><span>$</span><span class="js-creditos">0</span></div>
+        <div class="riesgos">
+          <button class="riesgo" type="button" data-a="riesgo-bajo">
+            <span class="l-cube">cube</span>
+            <span class="r-info"><b>Riesgo bajo</b><span>Entre 10-50 créditos</span></span>
+          </button>
+          <button class="riesgo" type="button" data-a="riesgo-medio">
+            <span class="l-parallax">PARALLAX</span>
+            <span class="r-info"><b>Riesgo medio</b><span>Entre 50-90 créditos</span></span>
+          </button>
+          <button class="riesgo" type="button" data-a="riesgo-alto">
+            <span class="l-living"><i>L</i>IVING</span>
+            <span class="r-info"><b>Riesgo alto</b><span>Entre 90-130 créditos</span></span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <button class="platinum" type="button" data-a="platinum" aria-label="Platinum Card, beneficios ilimitados">
+      <svg class="plat-img" viewBox="0 0 100 72" aria-hidden="true"><g transform="rotate(-22 50 38)"><rect x="12" y="14" width="76" height="48" rx="6" fill="#0d0f0d"/><rect x="12.5" y="14.5" width="75" height="47" rx="5.5" fill="none" stroke="#2a2f2b"/><path d="M62 24l12 7v12l-12 7-12-7V31z" fill="#181b18"/><rect x="20" y="33" width="10" height="8" rx="1.6" fill="#d9dcd5"/><text x="20" y="26" font-family="Poppins,sans-serif" font-weight="800" font-size="7" fill="#C6FF00">cube</text><path d="M73 40c2 1.6 2 4.4 0 6M76.5 38c3.2 2.6 3.2 8.4 0 11" fill="none" stroke="#8D918A" stroke-linecap="round"/></g></svg>
+      <span class="plat-txt"><b>Platinum Card</b><span>Beneficios ilimitados</span></span>
+      <span class="plat-logo">cube</span>
+    </button>
+  </div>
+  <section class="te" aria-label="Te ofrecemos">
+    <h2>Te ofrecemos</h2>
+    <div class="hero-wrap">
       <div class="hero-track" id="heroTrack"></div>
       <div class="dots" id="dots"></div>
-    </section>
-  </div>
+    </div>
+  </section>
 </div><!-- /home -->
 
 <!-- BÚSQUEDA -->
@@ -469,43 +509,6 @@
   <div class="tl" id="tl"></div>
 </section>
 
-<!-- VENDER -->
-<section id="vender" aria-label="Vender">
-  <div class="buscar-top">
-    <button class="volver-btn" id="cerrarVender" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <h1 style="font-size:1.3rem;font-weight:700;">Vender</h1>
-  </div>
-  <p class="v-intro">Vende una de tus historias para ganar créditos. Máximo 10 ventas activas. El resultado llega al azar, en minutos u horas, y cada +25 que subas al precio cuesta 3 créditos. Si cancelas una venta, esa historia debe esperar 24 horas para volver a ponerse en venta.</p>
-  <button class="v-add" id="vAgregar" type="button" aria-label="Agregar una historia para vender" title="Agregar historia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
-  <h2 class="cw-h2 v-h2">Mis ventas</h2>
-  <div id="vLista"></div>
-  <p class="cw-vacio" id="vVacio">Aún no has puesto historias en venta.</p>
-</section>
-
-<!-- VENDER · BUSCAR HISTORIA -->
-<section id="vbuscar" aria-label="Elegir historia para vender">
-  <div class="buscar-top">
-    <button class="volver-btn" id="vCerrarBuscar" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <label class="buscador">
-      <input id="vCampo" type="search" placeholder="Busca entre tus historias" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar entre tus historias">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    </label>
-  </div>
-  <h2 id="vTituloBuscar">Mis historias</h2>
-  <div class="grilla" id="vGrilla"></div>
-  <p class="sin-resultados" id="vSinRes" hidden>No encontramos historias con ese nombre.</p>
-</section>
-
-<!-- LOTES -->
-<section id="lotes" aria-label="Lotes">
-  <div class="buscar-top">
-    <button class="volver-btn" id="cerrarLotes" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <h1 style="font-size:1.3rem;font-weight:700;">Lotes</h1>
-  </div>
-  <p class="l-intro">Cada lote reúne varias historias.</p>
-  <h2>Lotes disponibles</h2>
-  <div class="lote-grid" id="lGrilla"></div>
-</section>
 
 <!-- PROFIT -->
 <section id="profit" aria-label="Obtener">
@@ -516,18 +519,6 @@
   <div id="pCuerpo"></div>
 </section>
 
-<!-- MI INVENTARIO · HISTORIA -->
-<div class="v-sheet" id="iSheet" hidden>
-  <div class="v-card" role="dialog" aria-modal="true" aria-label="Historia del inventario">
-    <div class="v-cover"><img id="iImg" alt=""></div>
-    <p class="v-card-t" id="iTitulo"></p>
-    <div class="i-acc">
-      <button class="i-ico" id="iFav" type="button" aria-label="Favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
-      <button class="b-pri" id="iVer" type="button">Ver ahora</button>
-      <button class="i-ico" id="iLista" type="button" aria-label="Agregar a una lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v6M15 16h6"/></svg></button>
-    </div>
-  </div>
-</div>
 
 <!-- OBTENER · ELEGIR HISTORIA DEL INVENTARIO -->
 <div class="v-sheet" id="oSheet" hidden>
@@ -538,20 +529,6 @@
   </div>
 </div>
 
-<!-- VENDER · PRECIO -->
-<div class="v-sheet" id="vSheet" hidden>
-  <div class="v-card" role="dialog" aria-modal="true" aria-label="Vender historia">
-    <div class="v-cover"><img id="vSheetImg" alt=""></div>
-    <p class="v-card-t" id="vSheetT"></p>
-    <div class="v-precio">
-      <button id="vMenos" type="button" aria-label="Bajar 25 créditos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <div><b id="vPrecio">100</b><small>créditos</small></div>
-      <button id="vMas" type="button" aria-label="Subir 25 créditos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
-    </div>
-    <p class="v-nota" id="vNota"></p>
-    <div class="v-acc"><button id="vCancelar" type="button">Cancelar</button><button id="vAceptar" type="button">Aceptar</button></div>
-  </div>
-</div>
 <!-- HISTORIA · INFO -->
 <div class="v-sheet" id="tSheet" hidden>
   <div class="v-card" role="dialog" aria-modal="true" aria-label="Historia">
@@ -646,23 +623,22 @@
   </div>
 </footer>
 
-<!-- BARRA INFERIOR -->
 <nav class="bottom-nav" id="bottomNav" aria-label="Navegación inferior">
-  <button class="bottom-nav-item activo" id="navWallet" aria-label="Billetera">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5"/><circle cx="16.5" cy="14" r="1" fill="currentColor" stroke="none"/></svg>
-  </button>
-  <button class="bottom-nav-item" id="navHome" aria-label="Home">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-  </button>
-  <button class="bottom-nav-item" id="navBuscar" aria-label="Buscar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-  </button>
-  <button class="bottom-nav-item" id="navOrbe" aria-label="Orbe">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
-  </button>
-  <button class="bottom-nav-item" id="navPerfil" aria-label="Perfil">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-  </button>
+  <div class="nav-pill">
+    <button class="bottom-nav-item activo" id="navWallet" aria-label="Inicio">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    </button>
+    <button class="bottom-nav-item" id="navHome" aria-label="Cube">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></svg>
+    </button>
+    <button class="bottom-nav-item" id="navBuscar" aria-label="Buscar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button class="bottom-nav-item" id="navOrbe" aria-label="Orbe">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+    </button>
+  </div>
+  <button class="bottom-nav-item" id="navPerfil" aria-label="Perfil"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></button>
 </nav>
 
 <!-- ================= CUENTA / SESIÓN / NAVEGACIÓN ================= -->
@@ -675,15 +651,19 @@ const IMG_BASE = "https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/";
     try { return JSON.parse(localStorage.getItem('cube_sesion_activa') || 'null'); } catch(e) { return null; }
   };
 
+  const ICON_PERSONA = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
+  function poner_avatar(el, foto, cls) {
+    el.textContent = '';
+    if (foto) { const im = document.createElement('img'); if (cls) im.className = cls; im.src = foto; im.alt = 'Perfil'; el.appendChild(im); }
+    else el.innerHTML = ICON_PERSONA;
+  }
   window.actualizarHeader = function() {
     const u = window.usuario();
-    const navPerfilBtn = document.getElementById('navPerfil');
-    if (u) {
-      const punto = (typeof hayNotifNuevas === 'function' && hayNotifNuevas()) ? '<span class="notif-dot"></span>' : '';
-      navPerfilBtn.innerHTML = `<span class="nav-perfil-wrap"><img class="bottom-nav-avatar" src="${u.foto || AVATAR}" alt="Perfil">${punto}</span>`;
-    } else {
-      navPerfilBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>`;
-    }
+    const foto = (u && u.foto && u.foto !== AVATAR) ? u.foto : null;
+    poner_avatar(document.getElementById('navPerfil'), foto, 'nav-foto');
+    poner_avatar(document.getElementById('ppAv'), foto, '');
+    const nom = u ? String(u.nombre || '') : '';
+    document.getElementById('ppNombre').textContent = u ? (nom.indexOf('@') >= 0 ? nom : '@' + nom) : 'Iniciar sesión';
     if (typeof actualizarContadorNotif === 'function') actualizarContadorNotif();
   }
 
@@ -710,24 +690,26 @@ window.abrirModal = function (tipo) {
 };
 
 function cerrarModales() {
-  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-vender', 'en-vbuscar', 'en-lotes', 'en-profit');
+  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit');
   activarItemNav('navWallet');
   window.scrollTo(0, 0);
   iniciarAuto();
 }
 
-// Barra inferior: la billetera es esta página; Home y Buscar viven en cube-home.html.
+// Barra inferior: Inicio es esta página; Cube (el catálogo) vive en cube-home.html.
 document.getElementById('navWallet').onclick = () => { cerrarModales(); };
 document.getElementById('navHome').onclick = () => { location.href = 'cube-home.html'; };
 document.getElementById('navOrbe').onclick = () => {
   activarItemNav('navOrbe');
   alert('Orbe activada.');
 };
-document.getElementById('navPerfil').onclick = () => {
+function abrirPerfilDesdeBoton() {
   const u = window.usuario();
   if (u) { activarItemNav('navPerfil'); window.abrirModal('perfil'); }
   else window.abrirModal('auth');
-};
+}
+document.getElementById('navPerfil').onclick = abrirPerfilDesdeBoton;
+document.getElementById('btnPerfilTop').onclick = abrirPerfilDesdeBoton;
 
 // Favoritos: se muestran con las imágenes guardadas por el usuario.
 function renderLista(tipo) {
@@ -839,15 +821,6 @@ actualizarHeader();
   window.actualizarContadorNotif = () => {
     const c = document.getElementById('notifCuenta'); if (!c) return;
     const n = pendientes().length; c.textContent = n; c.hidden = n === 0;
-    const navPerfilBtn = document.getElementById('navPerfil');
-    if (navPerfilBtn && window.usuario()) {
-      const punto = n ? '<span class="notif-dot"></span>' : '';
-      const img = navPerfilBtn.querySelector('img');
-      if (img) {
-        const wrap = navPerfilBtn.querySelector('.nav-perfil-wrap');
-        if (wrap) wrap.innerHTML = `<img class="bottom-nav-avatar" src="${window.usuario().foto || AVATAR}" alt="Perfil">${punto}`;
-      }
-    }
   };
   function iconoNotif(tipo) {
     return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONOS_NOTIF[tipo] || ICONOS_NOTIF.sistema}</svg>`;
@@ -1002,107 +975,70 @@ actualizarHeader();
 })();
 </script>
 
-<!-- ================= WALLET: lotes, "Te ofrecemos" y opciones ================= -->
+<!-- ================= INICIO: pestañas, créditos y accesos ================= -->
 <script>
 (function () {
   const $ = id => document.getElementById(id);
+  const aviso = t => { if (window.cubeAviso) window.cubeAviso(t); else alert(t); };
 
-  // ---- Mi inventario: todas las historias que tiene el usuario (con ×N si tiene varias copias) ----
-  const PASO = 6;            // mínimo visible; "Ver más" muestra todas
-  let todos = false;
-  function misHistorias() {
-    if (!window.cubeInv) return [];
-    const cat = window.catalogo || [];
-    return window.cubeInv.lista().filter(img => window.cubeInv.cantidad(img) > 0).map(img =>
-      cat.find(p => p.img === img) || { img, alt: img.replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' ') }
-    ).sort((a, b) => a.alt.localeCompare(b.alt, 'es', { sensitivity: 'base' }));
+  // ---- Pestañas Inicio / Portafolio ----
+  const fold = $('fold');
+  const T = { inicio: [$('tabInicio'), $('paneInicio')], portafolio: [$('tabPortafolio'), $('panePortafolio')] };
+  function irTab(n, enfocar) {
+    fold.dataset.tab = n;
+    Object.keys(T).forEach(k => {
+      const on = k === n;
+      T[k][0].setAttribute('aria-selected', on ? 'true' : 'false');
+      T[k][0].tabIndex = on ? 0 : -1;
+      T[k][1].hidden = !on;
+    });
+    if (enfocar) T[n][0].focus();
   }
-  // Tarjeta de lote (la usa la pantalla Lotes): cuadro de imagen a la izquierda, nombre y cantidad de historias
-  const escH = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  window.cubeLoteHTML = (nombre, n, id) =>
-    `<div class="lote-rect"${id ? ` data-lote="${escH(id)}"` : ''}><div class="lote-img"></div><div class="lote-info"><h3>${escH(nombre)}</h3><span>${n} ${n === 1 ? 'historia' : 'historias'}</span></div></div>`;
-  function renderLotes() {
-    const L = misHistorias();
-    if (!L.length) { $('cwInv').innerHTML = '<p class="cw-vacio">Aún no tienes historias.</p>'; $('cwMas').hidden = true; return; }
-    $('cwInv').innerHTML = (todos ? L : L.slice(0, PASO)).map(p => {
-      const n = window.cubeInv.cantidad(p.img), html = window.card(p);
-      return n > 1 ? html.replace(/(<div class="portada"[^>]*>)/, `$1<div class="tags"><span class="badge">×${n}</span></div>`) : html;
-    }).join('');
-    const mas = $('cwMas');
-    mas.hidden = L.length <= PASO;
-    mas.textContent = todos ? 'Ver menos' : 'Ver más';
-  }
-  $('cwMas').onclick = () => { todos = !todos; renderLotes(); };
-  window.addEventListener('cube:inventario', renderLotes);
-  renderLotes();
-
-  // ---- Te ofrecemos: heroes (las imágenes ya están en el repositorio de GitHub; no se incrustan) ----
-  const HEROES = [
-    { img: "bigfoot.webp", alt: "Bigfoot", titulo: "Bigfoot", genero: "Acción", anio: 2026, clasif: "PG13", lote: "Rush" },
-    { img: "eternamente-vivo-hero.webp", alt: "Eternamente Vivo con Valak Seraphel", titulo: "Eternamente Vivo", genero: "Sobrenatural", anio: 2026, clasif: "PG13", lote: "Void" },
-    { img: "ratman.webp", alt: "Ratman", titulo: "Ratman", genero: "Found footage", anio: 2026, clasif: "PG15", lote: "Lost Tapes" }
-  ];
-  const SEGUNDOS_AUTO = 6;
-  const track = $('heroTrack'), dotsBox = $('dots');
-  HEROES.forEach((h, i) => {
-    track.insertAdjacentHTML('beforeend', `<article class="hero-item" aria-label="${h.alt}">
-      <div class="hero"><img class="hero-img" src="${IMG_BASE}${h.img}" alt="${h.alt}" width="1280" height="720"${i ? ' loading="lazy"' : ''}></div>
-      <div class="hero-datos">
-        <p class="hero-titulo">${h.titulo}</p>
-        <div class="hero-meta"><span class="clasif">${h.clasif}</span><i>•</i><span>${h.genero}</span><i>•</i><span>${h.anio}</span></div>
-        <span class="hero-lote"><svg viewBox="0 0 24 24"><use href="#wbx"/></svg><b>${h.lote}</b></span>
-      </div>
-    </article>`);
-    const d = document.createElement('button');
-    d.className = 'dot' + (i === 0 ? ' activo' : '');
-    d.setAttribute('aria-label', 'Ir al banner ' + (i + 1));
-    d.onclick = () => { irA(i); iniciarAuto(); };
-    dotsBox.appendChild(d);
+  $('tabInicio').onclick = () => irTab('inicio');
+  $('tabPortafolio').onclick = () => irTab('portafolio');
+  fold.querySelector('.fold-tabs').addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); irTab('portafolio', true); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); irTab('inicio', true); }
   });
-  track.addEventListener('scroll', () => {
-    const i = Math.round(track.scrollLeft / track.clientWidth);
-    [...dotsBox.children].forEach((d, n) => d.classList.toggle('activo', n === i));
-  }, { passive: true });
-  let timerAuto = null;
-  function irA(i) { track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' }); }
-  function actual() { return Math.round(track.scrollLeft / track.clientWidth); }
-  function detenerAuto() { clearInterval(timerAuto); timerAuto = null; }
-  function iniciarAuto() {
-    detenerAuto();
-    timerAuto = setInterval(() => irA((actual() + 1) % HEROES.length), SEGUNDOS_AUTO * 1000);
-  }
-  window.cubeHeroAuto = on => on ? iniciarAuto() : detenerAuto();
-  track.addEventListener('touchstart', detenerAuto, { passive: true });
-  track.addEventListener('touchend', iniciarAuto, { passive: true });
-  track.addEventListener('touchcancel', iniciarAuto, { passive: true });
-  track.addEventListener('mouseenter', detenerAuto);
-  track.addEventListener('mouseleave', iniciarAuto);
-  document.addEventListener('visibilitychange', () => document.hidden ? detenerAuto() : iniciarAuto());
-  iniciarAuto();
 
-  // ---- Caja de créditos: viene de Supabase (tabla "wallets"; cada cuenta nueva empieza con 100) ----
+  // ---- Créditos: vienen de Supabase (tabla "wallets"; cada cuenta nueva empieza con 100) ----
+  const fmtC = n => Number(n).toLocaleString('es-AR');
+  const pintarCreditos = txt => document.querySelectorAll('.js-creditos').forEach(e => { e.textContent = txt; });
+  // "Ganaste X créditos este día": se compara con el saldo con el que se abrió Cube hoy en este dispositivo
+  function pintarGanancia(saldo) {
+    const u = window.usuario(), pill = $('cwGana');
+    if (!u || !u.supa) { pill.hidden = true; return; }
+    const hoy = new Date().toLocaleDateString('sv-SE'), k = 'cube_saldo_dia_' + u.id;
+    let b = null;
+    try { b = JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { b = null; }
+    if (!b || b.d !== hoy || typeof b.s !== 'number') {
+      b = { d: hoy, s: saldo };
+      try { localStorage.setItem(k, JSON.stringify(b)); } catch (e) {}
+    }
+    const g = saldo - b.s;
+    pill.textContent = g > 0 ? 'Ganaste $' + fmtC(g) + ' créditos este día' : 'Aún no has ganado créditos hoy';
+    pill.hidden = false;
+  }
   async function cargarCreditos() {
-    const el = $('cwCreditos'), u = window.usuario();
-    if (!u || !u.supa || !window.cubeDb) { window.cubeSaldo = 0; el.textContent = '0'; return; }
+    const u = window.usuario();
+    if (!u || !u.supa || !window.cubeDb) { window.cubeSaldo = 0; pintarCreditos('0'); pintarGanancia(0); return; }
     try {
       const { data, error } = await window.cubeDb.from('wallets').select('creditos').eq('user_id', u.id).maybeSingle();
       if (error) throw error;
       window.cubeSaldo = Number(data ? data.creditos : 0);
-      el.textContent = window.cubeSaldo.toLocaleString('es');
+      pintarCreditos(fmtC(window.cubeSaldo));
+      pintarGanancia(window.cubeSaldo);
     } catch (e) {
       console.warn('No se pudieron cargar los créditos', e);
-      el.textContent = '—';
+      pintarCreditos('—');
     }
   }
   window.cubeRefrescarCreditos = cargarCreditos;
   window.addEventListener('cube:usuario-listo', cargarCreditos);
   cargarCreditos();
-
-  // ---- Ayuda (arriba a la derecha): lleva a la sección Ayuda del pie de página ----
-  $('btnAyuda').onclick = () => $('ayuda').scrollIntoView({ behavior: 'smooth', block: 'center' });
   $('anio').textContent = new Date().getFullYear();
 
-  // ---- "Crear lista": cube-listas.js agrega su botón al panel de perfil; se oculta allí y se dispara desde la wallet ----
+  // ---- "Crear lista": cube-listas.js agrega su botón al panel de perfil; se oculta allí y se dispara desde aquí ----
   const PROPIAS = ['irFavoritos', 'irNotificaciones', 'irAlmacen', 'btnSalir'];
   const esCrearLista = el => el && !PROPIAS.includes(el.id) && /list/i.test((el.textContent || '') + ' ' + el.id + ' ' + el.className);
   const buscarCrearLista = () => Array.from(document.querySelectorAll('#perfilModal .perfil-opciones > *')).find(esCrearLista);
@@ -1111,7 +1047,7 @@ actualizarHeader();
   if (cont) new MutationObserver(ocultarCrearListaDelPerfil).observe(cont, { childList: true, subtree: true });
   ocultarCrearListaDelPerfil();
 
-  // ---- Opciones de la wallet ----
+  // ---- Accesos ----
   const acciones = {
     notificaciones: () => $('irNotificaciones').click(),
     almacen: () => $('irAlmacen').click(),
@@ -1120,18 +1056,59 @@ actualizarHeader();
       if (o) { o.click(); return; }
       if (typeof window.cubeCrearLista === 'function') { window.cubeCrearLista(); return; }
       if (typeof window.crearLista === 'function') { window.crearLista(); return; }
-      alert('Próximamente.');
+      aviso('Próximamente.');
     }
   };
-  document.querySelectorAll('.cw-btn').forEach(b => {
+  document.querySelectorAll('[data-a]').forEach(b => {
     b.onclick = () => {
       const a = b.dataset.a;
       if (acciones[a]) return acciones[a]();
-      // Lote free / Agregar lotes / Agregar créditos / Colección / Logros: avisan con un evento; si nadie lo atiende, "próximamente".
+      // Colección, Ventas, Lotes, Ofertas, Platinum y las tarjetas del Portafolio avisan con un evento; si nadie lo atiende, "próximamente".
       const ev = new CustomEvent('cube-wallet-accion', { detail: { accion: a }, cancelable: true });
-      if (window.dispatchEvent(ev)) alert('Próximamente.');
+      if (window.dispatchEvent(ev)) aviso('Próximamente.');
     };
   });
+
+  // ---- Te ofrecemos: heroes (las imágenes ya están en el repositorio de GitHub) ----
+  const RAREZAS = { comun: 'Común', raro: 'Raro', extraordinario: 'Extraordinario', legendario: 'Legendario' };
+  const HEROES = [
+    { img: 'bigfoot.webp', titulo: 'Bigfoot', clasif: 'PG13', genero: 'Acción', caps: 3, rareza: 'raro' },
+    { img: 'ratman.webp', titulo: 'Ratman', clasif: 'PG15', genero: 'Found footage', caps: 3, rareza: 'raro' },
+    { img: 'las-entrevistas.webp', titulo: 'Las Entrevistas', clasif: 'PG15', genero: 'Sci fi', caps: 10, rareza: 'legendario' }
+  ];
+  const track = $('heroTrack'), dotsBox = $('dots');
+  HEROES.forEach((h, i) => {
+    track.insertAdjacentHTML('beforeend', `<article class="hero-item" aria-label="${h.titulo}">
+      <div class="hero"><img class="hero-img" src="${IMG_BASE}${h.img}" alt="${h.titulo}" width="1280" height="720"${i ? ' loading="lazy"' : ''}></div>
+      <div class="hero-datos">
+        <p class="hero-titulo">${h.titulo}</p>
+        <div class="hero-meta"><span class="clasif">${h.clasif}</span><i>•</i><span>${h.genero}</span><i>•</i><span>${h.caps} cap</span></div>
+        <span class="rareza ${h.rareza}">${RAREZAS[h.rareza]}</span>
+      </div>
+    </article>`);
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' activo' : '');
+    d.setAttribute('aria-label', 'Ir al banner ' + (i + 1));
+    d.onclick = () => { irA(i); iniciarAutoH(); };
+    dotsBox.appendChild(d);
+  });
+  track.addEventListener('scroll', () => {
+    const i = Math.round(track.scrollLeft / track.clientWidth);
+    [...dotsBox.children].forEach((d, n) => d.classList.toggle('activo', n === i));
+  }, { passive: true });
+  let timerAuto = null;
+  function irA(i) { track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' }); }
+  const actualH = () => Math.round(track.scrollLeft / track.clientWidth);
+  function detenerAutoH() { clearInterval(timerAuto); timerAuto = null; }
+  function iniciarAutoH() { detenerAutoH(); timerAuto = setInterval(() => irA((actualH() + 1) % HEROES.length), 6000); }
+  window.cubeHeroAuto = on => on ? iniciarAutoH() : detenerAutoH();
+  track.addEventListener('touchstart', detenerAutoH, { passive: true });
+  track.addEventListener('touchend', iniciarAutoH, { passive: true });
+  track.addEventListener('touchcancel', iniciarAutoH, { passive: true });
+  track.addEventListener('mouseenter', detenerAutoH);
+  track.addEventListener('mouseleave', iniciarAutoH);
+  document.addEventListener('visibilitychange', () => document.hidden ? detenerAutoH() : iniciarAutoH());
+  iniciarAutoH();
 })();
 </script>
 
@@ -1393,63 +1370,11 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
 })();
 
 </script>
+<!-- ================= HOJA GENÉRICA (resultado de Obtener) ================= -->
 <script>
 (function () {
   const $ = id => document.getElementById(id);
-  const body = document.body;
-
-  // ---- Reglas visibles (el servidor aplica las mismas: ver cube-ventas.sql) ----
-  const MAX_VENTAS = 10, BASE = 100, PASO = 25, SUBIDA_MAX = 500, MIN = 25, COSTO_PASO = 3;
-  const MAX = BASE + SUBIDA_MAX;
-
-  const vendibles = () => (window.catalogo || []).filter(p => !p.pronto && !p.v);
-  const titulo = img => {
-    const p = (window.catalogo || []).find(x => x.img === img);
-    return p ? p.alt : img.replace(/\.webp$/, '').replace(/-/g, ' ');
-  };
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const normal = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
-  const compacto = t => normal(t).replace(/[^a-z0-9]/g, '');
-  const sesion = () => { const u = window.usuario && window.usuario(); return u && u.supa ? u : null; };
-  const refrescarCreditos = () => (window.cubeRefrescarCreditos ? window.cubeRefrescarCreditos() : null);
-
-  const aviso = txt => window.cubeAviso(txt);
-  const propias = () => vendibles().filter(p => window.cubeInv.tiene(p.img));
-
-  // ---- Navegación entre vistas ----
-  function ir(clase) {
-    body.classList.remove('perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-vender', 'en-vbuscar', 'en-lotes', 'en-profit');
-    if (clase) body.classList.add(clase);
-    if (typeof detenerAuto === 'function') detenerAuto();
-    window.scrollTo(0, 0);
-  }
-
-  // ---- Lotes: Void y Parallels (10 historias cada uno) ----
-  // Probabilidad de cada historia = (1 / su precio) ÷ suma de (1 / precio) de las 10: más barata, más probable.
-  // Las historias se ordenan de la más cara (menos probable, arriba) a la más barata (más probable, abajo).
-  const crearLote = (id, nombre, precioLote, imgs) => {
-    const items = imgs.map(img => ({ img, nombre: titulo(img), precio: window.cubeInv.precio(img) }));
-    const total = items.reduce((a, i) => a + 1 / i.precio, 0);
-    items.forEach(i => { i.prob = (1 / i.precio) / total; });
-    items.sort((x, y) => y.precio - x.precio || x.nombre.localeCompare(y.nombre, 'es', { sensitivity: 'base' }));
-    return { id, nombre, precioLote, items };
-  };
-  const LOTES_DEF = [
-    crearLote('void', 'Void', 500, [
-      'nada.webp', 'obedece.webp', 'golem.webp', 'retorcidos.webp', 'metalosis-maligna.webp',
-      'menem.webp', 'el-telefono.webp', 'eternamente-vivo.webp', 'eternamente-vivo-dante.webp', 'eternamente-vivo-valak.webp']),
-    crearLote('parallels', 'Parallels', 600, [
-      'ratman.webp', 'bigfoot-2.webp', 'las-entrevistas.webp', 'la-familia-rani.webp', 'mama-dogs.webp',
-      'muevete-al-minuto.webp', 'strike.webp', 'ultimate.webp', 'valentine.webp', 'gorgeous-vortex.webp'])
-  ];
-  window.cubeLotes = { def: LOTES_DEF, de: img => LOTES_DEF.filter(l => l.items.some(i => i.img === img)) };
-  window.dispatchEvent(new Event('cube:inventario'));
-  function pintarLotes() {
-    $('lGrilla').innerHTML = LOTES_DEF.map(l => window.cubeLoteHTML(l.nombre, l.items.length, l.id)).join('');
-  }
-
-  // ---- Hoja genérica (compra de lote, resultados de lote y de Obtener) ----
-  const cerrarR = () => { $('rSheet').hidden = true; loteSel = null; };
+  const cerrarR = () => { $('rSheet').hidden = true; };
   window.cubeR = {
     abrir: (titulo, html) => { $('rTitulo').textContent = titulo; $('rCuerpo').innerHTML = html; $('rSheet').hidden = false; },
     cerrar: () => cerrarR()
@@ -1459,313 +1384,8 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   $('rCuerpo').addEventListener('click', e => {
     const b = e.target.closest('[data-r]'); if (!b) return;
     if (b.dataset.r === 'cerrar') cerrarR();
-    else if (b.dataset.r === 'lote-comprar') comprarLote();
-    else if (b.dataset.r === 'obtener-todo') { cerrarR(); cerrarModales(); }
   });
-
-  // ---- Comprar un lote: salen 3 historias al azar de ese lote ----
-  const fmt = n => Number(n).toLocaleString('es');
-  const preciosLote = {};
-  let loteSel = null, comprandoLote = false;
-  async function cargarPreciosLote() {
-    if (!window.cubeDb) return;
-    try {
-      const { data, error } = await window.cubeDb.from('lotes').select('id,precio');
-      if (error) throw error;
-      (data || []).forEach(r => { preciosLote[r.id] = r.precio; });
-    } catch (e) { console.warn('No se pudieron cargar los precios de los lotes', e); }
-  }
-  window.addEventListener('cube:usuario-listo', cargarPreciosLote);
-
-  const pctLote = p => { const v = p * 100; return (v >= 10 ? Math.round(v) : v.toFixed(1)) + '%'; };
-  function abrirLoteSheet(id) {
-    const l = LOTES_DEF.find(x => x.id === id); if (!l) return;
-    loteSel = l;
-    const p = preciosLote[id] != null ? preciosLote[id] : l.precioLote, s = typeof window.cubeSaldo === 'number' ? window.cubeSaldo : null;
-    const falta = s != null && s < p;
-    const filas = l.items.map(i =>
-      `<div class="v-item"><div class="v-th"><img src="${IMG_BASE}${esc(i.img)}" alt="" loading="lazy" onerror="this.style.display='none'"></div>` +
-      `<div class="v-it">${esc(i.nombre)}<span>${fmt(i.precio)} créditos · ${pctLote(i.prob)}</span></div></div>`).join('');
-    window.cubeR.abrir('Lote ' + l.nombre,
-      `<div class="l-lista">${filas}</div>` +
-      `<div class="t-precio"><svg viewBox="0 0 24 24"><use href="#wcr"/></svg><b>${fmt(p)}</b><small>créditos</small></div>` +
-      `<p class="v-nota">${falta ? `Te faltan ${fmt(p - s)} créditos.` : 'Recibirás 3 historias.'}</p>` +
-      `<div class="v-acc"><button class="b-sec" type="button" data-r="cerrar">Cancelar</button>` +
-      `<button class="b-pri" type="button" data-r="lote-comprar"${falta ? ' disabled' : ''}>Comprar</button></div>`);
-    $('rSheet').querySelector('.v-card').scrollTop = 0;
-  }
-
-  // Tres ruletas (arriba, medio y abajo): giran rápido y se detienen una por una en la historia que salió
-  function mostrarGiros(l, sacadas) {
-    const reels = sacadas.map(img => {
-      const N = 24, celdas = [];
-      for (let k = 0; k < N - 1; k++) celdas.push(l.items[Math.floor(Math.random() * l.items.length)].img);
-      celdas.push(img);
-      return `<div class="l-reel"><div class="l-strip">${celdas.map(c => `<div class="l-cell"><img src="${IMG_BASE}${esc(c)}" alt=""></div>`).join('')}</div></div>` +
-             `<p class="l-cap">${esc(titulo(img))}</p>`;
-    }).join('');
-    $('rTitulo').textContent = 'Lote ' + l.nombre;
-    $('rCuerpo').innerHTML = reels + '<div class="v-acc"><button class="b-pri" type="button" data-r="obtener-todo" disabled>Obtener todo</button></div>';
-    const strips = Array.from($('rCuerpo').querySelectorAll('.l-strip')), caps = Array.from($('rCuerpo').querySelectorAll('.l-cap'));
-    const fin = strips.map((st, k) => {
-      const n = st.children.length;
-      const anim = st.animate(
-        [{ transform: 'translateY(0)' }, { transform: `translateY(-${(n - 1) / n * 100}%)` }],
-        { duration: 2000 + k * 1000, easing: 'cubic-bezier(.1,.7,.15,1)', fill: 'forwards' });
-      return anim.finished.then(() => { st.parentElement.classList.add('listo'); caps[k].classList.add('on'); });
-    });
-    Promise.all(fin).then(() => {
-      const b = $('rCuerpo').querySelector('[data-r="obtener-todo"]'); if (b) b.disabled = false;
-    });
-  }
-  function errorLote(e) {
-    const m = String((e && e.message) || e || '');
-    if (m.includes('saldo_insuficiente')) return 'No tienes suficientes créditos.';
-    if (m.includes('lote_agotado')) return 'Ya tienes el máximo de copias de todas las historias de este lote.';
-    if (m.includes('lote_invalido')) return 'Ese lote no está disponible.';
-    if (m.includes('no_autenticado')) return 'Inicia sesión para comprar.';
-    return 'No se pudo completar la compra del lote. Intenta de nuevo.';
-  }
-  async function comprarLote() {
-    const l = loteSel;
-    if (!l || comprandoLote) return;
-    if (!sesion()) { cerrarR(); window.abrirModal('auth'); return; }
-    comprandoLote = true;
-    const btn = document.querySelector('#rCuerpo [data-r="lote-comprar"]'); if (btn) btn.disabled = true;
-    try {
-      const { data, error } = await window.cubeDb.rpc('comprar_lote', { p_lote: l.id });
-      if (error) throw error;
-      const sacadas = (Array.isArray(data) ? data : []).map(x => typeof x === 'string' ? x : Object.values(x)[0]).slice(0, 3);
-      if (!sacadas.length) throw new Error('lote_invalido');
-      refrescarCreditos();
-      await window.cubeInv.recargar();     // ya están en el inventario, cada una por separado
-      loteSel = null;
-      mostrarGiros(l, sacadas);
-    } catch (e) {
-      console.warn('Compra de lote fallida', e);
-      aviso(errorLote(e));
-      if (btn) btn.disabled = false;
-    } finally { comprandoLote = false; }
-  }
-  $('lGrilla').addEventListener('click', e => {
-    const c = e.target.closest('[data-lote]'); if (c) abrirLoteSheet(c.dataset.lote);
-  });
-
-  let lotesListo = false;
-  function abrirLotes() {
-    if (!lotesListo) { lotesListo = true; pintarLotes(); }
-    ir('en-lotes');
-    cargarPreciosLote();
-  }
-  $('cerrarLotes').onclick = () => cerrarModales();
-
-  // ---- Vender ----
-  function abrirVender() {
-    if (!sesion()) { window.abrirModal('auth'); return; }
-    ir('en-vender');
-    cargarVentas();
-  }
-  $('cerrarVender').onclick = () => cerrarModales();
-
-  window.addEventListener('cube-wallet-accion', e => {
-    const a = e.detail && e.detail.accion;
-    if (a === 'agregar-creditos') { e.preventDefault(); abrirVender(); }
-    else if (a === 'agregar-lotes') { e.preventDefault(); abrirLotes(); }
-  });
-
-  // Búsqueda: solo las historias que el usuario tiene en su inventario
-  let tarj = [];
-  function pintarBuscar() {
-    const g = $('vGrilla'), lista = propias();
-    g.innerHTML = '';
-    $('vCampo').value = '';
-    $('vTituloBuscar').textContent = 'Mis historias';
-    tarj = lista.map(p => {
-      const b = document.createElement('button');
-      b.type = 'button'; b.className = 'portada v-pick'; b.dataset.id = p.img;
-      b.setAttribute('aria-label', 'Vender ' + p.alt);
-      const im = new Image();
-      im.src = IMG_BASE + p.img; im.alt = p.alt; im.loading = 'lazy';
-      im.onerror = () => { const s = document.createElement('span'); s.className = 'sin-img'; s.textContent = p.alt; im.replaceWith(s); };
-      b.appendChild(im); g.appendChild(b);
-      return { el: b, n: normal(p.alt), c: compacto(p.alt) };
-    });
-    $('vSinRes').textContent = lista.length ? 'No encontramos historias con ese nombre.' : 'Aún no tienes historias para vender. Consigue una en Lotes o en Buscar.';
-    $('vSinRes').hidden = lista.length > 0;
-  }
-  function filtrar() {
-    const q = normal($('vCampo').value), qc = compacto($('vCampo').value);
-    let vis = 0;
-    tarj.forEach(t => {
-      const ok = !q || t.n.includes(q) || (qc && t.c.includes(qc));
-      t.el.style.display = ok ? '' : 'none';
-      if (ok) vis++;
-    });
-    $('vTituloBuscar').textContent = q ? 'Resultados' : 'Mis historias';
-    if (tarj.length) $('vSinRes').hidden = vis > 0;
-  }
-  $('vAgregar').onclick = async () => {
-    await window.cubeInv.recargar();
-    pintarBuscar(); ir('en-vbuscar');
-    if (tarj.length) $('vCampo').focus();
-  };
-  $('vCerrarBuscar').onclick = () => { $('vCampo').blur(); ir('en-vender'); };
-  $('vCampo').addEventListener('input', filtrar);
-  $('vCampo').addEventListener('keydown', e => { if (e.key === 'Enter') $('vCampo').blur(); });
-  $('vGrilla').addEventListener('click', e => {
-    const b = e.target.closest('.v-pick');
-    if (b) abrirSheet(b.dataset.id);
-  });
-
-  // ---- Panel de precio ----
-  let sel = null, precio = BASE;
-  const pasos = () => (precio - BASE) / PASO;
-  const saldo = () => (typeof window.cubeSaldo === 'number' ? window.cubeSaldo : null);
-  // Cada +25 cuesta 3 créditos. Vender a 100 es siempre posible; para subir hay que tener 3 créditos por cada +25.
-  const maxPrecio = () => {
-    const s = saldo() || 0;
-    return Math.min(MAX, BASE + PASO * Math.min(SUBIDA_MAX / PASO, Math.floor(s / COSTO_PASO)));
-  };
-  function comision() { return Math.max(0, pasos()) * COSTO_PASO; }
-  function pintarSheet() {
-    if (precio > maxPrecio()) precio = Math.max(BASE, maxPrecio());
-    $('vPrecio').textContent = precio;
-    $('vMenos').disabled = precio <= MIN;
-    $('vMas').disabled = precio >= maxPrecio();
-    const n = pasos(), c = comision();
-    let nota = n > 0
-      ? `Subir el precio te cuesta ${c.toLocaleString('es')} créditos (${COSTO_PASO} por cada +${PASO}). Puede que no se venda.`
-      : 'Sabrás el resultado en unos minutos u horas, al azar. Puede que no se venda.';
-    if (precio >= maxPrecio() && maxPrecio() < MAX) nota += ' No te alcanzan los créditos para subir más.';
-    $('vNota').textContent = nota;
-  }
-  async function abrirSheet(img) {
-    if (!sesion()) { window.abrirModal('auth'); return; }
-    if (window.cubeInv.ventasActivas() >= MAX_VENTAS) { aviso('Ya tienes 10 ventas activas (el máximo).'); return; }
-    const esp = window.cubeInv.espera(img);
-    if (esp) { aviso('Cancelaste esta venta hace poco. ' + faltaEspera(esp)); return; }
-    try { await refrescarCreditos(); } catch (e) { /* usa el saldo que ya hay */ }
-    sel = img; precio = BASE;
-    $('vSheetImg').src = IMG_BASE + img;
-    $('vSheetImg').alt = titulo(img);
-    $('vSheetT').textContent = titulo(img);
-    pintarSheet();
-    $('vSheet').hidden = false;
-  }
-  function cerrarSheet() { $('vSheet').hidden = true; sel = null; }
-  $('vMenos').onclick = () => { if (precio > MIN) { precio -= PASO; pintarSheet(); } };
-  $('vMas').onclick = () => { if (precio < maxPrecio()) { precio += PASO; pintarSheet(); } };
-  $('vCancelar').onclick = cerrarSheet;
-  $('vSheet').addEventListener('click', e => { if (e.target === $('vSheet')) cerrarSheet(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('vSheet').hidden) cerrarSheet(); });
-
-  function mensajeError(e) {
-    const m = String((e && e.message) || e || '');
-    if (m.includes('saldo_insuficiente')) return 'No te alcanzan los créditos para ese precio.';
-    if (m.includes('no_la_tienes')) return 'Ya no tienes esa historia.';
-    if (m.includes('no_autenticado')) return 'Inicia sesión para vender.';
-    if (m.includes('historia_invalida')) return 'Esa historia no se puede vender.';
-    if (m.includes('precio_invalido')) return 'El precio no es válido.';
-    if (m.includes('limite_ventas')) return 'Ya tienes 10 ventas activas (el máximo).';
-    if (m.includes('en_espera')) return 'Esa historia aún está en espera tras cancelar su venta.';
-    return 'No se pudo completar la venta. Intenta de nuevo.';
-  }
-
-  // Al aceptar, el servidor cobra la comisión (3 por cada +25) y fija al azar cuándo se resuelve (minutos u horas).
-  $('vAceptar').onclick = async () => {
-    if (!sel) return;
-    const btn = $('vAceptar');
-    btn.disabled = true;
-    try {
-      const { error } = await window.cubeDb.rpc('vender_historia', { p_historia: sel, p_precio: precio });
-      if (error) throw error;
-      cerrarSheet();
-      ir('en-vender');
-      aviso('Tu historia está en venta. Te avisaremos cuando se resuelva.');
-      await Promise.all([cargarVentas(), refrescarCreditos(), window.cubeInv.recargar()]);
-    } catch (e) {
-      console.warn('Venta fallida', e);
-      aviso(mensajeError(e));
-    } finally {
-      btn.disabled = false;
-    }
-  };
-
-  // ---- Lista de ventas ----
-  function faltaEspera(iso) {
-    const h = (new Date(iso).getTime() - Date.now()) / 3600000;
-    return h >= 1 ? `Podrás venderla en ${Math.ceil(h)} h.` : 'Podrás venderla en menos de 1 h.';
-  }
-  async function cancelarVenta(id) {
-    try {
-      const { error } = await window.cubeDb.rpc('cancelar_venta', { p_venta: id });
-      if (error) throw error;
-      aviso('Venta cancelada. Podrás volver a ponerla en venta en 24 h.');
-      await Promise.all([window.cubeInv.recargar(), cargarVentas()]);
-    } catch (e) { console.warn(e); aviso('No se pudo cancelar la venta.'); }
-  }
-  $('vLista').addEventListener('click', e => {
-    const b = e.target.closest('[data-cancelar]');
-    if (b && confirm('¿Cancelar esta venta? No podrás volver a ponerla en venta durante 24 h.')) cancelarVenta(b.dataset.cancelar);
-  });
-  function falta(iso) {
-    const ms = new Date(iso).getTime() - Date.now();
-    if (ms <= 0) return 'Resolviendo…';
-    const min = ms / 60000;
-    if (min < 1) return 'Falta menos de 1 min';
-    if (min < 60) return `Faltan ${Math.ceil(min)} min`;
-    const h = min / 60;
-    if (h < 24) return `Faltan ${Math.ceil(h)} h`;
-    const d = Math.ceil(h / 24);
-    return `Faltan ${d} ${d === 1 ? 'día' : 'días'}`;
-  }
-  async function cargarVentas() {
-    const lista = $('vLista'), vacio = $('vVacio');
-    if (!sesion() || !window.cubeDb) { lista.innerHTML = ''; vacio.textContent = 'Inicia sesión para vender tus historias.'; vacio.hidden = false; return; }
-    const { data, error } = await window.cubeDb.from('ventas')
-      .select('id,historia,precio,creado_en,resuelve_en,estado,ganancia')
-      .order('creado_en', { ascending: false }).limit(30);
-    if (error) { console.warn(error); lista.innerHTML = ''; vacio.textContent = 'No se pudieron cargar tus ventas.'; vacio.hidden = false; return; }
-    vacio.textContent = 'Aún no has puesto historias en venta.';
-    vacio.hidden = !!(data && data.length);
-    lista.innerHTML = (data || []).map(v => {
-      let estado, extra = '', pr = v.precio;
-      if (v.estado === 'pendiente') estado = `En venta · ${falta(v.resuelve_en)}`;
-      else if (v.estado === 'vendida') { estado = 'Vendida'; extra = ' ok'; pr = '+' + v.ganancia; }
-      else { estado = 'No se vendió'; pr = '0'; }
-      return `<div class="v-item"><div class="v-th"><img src="${IMG_BASE}${esc(v.historia)}" alt="" loading="lazy" onerror="this.style.display='none'"></div>` +
-        `<div class="v-it">${esc(titulo(v.historia))}<span class="${extra.trim()}">${estado}</span></div><div class="v-pr">${v.estado === 'pendiente' ? `<button class="v-cancel" type="button" data-cancelar="${v.id}">Cancelar</button>` : pr}</div></div>`;
-    }).join('');
-  }
-
-  // ---- Resolver ventas vencidas (el servidor paga si hubo venta) ----
-  async function resolver() {
-    if (!sesion() || !window.cubeDb) return;
-    try {
-      const { data, error } = await window.cubeDb.rpc('resolver_mis_ventas');
-      if (error) throw error;
-      if (!data || !data.length) return;
-      data.forEach(v => {
-        if (!window.cubeNotificar) return;
-        const ok = v.estado === 'vendida';
-        window.cubeNotificar({
-          id: 'venta-' + v.id, tipo: 'venta',
-          titulo: ok ? 'Historia vendida' : 'La venta no se concretó',
-          texto: ok ? `Vendiste “${titulo(v.historia)}” y ganaste ${v.ganancia} créditos.`
-                    : `No se logró vender “${titulo(v.historia)}”. La historia ya no está disponible.`,
-          ts: Date.now()
-        });
-      });
-      refrescarCreditos();
-      if (body.classList.contains('en-vender')) cargarVentas();
-      aviso(data.length === 1 ? 'Se resolvió una de tus ventas.' : `Se resolvieron ${data.length} de tus ventas.`);
-    } catch (e) { console.warn('No se pudieron resolver las ventas', e); }
-  }
-  window.addEventListener('cube:usuario-listo', resolver);
-  setInterval(resolver, 60000);
-  if (sesion()) resolver();
 })();
-
 </script>
 
 <!-- ================= OBTENER ================= -->
@@ -1775,7 +1395,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   const body = document.body;
   // Mismas reglas que el servidor (profit_historia): el servidor decide el resultado; la aguja solo lo muestra.
   const FACTOR = 2, PROB_MAX = 0.95, MAX_USADAS = 6, MAX_COPIAS = 3;
-  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-vender', 'en-vbuscar', 'en-lotes', 'en-profit'];
+  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit'];
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const titulo = img => {
     const p = (window.catalogo || []).find(x => x.img === img);
@@ -1874,7 +1494,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
       return `<button class="v-item" type="button" data-id="${esc(id)}"${off ? ' disabled' : ''}>` +
         `<div class="v-th"><img src="${IMG_BASE}${esc(id)}" alt="" loading="lazy" onerror="this.style.display='none'"></div>` +
         `<div class="v-it">${esc(titulo(id))}<span>Valor ${fmt(precio(id))} · Disponibles ${Math.max(0, quedan)}</span></div></button>`;
-    }).join('') || '<p class="cw-vacio">No tienes otras historias para usar. Consíguelas en Lotes.</p>';
+    }).join('') || '<p class="cw-vacio">No tienes otras historias para usar.</p>';
   }
   const abrirLista = () => { pintarLista(); $('oSheet').hidden = false; };
   const cerrarLista = () => { $('oSheet').hidden = true; };
@@ -1997,52 +1617,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
     if (d) ir(d); else cerrarModales();
   };
   // Al tocar Buscar en la barra inferior, esta pantalla debe cerrarse
-  $('navBuscar').addEventListener('click', () => { if (!ocupado) body.classList.remove('en-profit', 'en-vender', 'en-vbuscar', 'en-lotes'); });
-})();
-</script>
-
-<!-- ================= MI INVENTARIO: panel de una historia ================= -->
-<script>
-(function () {
-  const $ = id => document.getElementById(id);
-  const titulo = img => { const p = (window.catalogo || []).find(x => x.img === img); return p ? p.alt : img.replace(/\.webp$/, '').replace(/-/g, ' '); };
-  let actual = null;
-  const esFav = img => { const u = window.usuario && window.usuario(); return !!(u && (u.favoritos || []).some(f => f && f.img === img)); };
-  const cerrar = () => { $('iSheet').hidden = true; actual = null; };
-
-  document.addEventListener('click', e => {
-    const el = e.target.closest('#cwInv .portada');
-    if (!el || !el.dataset.id) return;
-    actual = el.dataset.id;
-    $('iImg').src = IMG_BASE + actual;
-    $('iImg').alt = titulo(actual);
-    $('iTitulo').textContent = titulo(actual);
-    $('iFav').classList.toggle('on', esFav(actual));
-    $('iSheet').hidden = false;
-  });
-  $('iSheet').addEventListener('click', e => { if (e.target === $('iSheet')) cerrar(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('iSheet').hidden) cerrar(); });
-
-  $('iVer').onclick = () => { const img = actual; cerrar(); if (window.cubeVerAhora) window.cubeVerAhora(img); };
-
-  $('iFav').onclick = () => {
-    const u = window.usuario && window.usuario();
-    if (!u) { window.abrirModal('auth'); return; }
-    const fav = esFav(actual);
-    u.favoritos = (u.favoritos || []).filter(f => f && f.img !== actual);
-    if (!fav) u.favoritos.push({ img: actual });
-    if (typeof window.guardarUsuario === 'function') window.guardarUsuario(u);
-    $('iFav').classList.toggle('on', !fav);
-    window.cubeAviso(fav ? 'Quitada de favoritos.' : 'Agregada a favoritos.');
-  };
-
-  // Agregar a una lista: la lógica de listas vive en cube-listas.js. Si expone un gancho se usa; si no, avisa.
-  $('iLista').onclick = () => {
-    const img = actual;
-    const ev = new CustomEvent('cube-agregar-lista', { detail: { img }, cancelable: true });
-    if (typeof window.cubeAgregarALista === 'function') { cerrar(); window.cubeAgregarALista(img); return; }
-    if (window.dispatchEvent(ev)) window.cubeAviso('Las listas estarán disponibles muy pronto.'); else cerrar();
-  };
+  $('navBuscar').addEventListener('click', () => { if (!ocupado) body.classList.remove('en-profit'); });
 })();
 </script>
 
