@@ -142,7 +142,7 @@
   .sin-resultados{color:var(--texto-suave);font-size:1rem;padding:10px 0}
   .sin-resultados[hidden]{display:none}
 
-  /* Panel de cuenta */
+  /* Panel de cuenta (perfil) */
   body.perfil-abierto{overflow:hidden}
   .menu-overlay{position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s}
   body.perfil-abierto .menu-overlay{opacity:1;visibility:visible}
@@ -278,40 +278,33 @@
   #vAceptar:disabled{opacity:.5}
   .v-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:400;max-width:88%;padding:12px 18px;border-radius:14px;background:var(--verde);color:var(--negro);font-size:.82rem;font-weight:600;text-align:center;transition:opacity .25s,transform .25s}
   .v-toast.on{opacity:1;transform:translate(-50%,0)}
-  #grilla .portada,#listaGrilla .portada,#cwInv .portada{cursor:pointer}
+  #grilla .portada,#listaGrilla .portada{cursor:pointer}
 
-  /* ===== Mi inventario: 4 rectángulos (16x4.5) por categorías de rareza ===== */
-  .inventario-lista-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:10px}
-  @media(min-width:700px){.inventario-lista-grid{grid-template-columns:1fr 1fr}}
-  .inv-categoria-rect{display:flex;align-items:center;justify-content:space-between;width:100%;aspect-ratio:16/4.5;padding:0 20px;border-radius:18px;background:var(--panel);color:var(--texto);cursor:pointer;transition:transform .12s,outline-color .2s;border:2px solid transparent}
-  .inv-categoria-rect:active{transform:scale(.98)}
-  .inv-cat-info{display:flex;flex-direction:column;gap:4px}
-  .inv-cat-info h3{font-size:1.1rem;font-weight:700;line-height:1.2}
-  .inv-cat-info span{color:var(--texto-suave);font-size:.82rem}
-  .inv-badge-rareza{padding:4px 12px;border-radius:999px;font-size:0.75rem;font-weight:700;text-transform:uppercase}
-  
-  /* Colores de etiquetas y bordes de categorías */
-  .rareza-comun { color: #ffe600; background: rgba(255, 230, 0, 0.12); border-color: rgba(255, 230, 0, 0.3); }
-  .rareza-raro { color: #ff3333; background: rgba(255, 51, 51, 0.12); border-color: rgba(255, 51, 51, 0.3); }
-  .rareza-extraordinario { color: #a855f7; background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.3); }
-  .rareza-legendario { color: #fbbf24; background: rgba(251, 191, 36, 0.12); border-color: rgba(251, 191, 36, 0.3); }
-
-  /* Etiquetas individuales en listados/historias */
-  .tag-comun { background-color: #ffe600; color: #111; }
-  .tag-raro { background-color: #ff3333; color: #fff; }
-  .tag-extraordinario { background-color: #a855f7; color: #fff; }
-  .tag-legendario { background-color: #fbbf24; color: #111; }
-
-  /* Lotes estilos */
+  /* ===== Lotes y Mi Inventario en Lista (16x4.5) ===== */
   .lote-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
   @media(min-width:640px){.lote-grid{grid-template-columns:1fr 1fr}}
   @media(min-width:960px){.lote-grid{grid-template-columns:repeat(3,1fr)}}
-  .lote-rect{display:flex;align-items:center;gap:14px;width:100%;aspect-ratio:15/6;padding:4%;border-radius:22px;background:var(--panel);color:var(--texto)}
-  .lote-img{flex:0 0 auto;width:34.8%;aspect-ratio:1/1;border-radius:18%;background:var(--fondo);overflow:hidden}
+  
+  #cwInv{display:grid;grid-template-columns:1fr;gap:12px;margin-top:10px}
+  #cwInv .cw-vacio{grid-column:1/-1;padding:6px 0}
+  
+  .lote-rect{display:flex;align-items:center;gap:14px;width:100%;aspect-ratio:16/4.5;padding:12px 16px;border-radius:22px;background:var(--panel);color:var(--texto);cursor:pointer;transition:transform .12s}
+  .lote-rect:active{transform:scale(.98)}
+  .lote-img{flex:0 0 auto;width:20%;aspect-ratio:1/1;border-radius:14px;background:var(--fondo);overflow:hidden}
   .lote-img img{width:100%;height:100%;object-fit:cover;display:block}
-  .lote-info{min-width:0}
-  .lote-info h3{font-size:1.1rem;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
-  .lote-info span{display:block;margin-top:4px;color:var(--texto-suave);font-size:.8rem}
+  .lote-info{min-width:0;flex:1}
+  .lote-info h3{font-size:1.05rem;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
+  .lote-info span{display:block;margin-top:4px;color:var(--texto-suave);font-size:0.8rem}
+  
+  .v-cancel{flex:0 0 auto;min-height:34px;padding:0 12px;border-radius:10px;background:var(--fondo);color:var(--texto);font-size:.74rem;font-weight:600}
+  .v-cancel:active{transform:scale(.95)}
+
+  /* ===== Sistema de Etiquetas de Rareza ===== */
+  .tag-rareza{display:inline-block;padding:2px 8px;border-radius:6px;font-size:.7rem;font-weight:700;text-transform:uppercase;margin-top:4px;letter-spacing:0.5px}
+  .tag-comun{background:#ffeb3b;color:#111313}
+  .tag-raro{background:#E5484D;color:#F4F5F2}
+  .tag-extraordinario{background:#8e24aa;color:#F4F5F2}
+  .tag-legendario{background:#ffd700;color:#111313}
 
   /* Panel de historia */
   #tSheet .v-card{max-height:90vh;overflow-y:auto}
@@ -324,8 +317,6 @@
   .b-sec{background:var(--fondo);color:var(--texto)}
   .b-pri:disabled{opacity:.4;cursor:default}
 
-  #lGrilla .lote-rect{cursor:pointer;transition:transform .12s}
-  #lGrilla .lote-rect:active{transform:scale(.98)}
   .t-precio{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 2px}
   .t-precio svg{width:24px;height:24px;color:var(--verde)}
   .t-precio b{font-size:1.8rem;font-weight:600;line-height:1.1}
@@ -338,10 +329,42 @@
   body.en-profit{padding-bottom:90px}
   #profit{display:none;margin:0 auto;padding:14px var(--margen) 40px;max-width:640px}
   body.en-profit #profit{display:block}
+  .o-panel{margin-top:16px;padding:14px;background:var(--panel);border-radius:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .o-slot{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:rgba(244,245,242,.06);display:grid;place-items:center;color:var(--verde);transition:transform .12s}
+  .o-slot:active{transform:scale(.95)}
+  .o-slot svg{width:26px;height:26px}
+  .o-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .o-slot .o-x{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:rgba(17,19,19,.78);color:var(--texto);display:grid;place-items:center}
+  .o-slot .o-x svg{width:10px;height:10px}
+  .o-bloq .o-slot{pointer-events:none}
+  .o-oct{display:block;width:min(78vw,340px);height:auto;margin:26px auto 0;overflow:visible}
+  .o-oct .o-borde{fill:none;stroke:var(--texto);stroke-width:5;stroke-linejoin:miter}
+  .o-oct .o-rojo{fill:none;stroke:#E5484D;stroke-width:5;stroke-linejoin:round;stroke-linecap:butt}
+  .o-oct .o-aguja{stroke:var(--texto);stroke-width:5;stroke-linecap:butt}
+  .o-cover{width:min(70vw,300px);aspect-ratio:16/9;margin:26px auto 0;border-radius:14px;overflow:hidden;background:var(--panel)}
+  .o-cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .o-go{display:block;width:min(70vw,300px);margin:20px auto 0;min-height:48px;border-radius:14px;font-weight:600;font-size:.95rem}
+  #oLista .v-item{width:100%;text-align:left;cursor:pointer}
+  #oLista .v-item:disabled{opacity:.4;cursor:default}
+  #oLista .v-th{flex-basis:72px}
+  #oSheet .v-card{max-width:380px;max-height:84vh;display:flex;flex-direction:column}
+  #oLista{overflow-y:auto;margin:6px 0 12px}
+  #oSheet .v-acc{margin-top:0}
 
   .t-fila{margin:12px 2px 0;text-align:left}
   .t-etiqueta{display:inline-flex;align-items:center;gap:6px;padding:5px 12px 5px 9px;border-radius:999px;background:var(--fondo);color:var(--verde);font-weight:600;font-size:.8rem;line-height:1.3}
   .t-etiqueta svg{width:16px;height:16px;flex:none}
+
+  /* Lote: lista de historias y ruletas */
+  #rSheet .v-card{max-height:90vh;overflow-y:auto}
+  .l-lista{margin:6px 0 4px;max-height:44vh;overflow-y:auto}
+  .l-lista .v-item:last-child{border-bottom:none}
+  .l-reel{width:80%;aspect-ratio:16/9;margin:12px auto 0;border-radius:14px;overflow:hidden;background:var(--fondo);outline:2px solid transparent;outline-offset:-2px;transition:outline-color .25s}
+  .l-reel.listo{outline-color:var(--verde)}
+  .l-cell{width:100%;aspect-ratio:16/9}
+  .l-cell img{width:100%;height:100%;object-fit:cover;display:block}
+  .l-cap{margin:6px 0 0;text-align:center;font-size:.8rem;font-weight:600;min-height:1.3em;opacity:0;transition:opacity .25s}
+  .l-cap.on{opacity:1}
 
   /* Historia del inventario */
   .i-acc{display:flex;gap:10px;align-items:stretch;margin-top:14px}
@@ -384,35 +407,35 @@
     </div>
 
     <h2 class="cw-h2">Mi inventario</h2>
-    <div class="inventario-lista-grid" id="cwInv">
-      <!-- 4 rectángulos organizados por rareza -->
-      <div class="inv-categoria-rect rareza-comun" data-categoria="comun">
-        <div class="inv-cat-info">
+    <div id="cwInv">
+      <!-- 4 Rectángulos de Inventario en formato Lista (16x4.5) -->
+      <div class="lote-rect" onclick="location.href='cube-obtener.html'">
+        <div class="lote-img"><div class="sin-img">COM</div></div>
+        <div class="lote-info">
           <h3>Comunes</h3>
-          <span>Historias de categoría común</span>
+          <span>Historias comunes organizadas</span>
         </div>
-        <span class="inv-badge-rareza rareza-comun">Ver lista</span>
       </div>
-      <div class="inv-categoria-rect rareza-raro" data-categoria="raro">
-        <div class="inv-cat-info">
+      <div class="lote-rect" onclick="location.href='cube-obtener.html'">
+        <div class="lote-img"><div class="sin-img">RAR</div></div>
+        <div class="lote-info">
           <h3>Raras</h3>
-          <span>Historias de categoría rara</span>
+          <span>Historias raras organizadas</span>
         </div>
-        <span class="inv-badge-rareza rareza-raro">Ver lista</span>
       </div>
-      <div class="inv-categoria-rect rareza-extraordinario" data-categoria="extraordinario">
-        <div class="inv-cat-info">
+      <div class="lote-rect" onclick="location.href='cube-obtener.html'">
+        <div class="lote-img"><div class="sin-img">EXT</div></div>
+        <div class="lote-info">
           <h3>Extraordinarias</h3>
-          <span>Historias de categoría extraordinaria</span>
+          <span>Historias extraordinarias organizadas</span>
         </div>
-        <span class="inv-badge-rareza rareza-extraordinario">Ver lista</span>
       </div>
-      <div class="inv-categoria-rect rareza-legendario" data-categoria="legendario">
-        <div class="inv-cat-info">
+      <div class="lote-rect" onclick="location.href='cube-obtener.html'">
+        <div class="lote-img"><div class="sin-img">LEG</div></div>
+        <div class="lote-info">
           <h3>Legendarias</h3>
-          <span>Historias de categoría legendaria</span>
+          <span>Historias legendarias organizadas</span>
         </div>
-        <span class="inv-badge-rareza rareza-legendario">Ver lista</span>
       </div>
     </div>
     <button class="cw-mas" id="cwMas" type="button" hidden>Ver más</button>
@@ -423,7 +446,7 @@
       <div class="dots" id="dots"></div>
     </section>
   </div>
-</div><!-- /home -->
+</div>
 
 <!-- BÚSQUEDA -->
 <section id="buscar" aria-label="Buscar historias">
@@ -441,7 +464,7 @@
   <p class="sin-resultados" id="sinResultados" hidden>No encontramos historias con ese nombre.</p>
 </section>
 
-<!-- LISTA (favoritos / guardados) -->
+<!-- LISTA -->
 <section id="lista" aria-label="Lista">
   <div class="buscar-top">
     <button class="volver-btn" id="cerrarLista" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
@@ -460,7 +483,7 @@
   <div class="notif-ajustes">
     <div class="notif-ajustes-info">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
-      <div><b>Notificaciones Push</b><small>Recibe avisos en tu dispositivo cuando CUBE tenga novedades. Requiere permiso del navegador.</small></div>
+      <div><b>Notificaciones Push</b><small>Recibe avisos en tu dispositivo cuando CUBE tenga novedades.</small></div>
     </div>
     <label class="switch" aria-label="Activar o desactivar notificaciones push">
       <input type="checkbox" id="pushToggle">
@@ -478,7 +501,7 @@
     <button class="volver-btn" id="cerrarAlmacen" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <h1 style="font-size:1.3rem;font-weight:700;">Almacén</h1>
   </div>
-  <p class="alm-intro">El archivo del proyecto: logos, cambios de marca y versiones del sitio, de la más antigua a la más reciente.</p>
+  <p class="alm-intro">El archivo del proyecto: logos, cambios de marca y versiones del sitio.</p>
   <div class="tl" id="tl"></div>
 </section>
 
@@ -488,7 +511,7 @@
     <button class="volver-btn" id="cerrarVender" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <h1 style="font-size:1.3rem;font-weight:700;">Vender</h1>
   </div>
-  <p class="v-intro">Vende una de tus historias para ganar créditos. Máximo 10 ventas activas. El resultado llega al azar, en minutos u horas, y cada +25 que subas al precio cuesta 3 créditos. Si cancelas una venta, esa historia debe esperar 24 horas para volver a ponerse en venta.</p>
+  <p class="v-intro">Vende una de tus historias para ganar créditos.</p>
   <button class="v-add" id="vAgregar" type="button" aria-label="Agregar una historia para vender" title="Agregar historia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
   <h2 class="cw-h2 v-h2">Mis ventas</h2>
   <div id="vLista"></div>
@@ -515,12 +538,42 @@
     <button class="volver-btn" id="cerrarLotes" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <h1 style="font-size:1.3rem;font-weight:700;">Lotes</h1>
   </div>
-  <p class="l-intro">Cada lote reúne varias historias.</p>
+  <p class="l-intro">Cada lote reúne varias historias organizadas por su rareza.</p>
   <h2>Lotes disponibles</h2>
-  <div class="lote-grid" id="lGrilla"></div>
+  <div class="lote-grid" id="lGrilla">
+    <!-- Lotes con sus respectivas etiquetas integradas -->
+    <div class="lote-rect" onclick="location.href='cube-obtener.html'">
+      <div class="lote-img"><div class="sin-img">LOT 1</div></div>
+      <div class="lote-info">
+        <h3>Lote Común</h3>
+        <span class="tag-rareza tag-comun">Común</span>
+      </div>
+    </div>
+    <div class="lote-rect" onclick="location.href='cube-obtener.html'">
+      <div class="lote-img"><div class="sin-img">LOT 2</div></div>
+      <div class="lote-info">
+        <h3>Lote Raro</h3>
+        <span class="tag-rareza tag-raro">Raro</span>
+      </div>
+    </div>
+    <div class="lote-rect" onclick="location.href='cube-obtener.html'">
+      <div class="lote-img"><div class="sin-img">LOT 3</div></div>
+      <div class="lote-info">
+        <h3>Lote Extraordinario</h3>
+        <span class="tag-rareza tag-extraordinario">Extraordinario</span>
+      </div>
+    </div>
+    <div class="lote-rect" onclick="location.href='cube-obtener.html'">
+      <div class="lote-img"><div class="sin-img">LOT 4</div></div>
+      <div class="lote-info">
+        <h3>Lote Legendario</h3>
+        <span class="tag-rareza tag-legendario">Legendario</span>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- PROFIT -->
+<!-- PROFIT / OBTENER -->
 <section id="profit" aria-label="Obtener">
   <div class="buscar-top">
     <button class="volver-btn" id="cerrarProfit" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
@@ -536,18 +589,18 @@
     <p class="v-card-t" id="iTitulo"></p>
     <div class="i-acc">
       <button class="i-ico" id="iFav" type="button" aria-label="Favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
-      <button class="b-pri" id="iVer" type="button">Ver ahora</button>
+      <button class="b-pri" id="iVer" type="button" onclick="location.href='cube-obtener.html'">Obtener</button>
       <button class="i-ico" id="iLista" type="button" aria-label="Agregar a una lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v6M15 16h6"/></svg></button>
     </div>
   </div>
 </div>
 
-<!-- OBTENER · ELEGIR HISTORIA DEL INVENTARIO -->
+<!-- OBTENER · ELEGIR HISTORIA -->
 <div class="v-sheet" id="oSheet" hidden>
   <div class="v-card" role="dialog" aria-modal="true" aria-label="Elegir historias">
     <p class="v-card-t" style="margin-bottom:4px">Tus historias</p>
     <div id="oLista"></div>
-    <div class="v-acc"><button class="b-pri" id="oListo" type="button">Listo</button></div>
+    <div class="v-acc"><button class="b-pri" id="oListo" type="button" onclick="location.href='cube-obtener.html'">Obtener</button></div>
   </div>
 </div>
 
@@ -565,6 +618,7 @@
     <div class="v-acc"><button id="vCancelar" type="button">Cancelar</button><button id="vAceptar" type="button">Aceptar</button></div>
   </div>
 </div>
+
 <!-- HISTORIA · INFO -->
 <div class="v-sheet" id="tSheet" hidden>
   <div class="v-card" role="dialog" aria-modal="true" aria-label="Historia">
@@ -573,9 +627,12 @@
     <div class="hero-meta" id="tMeta"></div>
     <p class="t-sinopsis" id="tSinopsis"></p>
     <div class="t-fila"><span class="t-etiqueta" id="tPrecio"></span></div>
-    <div id="tCuerpo"></div>
+    <div id="tCuerpo">
+      <button class="b-pri" style="width:100%; padding:12px; border-radius:12px; margin-top:12px;" onclick="location.href='cube-obtener.html'">Obtener</button>
+    </div>
   </div>
 </div>
+
 <!-- HOJA GENÉRICA -->
 <div class="v-sheet" id="rSheet" hidden>
   <div class="v-card" role="dialog" aria-modal="true" aria-label="Aviso">
@@ -604,7 +661,7 @@
 <div class="menu-overlay" id="menuOverlay"></div>
 
 <div class="alm-lb" id="almLb"><img alt=""><p></p></div>
-</div><!-- /app -->
+</div>
 
 <footer class="pie">
   <div class="pie-in">
@@ -648,7 +705,7 @@
 
     <div class="pie-legal">
       <p class="copy">Propiedad intelectual © <span id="anio">2026</span> Cube, Inc.</p>
-      <p class="desc">Cube es una plataforma de streaming literario que prioriza el entretenimiento y consumo rápido.</p>
+      <p class="desc">Cube es una plataforma de streaming literario.</p>
       <p>Todos los derechos reservados.</p>
       <div class="pie-enlaces">
         <a href="#">Términos de uso</a>
@@ -676,7 +733,7 @@
   <button class="bottom-nav-item" id="navPerfil" aria-label="Perfil">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
   </button>
-</main>
+</nav>
 
 <script>
 const IMG_BASE = "https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/";
@@ -690,8 +747,7 @@ window.actualizarHeader = function() {
   const u = window.usuario();
   const navPerfilBtn = document.getElementById('navPerfil');
   if (u) {
-    const punto = (typeof hayNotifNuevas === 'function' && hayNotifNuevas()) ? '<span class="notif-dot"></span>' : '';
-    navPerfilBtn.innerHTML = `<span class="nav-perfil-wrap"><img class="bottom-nav-avatar" src="${u.foto || AVATAR}" alt="Perfil">${punto}</span>`;
+    navPerfilBtn.innerHTML = `<span class="nav-perfil-wrap"><img class="bottom-nav-avatar" src="${u.foto || AVATAR}" alt="Perfil"></span>`;
   } else {
     navPerfilBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>`;
   }
@@ -702,46 +758,18 @@ function activarItemNav(idBtn) {
   document.getElementById(idBtn).classList.add('activo');
 }
 
-// Redirección del botón "obtener" hacia cube-obtener.html
-document.addEventListener('click', e => {
-  const btnObtener = e.target.closest('[data-a="obtener"], .btn-obtener, a[href*="obtener"]');
-  if (btnObtener || e.target.id === 'btnObtener' || e.target.classList.contains('obtener-trigger')) {
-    e.preventDefault();
-    window.location.href = 'cube-obtener.html';
-  }
-});
-
-// Configuración de las historias con sus nuevas etiquetas de rareza
-window.catalogoDeHistorias = [
-  { titulo: "Bigfoot", rareza: "raro", claseRareza: "tag-raro" },
-  { titulo: "Obedece", rareza: "común", claseRareza: "tag-comun" },
-  { titulo: "Nada", rareza: "común", claseRareza: "tag-comun" },
-  { titulo: "Muevete al Minuto", rareza: "común", claseRareza: "tag-comun" },
-  { titulo: "Strike", rareza: "raro", claseRareza: "tag-raro" },
-  { titulo: "Retorcidos", rareza: "raro", claseRareza: "tag-raro" },
-  { titulo: "Valentine", rareza: "común", claseRareza: "tag-comun" },
-  { titulo: "Ultimate", rareza: "común", claseRareza: "tag-comun" },
-  { titulo: "Metalosis Maligna", rareza: "raro", claseRareza: "tag-raro" },
-  { titulo: "Ratman", rareza: "raro", claseRareza: "tag-raro" },
-  { titulo: "Eternamente vivo", rareza: "extraordinario", claseRareza: "tag-extraordinario" },
-  { titulo: "Eternamente vivo", rareza: "legendario", claseRareza: "tag-legendario" },
-  { titulo: "Eternamente vivo 3, 4 y 5", rareza: "raro", claseRareza: "tag-raro" },
-  { titulo: "Triangle Room", rareza: "extraordinario", claseRareza: "tag-extraordinario" },
-  { titulo: "Menem", rareza: "raro", claseRareza: "tag-raro" },
-  { titulo: "Mama dogs", rareza: "común", claseRareza: "tag-comun" },
-  { titulo: "Las entrevistas", rareza: "legendario", claseRareza: "tag-legendario" },
-  { titulo: "Golem", rareza: "común", claseRareza: "tag-comun" },
-  { titulo: "La familia Rani", rareza: "extraordinario", claseRareza: "tag-extraordinario" },
-  { titulo: "El teléfono", rareza: "común", claseRareza: "tag-comun" }
-];
-
-document.getElementById('navWallet').onclick = () => { window.scrollTo(0,0); };
+document.getElementById('navWallet').onclick = () => { window.scrollTo(0, 0); };
 document.getElementById('navHome').onclick = () => { location.href = 'cube-home.html'; };
-document.getElementById('navOrbe').onclick = () => { activarItemNav('navOrbe'); alert('Orbe activada.'); };
+document.getElementById('navOrbe').onclick = () => { activarItemNav('navOrbe'); };
 document.getElementById('navPerfil').onclick = () => {
   const u = window.usuario();
-  if (u) { activarItemNav('navPerfil'); }
-  else { window.location.href = 'cube-obtener.html'; }
+  if (u) { activarItemNav('navPerfil'); document.body.classList.add('perfil-abierto'); }
+  else { location.href = 'cube-obtener.html'; }
+};
+
+document.getElementById('cerrarPerfil').onclick = () => {
+  document.body.classList.remove('perfil-abierto');
+  activarItemNav('navWallet');
 };
 
 actualizarHeader();
