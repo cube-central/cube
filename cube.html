@@ -49,12 +49,6 @@
   .cw-badge[hidden]{display:none}
 
   .cw-h2{font-size:1.1rem;font-weight:600;margin-bottom:6px;color:var(--texto)}
-  .cw-lot{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--panel)}
-  .cw-lot .ic{width:44px;height:44px;border-radius:14px;background:var(--panel);display:grid;place-items:center;color:var(--verde);flex:0 0 auto}
-  .cw-lot .ic svg{width:26px;height:26px}
-  .cw-lot .tx{flex:1;min-width:0;font-size:.9rem;font-weight:500}
-  .cw-lot .tx span{display:block;color:var(--texto-suave);font-size:.75rem;font-weight:400}
-  .cw-lot em{font-style:normal;color:var(--verde);font-weight:600;font-size:.9rem}
   .cw-vacio{padding:18px 0;color:var(--texto-suave);font-size:.85rem}
   .cw-mas{display:block;width:100%;margin-top:14px;min-height:42px;padding:9px 12px;background:var(--panel);border-radius:10px;font-weight:600;font-size:.84rem;color:var(--verde);text-align:center}
   .cw-mas:active{transform:scale(.98)}
@@ -234,7 +228,7 @@
   .alm-lb p{color:var(--texto-suave);font-size:.85rem;text-align:center}
   @media (prefers-reduced-motion:reduce){.tl-it{opacity:1!important;transform:none!important;transition:none!important}}
 
-  /* ===== Vender y Agregar lotes ===== */
+  /* ===== Vender y Lotes ===== */
   body.en-vender #home,body.en-vbuscar #home,body.en-lotes #home{display:none}
   body.en-vender .pie,body.en-vbuscar .pie,body.en-lotes .pie{display:none}
   body.en-vender,body.en-vbuscar,body.en-lotes{padding-bottom:90px}
@@ -284,50 +278,96 @@
   #vAceptar:disabled{opacity:.5}
   .v-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:400;max-width:88%;padding:12px 18px;border-radius:14px;background:var(--verde);color:var(--negro);font-size:.82rem;font-weight:600;text-align:center;transition:opacity .25s,transform .25s}
   .v-toast.on{opacity:1;transform:translate(-50%,0)}
-  #grilla .portada,#lGrilla .portada,#listaGrilla .portada{cursor:pointer}
+  #grilla .portada,#listaGrilla .portada,#cwInv .portada{cursor:pointer}
 
-  /* ===== Lotes (packs con descuento) ===== */
+  /* ===== Lotes: rectángulo 15 × 6 (cuadro de imagen a la izquierda, nombre y cantidad) ===== */
   .lote-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
   @media(min-width:640px){.lote-grid{grid-template-columns:1fr 1fr}}
   @media(min-width:960px){.lote-grid{grid-template-columns:repeat(3,1fr)}}
-  .lote-card{display:flex;flex-direction:column;gap:8px;width:100%;text-align:left;padding:16px;border:0;border-radius:22px;background:var(--panel);color:var(--texto);cursor:pointer;transition:transform .12s}
-  .lote-card:active{transform:scale(.98)}
-  .lote-card:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
-  .lote-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .lote-top h3{font-size:1.1rem;font-weight:700}
-  .lote-badge{padding:3px 10px;border-radius:999px;background:var(--verde);color:var(--negro);font-size:.7rem;font-weight:700;white-space:nowrap}
-  .lote-sub{color:var(--texto-suave);font-size:.76rem}
-  .lote-precio{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-  .lote-precio b{font-size:1.5rem;font-weight:600}
-  .lote-precio s{color:var(--texto-suave);font-size:.85rem}
-  .lote-precio small{color:var(--texto-suave);font-size:.72rem}
-  .lote-ahorro{color:var(--verde);font-size:.78rem;font-weight:600}
-  .lote-lista{max-height:260px;overflow-y:auto;margin:10px 0 0;padding:0}
-  .lote-lista .v-item{padding:8px 0}
-  .lote-lista .v-th{flex-basis:64px}
-  .lote-lista .v-pr{color:var(--texto-suave);font-weight:500}
-  .lote-tot{display:flex;justify-content:space-between;margin:10px 2px 0;font-size:.8rem;color:var(--texto-suave)}
-  .lote-tot b{color:var(--texto);font-weight:600}
-  #lSheet .v-card{max-width:380px}
-  .t-lotes{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 4px}
-  .t-lotes:empty{display:none}
-  .t-lotes .hero-lote{margin-top:8px}
-  .lote-max{color:var(--texto-suave);font-size:.68rem;font-weight:600;margin-left:6px}
+  #cwInv{margin-top:10px}
+  #cwInv .cw-vacio{grid-column:1/-1;padding:6px 0}
+  .lote-rect{display:flex;align-items:center;gap:14px;width:100%;aspect-ratio:15/6;padding:4%;border-radius:22px;background:var(--panel);color:var(--texto)}
+  .lote-img{flex:0 0 auto;width:34.8%;aspect-ratio:1/1;border-radius:18%;background:var(--fondo);overflow:hidden}
+  .lote-img img{width:100%;height:100%;object-fit:cover;display:block}
+  .lote-info{min-width:0}
+  .lote-info h3{font-size:1.1rem;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
+  .lote-info span{display:block;margin-top:4px;color:var(--texto-suave);font-size:.8rem}
   .v-cancel{flex:0 0 auto;min-height:34px;padding:0 12px;border-radius:10px;background:var(--fondo);color:var(--texto);font-size:.74rem;font-weight:600}
   .v-cancel:active{transform:scale(.95)}
-  .t-precio{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 2px}
-  .t-precio svg{width:24px;height:24px;color:var(--verde)}
-  .t-precio b{font-size:1.8rem;font-weight:600;line-height:1.1}
-  .t-precio small{color:var(--texto-suave);font-size:.75rem}
-  #tCuerpo .v-nota{margin-top:10px}
-  #tCuerpo .v-acc{align-items:stretch}
+
+  /* ===== Panel de historia: portada, título, info, sinopsis y botón ===== */
+  #tSheet .v-card{max-height:90vh;overflow-y:auto}
+  .t-titulo{margin:14px 2px 0;font-weight:700;font-size:1.15rem;line-height:1.15;color:var(--texto);text-align:left}
+  #tMeta{margin:6px 2px 0}
+  .t-sinopsis{margin:12px 2px 0;color:var(--texto-suave);font-size:.85rem;line-height:1.55;text-align:left}
+  #tCuerpo .v-acc{align-items:stretch;margin-top:18px}
   .b-pri,.b-sec{flex:1}
   .b-pri{background:var(--verde);color:var(--negro)}
   .b-sec{background:var(--fondo);color:var(--texto)}
   .b-pri:disabled{opacity:.4;cursor:default}
-  #tCuerpo .v-acc .t-ico{flex:0 0 46px;min-height:46px;border-radius:14px;background:var(--fondo);color:var(--verde);display:grid;place-items:center;transition:transform .12s}
-  #tCuerpo .v-acc .t-ico svg{width:22px;height:22px}
-  #tCuerpo .v-acc .t-ico:active{transform:scale(.93)}
+
+  /* ===== Lotes tocables + hoja de compra ===== */
+  #lGrilla .lote-rect{cursor:pointer;transition:transform .12s}
+  #lGrilla .lote-rect:active{transform:scale(.98)}
+  .t-precio{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 2px}
+  .t-precio svg{width:24px;height:24px;color:var(--verde)}
+  .t-precio b{font-size:1.8rem;font-weight:600;line-height:1.1}
+  .t-precio small{color:var(--texto-suave);font-size:.75rem}
+  #rCuerpo .v-acc{margin-top:14px}
+  #rCuerpo .v-cover{margin-top:10px}
+
+  /* ===== Pantalla Obtener ===== */
+  body.en-profit #home,body.en-profit .pie{display:none}
+  body.en-profit{padding-bottom:90px}
+  #profit{display:none;margin:0 auto;padding:14px var(--margen) 40px;max-width:640px}
+  body.en-profit #profit{display:block}
+  /* Obtener: panel de historias, octágono con aguja y portada */
+  .o-panel{margin-top:16px;padding:14px;background:var(--panel);border-radius:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .o-slot{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:rgba(244,245,242,.06);display:grid;place-items:center;color:var(--verde);transition:transform .12s}
+  .o-slot:active{transform:scale(.95)}
+  .o-slot svg{width:26px;height:26px}
+  .o-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .o-slot .o-x{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:rgba(17,19,19,.78);color:var(--texto);display:grid;place-items:center}
+  .o-slot .o-x svg{width:10px;height:10px}
+  .o-bloq .o-slot{pointer-events:none}
+  .o-oct{display:block;width:min(78vw,340px);height:auto;margin:26px auto 0;overflow:visible}
+  .o-oct .o-borde{fill:none;stroke:var(--texto);stroke-width:5;stroke-linejoin:miter}
+  .o-oct .o-rojo{fill:none;stroke:#E5484D;stroke-width:5;stroke-linejoin:round;stroke-linecap:butt}
+  .o-oct .o-aguja{stroke:var(--texto);stroke-width:5;stroke-linecap:butt}
+  .o-cover{width:min(70vw,300px);aspect-ratio:16/9;margin:26px auto 0;border-radius:14px;overflow:hidden;background:var(--panel)}
+  .o-cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .o-go{display:block;width:min(70vw,300px);margin:20px auto 0;min-height:48px;border-radius:14px;font-weight:600;font-size:.95rem}
+  #oLista .v-item{width:100%;text-align:left;cursor:pointer}
+  #oLista .v-item:disabled{opacity:.4;cursor:default}
+  #oLista .v-th{flex-basis:72px}
+  #oSheet .v-card{max-width:380px;max-height:84vh;display:flex;flex-direction:column}
+  #oLista{overflow-y:auto;margin:6px 0 12px}
+  #oSheet .v-acc{margin-top:0}
+
+  /* Etiqueta de precio en el panel de la historia */
+  .t-fila{margin:12px 2px 0;text-align:left}
+  .t-etiqueta{display:inline-flex;align-items:center;gap:6px;padding:5px 12px 5px 9px;border-radius:999px;background:var(--fondo);color:var(--verde);font-weight:600;font-size:.8rem;line-height:1.3}
+  .t-etiqueta svg{width:16px;height:16px;flex:none}
+
+  /* ===== Lote: lista de historias y ruletas ===== */
+  #rSheet .v-card{max-height:90vh;overflow-y:auto}
+  .l-lista{margin:6px 0 4px;max-height:44vh;overflow-y:auto}
+  .l-lista .v-item:last-child{border-bottom:none}
+  .l-reel{width:80%;aspect-ratio:16/9;margin:12px auto 0;border-radius:14px;overflow:hidden;background:var(--fondo);outline:2px solid transparent;outline-offset:-2px;transition:outline-color .25s}
+  .l-reel.listo{outline-color:var(--verde)}
+  .l-cell{width:100%;aspect-ratio:16/9}
+  .l-cell img{width:100%;height:100%;object-fit:cover;display:block}
+  .l-cap{margin:6px 0 0;text-align:center;font-size:.8rem;font-weight:600;min-height:1.3em;opacity:0;transition:opacity .25s}
+  .l-cap.on{opacity:1}
+
+  /* ===== Historia del inventario: Ver ahora + favorito + lista ===== */
+  .i-acc{display:flex;gap:10px;align-items:stretch;margin-top:14px}
+  .i-acc .b-pri{flex:1;min-height:46px;border-radius:14px;font-weight:600;font-size:.9rem}
+  .i-ico{flex:0 0 46px;height:46px;border-radius:14px;background:var(--fondo);color:var(--texto);display:grid;place-items:center;transition:transform .12s}
+  .i-ico svg{width:22px;height:22px}
+  .i-ico:active{transform:scale(.94)}
+  .i-ico.on{color:var(--verde)}
+  .i-ico.on svg{fill:currentColor}
 </style>
 </head>
 <body>
@@ -351,7 +391,7 @@
 
     <div class="cw-grid">
       <button class="cw-btn" type="button" data-a="agregar-creditos" aria-label="Agregar créditos" title="Agregar créditos"><span class="cw-ico"><svg viewBox="0 0 24 24"><use href="#wcr"/><circle cx="19" cy="19" r="5" fill="#1D2220"/><path d="M19 16.4v5.2M16.4 19h5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>Agregar créditos</button>
-      <button class="cw-btn" type="button" data-a="agregar-lotes" aria-label="Agregar lotes" title="Agregar lotes"><span class="cw-ico"><svg viewBox="0 0 24 24"><use href="#wbx"/><text x="12" y="14" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="700" font-size="5.6" fill="currentColor">LOT</text></svg></span>Agregar lotes</button>
+      <button class="cw-btn" type="button" data-a="agregar-lotes" aria-label="Lotes" title="Lotes"><span class="cw-ico"><svg viewBox="0 0 24 24"><use href="#wbx"/><text x="12" y="14" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="700" font-size="5.6" fill="currentColor">LOT</text></svg></span>Lotes</button>
       <button class="cw-btn" type="button" data-a="lote-free" aria-label="Lote free" title="Lote free"><span class="cw-ico"><svg viewBox="0 0 24 24"><use href="#wbx"/><text x="12" y="14" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="700" font-size="5.2" fill="currentColor">FREE</text></svg></span>Lote free</button>
       <button class="cw-btn" type="button" data-a="notificaciones" aria-label="Notificaciones" title="Notificaciones"><span class="cw-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><b class="cw-badge" id="cwBadge" hidden>0</b></span>Notificaciones</button>
       <button class="cw-btn" type="button" data-a="edicion-coleccionista" aria-label="Colección" title="Colección"><span class="cw-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h9a2 2 0 0 1 2 2v11"/><rect x="4" y="7" width="12" height="14" rx="2"/></svg></span>Colección</button>
@@ -360,8 +400,8 @@
       <button class="cw-btn" type="button" data-a="crear-lista" aria-label="Crear lista" title="Crear lista"><span class="cw-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v8M14 17h8"/></svg></span>Crear lista</button>
     </div>
 
-    <h2 class="cw-h2">Mis lotes</h2>
-    <div id="cwLotes"></div>
+    <h2 class="cw-h2">Mi inventario</h2>
+    <div class="grilla" id="cwInv"></div>
     <button class="cw-mas" id="cwMas" type="button" hidden>Ver más</button>
 
     <h2 class="cw-h2 cw-te">Te ofrecemos</h2>
@@ -435,7 +475,7 @@
     <button class="volver-btn" id="cerrarVender" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <h1 style="font-size:1.3rem;font-weight:700;">Vender</h1>
   </div>
-  <p class="v-intro">Vende una de tus historias para ganar créditos. Máximo 10 ventas activas. Si cancelas una venta, esa historia debe esperar 24 horas para volver a ponerse en venta.</p>
+  <p class="v-intro">Vende una de tus historias para ganar créditos. Máximo 10 ventas activas. El resultado llega al azar, en minutos u horas, y cada +25 que subas al precio cuesta 3 créditos. Si cancelas una venta, esa historia debe esperar 24 horas para volver a ponerse en venta.</p>
   <button class="v-add" id="vAgregar" type="button" aria-label="Agregar una historia para vender" title="Agregar historia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
   <h2 class="cw-h2 v-h2">Mis ventas</h2>
   <div id="vLista"></div>
@@ -456,16 +496,47 @@
   <p class="sin-resultados" id="vSinRes" hidden>No encontramos historias con ese nombre.</p>
 </section>
 
-<!-- AGREGAR LOTES -->
-<section id="lotes" aria-label="Agregar lotes">
+<!-- LOTES -->
+<section id="lotes" aria-label="Lotes">
   <div class="buscar-top">
     <button class="volver-btn" id="cerrarLotes" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <h1 style="font-size:1.3rem;font-weight:700;">Agregar lotes</h1>
+    <h1 style="font-size:1.3rem;font-weight:700;">Lotes</h1>
   </div>
-  <p class="l-intro">Cada lote reúne varias historias a un precio menor que comprarlas por separado. Toca un lote para ver qué incluye.</p>
+  <p class="l-intro">Cada lote reúne varias historias.</p>
   <h2>Lotes disponibles</h2>
   <div class="lote-grid" id="lGrilla"></div>
 </section>
+
+<!-- PROFIT -->
+<section id="profit" aria-label="Obtener">
+  <div class="buscar-top">
+    <button class="volver-btn" id="cerrarProfit" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <h1 style="font-size:1.3rem;font-weight:700;">Obtener</h1>
+  </div>
+  <div id="pCuerpo"></div>
+</section>
+
+<!-- MI INVENTARIO · HISTORIA -->
+<div class="v-sheet" id="iSheet" hidden>
+  <div class="v-card" role="dialog" aria-modal="true" aria-label="Historia del inventario">
+    <div class="v-cover"><img id="iImg" alt=""></div>
+    <p class="v-card-t" id="iTitulo"></p>
+    <div class="i-acc">
+      <button class="i-ico" id="iFav" type="button" aria-label="Favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      <button class="b-pri" id="iVer" type="button">Ver ahora</button>
+      <button class="i-ico" id="iLista" type="button" aria-label="Agregar a una lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v6M15 16h6"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- OBTENER · ELEGIR HISTORIA DEL INVENTARIO -->
+<div class="v-sheet" id="oSheet" hidden>
+  <div class="v-card" role="dialog" aria-modal="true" aria-label="Elegir historias">
+    <p class="v-card-t" style="margin-bottom:4px">Tus historias</p>
+    <div id="oLista"></div>
+    <div class="v-acc"><button class="b-pri" id="oListo" type="button">Listo</button></div>
+  </div>
+</div>
 
 <!-- VENDER · PRECIO -->
 <div class="v-sheet" id="vSheet" hidden>
@@ -481,20 +552,22 @@
     <div class="v-acc"><button id="vCancelar" type="button">Cancelar</button><button id="vAceptar" type="button">Aceptar</button></div>
   </div>
 </div>
-<!-- HISTORIA · COMPRAR / VER -->
+<!-- HISTORIA · INFO -->
 <div class="v-sheet" id="tSheet" hidden>
   <div class="v-card" role="dialog" aria-modal="true" aria-label="Historia">
     <div class="v-cover"><img id="tImg" alt=""></div>
-    <p class="v-card-t" id="tTitulo"></p>
-    <div class="t-lotes" id="tLotes"></div>
+    <p class="t-titulo" id="tTitulo"></p>
+    <div class="hero-meta" id="tMeta"></div>
+    <p class="t-sinopsis" id="tSinopsis"></p>
+    <div class="t-fila"><span class="t-etiqueta" id="tPrecio"></span></div>
     <div id="tCuerpo"></div>
   </div>
 </div>
-<!-- LOTE · DETALLE Y COMPRA -->
-<div class="v-sheet" id="lSheet" hidden>
-  <div class="v-card" role="dialog" aria-modal="true" aria-label="Lote">
-    <p class="v-card-t" id="lTitulo" style="margin-top:4px"></p>
-    <div id="lCuerpo"></div>
+<!-- HOJA GENÉRICA: compra de lote y resultados -->
+<div class="v-sheet" id="rSheet" hidden>
+  <div class="v-card" role="dialog" aria-modal="true" aria-label="Aviso">
+    <p class="v-card-t" id="rTitulo" style="margin-top:4px"></p>
+    <div id="rCuerpo"></div>
   </div>
 </div>
 <div class="v-toast" id="vToast" role="status" aria-live="polite"></div>
@@ -637,7 +710,7 @@ window.abrirModal = function (tipo) {
 };
 
 function cerrarModales() {
-  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-vender', 'en-vbuscar', 'en-lotes');
+  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-vender', 'en-vbuscar', 'en-lotes', 'en-profit');
   activarItemNav('navWallet');
   window.scrollTo(0, 0);
   iniciarAuto();
@@ -934,23 +1007,27 @@ actualizarHeader();
 (function () {
   const $ = id => document.getElementById(id);
 
-  // ---- Mis lotes: un usuario nuevo no tiene ninguno. Cargar aquí los lotes reales: { n, productos, creditos } ----
-  const PASO = 3;            // mínimo visible; "Ver más" muestra todos
+  // ---- Mi inventario: todas las historias que tiene el usuario (con ×N si tiene varias copias) ----
+  const PASO = 6;            // mínimo visible; "Ver más" muestra todas
   let todos = false;
-  // Un lote aparece si tienes al menos una de sus historias; solo se listan las que tienes.
-  function misLotes() {
-    if (!window.cubeLotes || !window.cubeInv) return [];
-    return window.cubeLotes.def.map(l => {
-      const mias = l.items.filter(i => i.img && window.cubeInv.cantidad(i.img) > 0);
-      return { nombre: l.nombre, mias, valor: mias.reduce((a, i) => a + i.precio, 0) };
-    }).filter(l => l.mias.length);
+  function misHistorias() {
+    if (!window.cubeInv) return [];
+    const cat = window.catalogo || [];
+    return window.cubeInv.lista().filter(img => window.cubeInv.cantidad(img) > 0).map(img =>
+      cat.find(p => p.img === img) || { img, alt: img.replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' ') }
+    ).sort((a, b) => a.alt.localeCompare(b.alt, 'es', { sensitivity: 'base' }));
   }
+  // Tarjeta de lote (la usa la pantalla Lotes): cuadro de imagen a la izquierda, nombre y cantidad de historias
+  const escH = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  window.cubeLoteHTML = (nombre, n, id) =>
+    `<div class="lote-rect"${id ? ` data-lote="${escH(id)}"` : ''}><div class="lote-img"></div><div class="lote-info"><h3>${escH(nombre)}</h3><span>${n} ${n === 1 ? 'historia' : 'historias'}</span></div></div>`;
   function renderLotes() {
-    const L = misLotes();
-    if (!L.length) { $('cwLotes').innerHTML = '<p class="cw-vacio">Aún no tienes lotes.</p>'; $('cwMas').hidden = true; return; }
-    $('cwLotes').innerHTML = (todos ? L : L.slice(0, PASO)).map(l =>
-      `<div class="cw-lot"><div class="ic"><svg viewBox="0 0 24 24"><use href="#wbx"/></svg></div><div class="tx">Lote ${l.nombre}<span>${l.mias.map(i => i.nombre).join(' · ')}</span></div><em>${l.mias.length} ${l.mias.length === 1 ? 'historia' : 'historias'}</em></div>`
-    ).join('');
+    const L = misHistorias();
+    if (!L.length) { $('cwInv').innerHTML = '<p class="cw-vacio">Aún no tienes historias.</p>'; $('cwMas').hidden = true; return; }
+    $('cwInv').innerHTML = (todos ? L : L.slice(0, PASO)).map(p => {
+      const n = window.cubeInv.cantidad(p.img), html = window.card(p);
+      return n > 1 ? html.replace(/(<div class="portada"[^>]*>)/, `$1<div class="tags"><span class="badge">×${n}</span></div>`) : html;
+    }).join('');
     const mas = $('cwMas');
     mas.hidden = L.length <= PASO;
     mas.textContent = todos ? 'Ver menos' : 'Ver más';
@@ -1195,11 +1272,19 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   const MAX_COPIAS = 3;
   const cant = img => inv.get(img) || 0;
   const total = img => cant(img) + (pend.get(img) || 0);   // las copias en venta cuentan para el límite
-  let actual = null, ocupado = false;
+  let actual = null;
 
   const sesion = () => { const u = window.usuario && window.usuario(); return u && u.supa ? u : null; };
-  const saldo = () => (typeof window.cubeSaldo === 'number' ? window.cubeSaldo : null);
-  const precio = img => (precios[img] != null ? precios[img] : PRECIO_BASE);
+  // Precio de cada historia (créditos). Tiene prioridad sobre la tabla historias_vendibles.
+  const PRECIOS_FIJOS = {
+    'bigfoot-2.webp': 250, 'muevete-al-minuto.webp': 90, 'metalosis-maligna.webp': 100, 'nada.webp': 90,
+    'strike.webp': 100, 'gorgeous-vortex.webp': 100, 'ultimate.webp': 90, 'valentine.webp': 90,
+    'obedece.webp': 50, 'retorcidos.webp': 150, 'ratman.webp': 350,
+    'eternamente-vivo.webp': 250, 'eternamente-vivo-dante.webp': 250, 'eternamente-vivo-valak.webp': 250,
+    'triangle-room.webp': 500, 'menem.webp': 250, 'mama-dogs.webp': 100, 'las-entrevistas.webp': 500,
+    'golem.webp': 100, 'la-familia-rani.webp': 300, 'el-telefono.webp': 150
+  };
+  const precio = img => (PRECIOS_FIJOS[img] != null ? PRECIOS_FIJOS[img] : (precios[img] != null ? precios[img] : PRECIO_BASE));
   const esVendible = img => { const p = (window.catalogo || []).find(x => x.img === img); return !!p && !p.pronto && !p.v; };
   const titulo = img => {
     const p = (window.catalogo || []).find(x => x.img === img);
@@ -1249,31 +1334,25 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   };
   window.addEventListener('cube:usuario-listo', () => { cargarPrecios().then(recargar); });
 
-  // ---- Iconos ----
-  const HEART = on => `<svg viewBox="0 0 24 24" fill="${on ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>`;
-  const LISTA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v8M14 17h8"/></svg>';
-  const esFav = img => { const u = window.usuario && window.usuario(); return !!(u && (u.favoritos || []).some(f => f.img === img)); };
+  // ---- Panel de la historia: portada, título, info y sinopsis ----
+  // Datos por defecto para todas las historias; cuando estén definidos, agregar aquí por archivo:
+  // INFO['bigfoot-2.webp'] = { clasif: 'PG13', genero: 'Acción', anio: 2026, sinopsis: '...' };
+  const INFO_DEF = { clasif: 'PG', genero: 'Género', anio: 'Año', sinopsis: 'Sinopsis' };
+  const INFO = {};
+  const escT = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-  // ---- Panel de la historia ----
-  function pintar(nota) {
-    const img = actual, p = precio(img), n = cant(img), t = total(img);
+  function pintar() {
+    const img = actual, d = Object.assign({}, INFO_DEF, INFO[img]);
     $('tImg').src = IMG_BASE + img;
     $('tImg').alt = titulo(img);
     $('tTitulo').textContent = titulo(img);
-    const lotes = window.cubeLotes ? window.cubeLotes.de(img) : [];
-    $('tLotes').innerHTML = lotes.map(l => `<span class="hero-lote"><svg viewBox="0 0 24 24"><use href="#wbx"/></svg><b>${l.nombre}</b></span>`).join('');
-    const s = saldo(), lleno = t >= MAX_COPIAS, falta = s != null && s < p;
-    const precioHTML = lleno ? '' : `<div class="t-precio"><svg viewBox="0 0 24 24"><use href="#wcr"/></svg><b>${p.toLocaleString('es')}</b><small>créditos</small></div>`;
-    const msg = nota || (lleno ? `Ya tienes ${MAX_COPIAS} copias (el máximo).`
-      : n > 0 ? `Tienes ${t} de ${MAX_COPIAS} copias.${falta ? ` Te faltan ${(p - s).toLocaleString('es')} créditos.` : ''}`
-      : falta ? `Te faltan ${(p - s).toLocaleString('es')} créditos.` : 'La historia pasará a tu inventario.');
-    const comprarBtn = `<button class="b-pri" type="button" data-t="comprar"${(lleno || falta) ? ' disabled' : ''}>${n > 0 ? 'Comprar otra' : 'Comprar'}</button>`;
-    const extra = n > 0
-      ? `<button class="b-sec" type="button" data-t="ver">Ver ahora</button>${comprarBtn}` +
-        `<button class="t-ico${esFav(img) ? ' on' : ''}" type="button" data-t="fav" aria-label="Favoritos" title="Favoritos">${HEART(esFav(img))}</button>` +
-        `<button class="t-ico" type="button" data-t="lista" aria-label="Agregar a una lista" title="Agregar a una lista">${LISTA}</button>`
-      : `<button class="b-sec" type="button" data-t="cerrar">Cancelar</button>${comprarBtn}`;
-    $('tCuerpo').innerHTML = precioHTML + `<p class="v-nota">${msg}</p><div class="v-acc">${extra}</div>`;
+    $('tMeta').innerHTML = `<span class="clasif">${escT(d.clasif)}</span><i>•</i><span>${escT(d.genero)}</span><i>•</i><span>${escT(d.anio)}</span>`;
+    $('tSinopsis').textContent = d.sinopsis;
+    $('tPrecio').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></svg>' + Number(precio(img)).toLocaleString('es');
+    const izq = cant(img) > 0
+      ? '<button class="b-sec" type="button" data-t="ver">Ver ahora</button>'
+      : '<button class="b-sec" type="button" data-t="cerrar">Cancelar</button>';
+    $('tCuerpo').innerHTML = `<div class="v-acc">${izq}<button class="b-pri" type="button" data-t="profit">Obtener</button></div>`;
   }
   function abrir(img) {
     actual = img;
@@ -1282,46 +1361,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   }
   function cerrar() { $('tSheet').hidden = true; actual = null; }
 
-  function mensajeError(e) {
-    const m = String((e && e.message) || e || '');
-    if (m.includes('saldo_insuficiente')) return 'No tienes suficientes créditos.';
-    if (m.includes('limite_copias')) return 'Ya tienes 3 copias de esta historia.';
-    if (m.includes('no_autenticado')) return 'Inicia sesión para comprar.';
-    if (m.includes('historia_invalida')) return 'Esa historia no está disponible.';
-    return 'No se pudo completar la compra. Intenta de nuevo.';
-  }
-
-  async function comprar() {
-    const img = actual;
-    if (!img || ocupado) return;
-    if (!sesion()) { window.abrirModal('auth'); return; }
-    ocupado = true;
-    try {
-      const { error } = await window.cubeDb.rpc('comprar_historia', { p_historia: img });
-      if (error) throw error;
-      inv.set(img, cant(img) + 1);
-      if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
-      window.dispatchEvent(new Event('cube:inventario'));
-      if (actual === img) pintar();
-      aviso('Historia agregada a tu inventario.');
-    } catch (e) {
-      console.warn('Compra fallida', e);
-      const m = String((e && e.message) || '');
-      if (m.includes('limite_copias')) { await recargar(); } aviso(mensajeError(e));
-    } finally { ocupado = false; }
-  }
-
-  function favorito() {
-    const u = sesion();
-    if (!u) { window.abrirModal('auth'); return; }
-    const img = actual, f = u.favoritos || [], i = f.findIndex(x => x.img === img);
-    if (i >= 0) f.splice(i, 1); else f.push({ img });
-    u.favoritos = f;
-    if (typeof guardarUsuario === 'function') guardarUsuario(u);
-    pintar();
-    aviso(i >= 0 ? 'Quitada de Favoritos.' : 'Guardada en Favoritos.');
-  }
-
+  window.cubeVerAhora = img => { actual = img; verAhora(); };
   function verAhora() {
     const img = actual;
     const ev = new CustomEvent('cube-ver-historia', { detail: { img }, cancelable: true });
@@ -1329,29 +1369,24 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
     if (window.dispatchEvent(ev)) aviso('La lectura estará disponible muy pronto.');
   }
 
-  function agregarALista() {
-    if (!sesion()) { window.abrirModal('auth'); return; }
-    // cube-listas.js puede definir este gancho; mientras tanto avisa.
-    if (typeof window.cubeAgregarALista === 'function') { window.cubeAgregarALista(actual); return; }
-    aviso('Las listas personalizadas estarán disponibles muy pronto.');
-  }
-
   $('tCuerpo').addEventListener('click', e => {
     const b = e.target.closest('[data-t]');
     if (!b) return;
-    const k = b.dataset.t;
-    if (k === 'cerrar') cerrar();
-    else if (k === 'comprar') comprar();
-    else if (k === 'ver') verAhora();
-    else if (k === 'fav') favorito();
-    else if (k === 'lista') agregarALista();
+    if (b.dataset.t === 'cerrar') cerrar();
+    else if (b.dataset.t === 'ver') verAhora();
+    else if (b.dataset.t === 'profit') {
+      const img = actual;
+      cerrar();
+      if (!sesion()) { window.abrirModal('auth'); return; }
+      if (window.cubeAbrirProfit) window.cubeAbrirProfit(img);
+    }
   });
   $('tSheet').addEventListener('click', e => { if (e.target === $('tSheet')) cerrar(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('tSheet').hidden) cerrar(); });
 
-  // Cualquier portada de Buscar, Agregar lotes o Favoritos abre el panel (salvo Próximamente y Premium)
+  // Cualquier portada de Buscar, Favoritos o Mi inventario abre el panel (salvo Próximamente y Premium)
   document.addEventListener('click', e => {
-    const el = e.target.closest('#grilla .portada, #lGrilla .portada, #listaGrilla .portada');
+    const el = e.target.closest('#grilla .portada, #listaGrilla .portada');
     if (!el || !el.dataset.id || !esVendible(el.dataset.id)) return;
     abrir(el.dataset.id);
   });
@@ -1364,7 +1399,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   const body = document.body;
 
   // ---- Reglas visibles (el servidor aplica las mismas: ver cube-ventas.sql) ----
-  const MAX_VENTAS = 10, BASE = 100, PASO = 25, SUBIDA_MAX = 500, MIN = 25, COMISION_PCT = 5;
+  const MAX_VENTAS = 10, BASE = 100, PASO = 25, SUBIDA_MAX = 500, MIN = 25, COSTO_PASO = 3;
   const MAX = BASE + SUBIDA_MAX;
 
   const vendibles = () => (window.catalogo || []).filter(p => !p.pronto && !p.v);
@@ -1383,117 +1418,144 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
 
   // ---- Navegación entre vistas ----
   function ir(clase) {
-    body.classList.remove('perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-vender', 'en-vbuscar', 'en-lotes');
+    body.classList.remove('perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-vender', 'en-vbuscar', 'en-lotes', 'en-profit');
     if (clase) body.classList.add(clase);
     if (typeof detenerAuto === 'function') detenerAuto();
     window.scrollTo(0, 0);
   }
 
-  // ---- Agregar lotes: todas las portadas juntas (luego se reparten por lote) ----
-  // Precios individuales (créditos). Los lotes salen siempre más baratos que la suma.
-  const P = {
-    bigfoot: 250, express: 90, ratman: 350, ev1: 550, ev2: 550, ev345: 250,
-    triangle: 500, menem: 250, mama: 100, entrevistas: 500, golem: 100,
-    rani: 300, telefono: 150, divina: 100 /* sin precio dado: se asume 100 (precio base) */
+  // ---- Lotes: Void y Parallels (10 historias cada uno) ----
+  // Probabilidad de cada historia = (1 / su precio) ÷ suma de (1 / precio) de las 10: más barata, más probable.
+  // Las historias se ordenan de la más cara (menos probable, arriba) a la más barata (más probable, abajo).
+  const crearLote = (id, nombre, precioLote, imgs) => {
+    const items = imgs.map(img => ({ img, nombre: titulo(img), precio: window.cubeInv.precio(img) }));
+    const total = items.reduce((a, i) => a + 1 / i.precio, 0);
+    items.forEach(i => { i.prob = (1 / i.precio) / total; });
+    items.sort((x, y) => y.precio - x.precio || x.nombre.localeCompare(y.nombre, 'es', { sensitivity: 'base' }));
+    return { id, nombre, precioLote, items };
   };
-  const H = (nombre, precio, img) => ({ nombre, precio, img });
-  const EXP = {
-    metalosis: H('Metalosis Maligna', P.express, 'metalosis-maligna.webp'),
-    muevete:   H('Muévete al Minuto', P.express, 'muevete-al-minuto.webp'),
-    retorcidos:H('Retorcidos', P.express, 'retorcidos.webp'),
-    nada:      H('Nada', P.express, 'nada.webp'),
-    obedece:   H('Obedece', P.express, 'obedece.webp'),
-    georgeus:  H('Georgeus Vortex', P.express, 'gorgeous-vortex.webp'),
-    ultimate:  H('Ultimate', P.express, 'ultimate.webp'),
-    valentine: H('Valentine', P.express, 'valentine.webp')
-  };
-  // precioLote = precio final del lote (redondeado a múltiplos de 10)
   const LOTES_DEF = [
-    { id: 'express', nombre: 'Express', precioLote: 610, items: Object.values(EXP) },
-    { id: 'rush', nombre: 'Rush', precioLote: 390, items: [H('Bigfoot', P.bigfoot, 'bigfoot-2.webp'), EXP.ultimate, EXP.valentine] },
-    { id: 'lost', nombre: 'Lost Tapes', precioLote: 470, items: [H('Ratman', P.ratman, 'ratman.webp'), EXP.georgeus, EXP.metalosis] },
-    { id: 'void', nombre: 'Void', precioLote: 1480, items: [
-      H('Eternamente Vivo 1', P.ev1, 'eternamente-vivo.webp'), H('Eternamente Vivo 2', P.ev2, 'eternamente-vivo-dante.webp'),
-      H('Eternamente Vivo 3', P.ev345, 'eternamente-vivo-valak.webp'), H('Eternamente Vivo 4', P.ev345), H('Eternamente Vivo 5', P.ev345)] },
-    { id: 'blacklist', nombre: 'Blacklist', precioLote: 940, items: [
-      H('Las Entrevistas', P.entrevistas, 'las-entrevistas.webp'), H('Divina Comedia', P.divina, 'divina-comedia.webp'), H('Triangle Room', P.triangle, 'triangle-room.webp')] },
-    { id: 'natural', nombre: 'Natural', precioLote: 790, items: [
-      H('Triangle Room', P.triangle, 'triangle-room.webp'), H('El Teléfono', P.telefono, 'el-telefono.webp'), H('Menem', P.menem, 'menem.webp')] },
-    { id: 'taboo', nombre: 'Taboo', precioLote: 450, items: [
-      H('La Familia Rani', P.rani, 'la-familia-rani.webp'), H('Mama Dogs', P.mama, 'mama-dogs.webp'), H('Golem', P.golem, 'golem.webp')] }
-  ].map(l => {
-    const suma = l.items.reduce((a, i) => a + i.precio, 0);
-    return Object.assign(l, { suma, ahorro: suma - l.precioLote, pct: Math.floor((suma - l.precioLote) * 100 / suma) });
-  });
+    crearLote('void', 'Void', 500, [
+      'nada.webp', 'obedece.webp', 'golem.webp', 'retorcidos.webp', 'metalosis-maligna.webp',
+      'menem.webp', 'el-telefono.webp', 'eternamente-vivo.webp', 'eternamente-vivo-dante.webp', 'eternamente-vivo-valak.webp']),
+    crearLote('parallels', 'Parallels', 600, [
+      'ratman.webp', 'bigfoot-2.webp', 'las-entrevistas.webp', 'la-familia-rani.webp', 'mama-dogs.webp',
+      'muevete-al-minuto.webp', 'strike.webp', 'ultimate.webp', 'valentine.webp', 'gorgeous-vortex.webp'])
+  ];
   window.cubeLotes = { def: LOTES_DEF, de: img => LOTES_DEF.filter(l => l.items.some(i => i.img === img)) };
   window.dispatchEvent(new Event('cube:inventario'));
-  const fmt = n => n.toLocaleString('es');
-  const escL = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  let loteActual = null, comprandoLote = false;
-
   function pintarLotes() {
-    $('lGrilla').innerHTML = LOTES_DEF.map(l =>
-      `<button type="button" class="lote-card" data-lote="${l.id}">` +
-      `<div class="lote-top"><h3>${l.nombre}</h3><span class="lote-badge">Ahorras el ${l.pct}%</span></div>` +
-      `<span class="lote-sub">${l.items.length} historias</span>` +
-      `<div class="lote-precio"><b>${fmt(l.precioLote)}</b><small>créditos</small><s>${fmt(l.suma)}</s></div>` +
-      `<span class="lote-ahorro">Te ahorras ${fmt(l.ahorro)} créditos</span></button>`).join('');
+    $('lGrilla').innerHTML = LOTES_DEF.map(l => window.cubeLoteHTML(l.nombre, l.items.length, l.id)).join('');
   }
-  function pintarLoteSheet(nota) {
-    const l = loteActual; if (!l) return;
-    $('lTitulo').textContent = 'Lote ' + l.nombre;
-    const s = typeof window.cubeSaldo === 'number' ? window.cubeSaldo : null;
-    const falta = s != null && s < l.precioLote;
-    const filas = l.items.map(i => {
-      const th = i.img ? `<div class="v-th"><img src="${IMG_BASE}${i.img}" alt="" loading="lazy" onerror="this.style.display='none'"></div>` : '<div class="v-th"></div>';
-      const max = i.img && window.cubeInv.total(i.img) >= window.cubeInv.MAX;
-      return `<div class="v-item">${th}<div class="v-it">${escL(i.nombre)}${max ? '<span>Ya tienes 3: no se suma</span>' : ''}</div><div class="v-pr">${fmt(i.precio)}</div></div>`;
+
+  // ---- Hoja genérica (compra de lote, resultados de lote y de Obtener) ----
+  const cerrarR = () => { $('rSheet').hidden = true; loteSel = null; };
+  window.cubeR = {
+    abrir: (titulo, html) => { $('rTitulo').textContent = titulo; $('rCuerpo').innerHTML = html; $('rSheet').hidden = false; },
+    cerrar: () => cerrarR()
+  };
+  $('rSheet').addEventListener('click', e => { if (e.target === $('rSheet')) cerrarR(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('rSheet').hidden) cerrarR(); });
+  $('rCuerpo').addEventListener('click', e => {
+    const b = e.target.closest('[data-r]'); if (!b) return;
+    if (b.dataset.r === 'cerrar') cerrarR();
+    else if (b.dataset.r === 'lote-comprar') comprarLote();
+    else if (b.dataset.r === 'obtener-todo') { cerrarR(); cerrarModales(); }
+  });
+
+  // ---- Comprar un lote: salen 3 historias al azar de ese lote ----
+  const fmt = n => Number(n).toLocaleString('es');
+  const preciosLote = {};
+  let loteSel = null, comprandoLote = false;
+  async function cargarPreciosLote() {
+    if (!window.cubeDb) return;
+    try {
+      const { data, error } = await window.cubeDb.from('lotes').select('id,precio');
+      if (error) throw error;
+      (data || []).forEach(r => { preciosLote[r.id] = r.precio; });
+    } catch (e) { console.warn('No se pudieron cargar los precios de los lotes', e); }
+  }
+  window.addEventListener('cube:usuario-listo', cargarPreciosLote);
+
+  const pctLote = p => { const v = p * 100; return (v >= 10 ? Math.round(v) : v.toFixed(1)) + '%'; };
+  function abrirLoteSheet(id) {
+    const l = LOTES_DEF.find(x => x.id === id); if (!l) return;
+    loteSel = l;
+    const p = preciosLote[id] != null ? preciosLote[id] : l.precioLote, s = typeof window.cubeSaldo === 'number' ? window.cubeSaldo : null;
+    const falta = s != null && s < p;
+    const filas = l.items.map(i =>
+      `<div class="v-item"><div class="v-th"><img src="${IMG_BASE}${esc(i.img)}" alt="" loading="lazy" onerror="this.style.display='none'"></div>` +
+      `<div class="v-it">${esc(i.nombre)}<span>${fmt(i.precio)} créditos · ${pctLote(i.prob)}</span></div></div>`).join('');
+    window.cubeR.abrir('Lote ' + l.nombre,
+      `<div class="l-lista">${filas}</div>` +
+      `<div class="t-precio"><svg viewBox="0 0 24 24"><use href="#wcr"/></svg><b>${fmt(p)}</b><small>créditos</small></div>` +
+      `<p class="v-nota">${falta ? `Te faltan ${fmt(p - s)} créditos.` : 'Recibirás 3 historias.'}</p>` +
+      `<div class="v-acc"><button class="b-sec" type="button" data-r="cerrar">Cancelar</button>` +
+      `<button class="b-pri" type="button" data-r="lote-comprar"${falta ? ' disabled' : ''}>Comprar</button></div>`);
+    $('rSheet').querySelector('.v-card').scrollTop = 0;
+  }
+
+  // Tres ruletas (arriba, medio y abajo): giran rápido y se detienen una por una en la historia que salió
+  function mostrarGiros(l, sacadas) {
+    const reels = sacadas.map(img => {
+      const N = 24, celdas = [];
+      for (let k = 0; k < N - 1; k++) celdas.push(l.items[Math.floor(Math.random() * l.items.length)].img);
+      celdas.push(img);
+      return `<div class="l-reel"><div class="l-strip">${celdas.map(c => `<div class="l-cell"><img src="${IMG_BASE}${esc(c)}" alt=""></div>`).join('')}</div></div>` +
+             `<p class="l-cap">${esc(titulo(img))}</p>`;
     }).join('');
-    const todas = l.items.every(i => i.img && window.cubeInv.total(i.img) >= window.cubeInv.MAX);
-    const algunas = l.items.some(i => i.img && window.cubeInv.total(i.img) >= window.cubeInv.MAX);
-    $('lCuerpo').innerHTML =
-      `<div class="lote-lista">${filas}</div>` +
-      `<div class="lote-tot"><span>Por separado</span><b><s>${fmt(l.suma)}</s></b></div>` +
-      `<div class="t-precio"><svg viewBox="0 0 24 24"><use href="#wcr"/></svg><b>${fmt(l.precioLote)}</b><small>créditos</small></div>` +
-      `<p class="v-nota">${nota || (todas ? 'Ya tienes 3 copias de todas las historias de este lote.' : falta ? `Te faltan ${fmt(l.precioLote - s)} créditos.` : `Te ahorras el ${l.pct}% (${fmt(l.ahorro)} créditos).${algunas ? ' Las historias que ya tienes 3 veces no se suman.' : ''}`)}</p>` +
-      `<div class="v-acc"><button class="b-sec" type="button" data-l="cerrar">Cancelar</button>` +
-      `<button class="b-pri" type="button" data-l="comprar"${(falta || todas) ? ' disabled' : ''}>Comprar lote</button></div>`;
+    $('rTitulo').textContent = 'Lote ' + l.nombre;
+    $('rCuerpo').innerHTML = reels + '<div class="v-acc"><button class="b-pri" type="button" data-r="obtener-todo" disabled>Obtener todo</button></div>';
+    const strips = Array.from($('rCuerpo').querySelectorAll('.l-strip')), caps = Array.from($('rCuerpo').querySelectorAll('.l-cap'));
+    const fin = strips.map((st, k) => {
+      const n = st.children.length;
+      const anim = st.animate(
+        [{ transform: 'translateY(0)' }, { transform: `translateY(-${(n - 1) / n * 100}%)` }],
+        { duration: 2000 + k * 1000, easing: 'cubic-bezier(.1,.7,.15,1)', fill: 'forwards' });
+      return anim.finished.then(() => { st.parentElement.classList.add('listo'); caps[k].classList.add('on'); });
+    });
+    Promise.all(fin).then(() => {
+      const b = $('rCuerpo').querySelector('[data-r="obtener-todo"]'); if (b) b.disabled = false;
+    });
+  }
+  function errorLote(e) {
+    const m = String((e && e.message) || e || '');
+    if (m.includes('saldo_insuficiente')) return 'No tienes suficientes créditos.';
+    if (m.includes('lote_agotado')) return 'Ya tienes el máximo de copias de todas las historias de este lote.';
+    if (m.includes('lote_invalido')) return 'Ese lote no está disponible.';
+    if (m.includes('no_autenticado')) return 'Inicia sesión para comprar.';
+    return 'No se pudo completar la compra del lote. Intenta de nuevo.';
   }
   async function comprarLote() {
-    const l = loteActual;
+    const l = loteSel;
     if (!l || comprandoLote) return;
-    if (!sesion()) { window.abrirModal('auth'); return; }
+    if (!sesion()) { cerrarR(); window.abrirModal('auth'); return; }
     comprandoLote = true;
+    const btn = document.querySelector('#rCuerpo [data-r="lote-comprar"]'); if (btn) btn.disabled = true;
     try {
-      // El servidor debe cobrar el precio del lote (ver nota: RPC comprar_lote)
-      const { error } = await window.cubeDb.rpc('comprar_lote', { p_lote: l.id });
+      const { data, error } = await window.cubeDb.rpc('comprar_lote', { p_lote: l.id });
       if (error) throw error;
-      if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
-      await window.cubeInv.recargar();
-      pintarLoteSheet('¡Listo! Las historias del lote están en tu inventario.');
-      aviso('Lote agregado a tu inventario.');
+      const sacadas = (Array.isArray(data) ? data : []).map(x => typeof x === 'string' ? x : Object.values(x)[0]).slice(0, 3);
+      if (!sacadas.length) throw new Error('lote_invalido');
+      refrescarCreditos();
+      await window.cubeInv.recargar();     // ya están en el inventario, cada una por separado
+      loteSel = null;
+      mostrarGiros(l, sacadas);
     } catch (e) {
       console.warn('Compra de lote fallida', e);
-      const m = String((e && e.message) || '');
-      aviso(m.includes('saldo_insuficiente') ? 'No tienes suficientes créditos.' : 'No se pudo completar la compra del lote.');
+      aviso(errorLote(e));
+      if (btn) btn.disabled = false;
     } finally { comprandoLote = false; }
   }
   $('lGrilla').addEventListener('click', e => {
-    const b = e.target.closest('[data-lote]'); if (!b) return;
-    loteActual = LOTES_DEF.find(x => x.id === b.dataset.lote);
-    pintarLoteSheet(); $('lSheet').hidden = false;
+    const c = e.target.closest('[data-lote]'); if (c) abrirLoteSheet(c.dataset.lote);
   });
-  $('lCuerpo').addEventListener('click', e => {
-    const b = e.target.closest('[data-l]'); if (!b) return;
-    if (b.dataset.l === 'cerrar') { $('lSheet').hidden = true; loteActual = null; }
-    else comprarLote();
-  });
-  $('lSheet').addEventListener('click', e => { if (e.target === $('lSheet')) { $('lSheet').hidden = true; loteActual = null; } });
 
   let lotesListo = false;
   function abrirLotes() {
     if (!lotesListo) { lotesListo = true; pintarLotes(); }
     ir('en-lotes');
+    cargarPreciosLote();
   }
   $('cerrarLotes').onclick = () => cerrarModales();
 
@@ -1528,7 +1590,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
       b.appendChild(im); g.appendChild(b);
       return { el: b, n: normal(p.alt), c: compacto(p.alt) };
     });
-    $('vSinRes').textContent = lista.length ? 'No encontramos historias con ese nombre.' : 'Aún no tienes historias para vender. Consigue una en Agregar lotes o en Buscar.';
+    $('vSinRes').textContent = lista.length ? 'No encontramos historias con ese nombre.' : 'Aún no tienes historias para vender. Consigue una en Lotes o en Buscar.';
     $('vSinRes').hidden = lista.length > 0;
   }
   function filtrar() {
@@ -1559,17 +1621,12 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   let sel = null, precio = BASE;
   const pasos = () => (precio - BASE) / PASO;
   const saldo = () => (typeof window.cubeSaldo === 'number' ? window.cubeSaldo : null);
-  // Cada +25 cuesta el 5% de tus créditos, con un mínimo de 1 crédito por escalón.
-  // Solo puedes subir hasta donde te alcancen los créditos.
+  // Cada +25 cuesta 3 créditos. Vender a 100 es siempre posible; para subir hay que tener 3 créditos por cada +25.
   const maxPrecio = () => {
     const s = saldo() || 0;
-    return Math.min(MAX, BASE + PASO * Math.min(SUBIDA_MAX / PASO, Math.floor(s)));
+    return Math.min(MAX, BASE + PASO * Math.min(SUBIDA_MAX / PASO, Math.floor(s / COSTO_PASO)));
   };
-  function comision() {
-    const s = saldo() || 0, n = pasos();
-    if (n <= 0) return 0;
-    return Math.min(s, Math.max(n, Math.floor(s * COMISION_PCT * n / 100)));
-  }
+  function comision() { return Math.max(0, pasos()) * COSTO_PASO; }
   function pintarSheet() {
     if (precio > maxPrecio()) precio = Math.max(BASE, maxPrecio());
     $('vPrecio').textContent = precio;
@@ -1577,8 +1634,8 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
     $('vMas').disabled = precio >= maxPrecio();
     const n = pasos(), c = comision();
     let nota = n > 0
-      ? `Subir el precio te cuesta ${c.toLocaleString('es')} créditos (${COMISION_PCT}% por cada +${PASO}, mínimo 1). Puede que no se venda.`
-      : 'Sabrás el resultado pasados unos días. Puede que no se venda.';
+      ? `Subir el precio te cuesta ${c.toLocaleString('es')} créditos (${COSTO_PASO} por cada +${PASO}). Puede que no se venda.`
+      : 'Sabrás el resultado en unos minutos u horas, al azar. Puede que no se venda.';
     if (precio >= maxPrecio() && maxPrecio() < MAX) nota += ' No te alcanzan los créditos para subir más.';
     $('vNota').textContent = nota;
   }
@@ -1614,7 +1671,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
     return 'No se pudo completar la venta. Intenta de nuevo.';
   }
 
-  // Al aceptar, el servidor cobra la comisión y decide en secreto el resultado y la espera.
+  // Al aceptar, el servidor cobra la comisión (3 por cada +25) y fija al azar cuándo se resuelve (minutos u horas).
   $('vAceptar').onclick = async () => {
     if (!sel) return;
     const btn = $('vAceptar');
@@ -1654,10 +1711,13 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   function falta(iso) {
     const ms = new Date(iso).getTime() - Date.now();
     if (ms <= 0) return 'Resolviendo…';
-    const h = ms / 3600000;
-    if (h >= 24) { const d = Math.ceil(h / 24); return `Faltan ${d} ${d === 1 ? 'día' : 'días'}`; }
-    if (h >= 1) return `Faltan ${Math.ceil(h)} h`;
-    return 'Falta menos de 1 h';
+    const min = ms / 60000;
+    if (min < 1) return 'Falta menos de 1 min';
+    if (min < 60) return `Faltan ${Math.ceil(min)} min`;
+    const h = min / 60;
+    if (h < 24) return `Faltan ${Math.ceil(h)} h`;
+    const d = Math.ceil(h / 24);
+    return `Faltan ${d} ${d === 1 ? 'día' : 'días'}`;
   }
   async function cargarVentas() {
     const lista = $('vLista'), vacio = $('vVacio');
@@ -1706,6 +1766,284 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   if (sesion()) resolver();
 })();
 
+</script>
+
+<!-- ================= OBTENER ================= -->
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const body = document.body;
+  // Mismas reglas que el servidor (profit_historia): el servidor decide el resultado; la aguja solo lo muestra.
+  const FACTOR = 2, PROB_MAX = 0.95, MAX_USADAS = 6, MAX_COPIAS = 3;
+  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-vender', 'en-vbuscar', 'en-lotes', 'en-profit'];
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const titulo = img => {
+    const p = (window.catalogo || []).find(x => x.img === img);
+    return p ? p.alt : img.replace(/\.webp$/, '').replace(/-/g, ' ');
+  };
+  const sesion = () => { const u = window.usuario && window.usuario(); return u && u.supa ? u : null; };
+  const precio = img => window.cubeInv.precio(img);
+  const fmt = n => Number(n).toLocaleString('es');
+
+  // ---- Geometría del octágono (viewBox 500×500, centro 250,250) ----
+  const C = 250, H = 240, S = 385;           // borde: mitad del lado y suma |dx|+|dy| de las diagonales
+  const INSET = 16, H2 = H - INSET, S2 = S - INSET * Math.SQRT2;   // trazo rojo, un poco hacia adentro
+  const A0 = 8;                               // el rojo empieza poco después de las 12 en punto (sentido horario)
+  const rad = d => d * Math.PI / 180;
+  function punto(deg, h, s) {                 // intersección del rayo (0° = arriba, horario) con el octágono
+    const ux = Math.sin(rad(deg)), uy = -Math.cos(rad(deg));
+    const ax = Math.abs(ux), ay = Math.abs(uy);
+    const t = Math.min(ax > 1e-9 ? h / ax : Infinity, ay > 1e-9 ? h / ay : Infinity, s / (ax + ay));
+    return [C + ux * t, C + uy * t];
+  }
+  const esquinas = (() => {                   // ángulos de los 8 vértices, para que el trazo rojo doble justo ahí
+    // vértices del octágono interior: (±(s-h), ±h) y (±h, ±(s-h)) respecto al centro
+    const d = S2 - H2, v = [[d, -H2], [H2, -d], [H2, d], [d, H2], [-d, H2], [-H2, d], [-H2, -d], [-d, -H2]];
+    return v.map(([x, y]) => (Math.atan2(x, -y) * 180 / Math.PI + 360) % 360);
+  })();
+  function rutaRoja(largo) {
+    if (largo <= 0.05) return '';
+    const fin = A0 + largo, angs = [A0];
+    for (let e = Math.ceil(A0 / 1) ; e < fin; e += 1) angs.push(e);
+    esquinas.forEach(q => { for (const t of [q, q + 360]) if (t > A0 && t < fin) angs.push(t); });
+    angs.push(fin);
+    angs.sort((x, y) => x - y);
+    return 'M' + angs.map(a => punto(a, H2, S2).map(n => n.toFixed(1)).join(' ')).join(' L');
+  }
+  const bordeOct = (() => {
+    const d = S - H, v = [[-d, -H], [d, -H], [H, -d], [H, d], [d, H], [-d, H], [-H, d], [-H, -d]];
+    return v.map(([x, y]) => (C + x) + ',' + (C + y)).join(' ');
+  })();
+
+  let obj = null, sel = [], desde = null, ocupado = false;
+  let rojoMostrado = 0, rojoAnim = 0, aguja = 0;   // grados de rojo visibles y ángulo de la aguja
+  const valor = () => sel.reduce((a, i) => a + precio(i), 0);
+  const prob = () => obj ? Math.min(PROB_MAX, valor() / (FACTOR * precio(obj))) : 0;
+  const usadas = id => sel.filter(i => i === id).length;
+
+  function ir(clase) {
+    body.classList.remove(...VISTAS);
+    if (clase) body.classList.add(clase);
+    if (typeof detenerAuto === 'function') detenerAuto();
+    window.scrollTo(0, 0);
+  }
+
+  const icoMas = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+  const icoX = '<span class="o-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></span>';
+
+  function pintar() {
+    const slots = sel.map((id, k) => `<button class="o-slot" type="button" data-k="${k}" aria-label="Quitar ${esc(titulo(id))}"><img src="${IMG_BASE}${esc(id)}" alt="">${icoX}</button>`);
+    if (sel.length < MAX_USADAS) slots.push(`<button class="o-slot" type="button" data-o="mas" aria-label="Agregar historia">${icoMas}</button>`);
+    $('pCuerpo').innerHTML =
+      `<div class="o-panel${ocupado ? ' o-bloq' : ''}" id="oPanel">${slots.join('')}</div>` +
+      `<svg class="o-oct" viewBox="0 0 500 500" role="img" aria-label="Probabilidad de obtener la historia">` +
+        `<polygon class="o-borde" points="${bordeOct}"/>` +
+        `<path class="o-rojo" id="oRojo" d=""/>` +
+        `<line class="o-aguja" id="oAguja" x1="250" y1="250" x2="250" y2="53"/>` +
+      `</svg>` +
+      `<div class="o-cover"><img src="${IMG_BASE}${esc(obj)}" alt="${esc(titulo(obj))}"></div>` +
+      `<button class="b-pri o-go" id="pIr" type="button" disabled>Aceptar</button>`;
+    pintarRojo(rojoMostrado); pintarAguja();
+    $('pIr').disabled = sel.length === 0 || ocupado || window.cubeInv.total(obj) >= MAX_COPIAS;
+  }
+
+  function pintarRojo(grados) { const r = $('oRojo'); if (r) r.setAttribute('d', rutaRoja(grados)); }
+  function pintarAguja() { const a = $('oAguja'); if (a) a.setAttribute('transform', `rotate(${aguja} ${C} ${C})`); }
+
+  // El rojo crece (o se acorta) suavemente hasta el valor nuevo
+  function animarRojo(destino, ms = 320) {
+    cancelAnimationFrame(rojoAnim);
+    const de = rojoMostrado, t0 = performance.now();
+    const paso = ahora => {
+      const k = Math.min(1, (ahora - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+      rojoMostrado = de + (destino - de) * e;
+      pintarRojo(rojoMostrado);
+      if (k < 1) rojoAnim = requestAnimationFrame(paso);
+    };
+    rojoAnim = requestAnimationFrame(paso);
+  }
+  const actualizarRojo = () => animarRojo(prob() * 360);
+
+  // ---- Elegir historias del inventario ----
+  function pintarLista() {
+    const mias = window.cubeInv.lista().filter(i => i !== obj && window.cubeInv.cantidad(i) > 0)
+      .sort((a, b) => titulo(a).localeCompare(titulo(b), 'es', { sensitivity: 'base' }));
+    $('oLista').innerHTML = mias.map(id => {
+      const quedan = window.cubeInv.cantidad(id) - usadas(id);
+      const off = quedan <= 0 || sel.length >= MAX_USADAS;
+      return `<button class="v-item" type="button" data-id="${esc(id)}"${off ? ' disabled' : ''}>` +
+        `<div class="v-th"><img src="${IMG_BASE}${esc(id)}" alt="" loading="lazy" onerror="this.style.display='none'"></div>` +
+        `<div class="v-it">${esc(titulo(id))}<span>Valor ${fmt(precio(id))} · Disponibles ${Math.max(0, quedan)}</span></div></button>`;
+    }).join('') || '<p class="cw-vacio">No tienes otras historias para usar. Consíguelas en Lotes.</p>';
+  }
+  const abrirLista = () => { pintarLista(); $('oSheet').hidden = false; };
+  const cerrarLista = () => { $('oSheet').hidden = true; };
+  $('oListo').onclick = cerrarLista;
+  $('oSheet').addEventListener('click', e => { if (e.target === $('oSheet')) cerrarLista(); });
+  $('oLista').addEventListener('click', e => {
+    const b = e.target.closest('.v-item'); if (!b || b.disabled || ocupado) return;
+    if (sel.length >= MAX_USADAS) return;
+    sel.push(b.dataset.id);
+    pintar(); actualizarRojo(); pintarLista();
+    if (sel.length >= MAX_USADAS) cerrarLista();
+  });
+
+  function mensajeError(e) {
+    const m = String((e && e.message) || e || '');
+    if (m.includes('limite_copias')) return 'Ya tienes 3 copias de esa historia.';
+    if (m.includes('no_las_tienes')) return 'Alguna de las historias elegidas ya no está en tu inventario.';
+    if (m.includes('usadas_invalidas')) return 'Elige entre 1 y 6 historias.';
+    if (m.includes('historia_invalida')) return 'Esa historia no está disponible.';
+    if (m.includes('no_autenticado')) return 'Inicia sesión para continuar.';
+    return 'No se pudo completar el intento. Intenta de nuevo.';
+  }
+
+  // ---- La aguja: gira de derecha a izquierda y frena donde el servidor ya decidió ----
+  const OMEGA = 600;                          // grados por segundo mientras espera el resultado
+  const norm = d => ((d % 360) + 360) % 360;
+  const espera = ms => new Promise(r => setTimeout(r, ms));
+  let giro = null;                            // { parar() } mientras gira a velocidad constante
+
+  function girarLibre() {
+    let ultimo = performance.now(), vivo = true, raf = 0;
+    const paso = ahora => {
+      if (!vivo) return;
+      aguja -= OMEGA * (ahora - ultimo) / 1000; ultimo = ahora;
+      pintarAguja(); raf = requestAnimationFrame(paso);
+    };
+    raf = requestAnimationFrame(paso);
+    return { parar() { vivo = false; cancelAnimationFrame(raf); } };
+  }
+
+  function frenarEn(destino) {                // devuelve una promesa que se cumple cuando la aguja se detiene
+    return new Promise(res => {
+      const a = aguja, T0 = 3.6;
+      const D0 = OMEGA * T0 / 3;              // distancia mínima con frenada suave
+      const extra = norm(a - destino - D0);   // lo que falta para caer justo en el destino
+      const D = D0 + extra, T = 3 * D / OMEGA;
+      const t0 = performance.now();
+      const paso = ahora => {
+        const k = Math.min(1, (ahora - t0) / (T * 1000));
+        aguja = a - D * (1 - Math.pow(1 - k, 3));
+        pintarAguja();
+        if (k < 1) requestAnimationFrame(paso); else { aguja = norm(aguja); pintarAguja(); res(); }
+      };
+      requestAnimationFrame(paso);
+    });
+  }
+
+  function angulo(exito, grados) {            // punto al azar dentro (o fuera) de la franja roja, sin pegarse a los bordes
+    const ini = exito ? A0 : A0 + grados, largo = exito ? grados : 360 - grados;
+    const m = Math.min(3, largo * 0.25);
+    return norm(ini + m + Math.random() * Math.max(0, largo - 2 * m));
+  }
+
+  async function intentar() {
+    if (ocupado || !obj || !sel.length) return;
+    const img = obj, lista = sel.slice(), p = prob();
+    ocupado = true; pintar();
+    cerrarLista();
+    giro = girarLibre();
+    try {
+      const [{ data, error }] = await Promise.all([window.cubeDb.rpc('profit_historia', { p_objetivo: img, p_usadas: lista }), espera(900)]);
+      if (error) throw error;
+      const r = Array.isArray(data) ? data[0] : data;
+      const ok = !!(r && r.exito);
+      const pReal = r && r.probabilidad != null ? Math.min(PROB_MAX, Number(r.probabilidad)) : p;
+      if (Math.abs(pReal - p) > 0.005) animarRojo(pReal * 360, 300);   // que lo dibujado coincida con lo real
+      giro.parar(); giro = null;
+      await frenarEn(angulo(ok, pReal * 360));
+      await espera(650);
+      await window.cubeInv.recargar();
+      sel = []; ocupado = false;
+      if (obj === img) { aguja = 0; rojoMostrado = 0; pintar(); }
+      window.cubeR.abrir(ok ? '¡Lo conseguiste!' : 'No salió esta vez',
+        `<div class="v-cover"><img src="${IMG_BASE}${esc(img)}" alt=""></div>` +
+        `<p class="v-nota">${ok ? `“${esc(titulo(img))}” ya está en tu inventario.` : 'Las historias que pusiste se perdieron.'}</p>` +
+        '<div class="v-acc"><button class="b-pri" type="button" data-r="cerrar">Listo</button></div>');
+    } catch (e) {
+      console.warn('Obtener fallido', e);
+      if (giro) { giro.parar(); giro = null; }
+      window.cubeAviso(mensajeError(e));
+      try { await window.cubeInv.recargar(); } catch (_) {}
+      sel = sel.filter(i => window.cubeInv.cantidad(i) > 0);
+      ocupado = false;
+      if (obj === img) { aguja = norm(aguja); pintar(); actualizarRojo(); }
+    }
+  }
+
+  $('pCuerpo').addEventListener('click', e => {
+    if (ocupado) return;
+    const x = e.target.closest('[data-k]');
+    if (x) { sel.splice(Number(x.dataset.k), 1); pintar(); actualizarRojo(); return; }
+    if (e.target.closest('[data-o="mas"]')) { abrirLista(); return; }
+    if (e.target.closest('#pIr')) intentar();
+  });
+
+  // La abre el botón "Obtener" del panel de una historia
+  window.cubeAbrirProfit = async img => {
+    if (!sesion()) { window.abrirModal('auth'); return; }
+    desde = body.classList.contains('buscando') ? 'buscando' : body.classList.contains('en-lista') ? 'en-lista' : null;
+    obj = img; sel = []; ocupado = false; aguja = 0; rojoMostrado = 0;
+    await window.cubeInv.recargar();
+    pintar();
+    ir('en-profit');
+    if (window.cubeInv.total(img) >= MAX_COPIAS) window.cubeAviso(`Ya tienes ${MAX_COPIAS} copias de esta historia (el máximo).`);
+  };
+  window.cubeAbrirObtener = window.cubeAbrirProfit;
+  $('cerrarProfit').onclick = () => {
+    if (ocupado) return;
+    const d = desde; obj = null; cerrarLista();
+    if (d) ir(d); else cerrarModales();
+  };
+  // Al tocar Buscar en la barra inferior, esta pantalla debe cerrarse
+  $('navBuscar').addEventListener('click', () => { if (!ocupado) body.classList.remove('en-profit', 'en-vender', 'en-vbuscar', 'en-lotes'); });
+})();
+</script>
+
+<!-- ================= MI INVENTARIO: panel de una historia ================= -->
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const titulo = img => { const p = (window.catalogo || []).find(x => x.img === img); return p ? p.alt : img.replace(/\.webp$/, '').replace(/-/g, ' '); };
+  let actual = null;
+  const esFav = img => { const u = window.usuario && window.usuario(); return !!(u && (u.favoritos || []).some(f => f && f.img === img)); };
+  const cerrar = () => { $('iSheet').hidden = true; actual = null; };
+
+  document.addEventListener('click', e => {
+    const el = e.target.closest('#cwInv .portada');
+    if (!el || !el.dataset.id) return;
+    actual = el.dataset.id;
+    $('iImg').src = IMG_BASE + actual;
+    $('iImg').alt = titulo(actual);
+    $('iTitulo').textContent = titulo(actual);
+    $('iFav').classList.toggle('on', esFav(actual));
+    $('iSheet').hidden = false;
+  });
+  $('iSheet').addEventListener('click', e => { if (e.target === $('iSheet')) cerrar(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('iSheet').hidden) cerrar(); });
+
+  $('iVer').onclick = () => { const img = actual; cerrar(); if (window.cubeVerAhora) window.cubeVerAhora(img); };
+
+  $('iFav').onclick = () => {
+    const u = window.usuario && window.usuario();
+    if (!u) { window.abrirModal('auth'); return; }
+    const fav = esFav(actual);
+    u.favoritos = (u.favoritos || []).filter(f => f && f.img !== actual);
+    if (!fav) u.favoritos.push({ img: actual });
+    if (typeof window.guardarUsuario === 'function') window.guardarUsuario(u);
+    $('iFav').classList.toggle('on', !fav);
+    window.cubeAviso(fav ? 'Quitada de favoritos.' : 'Agregada a favoritos.');
+  };
+
+  // Agregar a una lista: la lógica de listas vive en cube-listas.js. Si expone un gancho se usa; si no, avisa.
+  $('iLista').onclick = () => {
+    const img = actual;
+    const ev = new CustomEvent('cube-agregar-lista', { detail: { img }, cancelable: true });
+    if (typeof window.cubeAgregarALista === 'function') { cerrar(); window.cubeAgregarALista(img); return; }
+    if (window.dispatchEvent(ev)) window.cubeAviso('Las listas estarán disponibles muy pronto.'); else cerrar();
+  };
+})();
 </script>
 
 <!-- ================= SUPABASE INTEGRATION ================= -->
