@@ -376,6 +376,7 @@ function sorteoLocal() {
 function msgError(e) {
   const m = String((e && (e.message || e.details || e.hint)) || e);
   if (m.includes('sin_creditos')) return 'No tienes créditos suficientes para este lote.';
+  if (m.includes('lote_completo')) return 'Ya tienes todas las historias disponibles de este lote.';
   if (m.includes('no_sesion')) return 'Tu sesión expiró. Vuelve a iniciar sesión en Cube.';
   if (m.includes('abrir_lote') || m.includes('PGRST202') || m.includes('schema cache')) return 'Falta instalar la función abrir_lote en Supabase (ejecuta lotes.sql).';
   return 'No se pudo abrir el lote: ' + m.slice(0, 110);
