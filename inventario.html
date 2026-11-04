@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ECECEC">
+<title>cube – Lotes</title>
+<link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#C6FF00;--fondo:#ECECEC;--negro:#0A0A0A;--oscuro:#171917;--suave:#6B6F68;--margen:3.4vw;
+  --comun:#FFD60A;--raro:#E5484D;--extraordinario:#8B5CF6;--legendario:#D4A72C;--iw:clamp(96px,28vw,150px);color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--fondo)}
+body{font-family:'Poppins',sans-serif;color:var(--negro);min-height:100vh}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+[hidden]{display:none!important}
+@media(min-width:700px){:root{--margen:28px}}
+.app{max-width:560px;margin:0 auto;padding-bottom:50px}
+:focus-visible{outline:2px solid var(--negro);outline-offset:2px;border-radius:14px}
+
+/* Barra superior (igual que el perfil de Inicio) */
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:calc(env(safe-area-inset-top,0px) + 12px) var(--margen) 8px}
+.pill{display:flex;align-items:center;gap:8px;min-width:0;height:46px;padding:5px 18px 5px 5px;background:#fff;border-radius:999px;font-weight:700;font-size:.98rem;color:var(--negro);transition:transform .12s}
+.pill:active{transform:scale(.97)}
+.pill-ico{flex:none;width:36px;height:36px;border-radius:50%;background:var(--verde);display:grid;place-items:center}
+.pill-ico svg{width:20px;height:20px}
+.pill span.t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.saldo{flex:none;display:flex;align-items:baseline;gap:2px;height:46px;padding:0 18px;background:var(--verde);border-radius:999px;font-weight:700;font-size:1rem;align-items:center;letter-spacing:-.02em}
+.aviso-ses{margin:8px var(--margen) 0;padding:9px 16px;background:#fff;border-radius:999px;font-size:.78rem;text-align:center}
+.aviso-ses a{font-weight:700;text-decoration:underline}
+
+
+/* Inventario */
+.card{margin:12px var(--margen) 0;background:#fff;border-radius:40px;padding:clamp(22px,6.4vw,32px) clamp(20px,6vw,30px) clamp(22px,6vw,30px)}
+.lbl{font-size:clamp(1.05rem,4.4vw,1.35rem);font-weight:500;line-height:1.2}
+.num{display:flex;align-items:baseline;gap:8px;margin-top:6px;font-weight:700;letter-spacing:-.035em;line-height:1.05;font-size:clamp(2.6rem,13vw,4.1rem)}
+.num small{font-size:.38em;font-weight:500;letter-spacing:0;color:var(--suave)}
+.barra{margin-top:16px;height:14px;border-radius:999px;background:#ECECEC;overflow:hidden}
+.barra i{display:block;height:100%;width:0;border-radius:999px;background:var(--verde);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.chips{display:flex;gap:8px;padding:16px var(--margen) 0;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;height:38px;padding:0 18px;border-radius:999px;background:#fff;font-weight:600;font-size:.88rem;transition:transform .12s}
+.chip:active{transform:scale(.96)}
+.chip[aria-pressed=true]{background:var(--oscuro);color:var(--verde)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:14px var(--margen) 0}
+.hc{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#fff;width:100%;display:block;transition:transform .12s}
+.hc:active{transform:scale(.97)}
+.hc img{width:100%;height:100%;object-fit:cover;display:block}
+.ph{position:absolute;inset:0;display:grid;place-items:center;padding:8px;text-align:center;font-size:.74rem;font-weight:600;color:var(--suave)}
+.hc .rareza{position:absolute;left:9px;top:9px}
+.hc.falta img{filter:grayscale(1) brightness(.55)}
+.hc.falta .cand{position:absolute;inset:0;display:grid;place-items:center;color:#fff}
+.hc.falta .cand svg{width:28px;height:28px;opacity:.9}
+.rareza{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.68rem;font-weight:600;line-height:1.5}
+.rareza.comun{background:#FFD60A;color:#0A0A0A}
+.rareza.raro{background:#E5484D;color:#fff}
+.rareza.extraordinario{background:#8B5CF6;color:#fff}
+.rareza.legendario{background:#D4A72C;color:#0A0A0A}
+.vacio{margin:14px var(--margen) 0;padding:34px 24px;background:#fff;border-radius:34px;text-align:center}
+.vacio p{font-weight:600;font-size:1.05rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 30px;margin-top:18px;border-radius:999px;background:var(--oscuro);color:var(--verde);font-weight:700;font-size:1rem;transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn.b{background:#ECECEC;color:var(--negro);margin-top:16px}
+.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(10,10,10,.72);backdrop-filter:blur(6px);animation:fade .25s}
+@keyframes fade{from{opacity:0}}
+.premio{width:min(100%,380px);background:#fff;border-radius:40px;padding:14px 14px 20px;text-align:center;animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(.8);opacity:0}}
+.premio.comun{--c:var(--comun)}.premio.raro{--c:var(--raro)}.premio.extraordinario{--c:var(--extraordinario)}.premio.legendario{--c:var(--legendario)}
+.premio .po{position:relative;aspect-ratio:16/9;border-radius:28px;overflow:hidden;box-shadow:0 0 0 3px var(--c,#ddd),0 12px 34px -8px var(--c,transparent);background:#d9dcd3}
+.premio img{width:100%;height:100%;object-fit:cover;display:block}
+.premio .rareza{margin-top:16px;font-size:.78rem;padding:3px 14px}
+.premio h2{margin:8px 8px 0;font-weight:700;font-size:1.3rem;letter-spacing:-.02em;line-height:1.2}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);transform:translate(-50%,30px);z-index:60;max-width:90vw;padding:12px 20px;background:var(--negro);color:#fff;border-radius:22px;font-size:.84rem;opacity:0;pointer-events:none;transition:.3s;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* barra inferior (igual que cube.html) */
+.bottom-nav{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:min(calc(100% - 2 * var(--margen)),540px);display:flex;align-items:flex-end;gap:12px;z-index:100;pointer-events:none}
+.bottom-nav>*{pointer-events:auto}
+.nav-pill{flex:1;min-width:0;height:clamp(54px,15vw,64px);display:flex;align-items:center;justify-content:space-around;padding:0 6px;background:#fff;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.bottom-nav-item{display:flex;align-items:center;justify-content:center;color:#8D918A;transition:color .2s,transform .15s,background .2s}
+.nav-pill .bottom-nav-item{flex:0 0 auto;width:clamp(46px,13.6vw,58px);height:clamp(42px,11.6vw,50px);border-radius:50%}
+.nav-pill .bottom-nav-item svg{width:24px;height:24px}
+.bottom-nav-item:active{transform:scale(.92)}
+.nav-pill .bottom-nav-item.activo{background:var(--fondo);color:var(--negro)}
+#navPerfil{flex:0 0 auto;width:clamp(62px,17.4vw,72px);height:clamp(62px,17.4vw,72px);border-radius:50%;background:var(--verde);color:var(--negro)}
+#navPerfil svg{width:52%;height:52%}
+.app{padding-bottom:120px}
+.modal{z-index:120}.toast{z-index:130}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <a class="pill" href="cube.html" aria-label="Volver">
+      <span class="pill-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span>
+      <span class="t">Inventario</span>
+    </a>
+    <div class="saldo" aria-live="polite">$<span id="saldoN">—</span></div>
+  </header>
+  <div class="aviso-ses" id="avisoSes" hidden></div>
+
+  <section class="card">
+    <div class="lbl">Historias</div>
+    <div class="num"><span id="nTengo">0</span><small id="nTotal">/ 0</small></div>
+    <div class="barra"><i id="barra"></i></div>
+  </section>
+
+  <nav class="chips" id="chips" aria-label="Filtrar"></nav>
+  <div class="grid" id="grid"></div>
+  <div class="vacio" id="vacio" hidden><p>Aún no tienes historias</p><a class="btn" href="lotes.html">Abrir un lote</a></div>
+</div>
+<nav class="bottom-nav" aria-label="Navegación inferior">
+  <div class="nav-pill">
+    <a class="bottom-nav-item" href="cube.html" aria-label="Inicio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a>
+    <a class="bottom-nav-item activo" href="inventario.html" aria-label="Inventario" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></svg></a>
+    <a class="bottom-nav-item" href="cube.html" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+    <a class="bottom-nav-item" href="cube.html" aria-label="Orbe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></a>
+  </div>
+  <a class="bottom-nav-item" id="navPerfil" href="cube.html" aria-label="Perfil"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></a>
+</nav>
+<div class="modal" id="modal" hidden></div>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="cube-config.js"></script>
+<script>
+const IMG_BASE = 'https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/';
+const RAREZAS = { comun:'Común', raro:'Raro', extraordinario:'Extraordinario', legendario:'Legendario' };
+const ORDEN = { legendario:0, extraordinario:1, raro:2, comun:3 };
+const STORIES = {
+  bigfoot:   { f:'bigfoot-2.webp', t:'Bigfoot', r:'raro' },
+  obedece:   { f:'obedece.webp', t:'Obedece', r:'comun' },
+  nada:      { f:'nada.webp', t:'Nada', r:'comun' },
+  muevete:   { f:'muevete-al-minuto.webp', t:'Muévete al Minuto', r:'comun' },
+  strike:    { f:'strike.webp', t:'Strike', r:'raro' },
+  retorcidos:{ f:'retorcidos.webp', t:'Retorcidos', r:'raro' },
+  valentine: { f:'valentine.webp', t:'Valentine', r:'comun' },
+  ultimate:  { f:'ultimate.webp', t:'Ultimate', r:'comun' },
+  metalosis: { f:'metalosis-maligna.webp', t:'Metalosis Maligna', r:'raro' },
+  ratman:    { f:'ratman.webp', t:'Ratman', r:'raro' },
+  ev_ext:    { f:'eternamente-vivo-1.webp', t:'Eternamente Vivo 1', r:'extraordinario' },
+  ev_leg:    { f:'eternamente-vivo-2.webp', t:'Eternamente Vivo 2', r:'legendario' },
+  ev3:       { f:'eternamente-vivo.webp', t:'Eternamente Vivo con Amadeus Shell', r:'raro' },
+  ev4:       { f:'eternamente-vivo-dante.webp', t:'Eternamente Vivo con Dante el Grande', r:'raro' },
+  ev5:       { f:'eternamente-vivo-valak.webp', t:'Eternamente Vivo con Valak Seraphel', r:'raro' },
+  triangle:  { f:'triangle-room.webp', t:'Triangle Room', r:'extraordinario' },
+  menem:     { f:'menem.webp', t:'Menem', r:'raro' },
+  mama:      { f:'mama-dogs.webp', t:'Mama Dogs', r:'comun' },
+  entrevistas:{ f:'las-entrevistas.webp', t:'Las Entrevistas', r:'legendario' },
+  golem:     { f:'golem.webp', t:'Golem', r:'comun' },
+  rani:      { f:'la-familia-rani.webp', t:'La Familia Rani', r:'extraordinario' },
+  telefono:  { f:'el-telefono.webp', t:'El Teléfono', r:'comun' },
+  divina:    { f:'divina-comedia.webp', t:'Divina Comedia', r:'legendario' },
+  without:   { f:'without-warning.webp', t:'Without Warning', r:'raro' }
+};
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtC = n => Number(n).toLocaleString('es-AR');
+const CAT = Object.values(STORIES);           // catálogo de lotes
+const porArchivo = {}; CAT.forEach(s => porArchivo[s.f] = s);
+const db = (window.supabase && window.CUBE_SUPABASE_URL) ? supabase.createClient(window.CUBE_SUPABASE_URL, window.CUBE_SUPABASE_ANON_KEY) : null;
+let user = null, tengo = new Set(), filtro = 'todas';
+
+function toast(t) { const e = $('toast'); e.textContent = t; e.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.remove('on'), 4500); }
+const nombreDe = f => (porArchivo[f] ? porArchivo[f].t : f.replace(/\.webp$/, '').replace(/-/g, ' ').replace(/^./, c => c.toUpperCase()));
+const portada = (f, t) => `<img src="${IMG_BASE}${f}" alt="${esc(t)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'ph',textContent:this.alt}))">`;
+
+async function cargar() {
+  try { if (db) { const { data } = await db.auth.getSession(); user = data && data.session ? data.session.user : null; } } catch (e) { user = null; }
+  if (!user) {
+    $('saldoN').textContent = '—';
+    const av = $('avisoSes'); av.hidden = false; av.innerHTML = 'Inicia sesión en <a href="cube.html">Cube</a> para ver tu inventario.';
+    return pintar();
+  }
+  try {
+    const [w, inv] = await Promise.all([
+      db.from('wallets').select('creditos').eq('user_id', user.id).maybeSingle(),
+      db.from('inventario').select('historia').eq('user_id', user.id)]);
+    if (inv.error) throw inv.error;
+    $('saldoN').textContent = w.data ? fmtC(w.data.creditos) : '0';
+    tengo = new Set((inv.data || []).map(r => r.historia));
+  } catch (e) { console.warn(e); toast('No se pudo cargar tu inventario.'); }
+  pintar();
+}
+
+function pintar() {
+  const total = CAT.length, n = CAT.filter(s => tengo.has(s.f)).length;
+  $('nTengo').textContent = n; $('nTotal').textContent = '/ ' + total;
+  requestAnimationFrame(() => { $('barra').style.width = (total ? n / total * 100 : 0) + '%'; });
+
+  const FILTROS = [['todas', 'Todas'], ['comun', 'Común'], ['raro', 'Raro'], ['extraordinario', 'Extraordinario'], ['legendario', 'Legendario'], ['faltan', 'Faltan']];
+  $('chips').innerHTML = FILTROS.map(([k, t]) => `<button class="chip" type="button" data-k="${k}" aria-pressed="${filtro === k}">${t}</button>`).join('');
+  $('chips').querySelectorAll('.chip').forEach(b => b.onclick = () => { filtro = b.dataset.k; pintar(); });
+
+  const extra = [...tengo].filter(f => !porArchivo[f]).map(f => ({ f, t: nombreDe(f), r: null }));   // historias de otras secciones
+  let lista;
+  if (filtro === 'faltan') lista = CAT.filter(s => !tengo.has(s.f)).map(s => ({ ...s, falta: true }));
+  else {
+    lista = CAT.filter(s => tengo.has(s.f)).concat(extra);
+    if (filtro !== 'todas') lista = lista.filter(s => s.r === filtro);
+  }
+  lista.sort((a, b) => (a.r ? ORDEN[a.r] : 9) - (b.r ? ORDEN[b.r] : 9) || a.t.localeCompare(b.t, 'es'));
+  $('grid').innerHTML = lista.map(s => `<button class="hc${s.falta ? ' falta' : ''}" type="button" data-f="${s.f}" aria-label="${esc(s.t)}">${portada(s.f, s.t)}${s.r ? `<span class="rareza ${s.r}">${RAREZAS[s.r]}</span>` : ''}${s.falta ? '<span class="cand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>' : ''}</button>`).join('');
+  $('grid').querySelectorAll('.hc').forEach(b => b.onclick = () => ver(b.dataset.f, b.classList.contains('falta')));
+  $('vacio').hidden = !(user && tengo.size === 0 && filtro === 'todas');
+}
+
+function ver(f, falta) {
+  const s = porArchivo[f] || { f, t: nombreDe(f), r: null }, m = $('modal');
+  m.innerHTML = `<div class="premio ${s.r || ''}" role="dialog" aria-modal="true" aria-label="${esc(s.t)}">
+    <div class="po">${portada(f, s.t)}</div>
+    ${s.r ? `<span class="rareza ${s.r}">${RAREZAS[s.r]}</span>` : ''}<h2>${esc(s.t)}</h2>
+    ${falta ? '<a class="btn" href="lotes.html">Buscar en lotes</a>' : ''}
+    <button class="btn b" id="mCerrar" type="button" style="display:flex;width:100%">Cerrar</button></div>`;
+  m.hidden = false;
+  const cerrar = () => { m.hidden = true; m.innerHTML = ''; };
+  $('mCerrar').onclick = cerrar; m.onclick = e => { if (e.target === m) cerrar(); };
+}
+pintar(); cargar();
+</script>
+</body>
+</html>
