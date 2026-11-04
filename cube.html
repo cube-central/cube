@@ -1753,6 +1753,14 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
 <script src="cube-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="cube-supabase.js"></script>
+<script>
+window.addEventListener('cube-wallet-accion', function (e) {
+  if (e.detail && e.detail.accion === 'lotes') {
+    e.preventDefault();               // evita el aviso "Próximamente"
+    location.href = 'lotes.html';
+  }
+});
+</script>
 <script src="cube-push.js"></script>
 
 </body>
