@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ECECEC">
-<title>cube – Inicio</title>
+<title>Cube</title>
+<script src="cube-tema.js"></script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
 <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
@@ -13,7 +14,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
 /* Diseño nuevo: fondo #ECECEC · verde ácido #C6FF00 · tarjetas blancas · texto negro */
-:root{--verde:#C6FF00;--fondo:#ECECEC;--panel:#FFFFFF;--texto:#0A0A0A;--texto-suave:#6B6F68;--negro:#0A0A0A;--acento:#0A0A0A;--oscuro:#171917;--margen:3.4vw;color-scheme:light}
+:root{--verde:#C6FF00;--fondo:#ECECEC;--panel:#FFFFFF;--tarjeta:#FFFFFF;--texto:#0A0A0A;--texto-suave:#6B6F68;--negro:#0A0A0A;--tinta:#0A0A0A;--acento:#0A0A0A;--oscuro:#171917;--linea:#D6D8D3;--sutil:rgba(0,0,0,.06);--margen:3.4vw;color-scheme:light}
+:root[data-tema="dark"]{--fondo:#111313;--panel:#1D2220;--tarjeta:#1D2220;--texto:#F4F5F2;--texto-suave:#858D87;--tinta:#F4F5F2;--acento:#C6FF00;--oscuro:#0C0E0D;--linea:#2A302D;--sutil:rgba(244,245,242,.06);color-scheme:dark}
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html,body{background:var(--fondo)}
   body{font-family:'Poppins',sans-serif;color:var(--texto);min-height:100vh}
@@ -28,18 +30,18 @@
   /* ===== Inicio ===== */
   #home{max-width:560px;margin:0 auto;min-height:100vh;min-height:100svh;padding-bottom:110px}
   .top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:calc(env(safe-area-inset-top,0px) + 12px) var(--margen) 8px}
-  .perfil-pill{display:flex;align-items:center;gap:8px;min-width:0;max-width:46%;height:46px;padding:5px 16px 5px 5px;background:#fff;border-radius:999px;font-weight:700;font-size:.98rem;color:var(--negro);transition:transform .12s}
+  .perfil-pill{display:flex;align-items:center;gap:8px;min-width:0;max-width:46%;height:46px;padding:5px 16px 5px 5px;background:var(--tarjeta);border-radius:999px;font-weight:700;font-size:.98rem;color:var(--tinta);transition:transform .12s}
   .perfil-pill:active{transform:scale(.97)}
   .pp-av{flex:none;width:36px;height:36px;border-radius:50%;background:var(--verde);display:grid;place-items:center;overflow:hidden;color:var(--negro)}
   .pp-av svg{width:20px;height:20px}
   .pp-av img{width:100%;height:100%;object-fit:cover;display:block}
   .pp-nombre{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .top-acciones{display:flex;align-items:center}
-  .top-ico{position:relative;flex:none;width:40px;height:44px;display:grid;place-items:center;color:var(--negro);transition:transform .12s}
+  .top-ico{position:relative;flex:none;width:40px;height:44px;display:grid;place-items:center;color:var(--tinta);transition:transform .12s}
   .top-ico svg{width:25px;height:25px}
   .top-ico:active{transform:scale(.9)}
   .top-ico .cw-badge{top:3px;right:0}
-  .top-ico:focus-visible,.circ:focus-visible,.riesgo:focus-visible,.platinum:focus-visible,.perfil-pill:focus-visible{outline:2px solid var(--negro);outline-offset:2px;border-radius:14px}
+  .top-ico:focus-visible,.circ:focus-visible,.riesgo:focus-visible,.platinum:focus-visible,.perfil-pill:focus-visible{outline:2px solid var(--tinta);outline-offset:2px;border-radius:14px}
 
   /* Pestañas Inicio / Portafolio: la activa es blanca y se funde con la tarjeta */
   .fold{--r:clamp(26px,9vw,44px);--th:clamp(48px,13.6vw,64px);--f:calc(var(--r) * .55);position:relative;margin:14px var(--margen) 0}
@@ -48,28 +50,28 @@
   .fold[data-tab="portafolio"]::before{left:0}
   .fold-tabs{position:relative;z-index:2;height:var(--th)}
   .fold-tab{position:absolute;top:0;height:var(--th);background:var(--verde);color:var(--negro);font-weight:500;font-size:clamp(.95rem,4.1vw,1.2rem)}
-  .fold-tab[aria-selected="true"]{background:#fff;border-radius:var(--r) var(--r) 0 0;z-index:2}
+  .fold-tab[aria-selected="true"]{background:var(--tarjeta);border-radius:var(--r) var(--r) 0 0;z-index:2}
   .fold-tab[aria-selected="false"]{z-index:1}
   #tabInicio{left:0;width:50%}
   #tabPortafolio{left:50%;right:0}
   .fold[data-tab="inicio"] #tabPortafolio{left:calc(50% - var(--r));padding-left:var(--r);border-radius:0 var(--r) 0 0}
   .fold[data-tab="portafolio"] #tabInicio{width:calc(50% + var(--r));padding-right:var(--r);border-radius:var(--r) 0 0 0}
-  .fold-tab[aria-selected="true"]::after{content:"";position:absolute;bottom:0;width:var(--f);height:var(--f);background:#fff;pointer-events:none}
+  .fold-tab[aria-selected="true"]::after{content:"";position:absolute;bottom:0;width:var(--f);height:var(--f);background:var(--tarjeta);pointer-events:none}
   #tabInicio[aria-selected="true"]::after{left:calc(100% - 1px);-webkit-mask:radial-gradient(circle at 100% 0,transparent var(--f),#000 calc(var(--f) + .6px));mask:radial-gradient(circle at 100% 0,transparent var(--f),#000 calc(var(--f) + .6px))}
   #tabPortafolio[aria-selected="true"]::after{right:calc(100% - 1px);-webkit-mask:radial-gradient(circle at 0 0,transparent var(--f),#000 calc(var(--f) + .6px));mask:radial-gradient(circle at 0 0,transparent var(--f),#000 calc(var(--f) + .6px))}
-  .fold-tab:focus-visible{outline:2px solid var(--negro);outline-offset:-5px}
-  .fold-card{position:relative;z-index:1;background:#fff;padding:clamp(26px,8vw,40px) clamp(22px,7.4vw,34px) clamp(30px,9vw,44px)}
+  .fold-tab:focus-visible{outline:2px solid var(--tinta);outline-offset:-5px}
+  .fold-card{position:relative;z-index:1;background:var(--tarjeta);padding:clamp(26px,8vw,40px) clamp(22px,7.4vw,34px) clamp(30px,9vw,44px)}
   .fold[data-tab="inicio"] .fold-card{border-radius:0 var(--r) var(--r) var(--r)}
   .fold[data-tab="portafolio"] .fold-card{border-radius:var(--r) 0 var(--r) var(--r)}
 
   .lbl-g{font-size:clamp(1.1rem,4.6vw,1.45rem);font-weight:500;line-height:1.2}
   .lbl-p{font-size:clamp(.8rem,3.1vw,.95rem);font-weight:400;line-height:1.2}
-  .monto{display:flex;align-items:baseline;font-weight:700;letter-spacing:-.035em;line-height:1.05;color:var(--negro)}
+  .monto{display:flex;align-items:baseline;font-weight:700;letter-spacing:-.035em;line-height:1.05;color:var(--tinta)}
   .monto.g{font-size:clamp(2.6rem,13vw,4.3rem);margin-top:6px}
   .monto.p{font-size:clamp(1.7rem,7vw,2.3rem);margin-top:6px}
   .gana{display:inline-flex;align-items:center;margin-top:clamp(12px,3.6vw,18px);min-height:clamp(32px,9vw,42px);padding:0 clamp(16px,5.4vw,24px);background:var(--verde);border-radius:999px;font-size:clamp(.82rem,3.7vw,1rem);color:var(--negro)}
   .circulos{display:flex;justify-content:center;gap:clamp(18px,7.6vw,40px);margin-top:clamp(28px,8.5vw,44px)}
-  .circ{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:clamp(.82rem,3.4vw,1rem);color:var(--negro)}
+  .circ{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:clamp(.82rem,3.4vw,1rem);color:var(--tinta)}
   .circ-ico{width:clamp(54px,14.6vw,76px);height:clamp(54px,14.6vw,76px);border-radius:50%;background:var(--oscuro);display:grid;place-items:center;color:var(--acento);transition:transform .12s}
   .circ-ico svg{width:46%;height:46%}
   .circ:active .circ-ico{transform:scale(.94)}
@@ -85,27 +87,27 @@
 
 
   /* Te ofrecemos: heroes */
-  .te{margin:30px var(--margen) 0}
-  .te h2{font-size:1.25rem;font-weight:700;color:var(--negro)}
+  .te{margin:clamp(96px,22vh,190px) var(--margen) 0}
+  .te h2{font-size:1.25rem;font-weight:700;color:var(--tinta)}
   .hero-wrap{margin-top:12px}
   .hero-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-radius:22px}
   .hero-track::-webkit-scrollbar{display:none}
   .hero-item{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
-  .hero{position:relative;width:100%;aspect-ratio:16/9;border-radius:22px;background:#fff;overflow:hidden}
+  .hero{position:relative;width:100%;aspect-ratio:16/9;border-radius:22px;background:var(--tarjeta);overflow:hidden}
   .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .hero-datos{padding:12px 4px 0}
-  .hero-titulo{font-weight:700;font-size:1.15rem;line-height:1.15;color:var(--negro)}
+  .hero-titulo{font-weight:700;font-size:1.15rem;line-height:1.15;color:var(--tinta)}
   .hero-meta{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin-top:5px;color:var(--texto-suave);font-size:.84rem}
   .hero-meta i{font-style:normal;opacity:.6}
-  .clasif{display:inline-block;padding:1px 7px;border:1px solid var(--texto-suave);border-radius:6px;color:var(--negro);font-size:.7rem;font-weight:600;letter-spacing:.3px}
+  .clasif{display:inline-block;padding:1px 7px;border:1px solid var(--texto-suave);border-radius:6px;color:var(--tinta);font-size:.7rem;font-weight:600;letter-spacing:.3px}
   .rareza{display:inline-block;margin-top:9px;padding:3px 12px;border-radius:999px;font-size:.74rem;font-weight:600;line-height:1.4}
   .rareza.comun{background:#FFD60A;color:#0A0A0A}
   .rareza.raro{background:#E5484D;color:#fff}
   .rareza.extraordinario{background:#8B5CF6;color:#fff}
   .rareza.legendario{background:#D4A72C;color:#0A0A0A}
   .dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
-  .dot{width:8px;height:8px;padding:0;border-radius:50%;background:#C9CBC6;transition:background .2s}
-  .dot.activo{background:var(--negro)}
+  .dot{width:8px;height:8px;padding:0;border-radius:50%;background:var(--linea);transition:background .2s}
+  .dot.activo{background:var(--tinta)}
 
   /* Portafolio: tarjetas de riesgo */
   .riesgos{margin-top:clamp(14px,4.4vw,22px);display:flex;flex-direction:column;gap:clamp(10px,3vw,16px)}
@@ -129,16 +131,16 @@
   .bottom-nav{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:min(calc(100% - 2 * var(--margen)),540px);display:flex;align-items:flex-end;gap:12px;z-index:100;pointer-events:none;transition:opacity .35s ease,visibility .35s ease,transform .35s ease}
   .bottom-nav>*{pointer-events:auto}
   .bottom-nav.oculto{opacity:0;visibility:hidden;transform:translate(-50%,30px)}
-  .nav-pill{flex:1;min-width:0;height:clamp(54px,15vw,64px);display:flex;align-items:center;justify-content:space-around;padding:0 6px;background:#fff;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+  .nav-pill{flex:1;min-width:0;height:clamp(54px,15vw,64px);display:flex;align-items:center;justify-content:space-around;padding:0 6px;background:var(--tarjeta);border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.12)}
   .bottom-nav-item{display:flex;align-items:center;justify-content:center;color:#8D918A;transition:color .2s,transform .15s,background .2s}
   .nav-pill .bottom-nav-item{flex:0 0 auto;width:clamp(46px,13.6vw,58px);height:clamp(42px,11.6vw,50px);border-radius:50%}
   .nav-pill .bottom-nav-item svg{width:24px;height:24px}
   .bottom-nav-item:active{transform:scale(.92)}
-  .nav-pill .bottom-nav-item.activo{background:var(--fondo);color:var(--negro)}
+  .nav-pill .bottom-nav-item.activo{background:var(--fondo);color:var(--tinta)}
   #navPerfil{flex:0 0 auto;width:clamp(62px,17.4vw,72px);height:clamp(62px,17.4vw,72px);border-radius:50%;background:var(--verde);color:var(--negro);overflow:hidden}
   #navPerfil svg{width:52%;height:52%}
   .nav-foto{width:100%;height:100%;object-fit:cover;display:block}
-  .bottom-nav-item:focus-visible{outline:2px solid var(--negro);outline-offset:2px}
+  .bottom-nav-item:focus-visible{outline:2px solid var(--tinta);outline-offset:2px}
 
   /* ---------- PIE DE PÁGINA ---------- */
   .pie{background:#000;margin-top:70px;padding:64px var(--margen) calc(60px + env(safe-area-inset-bottom,0px))}
@@ -181,7 +183,7 @@
   .buscador input::placeholder{color:var(--texto-suave)}
   .buscador input::-webkit-search-cancel-button{display:none}
   .buscador svg{flex:0 0 auto;width:26px;height:26px}
-  .buscador:focus-within{outline:2px solid var(--negro)}
+  .buscador:focus-within{outline:2px solid var(--tinta)}
   #buscar h2{font-weight:700;font-size:clamp(1.25rem,5.4vw,1.9rem);margin:30px 0 18px;letter-spacing:-.2px;color:var(--texto)}
   #buscar .grilla{margin-top:0}
   .tags{position:absolute;bottom:8px;right:8px;z-index:2;display:flex;flex-direction:row;align-items:center;gap:4px}
@@ -201,11 +203,11 @@
   .sin-resultados[hidden]{display:none}
 
   /* ===== Panel de cuenta (perfil) ===== */
-  body.perfil-abierto{overflow:hidden}
   .menu-overlay{position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s}
-  body.perfil-abierto .menu-overlay{opacity:1;visibility:visible}
-  .perfil-modal{position:fixed;top:0;right:0;bottom:0;z-index:160;width:min(86vw,360px);padding:20px;background:var(--panel);display:flex;flex-direction:column;overflow-y:auto;transform:translateX(100%);visibility:hidden;transition:transform .3s cubic-bezier(.22,.8,.3,1),visibility .3s}
-  body.perfil-abierto .perfil-modal{transform:none;visibility:visible}
+  .perfil-modal{display:none;flex-direction:column;max-width:640px;margin:0 auto;padding:14px var(--margen) 40px}
+  body.perfil-abierto .perfil-modal{display:flex}
+  body.perfil-abierto #home,body.perfil-abierto .pie{display:none}
+  body.perfil-abierto{padding-bottom:90px}
   .perfil-modal .logo{margin:0;padding:0}
   .perfil-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
   .perfil-info{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--fondo)}
@@ -218,7 +220,7 @@
   .perfil-opcion,.perfil-modal .perfil-opciones button,.perfil-modal .perfil-opciones a{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:42px;padding:9px 12px;background:var(--fondo);border-radius:10px;color:var(--texto);font-weight:500;font-size:.84rem;line-height:1.25;text-align:left;text-decoration:none}
   .perfil-opcion .opcion-izq{display:flex;align-items:center;gap:10px;min-width:0}
   .perfil-opcion svg,.perfil-modal .perfil-opciones svg{width:17px;height:17px;flex:0 0 auto}
-  .perfil-opcion .opcion-izq svg{color:var(--acento)}
+  .perfil-opcion .opcion-izq svg{color:var(--tinta)}
   .perfil-opcion .opcion-flecha{width:14px;height:14px;opacity:.45}
   .perfil-modal .perfil-opciones img{max-height:22px;width:auto}
   .perfil-opcion.salir{margin-top:12px;justify-content:flex-start;color:var(--texto-suave)}
@@ -240,7 +242,7 @@
   .switch span:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:var(--texto-suave);border-radius:50%;transition:transform .2s,background .2s}
   .switch input:checked + span{background:var(--verde)}
   .switch input:checked + span:before{transform:translateX(18px);background:var(--negro)}
-  .switch input:focus-visible + span{outline:2px solid var(--negro);outline-offset:3px}
+  .switch input:focus-visible + span{outline:2px solid var(--tinta);outline-offset:3px}
   .notif-acciones{display:flex;justify-content:flex-end;margin-top:12px}
   .notif-limpiar{color:var(--texto-suave);background:var(--panel);padding:8px 12px;border-radius:9px;font-size:.78rem}
   .notif-limpiar:hover{color:var(--acento)}
@@ -327,7 +329,7 @@
   body.en-profit #profit{display:block}
   /* Obtener: panel de historias, octágono con aguja y portada */
   .o-panel{margin-top:16px;padding:14px;background:var(--panel);border-radius:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .o-slot{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:rgba(0,0,0,.06);display:grid;place-items:center;color:var(--acento);transition:transform .12s}
+  .o-slot{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--sutil);display:grid;place-items:center;color:var(--acento);transition:transform .12s}
   .o-slot:active{transform:scale(.95)}
   .o-slot svg{width:26px;height:26px}
   .o-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
@@ -355,19 +357,36 @@
 
   #rSheet .v-card{max-height:90vh;overflow-y:auto}
 
-  /* ===== Ajustes del tema claro ===== */
+  /* ===== Ajustes de tema (claro / oscuro) ===== */
   .circ-ico{color:var(--verde)}
+  .circ[data-a="lotes"] .circ-ico svg{width:60%;height:60%}
+  .fold-tab[aria-selected="true"]{color:var(--tinta)}
   .pie .logo{color:var(--negro)}
-  .perfil-modal .logo{color:var(--negro)}
+  :root[data-tema="dark"] .pie{--texto:#F4F5F2;--texto-suave:#858D87;--panel:#1D2220;background:#000}
+  :root[data-tema="dark"] .pie .logo{color:var(--verde)}
   .cambiar-foto{font-weight:600}
-  .notif.nueva::after{background:var(--negro)}
-  .tl::before{background:#D6D8D3}
-  .tl-fill{background:var(--negro)}
-  .tl-it.vis::after{background:var(--verde);border-color:var(--negro)}
+  .notif.nueva::after{background:var(--acento)}
+  .tl::before{background:var(--linea)}
+  .tl-fill{background:var(--acento)}
+  .tl-it.vis::after{background:var(--verde);border-color:var(--tinta)}
   .tl-tag,.t-etiqueta,.badge{background:var(--verde);color:var(--negro)}
-  .premium{background:var(--panel);color:var(--negro)}
+  .premium{background:var(--panel);color:var(--texto)}
   .alm-lb p{color:#cfd2cb}
   .v-item{border-bottom-color:var(--fondo)}
+
+  /* ===== Perfil como sección ===== */
+  .perfil-info{border-bottom-color:var(--linea)}
+  .perfil-opcion,.perfil-modal .perfil-opciones button,.perfil-modal .perfil-opciones a{background:var(--panel)}
+  .perfil-opciones svg{color:var(--tinta)!important}
+  .perfil-salir{margin-top:7px}
+  .perfil-tema{margin-top:7px;padding:10px 12px 12px;background:var(--panel);border-radius:10px}
+  .tema-tit{display:flex;align-items:center;gap:10px;font-weight:500;font-size:.84rem;color:var(--texto)}
+  .tema-tit svg{width:17px;height:17px;flex:none;color:var(--tinta)}
+  .tema-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+  .tema-opts button{height:38px;border-radius:9px;background:var(--fondo);color:var(--texto);font-weight:500;font-size:.82rem}
+  .tema-opts button[aria-checked="true"]{background:var(--verde);color:var(--negro);font-weight:700}
+  .tema-opts button:focus-visible{outline:2px solid var(--tinta);outline-offset:2px}
+  .tema-nota{display:block;margin-top:8px;min-height:1em;font-size:.74rem;color:var(--texto-suave)}
 </style>
 </head>
 <body>
@@ -404,14 +423,14 @@
         <div class="monto g"><span>$</span><span id="cwCreditos" class="js-creditos">0</span></div>
         <div class="gana" id="cwGana" hidden></div>
         <div class="circulos">
-          <button class="circ" type="button" data-a="ventas" aria-label="Ventas">
-            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 8.2C16 6.4 14.3 5.3 12 5.3c-2.5 0-4.2 1.3-4.2 3.2 0 4.4 8.6 2.4 8.6 7 0 2-1.8 3.4-4.4 3.4-2.4 0-4.2-1.1-4.7-3"/><path d="M12 2.5v19"/></svg></span>Ventas
+          <button class="circ" type="button" data-a="transferir" aria-label="Transferir créditos">
+            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h15M15 4l4 4-4 4"/><path d="M20 16H5M9 12l-4 4 4 4"/></svg></span>Enviar
           </button>
           <button class="circ" type="button" data-a="lotes" aria-label="Lotes">
-            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="3" width="13" height="18" rx="2"/><path d="M5.5 6.8h13M5.5 17.2h13"/><path d="M12 9.6l2.8 1.6v3.2L12 16l-2.8-1.6v-3.2z"/></svg></span>Lotes
+            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.3 21.7 12 12 21.7 2.3 12z"/><text x="12" y="14.6" text-anchor="middle" font-family="Poppins,sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">lot</text></svg></span>Lotes
           </button>
-          <button class="circ" type="button" data-a="ofertas" aria-label="Ofertas">
-            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.1"/><path d="M10.2 15l4.4-4.4"/><circle cx="10.6" cy="11" r=".7"/><circle cx="14.2" cy="14.6" r=".7"/></svg></span>Ofertas
+          <button class="circ" type="button" data-a="upgrade" aria-label="Upgrade">
+            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5 12 7l5.5 5.5"/><path d="M6.5 19 12 13.5 17.5 19"/><path d="M6.5 4.5h11"/></svg></span>Upgrade
           </button>
         </div>
       </section>
@@ -550,8 +569,11 @@
 <div class="v-toast" id="vToast" role="status" aria-live="polite"></div>
 
 <!-- PERFIL MODAL (Sustituido con Supabase) -->
-<aside class="perfil-modal" id="perfilModal" aria-label="Perfil">
-  <div class="perfil-header"><div class="logo">cube</div><button class="volver-btn" id="cerrarPerfil" aria-label="Cerrar perfil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button></div>
+<section class="perfil-modal" id="perfilModal" aria-label="Perfil">
+  <div class="buscar-top">
+    <button class="volver-btn" id="cerrarPerfil" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <h1 style="font-size: 1.3rem; font-weight:700;">Perfil</h1>
+  </div>
   <div class="perfil-info">
     <img class="perfil-foto" id="perfilFoto" alt="Avatar">
     <b id="perfilNombre"></b><small id="perfilEmail"></small>
@@ -560,11 +582,22 @@
   </div>
   <div class="perfil-opciones">
     <button class="perfil-opcion" id="irFavoritos"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>Favoritos</span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
-    <button class="perfil-opcion cw-oculto" id="irNotificaciones"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><span>Notificaciones</span><b class="perfil-cuenta" id="notifCuenta" hidden>0</b></span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
-    <button class="perfil-opcion cw-oculto" id="irAlmacen"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9"/><path d="M10 13h4"/></svg>Almacén</span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
+    <button class="perfil-opcion" id="irNotificaciones"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><span>Notificaciones</span><b class="perfil-cuenta" id="notifCuenta" hidden>0</b></span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
+    <button class="perfil-opcion" id="irAlmacen"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9"/><path d="M10 13h4"/></svg>Almacén</span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
+  </div>
+  <div class="perfil-tema" role="radiogroup" aria-label="Tema de la página">
+    <div class="tema-tit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span>Tema</span></div>
+    <div class="tema-opts">
+      <button type="button" role="radio" data-tema="light" aria-checked="true">Light</button>
+      <button type="button" role="radio" data-tema="dark" aria-checked="false">Dark</button>
+      <button type="button" role="radio" data-tema="live" aria-checked="false">Live</button>
+    </div>
+    <small class="tema-nota" id="temaNota"></small>
+  </div>
+  <div class="perfil-opciones perfil-salir">
     <button class="perfil-opcion salir" id="btnSalir"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></svg>Cerrar sesión</span></button>
   </div>
-</aside>
+</section>
 <div class="menu-overlay" id="menuOverlay"></div>
 
 <div class="alm-lb" id="almLb"><img alt=""><p></p></div>
@@ -1042,7 +1075,12 @@ actualizarHeader();
   const PROPIAS = ['irFavoritos', 'irNotificaciones', 'irAlmacen', 'btnSalir'];
   const esCrearLista = el => el && !PROPIAS.includes(el.id) && /list/i.test((el.textContent || '') + ' ' + el.id + ' ' + el.className);
   const buscarCrearLista = () => Array.from(document.querySelectorAll('#perfilModal .perfil-opciones > *')).find(esCrearLista);
-  function ocultarCrearListaDelPerfil() { const o = buscarCrearLista(); if (o) o.classList.add('cw-oculto'); }
+  function ocultarCrearListaDelPerfil() {   // ahora solo oculta "Historial" (cube-historial.js lo agrega al perfil)
+    document.querySelectorAll('#perfilModal .perfil-opciones > *').forEach(el => {
+      if (PROPIAS.includes(el.id)) return;
+      if (/historial/i.test((el.textContent || '') + ' ' + el.id + ' ' + el.className)) el.style.display = 'none';
+    });
+  }
   const cont = document.querySelector('#perfilModal .perfil-opciones');
   if (cont) new MutationObserver(ocultarCrearListaDelPerfil).observe(cont, { childList: true, subtree: true });
   ocultarCrearListaDelPerfil();
@@ -1051,6 +1089,7 @@ actualizarHeader();
   const acciones = {
     notificaciones: () => $('irNotificaciones').click(),
     almacen: () => $('irAlmacen').click(),
+    upgrade: () => { location.href = 'cube-obtener.html'; },
     'crear-lista': () => {
       const o = buscarCrearLista();
       if (o) { o.click(); return; }
@@ -1753,6 +1792,20 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
 <script src="cube-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="cube-supabase.js"></script>
+<script>
+(function () {
+  const T = window.cubeTema, nota = document.getElementById('temaNota');
+  const botones = Array.from(document.querySelectorAll('.tema-opts button'));
+  function pintar() {
+    const p = T ? T.get() : 'light';
+    botones.forEach(b => b.setAttribute('aria-checked', b.dataset.tema === p ? 'true' : 'false'));
+    nota.textContent = p === 'live' ? 'Claro de día y oscuro de noche (ahora: ' + (T.efectivo(p) === 'dark' ? 'oscuro' : 'claro') + ').' : '';
+  }
+  botones.forEach(b => { b.onclick = () => { if (T) T.set(b.dataset.tema); pintar(); }; });
+  window.addEventListener('cube:tema', pintar);
+  pintar();
+})();
+</script>
 <script>
 window.addEventListener('cube-wallet-accion', function (e) {
   if (e.detail && e.detail.accion === 'lotes') {
