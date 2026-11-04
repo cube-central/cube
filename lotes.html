@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ECECEC">
+<title>cube – Lotes</title>
+<link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#C6FF00;--fondo:#ECECEC;--panel:#fff;--texto:#0A0A0A;--suave:#6B6F68;--negro:#0A0A0A;--oscuro:#171917;--margen:3.4vw;
+  --comun:#FFD60A;--raro:#E5484D;--extraordinario:#8B5CF6;--legendario:#D4A72C;--iw:150px;color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--fondo)}
+body{font-family:'Poppins',sans-serif;color:var(--texto);min-height:100vh}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+[hidden]{display:none!important}
+@media(min-width:700px){:root{--margen:28px;--iw:178px}}
+.app{max-width:760px;margin:0 auto;padding-bottom:60px}
+
+/* Barra superior */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 12px) var(--margen) 8px}
+.back{flex:none;width:46px;height:46px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--negro);transition:transform .12s;text-decoration:none}
+.back:active{transform:scale(.92)}
+.back svg{width:24px;height:24px}
+.top-titulo{flex:1;min-width:0;font-weight:800;font-size:clamp(1.3rem,5.6vw,1.8rem);letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.saldo{flex:none;display:flex;align-items:center;gap:6px;height:46px;padding:0 16px;background:var(--verde);border-radius:999px;font-weight:700;font-size:.98rem}
+.saldo small{font-weight:500;font-size:.72rem;opacity:.7}
+.back:focus-visible,.btn:focus-visible,.lote:focus-visible{outline:2px solid var(--negro);outline-offset:2px}
+
+/* Aviso de sesión */
+.aviso-ses{margin:10px var(--margen) 0;padding:12px 18px;background:#fff;border-radius:22px;font-size:.84rem;line-height:1.4}
+.aviso-ses b{font-weight:700}
+.aviso-ses a{color:var(--negro);font-weight:700}
+
+/* Lista de lotes */
+.intro{padding:14px var(--margen) 4px;font-size:.92rem;color:var(--suave)}
+.lista{display:flex;flex-direction:column;gap:14px;padding:12px var(--margen)}
+.lote{display:flex;align-items:center;gap:6px;width:100%;text-align:left;background:#fff;border-radius:30px;padding:10px 18px 10px 10px;min-height:150px;transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden}
+.lote:active{transform:scale(.98)}
+.lote-art{flex:none;width:42%;max-width:190px;aspect-ratio:1;border-radius:24px;display:grid;place-items:center;position:relative}
+.lote-art svg{width:100%;height:100%;overflow:visible;animation:flota 3.6s ease-in-out infinite}
+@keyframes flota{50%{transform:translateY(-6px)}}
+.lote-info{flex:1;min-width:0;padding-left:6px}
+.lote-nombre{font-weight:800;font-size:clamp(1.15rem,5vw,1.5rem);letter-spacing:-.02em;line-height:1.15}
+.lote-cant{margin-top:4px;font-size:.88rem;color:var(--suave)}
+.lote-precio{display:inline-flex;align-items:center;margin-top:12px;height:32px;padding:0 15px;background:var(--verde);border-radius:999px;font-weight:700;font-size:.86rem}
+.lote-flecha{flex:none;width:34px;height:34px;border-radius:50%;background:var(--negro);color:var(--verde);display:grid;place-items:center}
+.lote-flecha svg{width:18px;height:18px}
+.lote[data-k=horror] .lote-art{background:radial-gradient(circle at 50% 55%,#f6d6d8,#fff 70%)}
+.lote[data-k=sobrenatural] .lote-art{background:radial-gradient(circle at 50% 55%,#e3dcff,#fff 70%)}
+.lote[data-k=flatulance] .lote-art{background:radial-gradient(circle at 50% 55%,#e4f6b8,#fff 70%)}
+.lote[data-k=void] .lote-art{background:radial-gradient(circle at 50% 55%,#cfd3c6,#fff 70%)}
+
+/* Vista de lote */
+.vl-cab{display:flex;align-items:center;gap:12px;padding:6px var(--margen) 0}
+.vl-cab .info{flex:1;min-width:0}
+.vl-nombre{font-weight:800;font-size:clamp(1.4rem,6vw,2rem);letter-spacing:-.02em;line-height:1.1}
+.vl-sub{font-size:.85rem;color:var(--suave);margin-top:2px}
+.chip-ico{flex:none;display:flex;align-items:center;gap:6px;height:38px;padding:0 14px;background:#fff;border-radius:999px;font-size:.78rem;font-weight:600}
+.chip-ico svg{width:17px;height:17px}
+
+/* Ruleta */
+.reel-wrap{margin:16px var(--margen) 0;background:var(--oscuro);border-radius:34px;padding:18px 0 22px;position:relative;overflow:hidden;background-image:radial-gradient(120% 90% at 50% 0%,#2a3320 0%,#171917 60%)}
+.reel-top{display:flex;justify-content:space-between;align-items:center;padding:0 22px 12px;color:#fff;font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+.reel-top span:last-child{color:var(--verde)}
+.reel{position:relative;height:calc(var(--iw) * .56 + 54px);overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.strip{display:flex;gap:10px;position:absolute;left:0;top:50%;margin-top:calc(var(--iw) * -.28 - 27px);will-change:transform;padding-left:0}
+.it{flex:none;width:var(--iw);text-align:center;transition:opacity .5s,transform .5s,filter .5s}
+.it .po{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#2a2d28;border-bottom:4px solid var(--c);box-shadow:0 8px 22px -10px var(--c)}
+.it img{width:100%;height:100%;object-fit:cover;display:block}
+.it .ph{position:absolute;inset:0;display:grid;place-items:center;padding:8px;font-size:.7rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#2a2d28,#3b4034)}
+.it .nm{display:block;margin-top:6px;font-size:.7rem;font-weight:600;color:#d9dccf;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.it.comun{--c:var(--comun)}.it.raro{--c:var(--raro)}.it.extraordinario{--c:var(--extraordinario)}.it.legendario{--c:var(--legendario)}
+.reel.fin .it:not(.win){opacity:.28;filter:grayscale(.6)}
+.it.win{transform:scale(1.1)}
+.it.win .po{box-shadow:0 0 0 2px var(--c),0 0 34px 2px var(--c)}
+.marca{position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:var(--verde);box-shadow:0 0 14px 2px rgba(198,255,0,.7);z-index:3;pointer-events:none;border-radius:3px}
+.marca::before,.marca::after{content:"";position:absolute;left:50%;margin-left:-9px;border:9px solid transparent}
+.marca::before{top:-1px;border-top:12px solid var(--verde);border-bottom:0}
+.marca::after{bottom:-1px;border-bottom:12px solid var(--verde);border-top:0}
+.reel-pie{display:flex;justify-content:center;gap:10px;padding:18px 20px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;border-radius:999px;font-weight:700;font-size:1rem;transition:transform .12s,opacity .2s}
+.btn:active{transform:scale(.96)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.v{background:var(--verde);color:var(--negro);min-width:min(100%,260px)}
+.btn.n{background:var(--negro);color:var(--verde)}
+.btn.b{background:#fff;color:var(--negro)}
+.btn.s{width:52px;padding:0;background:rgba(255,255,255,.1);color:#fff}
+.btn.s svg{width:22px;height:22px}
+
+/* Lista de historias */
+.sec-t{padding:28px var(--margen) 4px;font-weight:800;font-size:clamp(1.3rem,5.4vw,1.7rem);letter-spacing:-.02em}
+.sec-s{padding:0 var(--margen) 12px;font-size:.84rem;color:var(--suave)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 var(--margen)}
+@media(min-width:560px){.grid{grid-template-columns:repeat(3,1fr)}}
+.hc{background:#fff;border-radius:24px;padding:8px 8px 14px;overflow:hidden}
+.hc .po{position:relative;aspect-ratio:16/9;border-radius:17px;overflow:hidden;background:#d9dcd3}
+.hc img{width:100%;height:100%;object-fit:cover;display:block}
+.hc .ph{position:absolute;inset:0;display:grid;place-items:center;padding:8px;font-size:.74rem;font-weight:700;text-align:center;color:var(--suave)}
+.hc-t{margin:10px 6px 0;font-weight:600;font-size:.9rem;line-height:1.25}
+.hc-f{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:8px 6px 0}
+.rareza{display:inline-block;padding:3px 12px;border-radius:999px;font-size:.72rem;font-weight:600;line-height:1.4}
+.rareza.comun{background:#FFD60A;color:#0A0A0A}
+.rareza.raro{background:#E5484D;color:#fff}
+.rareza.extraordinario{background:#8B5CF6;color:#fff}
+.rareza.legendario{background:#D4A72C;color:#0A0A0A}
+.pct{font-size:.78rem;font-weight:700}
+
+/* Resultado */
+.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(10,10,10,.72);backdrop-filter:blur(6px);animation:fade .25s}
+@keyframes fade{from{opacity:0}}
+.premio{width:min(100%,400px);background:#fff;border-radius:36px;padding:22px 22px 24px;text-align:center;position:relative;animation:pop .45s cubic-bezier(.2,1.4,.4,1);overflow:hidden}
+@keyframes pop{from{transform:scale(.7);opacity:0}}
+.premio::before{content:"";position:absolute;inset:-40% -20% auto;height:90%;background:radial-gradient(closest-side,var(--c),transparent);opacity:.35;pointer-events:none}
+.premio.comun{--c:var(--comun)}.premio.raro{--c:var(--raro)}.premio.extraordinario{--c:var(--extraordinario)}.premio.legendario{--c:var(--legendario)}
+.premio .po{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;box-shadow:0 0 0 3px var(--c),0 14px 40px -8px var(--c);background:#d9dcd3}
+.premio img{width:100%;height:100%;object-fit:cover;display:block}
+.premio .ph{position:absolute;inset:0;display:grid;place-items:center;padding:12px;font-weight:700}
+.premio p.k{position:relative;margin-top:18px;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--suave)}
+.premio h2{position:relative;margin:4px 0 10px;font-weight:800;font-size:1.5rem;letter-spacing:-.02em;line-height:1.15}
+.premio .ok{position:relative;margin-top:12px;font-size:.84rem;color:var(--suave)}
+.premio .acc{position:relative;display:flex;gap:10px;margin-top:18px}
+.premio .acc .btn{flex:1;padding:0 12px;font-size:.92rem}
+
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);transform:translate(-50%,30px);z-index:60;max-width:90vw;padding:12px 20px;background:var(--negro);color:#fff;border-radius:999px;font-size:.86rem;opacity:0;pointer-events:none;transition:.3s;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){.lote-art svg{animation:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <a class="back" id="btnAtras" href="cube.html" aria-label="Volver">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </a>
+    <h1 class="top-titulo" id="titulo">Lotes</h1>
+    <div class="saldo" id="saldo" aria-live="polite"><small>$</small><span id="saldoN">—</span></div>
+  </header>
+  <div class="aviso-ses" id="avisoSes" hidden></div>
+
+  <!-- Lista de lotes -->
+  <main id="vLista">
+    <p class="intro">Abre un lote y gira la ruleta: la historia que se detenga en la marca es tuya y se guarda en tu inventario.</p>
+    <div class="lista" id="lista"></div>
+  </main>
+
+  <!-- Un lote -->
+  <main id="vLote" hidden>
+    <div class="vl-cab">
+      <div class="info">
+        <div class="vl-nombre" id="vlNombre"></div>
+        <div class="vl-sub" id="vlSub"></div>
+      </div>
+      <a class="chip-ico" href="cube.html" aria-label="Ir al inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Inicio</a>
+    </div>
+    <section class="reel-wrap">
+      <div class="reel-top"><span id="rtNombre"></span><span id="rtPrecio"></span></div>
+      <div class="reel" id="reel"><div class="marca"></div><div class="strip" id="strip"></div></div>
+      <div class="reel-pie">
+        <button class="btn v" id="btnAbrir" type="button"></button>
+        <button class="btn s" id="btnSonido" type="button" aria-label="Sonido" title="Sonido"></button>
+      </div>
+    </section>
+    <h2 class="sec-t">Historias que pueden tocarte</h2>
+    <p class="sec-s">Cada historia tiene su probabilidad según su rareza.</p>
+    <div class="grid" id="grid"></div>
+  </main>
+</div>
+
+<div class="modal" id="modal" hidden></div>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="cube-config.js"></script>
+<script>
+const BASE_RAREZA = { comun: 55, raro: 28, extraordinario: 12, legendario: 5 };
+const STORIES = {
+  bigfoot:   { f:'bigfoot-2.webp', t:'Bigfoot', r:'raro' },
+  obedece:   { f:'obedece.webp', t:'Obedece', r:'comun' },
+  nada:      { f:'nada.webp', t:'Nada', r:'comun' },
+  muevete:   { f:'muevete-al-minuto.webp', t:'Muévete al Minuto', r:'comun' },
+  strike:    { f:'strike.webp', t:'Strike', r:'raro' },
+  retorcidos:{ f:'retorcidos.webp', t:'Retorcidos', r:'raro' },
+  valentine: { f:'valentine.webp', t:'Valentine', r:'comun' },
+  ultimate:  { f:'ultimate.webp', t:'Ultimate', r:'comun' },
+  metalosis: { f:'metalosis-maligna.webp', t:'Metalosis Maligna', r:'raro' },
+  ratman:    { f:'ratman.webp', t:'Ratman', r:'raro' },
+  ev_ext:    { f:'eternamente-vivo.webp', t:'Eternamente Vivo con Amadeus Shell', r:'extraordinario' },
+  ev_leg:    { f:'eternamente-vivo-dante.webp', t:'Eternamente Vivo con Dante el Grande', r:'legendario' },
+  ev3:       { f:'eternamente-vivo-valak.webp', t:'Eternamente Vivo con Valak Seraphel', r:'raro' },
+  ev4:       { f:'eternamente-vivo-4.webp', t:'Eternamente Vivo 4', r:'raro' },
+  ev5:       { f:'eternamente-vivo-5.webp', t:'Eternamente Vivo 5', r:'raro' },
+  triangle:  { f:'triangle-room.webp', t:'Triangle Room', r:'extraordinario' },
+  menem:     { f:'menem.webp', t:'Menem', r:'raro' },
+  mama:      { f:'mama-dogs.webp', t:'Mama Dogs', r:'comun' },
+  entrevistas:{ f:'las-entrevistas.webp', t:'Las Entrevistas', r:'legendario' },
+  golem:     { f:'golem.webp', t:'Golem', r:'comun' },
+  rani:      { f:'la-familia-rani.webp', t:'La Familia Rani', r:'extraordinario' },
+  telefono:  { f:'el-telefono.webp', t:'El Teléfono', r:'comun' },
+  divina:    { f:'divina-comedia.webp', t:'Divina Comedia', r:'legendario' },
+  without:   { f:'without-warning.webp', t:'Without Warning', r:'raro' }
+};
+const LOTES = {
+  horror: { nombre:'Horror Lot', precio:150, pool:['bigfoot','strike','retorcidos','valentine','metalosis','ratman','mama','golem','rani','without'] },
+  sobrenatural: { nombre:'Supernatural Lot', precio:250, pool:['bigfoot','strike','valentine','ultimate','metalosis','ratman','ev3','ev4','ev5','triangle','entrevistas','divina','rani','telefono','without'] },
+  flatulance: { nombre:'Flatulance Lot', precio:80, pool:['obedece','nada','muevete','valentine','ultimate','mama','golem','telefono'] },
+  void: { nombre:'Void Lot', precio:400, base:{ comun:40, raro:30, extraordinario:18, legendario:12 }, pool:Object.keys(STORIES) }
+};
+function pesos(lote){
+  const L = LOTES[lote], base = L.base || BASE_RAREZA, cnt = {}, out = {};
+  L.pool.forEach(k => cnt[STORIES[k].r] = (cnt[STORIES[k].r]||0)+1);
+  const tot = Object.keys(cnt).reduce((a,r)=>a+base[r],0);
+  L.pool.forEach(k => { const r = STORIES[k].r; out[k] = base[r]/tot*100/cnt[r]; });
+  return out;
+}
+
+const IMG_BASE = 'https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/';
+const RAREZAS = { comun:'Común', raro:'Raro', extraordinario:'Extraordinario', legendario:'Legendario' };
+const ORDEN = { legendario:0, extraordinario:1, raro:2, comun:3 };
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtC = n => Number(n).toLocaleString('es-AR');
+const fmtP = n => (Math.round(n * 100) / 100).toLocaleString('es-AR', { maximumFractionDigits: 2 });
+const porArchivo = {}; Object.keys(STORIES).forEach(k => { STORIES[k].id = k; porArchivo[STORIES[k].f] = STORIES[k]; });
+
+/* ---------- Cajas (cubo isométrico, una por temática) ---------- */
+function caja(k) {
+  const P = {
+    horror: { top:'#5a0f14', l:'#2b0508', r:'#44090e', edge:'#ff4d57', glow:'#E5484D' },
+    sobrenatural: { top:'#7c5cff', l:'#3d2a8f', r:'#5a42c9', edge:'#cdbfff', glow:'#8B5CF6' },
+    flatulance: { top:'#b6e04a', l:'#5f8a1c', r:'#7fb02a', edge:'#eaff9a', glow:'#9bd12f' },
+    void: { top:'#16181a', l:'#050606', r:'#0d0f10', edge:'#C6FF00', glow:'#C6FF00' }
+  }[k], id = 'g' + k;
+  const deco = {
+    horror: `<g transform="matrix(1 -.5455 0 1 60 62)" stroke="#ff4d57" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".95"><path d="M10 8l12 34M19 5l12 36M28 6l11 32"/></g>
+      <g transform="matrix(1 .5455 0 1 16 38)"><ellipse cx="22" cy="23" rx="13" ry="8" fill="#f4f0e6"/><circle cx="22" cy="23" r="5.4" fill="#E5484D"/><circle cx="22" cy="23" r="2.3" fill="#120204"/><circle cx="20.3" cy="21.3" r="1" fill="#fff"/></g>
+      <path d="M22 41v9c0 2.8 4 2.8 4 0v-6zM46 53v14c0 3.4 4.4 3.4 4.4 0v-11zM84 51v8c0 2.6 3.8 2.6 3.8 0v-6z" fill="#E5484D"/>
+      <path d="M60 24l5 3-5 3-5-3z" fill="#ff4d57" opacity=".6"/>`,
+    sobrenatural: `<g transform="matrix(1 .5455 0 1 16 38)"><path d="M22 8c-7 0-11 5-11 12v20l4-3 3.5 3 3.5-3 3.5 3 3.5-3 4 3V20c0-7-4-12-11-12z" fill="#f3efff"/><circle cx="18" cy="21" r="2.4" fill="#2a1a6e"/><circle cx="27" cy="21" r="2.4" fill="#2a1a6e"/><ellipse cx="22.5" cy="28" rx="2.4" ry="3" fill="#2a1a6e"/></g>
+      <g transform="matrix(1 -.5455 0 1 60 62)" fill="#cdbfff"><path d="M32 12a11 11 0 1 0 6 18 9 9 0 1 1-6-18z"/></g>
+      <g fill="#fff"><circle cx="48" cy="30" r="1.6"/><circle cx="70" cy="42" r="1.3"/><circle cx="60" cy="44" r="1"/><circle cx="82" cy="34" r="1.5"/><path d="M60 22l1.6 4.4L66 28l-4.4 1.6L60 34l-1.6-4.4L54 28l4.4-1.6z"/></g>`,
+    flatulance: `<g transform="translate(60 38) scale(1 .5455)"><g fill="#f3ffd0"><circle cx="-14" cy="2" r="13"/><circle cx="2" cy="-6" r="16"/><circle cx="18" cy="2" r="13"/><rect x="-22" y="2" width="48" height="13" rx="6"/></g><circle cx="-5" cy="2" r="2.2" fill="#3d5a0b"/><circle cx="9" cy="2" r="2.2" fill="#3d5a0b"/><path d="M-3 9q5 5 10 0" stroke="#3d5a0b" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+      <g transform="matrix(1 .5455 0 1 16 38)" fill="none" stroke="#eaff9a" stroke-width="2.4" stroke-linecap="round"><path d="M10 34c-3-6 4-8 0-14M22 38c-3-6 4-8 0-14M34 34c-3-6 4-8 0-14"/></g>
+      <g transform="matrix(1 -.5455 0 1 60 62)"><circle cx="22" cy="22" r="11" fill="#eaff9a"/><circle cx="22" cy="22" r="6" fill="#5f8a1c"/><circle cx="22" cy="22" r="2.4" fill="#eaff9a"/></g>
+      <g fill="none" stroke="#9bd12f" stroke-width="2.4" stroke-linecap="round" opacity=".9"><path d="M104 20c-5-5 5-8 0-14"/><path d="M14 22c-5-5 5-8 0-14"/></g>`,
+    void: `<g transform="translate(60 38) scale(1 .5455)" fill="none" stroke="#C6FF00" stroke-linecap="round"><circle r="26" stroke-width="1.4" opacity=".4"/><path d="M0 -22a22 22 0 1 1-22 22 16 16 0 1 1 16-16 10 10 0 1 1-10 10 5 5 0 1 1 5-5" stroke-width="2.6"/></g>
+      <g transform="matrix(1 .5455 0 1 16 38)" fill="none" stroke="#C6FF00" stroke-width="2" stroke-linejoin="round"><path d="M22 10l11 6.5v13L22 36 11 29.5v-13z"/><path d="M11 16.5L22 23l11-6.5M22 23v13" opacity=".6"/></g>
+      <g transform="matrix(1 -.5455 0 1 60 62)" fill="#C6FF00"><circle cx="8" cy="10" r="1.6"/><circle cx="30" cy="16" r="1.2"/><circle cx="20" cy="36" r="1.4"/><circle cx="36" cy="38" r="1"/></g>`
+  }[k];
+  return `<svg viewBox="0 0 120 124" aria-hidden="true"><defs>
+    <radialGradient id="${id}h" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="${P.glow}" stop-opacity=".55"/><stop offset="1" stop-color="${P.glow}" stop-opacity="0"/></radialGradient>
+    <linearGradient id="${id}t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${P.top}"/><stop offset="1" stop-color="${P.l}" stop-opacity=".9"/></linearGradient></defs>
+    <ellipse cx="60" cy="62" rx="58" ry="52" fill="url(#${id}h)"/>
+    <ellipse cx="60" cy="114" rx="38" ry="7" fill="#000" opacity=".18"/>
+    <polygon points="16,38 60,62 60,108 16,84" fill="${P.l}"/>
+    <polygon points="104,38 60,62 60,108 104,84" fill="${P.r}"/>
+    <polygon points="60,14 104,38 60,62 16,38" fill="url(#${id}t)"/>
+    ${deco}
+    <g fill="none" stroke="${P.edge}" stroke-width="2" stroke-linejoin="round"><polygon points="60,14 104,38 104,84 60,108 16,84 16,38"/><path d="M16 38l44 24 44-24M60 62v46" opacity=".75"/></g>
+  </svg>`;
+}
+
+/* ---------- Estado y sesión ---------- */
+const db = (window.supabase && window.CUBE_SUPABASE_URL) ? supabase.createClient(window.CUBE_SUPABASE_URL, window.CUBE_SUPABASE_ANON_KEY) : null;
+let user = null, saldo = 0, loteK = null, busy = false, sonido = true, idleRAF = 0, ctxA = null;
+
+async function cargarSesion() {
+  try {
+    if (db) { const { data } = await db.auth.getSession(); user = data && data.session ? data.session.user : null; }
+  } catch (e) { user = null; }
+  const av = $('avisoSes');
+  if (user) { av.hidden = true; await cargarSaldo(); }
+  else {
+    $('saldoN').textContent = 'Demo';
+    av.hidden = false;
+    av.innerHTML = '<b>Modo demo.</b> No has iniciado sesión: puedes probar la ruleta, pero no se gastan créditos ni se guardan historias. <a href="cube.html">Inicia sesión en Cube</a>.';
+  }
+  if (loteK) pintarBoton();
+}
+async function cargarSaldo() {
+  try {
+    const { data, error } = await db.from('wallets').select('creditos').eq('user_id', user.id).maybeSingle();
+    if (error) throw error;
+    saldo = Number(data ? data.creditos : 0);
+    $('saldoN').textContent = fmtC(saldo);
+  } catch (e) { $('saldoN').textContent = '—'; }
+}
+function toast(t) { const e = $('toast'); e.textContent = t; e.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.remove('on'), 4200); }
+
+/* ---------- Lista ---------- */
+function portada(s, cls) {
+  return `<img src="${IMG_BASE}${s.f}" alt="${esc(s.t)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'ph',textContent:this.alt}))">`;
+}
+function pintarLista() {
+  $('lista').innerHTML = Object.keys(LOTES).map(k => {
+    const L = LOTES[k];
+    return `<button class="lote" type="button" data-k="${k}" aria-label="${esc(L.nombre)}, ${L.pool.length} historias">
+      <div class="lote-art">${caja(k)}</div>
+      <div class="lote-info"><div class="lote-nombre">${esc(L.nombre)}</div><div class="lote-cant">${L.pool.length} historias</div><span class="lote-precio">$${fmtC(L.precio)}</span></div>
+      <span class="lote-flecha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span>
+    </button>`;
+  }).join('');
+  $('lista').querySelectorAll('.lote').forEach(b => b.onclick = () => { location.hash = b.dataset.k; });
+}
+
+/* ---------- Vista de un lote ---------- */
+const itemHTML = s => `<div class="it ${s.r}" data-f="${s.f}"><div class="po">${portada(s)}</div><span class="nm">${esc(s.t)}</span></div>`;
+const pool = () => LOTES[loteK].pool.map(k => STORIES[k]);
+function pintarBoton() {
+  const L = LOTES[loteK], b = $('btnAbrir');
+  b.textContent = user ? `Abrir lote · $${fmtC(L.precio)}` : 'Probar gratis (demo)';
+  b.disabled = busy;
+}
+function abrirVistaLote(k) {
+  loteK = k; const L = LOTES[k], W = pesos(k);
+  $('vLista').hidden = true; $('vLote').hidden = false; $('titulo').textContent = L.nombre;
+  $('btnAtras').setAttribute('href', '#'); 
+  $('vlNombre').textContent = L.nombre;
+  $('vlSub').textContent = `${L.pool.length} historias · $${fmtC(L.precio)} por apertura`;
+  $('rtNombre').textContent = L.nombre; $('rtPrecio').textContent = '$' + fmtC(L.precio);
+  $('grid').innerHTML = pool().slice().sort((a, b) => ORDEN[a.r] - ORDEN[b.r] || a.t.localeCompare(b.t, 'es')).map(s =>
+    `<div class="hc"><div class="po">${portada(s)}</div><div class="hc-t">${esc(s.t)}</div><div class="hc-f"><span class="rareza ${s.r}">${RAREZAS[s.r]}</span><span class="pct">${fmtP(W[s.id])}%</span></div></div>`).join('');
+  $('btnSonido').innerHTML = iconoSonido();
+  pintarBoton(); iniciarIdle(); window.scrollTo(0, 0);
+}
+function abrirLista() {
+  detenerIdle(); loteK = null;
+  $('vLote').hidden = true; $('vLista').hidden = false; $('titulo').textContent = 'Lotes';
+  $('btnAtras').setAttribute('href', 'cube.html');
+  window.scrollTo(0, 0);
+}
+function ruta() {
+  const k = decodeURIComponent(location.hash.slice(1));
+  if (busy) return;
+  if (LOTES[k]) abrirVistaLote(k); else abrirLista();
+}
+$('btnAtras').addEventListener('click', e => {
+  if (loteK) { e.preventDefault(); if (busy) return; location.hash = ''; }
+});
+window.addEventListener('hashchange', ruta);
+
+/* ---------- Ruleta ---------- */
+const strip = $('strip'), reel = $('reel');
+const iw = () => { const a = strip.children[0], b = strip.children[1]; return a && b ? b.getBoundingClientRect().left - a.getBoundingClientRect().left : 160; };
+function iniciarIdle() {
+  detenerIdle(); reel.classList.remove('fin');
+  const p = pool(), set = p.slice().sort(() => Math.random() - .5);
+  let html = ''; for (let i = 0; i < 6; i++) html += set.map(itemHTML).join('');
+  strip.innerHTML = html; strip.style.transform = 'translate3d(0,0,0)';
+  const ancho = iw(), ciclo = ancho * set.length; let x = Math.random() * ciclo;
+  const paso = () => { x = (x + .35) % ciclo; strip.style.transform = `translate3d(${-x}px,0,0)`; idleRAF = requestAnimationFrame(paso); };
+  idleRAF = requestAnimationFrame(paso);
+}
+function detenerIdle() { cancelAnimationFrame(idleRAF); idleRAF = 0; }
+
+function tick() {
+  if (!sonido) return;
+  try {
+    ctxA = ctxA || new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctxA.createOscillator(), g = ctxA.createGain(), t = ctxA.currentTime;
+    o.type = 'square'; o.frequency.setValueAtTime(900, t); o.frequency.exponentialRampToValueAtTime(380, t + .04);
+    g.gain.setValueAtTime(.05, t); g.gain.exponentialRampToValueAtTime(.001, t + .05);
+    o.connect(g).connect(ctxA.destination); o.start(t); o.stop(t + .06);
+  } catch (e) {}
+}
+function fanfarria(r) {
+  if (!sonido || !ctxA) return;
+  const notas = r === 'legendario' ? [523, 659, 784, 1047] : r === 'extraordinario' ? [523, 659, 784] : [523, 659];
+  notas.forEach((f, i) => { const o = ctxA.createOscillator(), g = ctxA.createGain(), t = ctxA.currentTime + i * .11;
+    o.type = 'triangle'; o.frequency.value = f; g.gain.setValueAtTime(.09, t); g.gain.exponentialRampToValueAtTime(.001, t + .35);
+    o.connect(g).connect(ctxA.destination); o.start(t); o.stop(t + .4); });
+}
+function iconoSonido() {
+  return sonido
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>';
+}
+$('btnSonido').onclick = () => { sonido = !sonido; $('btnSonido').innerHTML = iconoSonido(); };
+
+function girar(ganadora) {
+  return new Promise(res => {
+    detenerIdle(); reel.classList.remove('fin');
+    const p = pool(), N = 70, IDX = 60, items = [];
+    for (let i = 0; i < N; i++) items.push(i === IDX ? ganadora : p[Math.floor(Math.random() * p.length)]);
+    strip.innerHTML = items.map(itemHTML).join('');
+    strip.style.transform = 'translate3d(0,0,0)';
+    const ancho = iw(), vw = reel.clientWidth;
+    const jit = (Math.random() - .5) * ancho * .6;
+    const fin = IDX * ancho + ancho / 2 - vw / 2 + jit;
+    const dur = matchMedia('(prefers-reduced-motion:reduce)').matches ? 1800 : 7600;
+    const t0 = performance.now(); let ult = -1;
+    const ease = t => 1 - Math.pow(1 - t, 3.8);
+    const paso = now => {
+      const t = Math.min(1, (now - t0) / dur), x = fin * ease(t);
+      strip.style.transform = `translate3d(${-x}px,0,0)`;
+      const i = Math.floor((x + vw / 2) / ancho);
+      if (i !== ult) { ult = i; tick(); }
+      if (t < 1) requestAnimationFrame(paso);
+      else { reel.classList.add('fin'); strip.children[IDX].classList.add('win'); res(); }
+    };
+    requestAnimationFrame(paso);
+  });
+}
+function sorteoLocal() {
+  const W = pesos(loteK), ks = Object.keys(W); let r = Math.random() * 100, a = 0;
+  for (const k of ks) { a += W[k]; if (r <= a) return STORIES[k]; }
+  return STORIES[ks[ks.length - 1]];
+}
+async function abrir() {
+  if (busy || !loteK) return;
+  const L = LOTES[loteK];
+  try { ctxA = ctxA || new (window.AudioContext || window.webkitAudioContext)(); ctxA.resume && ctxA.resume(); } catch (e) {}
+  let ganadora, nuevoSaldo = null;
+  busy = true; pintarBoton();
+  if (user) {
+    if (saldo < L.precio) { busy = false; pintarBoton(); return toast('No tienes créditos suficientes para este lote.'); }
+    try {
+      const { data, error } = await db.rpc('abrir_lote', { p_lote: loteK });
+      if (error) throw error;
+      ganadora = porArchivo[data.historia]; nuevoSaldo = Number(data.saldo);
+      if (!ganadora) throw new Error('historia_desconocida');
+    } catch (e) {
+      busy = false; pintarBoton();
+      const m = String((e && (e.message || e.details)) || e);
+      if (m.includes('sin_creditos')) { cargarSaldo(); return toast('No tienes créditos suficientes para este lote.'); }
+      if (m.includes('abrir_lote') || m.includes('PGRST202')) return toast('Falta crear la función abrir_lote en Supabase (archivo lotes.sql).');
+      console.warn('Error al abrir lote', e); return toast('No se pudo abrir el lote. Inténtalo de nuevo.');
+    }
+    saldo = nuevoSaldo; // el saldo visible se actualiza cuando termina la animación
+  } else ganadora = sorteoLocal();
+  await girar(ganadora);
+  if (nuevoSaldo !== null) $('saldoN').textContent = fmtC(nuevoSaldo);
+  fanfarria(ganadora.r);
+  setTimeout(() => { busy = false; pintarBoton(); mostrarPremio(ganadora); }, 900);
+}
+$('btnAbrir').onclick = abrir;
+
+function mostrarPremio(s) {
+  const m = $('modal'), L = LOTES[loteK], puede = !user || saldo >= L.precio;
+  m.innerHTML = `<div class="premio ${s.r}" role="dialog" aria-modal="true" aria-label="Ganaste ${esc(s.t)}">
+    <div class="po">${portada(s)}</div>
+    <p class="k">¡Te salió!</p><h2>${esc(s.t)}</h2>
+    <span class="rareza ${s.r}">${RAREZAS[s.r]}</span>
+    <p class="ok">${user ? 'Se guardó en tu inventario.' : 'Modo demo: no se guardó en tu inventario.'}</p>
+    <div class="acc"><button class="btn b" id="mCerrar" type="button">Cerrar</button><button class="btn n" id="mOtra" type="button"${puede ? '' : ' disabled'}>Abrir otro</button></div>
+  </div>`;
+  m.hidden = false;
+  const cerrar = () => { m.hidden = true; m.innerHTML = ''; iniciarIdle(); };
+  $('mCerrar').onclick = cerrar;
+  $('mOtra').onclick = () => { m.hidden = true; m.innerHTML = ''; abrir(); };
+  m.onclick = e => { if (e.target === m) cerrar(); };
+}
+
+pintarLista(); ruta(); cargarSesion();
+</script>
+</body>
+</html>
