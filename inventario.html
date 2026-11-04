@@ -40,13 +40,13 @@ a{color:inherit;text-decoration:none}
 .fold[data-tab=inv]::before{left:0}.fold[data-tab=col]::before{right:0}
 .tabs{position:relative;z-index:2;height:var(--th)}
 .tab{position:absolute;top:0;height:var(--th);font-weight:500;font-size:clamp(.95rem,4.1vw,1.2rem);color:var(--negro)}
-.tab[aria-selected=true]{width:50%;background:var(--verde);z-index:2}
-.tab[aria-selected=false]{background:var(--tarjeta);color:var(--tinta);z-index:1;border-radius:var(--r) var(--r) 0 0}
+.tab[data-v=on]{width:50%;background:var(--verde);z-index:2}
+.tab[data-v=off]{background:var(--tarjeta);color:var(--tinta);z-index:1;border-radius:var(--r) var(--r) 0 0}
 #tInv{left:0}#tCol{right:0}
-#tInv[aria-selected=true]{border-radius:var(--r) var(--r) var(--r) 0}
-#tCol[aria-selected=true]{border-radius:var(--r) var(--r) 0 var(--r)}
-#tInv[aria-selected=false]{width:calc(50% + var(--r));padding-right:var(--r)}
-#tCol[aria-selected=false]{left:calc(50% - var(--r));padding-left:var(--r)}
+#tInv[data-v=on]{border-radius:var(--r) var(--r) var(--r) 0}
+#tCol[data-v=on]{border-radius:var(--r) var(--r) 0 var(--r)}
+#tInv[data-v=off]{width:calc(50% + var(--r));padding-right:var(--r)}
+#tCol[data-v=off]{left:calc(50% - var(--r));padding-left:var(--r)}
 .card{position:relative;z-index:1;background:var(--tarjeta);padding:clamp(22px,6.2vw,32px) clamp(18px,6vw,30px) clamp(26px,8vw,40px);min-height:240px}
 .fold[data-tab=inv] .card{border-radius:var(--r) 0 var(--r) var(--r)}
 .fold[data-tab=col] .card{border-radius:0 var(--r) var(--r) var(--r)}
@@ -106,14 +106,14 @@ a{color:inherit;text-decoration:none}
     <a class="top-ico" href="cube.html" aria-label="Notificaciones"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><b class="cw-badge" id="badge" hidden>0</b></a>
   </header>
 
-  <div class="fold" id="fold" data-tab="inv">
+  <div class="fold" id="fold" data-tab="col">
     <div class="tabs" role="tablist">
-      <button class="tab" id="tInv" role="tab" aria-selected="true" aria-controls="pInv">Inventario</button>
-      <button class="tab" id="tCol" role="tab" aria-selected="false" aria-controls="pCol" tabindex="-1">Colección</button>
+      <button class="tab" id="tInv" role="tab" data-v="off" aria-selected="true" aria-controls="pCol">Inventario</button>
+      <button class="tab" id="tCol" role="tab" data-v="on" aria-selected="false" aria-controls="pInv" tabindex="-1">Colección</button>
     </div>
     <div class="card">
-      <section id="pInv" role="tabpanel" aria-labelledby="tInv"><div class="grid" id="grid"></div><div class="vacio" id="vacio" hidden><p>Aún no tienes historias</p><a class="btn" href="lotes.html">Abrir un lote</a></div></section>
-      <section id="pCol" role="tabpanel" aria-labelledby="tCol" hidden><div class="lista" id="lista"></div></section>
+      <section id="pInv" role="tabpanel" aria-labelledby="tCol" hidden><div class="grid" id="grid"></div><div class="vacio" id="vacio" hidden><p>Aún no tienes historias</p><a class="btn" href="lotes.html">Abrir un lote</a></div></section>
+      <section id="pCol" role="tabpanel" aria-labelledby="tInv"><div class="lista" id="lista"></div></section>
     </div>
   </div>
 </div>
@@ -121,6 +121,7 @@ a{color:inherit;text-decoration:none}
 <nav class="bottom-nav" aria-label="Navegación inferior">
   <div class="nav-pill">
     <a class="bottom-nav-item" href="cube.html" aria-label="Inicio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a>
+    <a class="bottom-nav-item" href="inventario.html" aria-label="Inventario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></svg></a>
     <a class="bottom-nav-item" href="cube.html" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
     <a class="bottom-nav-item" href="cube.html" aria-label="Orbe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></a>
     <a class="bottom-nav-item activo" href="inventario.html" aria-label="Inventario" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></svg></a>
@@ -244,9 +245,15 @@ document.addEventListener('click', e => {
   else if (b.dataset.a === 'fav') alternar(fav, f, 'fav');
   else if (b.dataset.a === 'lis') alternar(lis, f, 'lis');
 });
-function pestana(k) {
-  $('fold').dataset.tab = k;
-  [['inv', 'tInv', 'pInv'], ['col', 'tCol', 'pCol']].forEach(([n, t, p]) => { const on = n === k; $(t).setAttribute('aria-selected', on); $(t).tabIndex = on ? 0 : -1; $(p).hidden = !on; });
+// Pestaña verde = la sección contraria a la que estás viendo.
+// Inventario (blanca) -> lista de huecos fijos; Colección (blanca) -> tus historias con favoritos/lista.
+function pestana(seccion) {
+  const inv = seccion === 'inv';
+  $('fold').dataset.tab = inv ? 'col' : 'inv';
+  $('tInv').dataset.v = inv ? 'off' : 'on'; $('tCol').dataset.v = inv ? 'on' : 'off';
+  $('tInv').setAttribute('aria-selected', inv); $('tCol').setAttribute('aria-selected', !inv);
+  $('tInv').tabIndex = inv ? 0 : -1; $('tCol').tabIndex = inv ? -1 : 0;
+  $('pCol').hidden = !inv; $('pInv').hidden = inv;
 }
 $('tInv').onclick = () => pestana('inv'); $('tCol').onclick = () => pestana('col');
 cabecera('', null); pintar(); cargar();
