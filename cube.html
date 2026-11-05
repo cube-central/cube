@@ -181,8 +181,8 @@
   #buscar{padding-top:calc(env(safe-area-inset-top,0px) + 12px)}
   .bs-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 0 22px}
   .buscador{display:flex;align-items:center;height:68px;padding:0 0 0 26px;background:var(--tarjeta);border-radius:999px;color:var(--texto-suave)}
-  .buscador input{flex:1;min-width:0;height:100%;background:none;border:none;outline:none;color:var(--texto);font-family:inherit;font-size:1.02rem}
-  .buscador input::placeholder{color:var(--texto-suave);opacity:.85}
+  .buscador input{flex:1;min-width:0;height:100%;background:none;border:none;outline:none;color:var(--texto);font-family:inherit;font-size:1.02rem;text-overflow:ellipsis}
+  .buscador input::placeholder{color:var(--texto-suave);opacity:.85;font-size:clamp(.82rem,3.9vw,1.02rem);white-space:nowrap}
   .buscador input::-webkit-search-cancel-button{display:none}
   .buscador:focus-within{outline:2px solid var(--tinta)}
   .bs-lupa{flex:none;width:68px;height:68px;border-radius:50%;background:var(--verde);color:var(--negro);display:grid;place-items:center;transition:transform .12s}
@@ -424,6 +424,44 @@
   .ls-del svg{width:18px;height:18px}
   .ls-nuevo{align-self:flex-start;margin-top:4px;padding:10px 16px;border-radius:999px;background:var(--verde);color:var(--negro);font-weight:600;font-size:.85rem}
 
+
+  /* ===== Enviar créditos: buscar alias y transferir ===== */
+  body.en-enviar #home,body.en-transf #home,body.en-enviar .pie,body.en-transf .pie{display:none}
+  body.en-enviar{padding-bottom:110px}
+  body.en-transf{padding-bottom:30px}
+  body.en-transf #bottomNav{display:none}
+  #enviar,#transf{display:none;margin:0 auto;max-width:640px;padding:calc(env(safe-area-inset-top,0px) + 12px) var(--margen) 30px}
+  body.en-enviar #enviar,body.en-transf #transf{display:block}
+  .al-mio{display:flex;align-items:center;gap:8px;margin:14px 6px 0;padding:8px 14px;border-radius:999px;background:var(--tarjeta);color:var(--texto);font-size:.82rem;font-weight:600}
+  .al-mio svg{width:16px;height:16px;flex:none}
+  .al-mio small{color:var(--texto-suave);font-weight:500;font-size:.78rem}
+  .en-panel{margin-top:16px;padding:22px 18px;background:var(--tarjeta);border-radius:36px;display:flex;flex-direction:column;gap:16px;min-height:140px}
+  .en-fila{display:flex;align-items:center;gap:16px;width:100%;text-align:left;color:var(--texto);border-radius:20px;transition:transform .12s}
+  .en-fila:active{transform:scale(.98)}
+  .en-av,.tr-av{flex:none;width:64px;height:64px;border-radius:50%;background:var(--verde);color:var(--negro);display:grid;place-items:center;overflow:hidden}
+  .en-av svg{width:34px;height:34px}
+  .en-av img,.tr-av img{width:100%;height:100%;object-fit:cover;display:block}
+  .en-tx{min-width:0;display:flex;flex-direction:column;line-height:1.3}
+  .en-tx b,.en-tx small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .en-tx b{font-weight:500;font-size:1rem}
+  .en-tx small{color:var(--texto-suave);font-size:.92rem}
+  .en-vacio{margin:auto;text-align:center;color:var(--texto-suave);font-size:.88rem;line-height:1.5;padding:10px}
+  .tr-card{padding:28px 24px 34px;background:var(--tarjeta);border-radius:36px}
+  .tr-card h2{font-weight:700;font-size:clamp(1.3rem,5.6vw,1.7rem);color:var(--texto)}
+  .tr-who{display:flex;flex-direction:column;align-items:center;text-align:center;margin:26px 0 30px;gap:2px}
+  .tr-av{width:min(40vw,160px);height:min(40vw,160px);margin-bottom:12px}
+  .tr-av svg{width:55%;height:55%}
+  .tr-who b{font-weight:500;font-size:1rem}
+  .tr-who small{color:var(--texto-suave);font-size:.92rem}
+  .tr-input{width:100%;margin-top:16px;height:62px;padding:0 24px;border-radius:999px;background:var(--fondo);color:var(--texto);font:inherit;font-size:1rem;border:2px solid transparent;outline:none}
+  .tr-input:focus{border-color:var(--verde)}
+  .tr-err{min-height:1.4em;margin:8px 6px 0;color:#E5484D;font-size:.8rem;font-weight:500}
+  .tr-disp{margin:14px 6px 0;color:var(--texto-suave);font-size:.95rem}
+  .tr-disp b{display:block;font-weight:700;font-size:1.05rem}
+  .tr-btn{display:block;width:100%;min-height:62px;margin-top:14px;border-radius:999px;background:var(--tarjeta);color:var(--texto);font-weight:500;font-size:1.05rem}
+  .tr-btn:disabled{opacity:.5}
+  .tr-no{background:#FF8E8B;color:#0A0A0A;min-height:70px}
+
   /* ===== Pantalla Obtener ===== */
   body.en-profit #home,body.en-profit .pie{display:none}
   body.en-profit{padding-bottom:90px}
@@ -502,10 +540,10 @@
       <span class="pp-nombre" id="ppNombre">Iniciar sesión</span>
     </button>
     <div class="top-acciones">
-      <button class="top-ico" type="button" data-a="crear-lista" aria-label="Crear lista" title="Crear lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v8M14 17h8"/></svg></button>
+      <button class="top-ico" type="button" data-a="listas" aria-label="Mis listas" title="Mis listas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button>
       <button class="top-ico" type="button" data-a="almacen" aria-label="Almacén" title="Almacén"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9"/><path d="M10 13h4"/></svg></button>
       <button class="top-ico" type="button" data-a="edicion-coleccionista" aria-label="Colección" title="Colección"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-1.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98 1.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></button>
-      <button class="top-ico" type="button" data-a="notificaciones" aria-label="Notificaciones" title="Notificaciones"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><b class="cw-badge" id="cwBadge" hidden>0</b></button>
+      <button class="top-ico" type="button" data-a="notificaciones" aria-label="Notificaciones" title="Notificaciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><b class="cw-badge" id="cwBadge" hidden>0</b></button>
     </div>
   </header>
 
@@ -588,15 +626,46 @@
       <span class="pp-av" id="ppAv2"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
       <span class="pp-nombre" id="ppNombre2">Iniciar sesión</span>
     </button>
-    <button class="top-ico" type="button" data-a="notificaciones" aria-label="Notificaciones" title="Notificaciones"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></button>
+    <button class="top-ico" type="button" data-a="notificaciones" aria-label="Notificaciones" title="Notificaciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
   </header>
   <div class="buscador" role="search">
-    <input id="campoBuscar" type="search" placeholder="Busca el título o palabras claves..." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar historias">
+    <input id="campoBuscar" type="search" placeholder="Título o palabras clave" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar historias">
     <button class="bs-lupa" id="btnLupa" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
   </div>
   <h2 id="tituloBuscar">Resultados de búsqueda</h2>
   <div class="grilla" id="grilla"></div>
   <p class="sin-resultados" id="sinResultados">Sin resultados.</p>
+</section>
+
+<!-- ENVIAR CRÉDITOS: buscar alias -->
+<section id="enviar" aria-label="Enviar créditos">
+  <header class="bs-top">
+    <button class="perfil-pill" id="btnPerfilEnviar" type="button" aria-label="Abrir perfil">
+      <span class="pp-av" id="ppAv3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+      <span class="pp-nombre" id="ppNombre3">Iniciar sesión</span>
+    </button>
+    <button class="top-ico" type="button" data-a="notificaciones" aria-label="Notificaciones" title="Notificaciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
+  </header>
+  <div class="buscador" role="search">
+    <input id="campoAlias" type="search" placeholder="Busca el alias..." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar alias">
+    <button class="bs-lupa" id="btnLupaAlias" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+  </div>
+  <button class="al-mio" id="alMio" type="button"></button>
+  <div class="en-panel" id="enPanel"></div>
+</section>
+
+<!-- TRANSFERENCIA -->
+<section id="transf" aria-label="Transferir créditos">
+  <div class="tr-card">
+    <h2>Transferencia a</h2>
+    <div class="tr-who"><span class="tr-av" id="trAv"></span><b id="trNom"></b><small id="trAlias"></small></div>
+    <h2>Monto a transferir</h2>
+    <input class="tr-input" id="trMonto" type="text" inputmode="numeric" placeholder="Escribe un monto..." autocomplete="off" aria-label="Monto a transferir">
+    <p class="tr-err" id="trErr" role="alert"></p>
+    <p class="tr-disp">Créditos disponibles<b id="trSaldo">$0</b></p>
+  </div>
+  <button class="tr-btn" id="trOk" type="button">Transferir</button>
+  <button class="tr-btn tr-no" id="trNo" type="button">Cancelar</button>
 </section>
 
 <!-- LISTA (favoritos / guardados) -->
@@ -811,6 +880,8 @@ const IMG_BASE = "https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/";
     const nom = u ? String(u.nombre || '') : '';
     document.getElementById('ppNombre').textContent = u ? (nom.indexOf('@') >= 0 ? nom : '@' + nom) : 'Iniciar sesión';
     document.getElementById('ppNombre2').textContent = document.getElementById('ppNombre').textContent;
+    poner_avatar(document.getElementById('ppAv3'), foto, '');
+    document.getElementById('ppNombre3').textContent = document.getElementById('ppNombre').textContent;
     if (typeof actualizarContadorNotif === 'function') actualizarContadorNotif();
   }
 
@@ -837,7 +908,7 @@ window.abrirModal = function (tipo) {
 };
 
 function cerrarModales() {
-  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario');
+  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf');
   activarItemNav('navWallet');
   window.scrollTo(0, 0);
   iniciarAuto();
@@ -857,6 +928,7 @@ function abrirPerfilDesdeBoton() {
 document.getElementById('navPerfil').onclick = abrirPerfilDesdeBoton;
 document.getElementById('btnPerfilTop').onclick = abrirPerfilDesdeBoton;
 document.getElementById('btnPerfilBuscar').onclick = abrirPerfilDesdeBoton;
+document.getElementById('btnPerfilEnviar').onclick = abrirPerfilDesdeBoton;
 
 // Favoritos: se muestran con las imágenes guardadas por el usuario.
 function renderLista(tipo) {
@@ -904,7 +976,7 @@ document.getElementById('menuOverlay').onclick = () => cerrarModales();
 // La barra inferior se desvanece al llegar al pie de página
 const bottomNav = document.getElementById('bottomNav');
 window.addEventListener('scroll', () => {
-  if (['buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-inventario'].some(c => document.body.classList.contains(c))) {
+  if (['buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-inventario', 'en-enviar'].some(c => document.body.classList.contains(c))) {
     bottomNav.classList.remove('oculto');
     return;
   }
@@ -1176,12 +1248,9 @@ actualizarHeader();
     notificaciones: () => $('irNotificaciones').click(),
     almacen: () => $('irAlmacen').click(),
     upgrade: () => { location.href = 'cube-obtener.html'; },
-    'crear-lista': () => {
-      const o = buscarCrearLista();
-      if (o) { o.click(); return; }
-      if (typeof window.cubeCrearLista === 'function') { window.cubeCrearLista(); return; }
-      if (typeof window.crearLista === 'function') { window.crearLista(); return; }
-      aviso('Próximamente.');
+    listas: () => {
+      if (window.cubeListas) window.cubeListas.ver();
+      else aviso('Las listas no están disponibles.');
     }
   };
   document.querySelectorAll('[data-a]').forEach(b => {
@@ -1724,7 +1793,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   const body = document.body;
   // Mismas reglas que el servidor (profit_historia): el servidor decide el resultado; la aguja solo lo muestra.
   const FACTOR = 2, PROB_MAX = 0.95, MAX_USADAS = 6, MAX_COPIAS = 3;
-  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario'];
+  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf'];
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const titulo = img => {
     const p = (window.catalogo || []).find(x => x.img === img);
@@ -2259,16 +2328,184 @@ window.addEventListener('cube-wallet-accion', function (e) {
   });
   if (opc) { new MutationObserver(limpiar).observe(opc, { childList: true }); limpiar(); }
 
-  // Icono "Crear lista" de la barra superior: tiene prioridad sobre cualquier otro manejador
+  // Icono "Listas" de la barra superior: abre la misma vista que "Mis listas" del perfil
   document.addEventListener('click', e => {
-    const t = e.target.closest('[data-a="crear-lista"]');
+    const t = e.target.closest('[data-a="listas"]');
     if (!t) return;
     e.stopImmediatePropagation(); e.preventDefault();
-    abrirCrear();
+    verMisListas();
   }, true);
 
   window.cubeListas = { crear: abrirCrear, guardar: abrirSelector, ver: verMisListas, leer };
   window.cubeCrearLista = () => abrirCrear();
+})();
+</script>
+<!-- ================= TRANSFERENCIAS DE CRÉDITOS (alias + enviar) ================= -->
+<script>
+(function () {
+  const $ = id => document.getElementById(id), body = document.body;
+  const esc = t => String(t == null ? '' : t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const aviso = t => (window.cubeAviso ? window.cubeAviso(t) : alert(t));
+  const sesion = () => { const u = window.usuario && window.usuario(); return u && u.supa ? u : null; };
+  const fmt = n => Number(n || 0).toLocaleString('es-AR');
+  const ICO_P = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
+  const ICO_AL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>';
+  const av = f => (f && /^(data:image|https?:)/.test(f)) ? `<img src="${esc(f)}" alt="">` : ICO_P;
+  const nombre = r => '@' + String(r.username || '').replace(/^@/, '');
+  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf'];
+  const OTRAS = VISTAS.filter(v => v !== 'perfil-abierto' && v !== 'en-enviar' && v !== 'en-transf');
+
+  function mostrar(clase) {
+    body.classList.remove(...VISTAS); body.classList.add(clase);
+    if (typeof detenerAuto === 'function') detenerAuto();
+    window.scrollTo(0, 0);
+  }
+  // Si otra pantalla se abre (notificaciones, búsqueda, inicio…), esta se cierra sola
+  new MutationObserver(() => {
+    if ((body.classList.contains('en-enviar') || body.classList.contains('en-transf')) && OTRAS.some(c => body.classList.contains(c)))
+      body.classList.remove('en-enviar', 'en-transf');
+  }).observe(body, { attributes: true, attributeFilter: ['class'] });
+
+  // ---------- Mi alias ----------
+  let miAlias = null, miCambio = null;   // alias actual y fecha del último cambio
+  const DIAS30 = 30 * 864e5;
+  const desbloqueo = () => (miCambio ? new Date(new Date(miCambio).getTime() + DIAS30) : null);
+  const bloqueado = () => { const d = desbloqueo(); return !!(miAlias && d && d > new Date()); };
+  const fechaLarga = d => d.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  async function cargarMiAlias() {
+    const u = sesion(); if (!u || !window.cubeDb) return;
+    const { data, error } = await window.cubeDb.from('profiles').select('alias,alias_cambiado_at').eq('id', u.id).maybeSingle();
+    if (error) { console.warn('alias', error); return; }
+    miAlias = data && data.alias || null; miCambio = data && data.alias_cambiado_at || null;
+    pintarMiAlias();
+  }
+  function pintarMiAlias() {
+    $('alMio').innerHTML = miAlias
+      ? `${ICO_AL}<span>Mi alias: <b>${esc(miAlias)}</b></span><small>${bloqueado() ? '· cambia el ' + fechaLarga(desbloqueo()) : '· cambiar'}</small>`
+      : `${ICO_AL}<span>Crear mi alias</span>`;
+  }
+
+  const sheet = document.createElement('div');
+  sheet.className = 'v-sheet'; sheet.id = 'alSheet'; sheet.hidden = true;
+  sheet.innerHTML = '<div class="v-card" role="dialog" aria-modal="true" aria-label="Mi alias"><div id="alCuerpo"></div></div>';
+  body.appendChild(sheet);
+  const cerrarSheet = () => { sheet.hidden = true; };
+  sheet.addEventListener('click', e => { if (e.target === sheet) cerrarSheet(); });
+
+  function abrirAlias() {
+    const cu = $('alCuerpo');
+    if (bloqueado()) {
+      cu.innerHTML = `<p class="v-card-t" style="margin-top:6px">Tu alias: ${esc(miAlias)}</p>
+        <p class="v-nota" style="margin:8px 2px 14px">Ya cambiaste tu alias. Podrás cambiarlo de nuevo el <b>${esc(fechaLarga(desbloqueo()))}</b>.</p>
+        <div class="v-acc"><button class="b-pri" id="alOk" type="button">Entendido</button></div>`;
+      sheet.hidden = false; $('alOk').onclick = cerrarSheet; return;
+    }
+    cu.innerHTML = `<p class="v-card-t" style="margin-top:6px">${miAlias ? 'Cambiar mi alias' : 'Crear mi alias'}</p>
+      <input class="ls-input" id="alInp" type="text" maxlength="20" placeholder="tu.alias" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(miAlias || '')}">
+      <p class="v-nota" id="alErr" style="min-height:3.2em;margin:6px 2px 10px">3 a 20 caracteres: letras, números, punto o guion bajo. Al aceptar no podrás cambiarlo durante 30 días.</p>
+      <div class="v-acc"><button class="b-sec" id="alNo" type="button">Cancelar</button><button class="b-pri" id="alSi" type="button">Aceptar</button></div>`;
+    sheet.hidden = false;
+    const inp = $('alInp'), err = $('alErr');
+    setTimeout(() => inp.focus(), 50);
+    $('alNo').onclick = cerrarSheet;
+    const ok = async () => {
+      const a = inp.value.trim().toLowerCase().replace(/^@/, '');
+      if (!/^[a-z0-9_.]{3,20}$/.test(a)) { err.textContent = 'Alias inválido: usa 3 a 20 letras, números, punto o guion bajo.'; return; }
+      if (a === miAlias) { err.textContent = 'Ese ya es tu alias.'; return; }
+      $('alSi').disabled = true;
+      const { error } = await window.cubeDb.rpc('definir_alias', { p_alias: a });
+      $('alSi').disabled = false;
+      if (error) {
+        const m = error.message || '';
+        if (m.includes('ALIAS_NO_DISPONIBLE') || error.code === '23505') err.textContent = 'Este alías no está disponible.';
+        else if (m.includes('ALIAS_BLOQUEADO')) { await cargarMiAlias(); abrirAlias(); }
+        else if (m.includes('ALIAS_INVALIDO')) err.textContent = 'Alias inválido: usa 3 a 20 letras, números, punto o guion bajo.';
+        else err.textContent = 'No se pudo guardar el alias. Inténtalo de nuevo.';
+        return;
+      }
+      aviso('Alias creado: ' + a); cerrarSheet(); await cargarMiAlias();
+    };
+    $('alSi').onclick = ok;
+    inp.onkeydown = e => { if (e.key === 'Enter') ok(); };
+  }
+  $('alMio').onclick = abrirAlias;
+
+  // ---------- Buscar alias / destinatarios guardados ----------
+  const filas = new Map();
+  let recientes = [], tBusca = null, secBusca = 0;
+  function pintarFilas(lista, vacio) {
+    filas.clear(); lista.forEach(r => filas.set(r.id, r));
+    $('enPanel').innerHTML = lista.length
+      ? lista.map(r => `<button class="en-fila" type="button" data-id="${esc(r.id)}"><span class="en-av">${av(r.avatar)}</span><span class="en-tx"><b>${esc(nombre(r))}</b><small>Alías: ${esc(r.alias)}</small></span></button>`).join('')
+      : `<p class="en-vacio">${esc(vacio)}</p>`;
+  }
+  async function cargarRecientes() {
+    const { data, error } = await window.cubeDb.rpc('mis_destinatarios');
+    recientes = error ? [] : (data || []);
+    if (!$('campoAlias').value.trim()) pintarFilas(recientes, error ? 'No se pudieron cargar tus transferencias.' : 'Aún no has hecho transferencias. Busca un alias para enviar créditos.');
+  }
+  async function buscar() {
+    const q = $('campoAlias').value.trim().replace(/^@/, '').toLowerCase();
+    if (!q) return pintarFilas(recientes, 'Aún no has hecho transferencias. Busca un alias para enviar créditos.');
+    const n = ++secBusca;
+    const { data, error } = await window.cubeDb.rpc('buscar_alias', { p_q: q });
+    if (n !== secBusca) return;
+    pintarFilas(error ? [] : (data || []), error ? 'No se pudo buscar. Inténtalo de nuevo.' : 'No encontramos ese alias.');
+  }
+  $('campoAlias').addEventListener('input', () => { clearTimeout(tBusca); tBusca = setTimeout(buscar, 280); });
+  $('campoAlias').addEventListener('keydown', e => { if (e.key === 'Enter') { clearTimeout(tBusca); buscar(); e.target.blur(); } });
+  $('btnLupaAlias').onclick = () => { clearTimeout(tBusca); buscar(); $('campoAlias').blur(); };
+  $('enPanel').addEventListener('click', e => { const b = e.target.closest('.en-fila'); if (b && filas.get(b.dataset.id)) abrirTransf(filas.get(b.dataset.id)); });
+
+  function abrirEnviar() {
+    if (!sesion()) { aviso('Inicia sesión para enviar créditos.'); return; }
+    mostrar('en-enviar');
+    if (typeof activarItemNav === 'function') activarItemNav('navBuscar');
+    if (typeof actualizarHeader === 'function') actualizarHeader();
+    $('campoAlias').value = '';
+    pintarMiAlias(); pintarFilas(recientes, 'Cargando…');
+    cargarMiAlias(); cargarRecientes();
+  }
+  window.addEventListener('cube-wallet-accion', e => {
+    if (e.detail && e.detail.accion === 'transferir') { e.preventDefault(); abrirEnviar(); }
+  });
+
+  // ---------- Transferir ----------
+  let dest = null, enviando = false;
+  const saldo = () => Number(window.cubeSaldo || 0);
+  const pintarSaldo = () => { $('trSaldo').textContent = '$' + fmt(saldo()); };
+  function abrirTransf(r) {
+    dest = r; enviando = false;
+    $('trAv').innerHTML = av(r.avatar); $('trNom').textContent = nombre(r); $('trAlias').textContent = 'Alías: ' + r.alias;
+    $('trMonto').value = ''; $('trErr').textContent = ''; $('trOk').disabled = false;
+    pintarSaldo(); mostrar('en-transf');
+    if (window.cubeRefrescarCreditos) Promise.resolve(window.cubeRefrescarCreditos()).then(pintarSaldo);
+  }
+  const volver = () => { dest = null; mostrar('en-enviar'); if (typeof activarItemNav === 'function') activarItemNav('navBuscar'); cargarRecientes(); };
+  $('trNo').onclick = volver;
+  $('trMonto').addEventListener('input', e => { const d = e.target.value.replace(/\D/g, '').slice(0, 12); e.target.value = d ? fmt(d) : ''; $('trErr').textContent = ''; });
+  $('trOk').onclick = async () => {
+    if (!dest || enviando) return;
+    const monto = parseInt($('trMonto').value.replace(/\D/g, ''), 10), err = $('trErr');
+    if (!monto || monto <= 0) { err.textContent = 'Escribe un monto válido.'; return; }
+    if (monto > saldo()) { err.textContent = 'No tienes créditos suficientes.'; return; }
+    if (!confirm(`¿Transferir $${fmt(monto)} a ${nombre(dest)}?`)) return;
+    enviando = true; $('trOk').disabled = true;
+    const { error } = await window.cubeDb.rpc('transferir_creditos', { p_destino: dest.id, p_monto: monto });
+    enviando = false; $('trOk').disabled = false;
+    if (error) {
+      const m = error.message || '';
+      err.textContent = m.includes('SALDO_INSUFICIENTE') ? 'No tienes créditos suficientes.'
+        : m.includes('DESTINO_INVALIDO') ? 'Esa cuenta no puede recibir transferencias.'
+        : 'No se pudo transferir. Inténtalo de nuevo.';
+      if (window.cubeRefrescarCreditos) Promise.resolve(window.cubeRefrescarCreditos()).then(pintarSaldo);
+      return;
+    }
+    aviso(`Enviaste $${fmt(monto)} a ${nombre(dest)}.`);
+    if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
+    volver();
+  };
 })();
 </script>
 <script src="cube-push.js"></script>
