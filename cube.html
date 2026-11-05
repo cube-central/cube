@@ -178,14 +178,24 @@
   body.buscando #buscar,body.en-lista #lista,body.en-notif #notifs,body.en-almacen #almacen{display:block}
 
   /* ===== Búsqueda ===== */
-  .buscador{flex:1;min-width:0;display:flex;align-items:center;gap:10px;height:56px;padding:0 18px;background:var(--panel);border-radius:20px;color:var(--texto-suave)}
-  .buscador input{flex:1;min-width:0;background:none;border:none;outline:none;color:var(--texto);font-family:inherit;font-size:1rem}
-  .buscador input::placeholder{color:var(--texto-suave)}
+  #buscar{padding-top:calc(env(safe-area-inset-top,0px) + 12px)}
+  .bs-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 0 22px}
+  .buscador{display:flex;align-items:center;height:68px;padding:0 0 0 26px;background:var(--tarjeta);border-radius:999px;color:var(--texto-suave)}
+  .buscador input{flex:1;min-width:0;height:100%;background:none;border:none;outline:none;color:var(--texto);font-family:inherit;font-size:1.02rem}
+  .buscador input::placeholder{color:var(--texto-suave);opacity:.85}
   .buscador input::-webkit-search-cancel-button{display:none}
-  .buscador svg{flex:0 0 auto;width:26px;height:26px}
   .buscador:focus-within{outline:2px solid var(--tinta)}
-  #buscar h2{font-weight:700;font-size:clamp(1.25rem,5.4vw,1.9rem);margin:30px 0 18px;letter-spacing:-.2px;color:var(--texto)}
-  #buscar .grilla{margin-top:0}
+  .bs-lupa{flex:none;width:68px;height:68px;border-radius:50%;background:var(--verde);color:var(--negro);display:grid;place-items:center;transition:transform .12s}
+  .bs-lupa:active{transform:scale(.94)}
+  .bs-lupa svg{width:30px;height:30px}
+  #buscar h2{font-weight:700;font-size:clamp(1.3rem,5.6vw,1.9rem);margin:30px 0 18px 4px;letter-spacing:-.2px;color:var(--texto)}
+  #buscar .sin-resultados{margin-left:4px}
+  #buscar .grilla{margin-top:0;gap:22px 4vw;padding:0 8px}
+  .res-card{min-width:0;cursor:pointer}
+  .res-card .portada{border-radius:20px}
+  .res-tit{margin-top:10px;font-size:1rem;font-weight:500;line-height:1.2;color:var(--texto);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .res-card .hero-meta{margin-top:3px;font-size:.88rem;flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
+  .res-card .rareza{margin-top:8px;padding:4px 14px;font-size:.78rem}
   .tags{position:absolute;bottom:8px;right:8px;z-index:2;display:flex;flex-direction:row;align-items:center;gap:4px}
   .badge{background:var(--fondo);color:var(--acento);font-size:clamp(.45rem,1.8vw,.58rem);font-weight:600;letter-spacing:.3px;padding:3px 7px;border-radius:999px}
   .premium{display:inline-flex;align-items:center;justify-content:center;padding:2px 6px;border-radius:999px;font-size:clamp(.38rem,1.5vw,.5rem);line-height:1.5;background:var(--texto);color:var(--negro)}
@@ -304,22 +314,22 @@
   #invFold[data-tab="inv"] .fold-card{border-radius:0 var(--r) var(--r) var(--r)}
   #invFold[data-tab="col"] .fold-card{border-radius:var(--r) 0 var(--r) var(--r)}
   .inv-card{padding:clamp(22px,6.4vw,32px) clamp(14px,4.6vw,22px) clamp(26px,8vw,38px)!important}
-  .inv-lista{display:flex;flex-direction:column;gap:16px}
+  .inv-lista{display:flex;flex-direction:column;gap:12px}
   .inv-fila{display:flex;align-items:center;gap:10px}
-  .inv-acc{display:flex;flex-direction:column;gap:8px;flex:none}
-  .inv-btn{width:34px;height:34px;border-radius:50%;background:var(--fondo);display:grid;place-items:center;color:var(--tinta);transition:transform .12s,background .2s}
-  .inv-btn svg{width:18px;height:18px}
+  .inv-acc{display:flex;flex-direction:row;align-items:center;gap:6px;flex:none}
+  .inv-btn{width:30px;height:30px;border-radius:50%;background:var(--fondo);display:grid;place-items:center;color:var(--tinta);transition:transform .12s,background .2s}
+  .inv-btn svg{width:16px;height:16px}
   .inv-btn:active{transform:scale(.9)}
   .inv-btn.on{background:var(--verde);color:var(--negro)}
   .inv-btn.on svg{fill:currentColor}
   .inv-btn:focus-visible,.col-t:focus-visible{outline:2px solid var(--tinta);outline-offset:2px}
-  .inv-cov{flex:0 0 38%;aspect-ratio:16/8.5;border-radius:14px;overflow:hidden;background:var(--fondo);cursor:pointer}
+  .inv-cov{flex:0 0 31%;aspect-ratio:16/8.5;border-radius:12px;overflow:hidden;background:var(--fondo);cursor:pointer}
   .inv-cov img{width:100%;height:100%;object-fit:cover;display:block}
   .inv-info{flex:1;min-width:0}
-  .inv-tit{font-weight:500;font-size:.9rem;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--texto)}
-  .inv-tags{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:8px}
-  .inv-info .rareza{margin-top:0;padding:3px 11px;font-size:.72rem}
-  .inv-x{display:inline-block;padding:3px 9px;border-radius:999px;background:var(--oscuro);color:var(--verde);font-size:.72rem;font-weight:700;line-height:1.4}
+  .inv-tit{font-weight:500;font-size:.8rem;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--texto)}
+  .inv-tags{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-top:6px}
+  .inv-info .rareza{margin-top:0;padding:2px 9px;font-size:.66rem}
+  .inv-x{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--oscuro);color:var(--verde);font-size:.66rem;font-weight:700;line-height:1.4}
   .col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 10px}
   .col-t{display:flex;flex-direction:column;gap:3px;min-width:0;text-align:left}
   .col-box{position:relative;display:grid;place-items:center;aspect-ratio:16/8.5;border-radius:14px;background:var(--verde);color:var(--negro);overflow:hidden;transition:transform .12s}
@@ -389,6 +399,30 @@
   .b-pri:disabled{opacity:.4;cursor:default}
   #rCuerpo .v-acc{margin-top:14px}
   #rCuerpo .v-cover{margin-top:10px}
+
+
+  /* ===== Sistema de listas ===== */
+  .ls-input{width:100%;margin:14px 0 4px;padding:13px 14px;border-radius:14px;background:var(--fondo);color:var(--texto);font:inherit;font-size:.95rem;border:2px solid transparent;outline:none}
+  .ls-input:focus{border-color:var(--verde)}
+  .ls-opts{max-height:46vh;overflow-y:auto;margin:10px 0 14px;display:flex;flex-direction:column;gap:8px}
+  .ls-op{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:14px;background:var(--fondo);color:var(--texto);text-align:left;font-size:.9rem;font-weight:500}
+  .ls-op small{display:block;color:var(--texto-suave);font-size:.72rem;font-weight:400;margin-top:2px}
+  .ls-op .ls-n{flex:1;min-width:0}
+  .ls-op .ls-n b{display:block;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ls-chk{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--texto-suave);display:grid;place-items:center;color:transparent}
+  .ls-chk svg{width:14px;height:14px}
+  .ls-op.on .ls-chk{background:var(--verde);border-color:var(--verde);color:var(--negro)}
+  .ls-vacio{color:var(--texto-suave);font-size:.85rem;text-align:center;margin:14px 0}
+  #misListas{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+  #misListas[hidden]{display:none}
+  .ls-fila{display:flex;align-items:center;gap:6px;border-radius:16px;background:var(--panel)}
+  .ls-fila .ls-abrir{flex:1;min-width:0;display:flex;align-items:center;gap:12px;padding:12px 6px 12px 14px;text-align:left;color:var(--texto)}
+  .ls-th{flex:none;width:64px;aspect-ratio:16/8.5;border-radius:10px;overflow:hidden;background:var(--fondo);display:grid;place-items:center;color:var(--texto-suave)}
+  .ls-th img{width:100%;height:100%;object-fit:cover;display:block}
+  .ls-th svg{width:20px;height:20px}
+  .ls-del{flex:none;width:40px;height:40px;margin-right:6px;border-radius:50%;display:grid;place-items:center;color:var(--texto-suave)}
+  .ls-del svg{width:18px;height:18px}
+  .ls-nuevo{align-self:flex-start;margin-top:4px;padding:10px 16px;border-radius:999px;background:var(--verde);color:var(--negro);font-weight:600;font-size:.85rem}
 
   /* ===== Pantalla Obtener ===== */
   body.en-profit #home,body.en-profit .pie{display:none}
@@ -549,18 +583,20 @@
 
 <!-- BÚSQUEDA -->
 <section id="buscar" aria-label="Buscar historias">
-  <div class="buscar-top">
-    <button class="volver-btn" id="cerrarBuscar" aria-label="Volver">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  <header class="bs-top">
+    <button class="perfil-pill" id="btnPerfilBuscar" type="button" aria-label="Abrir perfil">
+      <span class="pp-av" id="ppAv2"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+      <span class="pp-nombre" id="ppNombre2">Iniciar sesión</span>
     </button>
-    <label class="buscador">
-      <input id="campoBuscar" type="search" placeholder="¿Qué quieres ver hoy?" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar historias">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    </label>
+    <button class="top-ico" type="button" data-a="notificaciones" aria-label="Notificaciones" title="Notificaciones"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></button>
+  </header>
+  <div class="buscador" role="search">
+    <input id="campoBuscar" type="search" placeholder="Busca el título o palabras claves..." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar historias">
+    <button class="bs-lupa" id="btnLupa" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
   </div>
-  <h2 id="tituloBuscar">Todas las historias</h2>
+  <h2 id="tituloBuscar">Resultados de búsqueda</h2>
   <div class="grilla" id="grilla"></div>
-  <p class="sin-resultados" id="sinResultados" hidden>No encontramos historias con ese nombre.</p>
+  <p class="sin-resultados" id="sinResultados">Sin resultados.</p>
 </section>
 
 <!-- LISTA (favoritos / guardados) -->
@@ -771,8 +807,10 @@ const IMG_BASE = "https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/";
     const foto = (u && u.foto && u.foto !== AVATAR) ? u.foto : null;
     poner_avatar(document.getElementById('navPerfil'), foto, 'nav-foto');
     poner_avatar(document.getElementById('ppAv'), foto, '');
+    poner_avatar(document.getElementById('ppAv2'), foto, '');
     const nom = u ? String(u.nombre || '') : '';
     document.getElementById('ppNombre').textContent = u ? (nom.indexOf('@') >= 0 ? nom : '@' + nom) : 'Iniciar sesión';
+    document.getElementById('ppNombre2').textContent = document.getElementById('ppNombre').textContent;
     if (typeof actualizarContadorNotif === 'function') actualizarContadorNotif();
   }
 
@@ -818,6 +856,7 @@ function abrirPerfilDesdeBoton() {
 }
 document.getElementById('navPerfil').onclick = abrirPerfilDesdeBoton;
 document.getElementById('btnPerfilTop').onclick = abrirPerfilDesdeBoton;
+document.getElementById('btnPerfilBuscar').onclick = abrirPerfilDesdeBoton;
 
 // Favoritos: se muestran con las imágenes guardadas por el usuario.
 function renderLista(tipo) {
@@ -1236,11 +1275,11 @@ apollo-18|Apollo 18|pv
 musaranas|Musarañas: Relatos de C·C·H|p
 behemoth|Behemoth|p
 hydra-the-lost-island|Hydra: The Lost Island|p
-eternamente-vivo-1|Eternamente Vivo
-eternamente-vivo-2|Eternamente Vivo: con Murray Franklin
-eternamente-vivo-3|Eternamente Vivo: con Amadeus Shell
-eternamente-vivo-4|Eternamente Vivo: con Dante el Grande
-eternamente-vivo-5|Eternamente Vivo: con Valak Seraphel
+eternamente-vivo-1|Eternamente Vivo 1
+eternamente-vivo-2|Eternamente Vivo 2
+eternamente-vivo-3|Eternamente Vivo 3
+eternamente-vivo-4|Eternamente Vivo 4
+eternamente-vivo-5|Eternamente Vivo 5
 fenomeno-vulgar|Fenómeno Vulgar
 dont-hug-me-im-scared|Don't Hug Me I'm Scared|p
 un-eternauta|Un Eternauta|p
@@ -1288,29 +1327,47 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
 
   const grilla = document.getElementById('grilla');
   const campo = document.getElementById('campoBuscar');
-  const tituloBuscar = document.getElementById('tituloBuscar');
   const sinResultados = document.getElementById('sinResultados');
+  const escB = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-  const tarjetas = catalogo.filter(p => !p.pronto && !p.v).map(p => {
-    const t = document.createElement('template'); t.innerHTML = card(p);
-    const el = t.content.firstElementChild;
-    grilla.appendChild(el);
-    return { el, normal: normal(p.alt), compacto: compacto(p.alt) };
-  });
+  // Datos que se muestran bajo cada resultado. Para completarlos: META['archivo.webp'] = { clasif, genero, caps, claves }
+  // ("claves" son palabras o frases extra por las que se puede encontrar la historia).
+  const META = window.cubeMetaHistorias = {
+    'bigfoot.webp': { clasif: 'PG13', genero: 'Acción', caps: 3 },
+    'ratman.webp': { clasif: 'PG15', genero: 'Found footage', caps: 3 },
+    'las-entrevistas.webp': { clasif: 'PG15', genero: 'Sci fi', caps: 10 }
+  };
+  const META_DEF = { clasif: 'PG13', genero: '', caps: 0, claves: '' };
+  const meta = img => Object.assign({}, META_DEF, META[img]);
+  const NOM_R = { comun: 'Común', raro: 'Raro', extraordinario: 'Extraordinario', legendario: 'Legendario' };
+  const rarezaDe = img => (window.cubeRareza ? window.cubeRareza(img) : 'comun');
+  const buscables = catalogo.filter(p => !p.pronto && !p.v);
+
+  function tarjetaResultado(p) {
+    const m = meta(p.img), r = rarezaDe(p.img);
+    return `<div class="res-card" data-id="${p.img}">${card(p)}
+      <p class="res-tit">${escB(p.alt)}</p>
+      <div class="hero-meta"><span class="clasif">${escB(m.clasif)}</span><i>•</i><span>${escB(m.genero || 'Género')}</span><i>•</i><span>${escB(m.caps)} cap</span></div>
+      <span class="rareza ${r}">${NOM_R[r] || NOM_R.comun}</span></div>`;
+  }
 
   function filtrar() {
     const q = normal(campo.value), qc = compacto(campo.value);
-    let visibles = 0;
-    tarjetas.forEach(t => {
-      const coincide = !q || t.normal.includes(q) || (qc && t.compacto.includes(qc));
-      t.el.style.display = coincide ? '' : 'none';
-      if (coincide) visibles++;
+    if (!q) { grilla.innerHTML = ''; sinResultados.hidden = false; return; }
+    const palabras = q.split(/\s+/);
+    const res = buscables.filter(p => {
+      const m = meta(p.img);
+      const pajar = normal([p.alt, m.genero, m.clasif, m.claves].join(' '));
+      return palabras.every(w => pajar.includes(w)) || (qc && compacto(p.alt).includes(qc));
     });
-    tituloBuscar.textContent = q ? 'Resultados' : 'Todas las historias';
-    sinResultados.hidden = visibles > 0;
+    grilla.innerHTML = res.map(tarjetaResultado).join('');
+    sinResultados.hidden = res.length > 0;
   }
   campo.addEventListener('input', filtrar);
-  campo.addEventListener('keydown', e => { if (e.key === 'Enter') campo.blur(); });
+  campo.addEventListener('keydown', e => { if (e.key === 'Enter') { filtrar(); campo.blur(); } });
+  document.getElementById('btnLupa').onclick = () => { filtrar(); campo.blur(); };
+  // La rareza depende de los precios, que llegan después: se repinta cuando cambian
+  window.addEventListener('cube:inventario', () => { if (campo.value.trim()) filtrar(); });
 
   // Las listas (Favoritos, cube-listas.js) reutilizan estas tarjetas y el catálogo.
   window.card = card;
@@ -1324,7 +1381,6 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
     window.scrollTo(0, 0);
     campo.focus();
   };
-  document.getElementById('cerrarBuscar').onclick = () => cerrarModales();
 })();
 </script>
 
@@ -1452,7 +1508,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
 
   // Cualquier portada de Buscar, Favoritos o Mi inventario abre el panel (salvo Próximamente y Premium)
   document.addEventListener('click', e => {
-    const el = e.target.closest('#grilla .portada, #listaGrilla .portada, #invLista .inv-cov, #colGrid .col-t.ok, .secs .sec-card');
+    const el = e.target.closest('#grilla .res-card, #listaGrilla .portada, #invLista .inv-cov, #colGrid .col-t.ok, .secs .sec-card');
     if (!el || !el.dataset.id || !esVendible(el.dataset.id)) return;
     abrir(el.dataset.id);
   });
@@ -1501,12 +1557,12 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
     $('invLista').innerHTML = l.length ? l.map(img => {
       const n = Math.min(window.cubeInv.cantidad(img), window.cubeInv.MAX || 3), r = rareza(img);
       return `<div class="inv-fila" data-id="${esc(img)}">
+        <div class="inv-cov" data-id="${esc(img)}"><img src="${src(img)}" alt="${esc(titulo(img))}" loading="lazy"></div>
+        <div class="inv-info"><p class="inv-tit">${esc(titulo(img))}</p><div class="inv-tags"><span class="rareza ${r}">${NOM[r]}</span><span class="inv-x">x${n}</span></div></div>
         <div class="inv-acc">
           <button class="inv-btn" type="button" data-k="lista" aria-label="Agregar a una lista">${ICO_LISTA}</button>
           <button class="inv-btn${esFav(img) ? ' on' : ''}" type="button" data-k="fav" aria-label="Favorita" aria-pressed="${esFav(img)}">${ICO_FAV}</button>
         </div>
-        <div class="inv-cov" data-id="${esc(img)}"><img src="${src(img)}" alt="${esc(titulo(img))}" loading="lazy"></div>
-        <div class="inv-info"><p class="inv-tit">${esc(titulo(img))}</p><div class="inv-tags"><span class="rareza ${r}">${NOM[r]}</span><span class="inv-x">x${n}</span></div></div>
       </div>`;
     }).join('') : '<p class="cw-vacio">Aún no tienes historias en tu inventario.</p>';
   }
@@ -1522,16 +1578,7 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
       b.classList.toggle('on', !fav); b.setAttribute('aria-pressed', String(!fav));
       aviso(fav ? `“${titulo(img)}” salió de tus favoritos.` : `“${titulo(img)}” está en tus favoritos.`);
     } else {
-      // Si cube-listas.js expone una función para agregar a una lista, se usa; si no, se avisa con un evento y se guarda para más tarde.
-      const fn = ['cubeAgregarALista', 'agregarALista', 'cubeAgregarLista'].map(n => window[n]).find(f => typeof f === 'function');
-      if (fn) return fn(img);
-      const ev = new CustomEvent('cube-agregar-lista', { detail: { img }, cancelable: true });
-      if (window.dispatchEvent(ev)) {
-        u.guardados = u.guardados || [];
-        if (!u.guardados.some(f => f && f.img === img)) u.guardados.push({ img, alt: titulo(img) });
-        window.guardarUsuario ? window.guardarUsuario(u) : localStorage.setItem('cube_sesion_activa', JSON.stringify(u));
-        aviso(`“${titulo(img)}” se guardó en tu lista.`);
-      }
+      if (window.cubeListas) window.cubeListas.guardar(img); else aviso('Las listas no están disponibles.');
     }
   });
 
@@ -2056,6 +2103,173 @@ window.addEventListener('cube-wallet-accion', function (e) {
     location.href = 'lotes.html';
   }
 });
+</script>
+
+<!-- ================= LISTAS (crear, guardar historias, ver) ================= -->
+<script>
+(function () {
+  const $ = id => document.getElementById(id), body = document.body;
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const cat = () => window.catalogo || [];
+  const titulo = img => { const p = cat().find(x => x.img === img); return p ? p.alt : img.replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' '); };
+  const aviso = t => (window.cubeAviso ? window.cubeAviso(t) : null);
+  const ICO_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+  const ICO_DEL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>';
+  const ICO_LS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v8M14 17h8"/></svg>';
+  const ICO_FLE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="opcion-flecha"><polyline points="9 6 15 12 9 18"/></svg>';
+
+  // ---- Datos: se guardan por usuario en este dispositivo ----
+  const clave = () => { const u = window.usuario(); return u ? 'cube_listas_' + (u.id || u.email) : null; };
+  const leer = () => { const k = clave(); if (!k) return []; try { const a = JSON.parse(localStorage.getItem(k) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
+  const guardar = a => { const k = clave(); if (k) localStorage.setItem(k, JSON.stringify(a)); };
+  const nuevoId = () => 'l' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const pideSesion = () => { if (window.usuario()) return false; aviso('Inicia sesión para usar las listas.'); return true; };
+
+  // ---- Hoja modal ----
+  const sheet = document.createElement('div');
+  sheet.className = 'v-sheet'; sheet.id = 'lsSheet'; sheet.hidden = true;
+  sheet.innerHTML = '<div class="v-card" role="dialog" aria-modal="true" aria-label="Listas"><div id="lsCuerpo"></div></div>';
+  body.appendChild(sheet);
+  const cuerpo = $('lsCuerpo');
+  const cerrar = () => { sheet.hidden = true; cuerpo.innerHTML = ''; };
+  sheet.addEventListener('click', e => { if (e.target === sheet) cerrar(); });
+
+  // Crear lista. Si viene `img`, la historia se agrega a la lista nueva y se vuelve al selector.
+  function abrirCrear(img) {
+    if (pideSesion()) return;
+    cuerpo.innerHTML = `<p class="v-card-t" style="margin-top:6px">Nueva lista</p>
+      <input class="ls-input" id="lsNombre" type="text" maxlength="40" placeholder="Nombre de la lista" autocomplete="off">
+      <p class="v-nota" id="lsErr" style="min-height:1.6em;margin:6px 2px 10px"></p>
+      <div class="v-acc"><button class="b-sec" id="lsNo" type="button">Cancelar</button><button class="b-pri" id="lsSi" type="button">Crear</button></div>`;
+    sheet.hidden = false;
+    const inp = $('lsNombre');
+    setTimeout(() => inp.focus(), 50);
+    const crear = () => {
+      const nombre = inp.value.trim().replace(/\s+/g, ' ');
+      const ls = leer();
+      if (!nombre) { $('lsErr').textContent = 'Escribe un nombre para la lista.'; return; }
+      if (ls.some(l => l.nombre.toLowerCase() === nombre.toLowerCase())) { $('lsErr').textContent = 'Ya tienes una lista con ese nombre.'; return; }
+      const l = { id: nuevoId(), nombre, items: [] };
+      if (img) l.items.push({ img, alt: titulo(img) });
+      ls.push(l); guardar(ls);
+      if (img) { aviso(`“${titulo(img)}” se guardó en “${nombre}”.`); cerrar(); }
+      else { aviso(`Lista “${nombre}” creada.`); cerrar(); refrescarVista(); }
+    };
+    $('lsSi').onclick = crear;
+    inp.onkeydown = e => { if (e.key === 'Enter') crear(); };
+    $('lsNo').onclick = () => (img ? abrirSelector(img) : cerrar());
+  }
+
+  // Elegir en qué listas está una historia (se puede marcar y desmarcar varias)
+  function abrirSelector(img) {
+    if (pideSesion()) return;
+    const ls = leer();
+    cuerpo.innerHTML = `<p class="v-card-t" style="margin:6px 4px 0">Guardar en una lista</p>
+      <p class="v-nota" style="min-height:0;margin:4px 2px 0">${esc(titulo(img))}</p>
+      <div class="ls-opts">${ls.length ? ls.map(l => {
+        const on = l.items.some(i => i.img === img);
+        return `<button class="ls-op${on ? ' on' : ''}" type="button" data-id="${esc(l.id)}" aria-pressed="${on}"><span class="ls-n"><b>${esc(l.nombre)}</b><small>${l.items.length} ${l.items.length === 1 ? 'historia' : 'historias'}</small></span><span class="ls-chk">${ICO_OK}</span></button>`;
+      }).join('') : '<p class="ls-vacio">Aún no tienes listas. Crea la primera.</p>'}</div>
+      <div class="v-acc"><button class="b-sec" id="lsNueva" type="button">Nueva lista</button><button class="b-pri" id="lsListo" type="button">Listo</button></div>`;
+    sheet.hidden = false;
+    $('lsListo').onclick = cerrar;
+    $('lsNueva').onclick = () => abrirCrear(img);
+    cuerpo.querySelectorAll('.ls-op').forEach(b => b.onclick = () => {
+      const todas = leer(), l = todas.find(x => x.id === b.dataset.id); if (!l) return;
+      const esta = l.items.some(i => i.img === img);
+      l.items = esta ? l.items.filter(i => i.img !== img) : l.items.concat({ img, alt: titulo(img) });
+      guardar(todas);
+      b.classList.toggle('on', !esta); b.setAttribute('aria-pressed', String(!esta));
+      b.querySelector('small').textContent = l.items.length + (l.items.length === 1 ? ' historia' : ' historias');
+      aviso(esta ? `Salió de “${l.nombre}”.` : `Guardada en “${l.nombre}”.`);
+      refrescarVista();
+    });
+  }
+
+  // ---- Vista "Mis listas" (reutiliza la pantalla de Favoritos) ----
+  let modo = null, abierta = null;
+  const cont = document.createElement('div'); cont.id = 'misListas'; cont.hidden = true;
+  $('listaGrilla').parentNode.insertBefore(cont, $('listaGrilla'));
+
+  function mostrarBase() {
+    document.body.classList.remove('perfil-abierto');
+    document.body.classList.add('en-lista');
+    window.scrollTo(0, 0);
+  }
+  function verMisListas() {
+    if (pideSesion()) return;
+    modo = 'listas'; abierta = null;
+    const ls = leer();
+    $('listaTitulo').textContent = 'Mis listas';
+    $('listaGrilla').hidden = true; $('listaGrilla').innerHTML = '';
+    $('listaVacia').hidden = true;
+    cont.hidden = false;
+    cont.innerHTML = (ls.length ? ls.map(l => {
+      const portada = l.items[0];
+      return `<div class="ls-fila" data-id="${esc(l.id)}"><button class="ls-abrir" type="button"><span class="ls-th">${portada ? `<img src="${IMG_BASE}${esc(portada.img)}" alt="">` : ICO_LS}</span><span class="ls-n" style="min-width:0"><b style="display:block;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(l.nombre)}</b><small style="color:var(--texto-suave);font-size:.74rem">${l.items.length} ${l.items.length === 1 ? 'historia' : 'historias'}</small></span></button><button class="ls-del" type="button" aria-label="Eliminar lista ${esc(l.nombre)}">${ICO_DEL}</button></div>`;
+    }).join('') : '<p class="ls-vacio">Aún no tienes listas.</p>') + '<button class="ls-nuevo" type="button" id="lsCrearDesdeVista">+ Nueva lista</button>';
+    mostrarBase();
+  }
+  function verDetalle(id) {
+    const l = leer().find(x => x.id === id); if (!l) return verMisListas();
+    modo = 'detalle'; abierta = id;
+    $('listaTitulo').textContent = l.nombre;
+    cont.hidden = true;
+    $('listaGrilla').hidden = false;
+    $('listaGrilla').innerHTML = l.items.map(f => window.card(cat().find(p => p.img === f.img) || { img: f.img, alt: titulo(f.img) })).join('');
+    $('listaVacia').textContent = 'Esta lista está vacía. Agrega historias desde tu inventario.';
+    $('listaVacia').hidden = l.items.length > 0;
+    mostrarBase();
+  }
+  function refrescarVista() {
+    if (!document.body.classList.contains('en-lista')) return;
+    if (modo === 'listas') verMisListas(); else if (modo === 'detalle') verDetalle(abierta);
+  }
+  cont.addEventListener('click', e => {
+    const fila = e.target.closest('.ls-fila');
+    if (e.target.closest('#lsCrearDesdeVista')) return abrirCrear();
+    if (!fila) return;
+    if (e.target.closest('.ls-del')) {
+      const l = leer().find(x => x.id === fila.dataset.id);
+      if (l && confirm(`¿Eliminar la lista “${l.nombre}”?`)) { guardar(leer().filter(x => x.id !== l.id)); verMisListas(); }
+      return;
+    }
+    verDetalle(fila.dataset.id);
+  });
+
+  // Favoritos vuelve al modo normal de la pantalla
+  const irFav = $('irFavoritos');
+  if (irFav) irFav.addEventListener('click', () => { modo = null; abierta = null; cont.hidden = true; $('listaGrilla').hidden = false; });
+  // Volver: del detalle de una lista regresa a "Mis listas"
+  $('cerrarLista').onclick = () => { if (modo === 'detalle') verMisListas(); else { modo = null; cerrarModales(); } };
+
+  // Opción "Mis listas" en el perfil, debajo de Favoritos
+  if (irFav && !$('irListas')) {
+    const b = document.createElement('button');
+    b.className = 'perfil-opcion'; b.id = 'irListas';
+    b.innerHTML = `<span class="opcion-izq">${ICO_LS}Mis listas</span>${ICO_FLE}`;
+    irFav.insertAdjacentElement('afterend', b);
+    b.onclick = verMisListas;
+  }
+  // Oculta cualquier otra opción de listas que agregue cube-listas.js, para no duplicar
+  const opc = document.querySelector('#perfilModal .perfil-opciones');
+  const limpiar = () => document.querySelectorAll('#perfilModal .perfil-opciones > *').forEach(el => {
+    if (el.id === 'irListas' || el.id === 'irFavoritos') return;
+    if (/lista/i.test((el.textContent || '') + ' ' + el.id + ' ' + el.className) && el.style.display !== 'none') el.style.display = 'none';
+  });
+  if (opc) { new MutationObserver(limpiar).observe(opc, { childList: true }); limpiar(); }
+
+  // Icono "Crear lista" de la barra superior: tiene prioridad sobre cualquier otro manejador
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-a="crear-lista"]');
+    if (!t) return;
+    e.stopImmediatePropagation(); e.preventDefault();
+    abrirCrear();
+  }, true);
+
+  window.cubeListas = { crear: abrirCrear, guardar: abrirSelector, ver: verMisListas, leer };
+  window.cubeCrearLista = () => abrirCrear();
+})();
 </script>
 <script src="cube-push.js"></script>
 
