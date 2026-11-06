@@ -478,7 +478,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
     if (m.includes('limite_copias')) return 'Ya tienes 3 copias de esa historia.';
     if (m.includes('no_las_tienes')) return 'Alguna historia elegida ya no está en tu inventario.';
     if (m.includes('no_autenticado')) return 'Inicia sesión en cube para continuar.';
-    return 'No se pudo completar el intento. Intenta de nuevo.';
+    return 'No se pudo completar el intento' + (m ? ': ' + m.slice(0, 140) : '. Intenta de nuevo.');
   }
 
   async function girar() {
@@ -515,7 +515,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
       renderCat(); actualizar(false);
       if (navigator.vibrate) navigator.vibrate(gana ? [60, 40, 60] : 120);
     } catch (e) {
-      console.warn('Upgrade fallido', e);
+      console.error('Upgrade fallido', e, real ? '(llamada a profit_historia)' : '(modo de prueba)');
       giro.parar(); aviso(msgError(e));
       if (real) { await cargar(); Object.keys(sel).forEach(k => { if (cant(k) < sel[k]) cant(k) ? sel[k] = cant(k) : delete sel[k]; }); }
       ocupado = false; aguja = mod(aguja); actualizar(false); renderCat();
