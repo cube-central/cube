@@ -45,6 +45,7 @@ a{color:inherit}
 .dial-texto{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
 .pct{font-weight:600;font-size:clamp(2.6rem,13vw,3.5rem);line-height:1;letter-spacing:-1.5px;font-variant-numeric:tabular-nums}
 .pct small{font-size:.55em;font-weight:500;color:var(--texto-suave);margin-left:3px;letter-spacing:0}
+.mult{margin-top:8px;font-size:.95rem;font-weight:600;color:var(--texto-suave);min-height:1.2em;font-variant-numeric:tabular-nums}
 .dial-wrap.gano .pct{color:var(--verde)}
 .dial-wrap.gano .halo{opacity:1}
 .dial-wrap.perdio .pct{color:var(--rojo)}
@@ -176,7 +177,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
       <path id="zona" fill="none" stroke="#c6ff00" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
       <g id="aguja"><line id="agLinea" x1="250" y1="130" x2="250" y2="30" stroke="url(#gAguja)" stroke-width="5" stroke-linecap="round"/></g>
     </svg>
-    <div class="dial-texto"><div class="pct" id="pct">0.0<small>%</small></div></div>
+    <div class="dial-texto"><div class="pct" id="pct">0.0<small>%</small></div><div class="mult" id="mult"></div></div>
   </div>
 
   <div class="dir" role="group" aria-label="Dirección del giro">
@@ -223,7 +224,15 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
   'use strict';
   const $ = id => document.getElementById(id);
   const IMG_BASE = 'https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/';
-  const MAX_JUEGO = 6, MAX_COPIAS = 3, FACTOR = 2, PROB_MAX = 0.95;   // mismas reglas que profit_historia en cube.html
+  const MAX_JUEGO = 60, MAX_COPIAS = 3, PROB_MAX = 0.95;
+  // NECESITA[rareza que quieres][rareza que pones] = cuántas historias de esa rareza hacen falta, como mínimo, para llegar al tope (PROB_MAX).
+  // Cada historia aporta PROB_MAX / ese número; se pueden mezclar rarezas y los aportes se suman.
+  const NECESITA = {
+    comun:          { comun: 10, raro: 6,  extraordinario: 3,  legendario: 1 },
+    raro:           { comun: 20, raro: 10, extraordinario: 6,  legendario: 2 },
+    extraordinario: { comun: 35, raro: 20, extraordinario: 10, legendario: 3 },
+    legendario:     { comun: 59, raro: 39, extraordinario: 19, legendario: 4 }
+  };
   const ZONA_INICIO = 12, OMEGA = 600;
   const NOM = { comun: 'Común', raro: 'Raro', extraordinario: 'Extraordinario', legendario: 'Legendario' };
   const ORD = { comun: 0, raro: 1, extraordinario: 2, legendario: 3 };
@@ -247,6 +256,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
   const precio = i => PRECIOS[i] != null ? PRECIOS[i] : 100;
   const titulo = i => { const p = CATALOGO.find(x => x.img === i); return p ? p.alt : i.replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' '); };
   const rareza = i => FIJAS[i] || (precio(i) <= 100 ? 'comun' : precio(i) <= 250 ? 'raro' : precio(i) <= 450 ? 'extraordinario' : 'legendario');
+  const aporte = (usada, meta) => PROB_MAX / NECESITA[rareza(meta)][rareza(usada)];
   const ordenar = l => l.slice().sort((a, b) => (ORD[rareza(a)] - ORD[rareza(b)]) || titulo(a).localeCompare(titulo(b), 'es', { sensitivity: 'base' }));
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
   const norm = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
@@ -287,8 +297,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
   /* ---------- Estado ---------- */
   let obj = null, sel = {}, ocupado = false, dir = 1, aguja = 0, probMostrada = 0, animProb = 0;
   const enJuego = () => Object.values(sel).reduce((a, b) => a + b, 0);
-  const valor = () => Object.keys(sel).reduce((a, i) => a + precio(i) * sel[i], 0);
-  const prob = () => obj ? Math.min(PROB_MAX, valor() / (FACTOR * precio(obj))) : 0;
+  const prob = () => obj ? Math.min(PROB_MAX, Object.keys(sel).reduce((a, i) => a + aporte(i, obj) * sel[i], 0)) : 0;
   const puede = () => !ocupado && obj && enJuego() > 0;
 
   /* ---------- Geometría del octágono (viewBox 500, centro 250,250) ---------- */
@@ -311,7 +320,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
     for (let e = Math.ceil(ZONA_INICIO); e < fin; e++) a.push(e);
     esquinas.forEach(q => { for (const t of [q, q + 360]) if (t > ZONA_INICIO && t < fin) a.push(t); });
     a.push(fin); a.sort((x, y) => x - y);
-    return 'M' + a.map(g => punto(g, H2, S2).map(n => n.toFixed(1)).join(' ')).join(' L');
+    return 'M' + a.map(g => punto(dir * g, H2, S2).map(n => n.toFixed(1)).join(' ')).join(' L');
   }
 
   // dibujo estático del dial
@@ -340,7 +349,6 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
     const d = rutaZona(p * 360);
     $('zona').setAttribute('d', d); $('zonaGlow').setAttribute('d', d);
     $('pct').innerHTML = pct(p) + '<small>%</small>';
-    $('flotPct').textContent = pct(p) + ' %';
   }
   function animarProb(hasta) {
     cancelAnimationFrame(animProb);
@@ -369,7 +377,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
       const n = sel[k] || 0, tot = Math.min(inv[k], MAX_COPIAS), libre = inv[k] - n > 0 && enJuego() < MAX_JUEGO, r = rareza(k);
       return `<div class="inv-fila${n ? '' : ''}" data-id="${esc(k)}">
         <div class="inv-cov" data-k="mas">${img(k, titulo(k))}</div>
-        <div class="inv-info"><p class="inv-tit">${esc(titulo(k))}</p><div class="inv-tags"><span class="rareza ${r}">${NOM[r]}</span><span class="inv-x">x${tot}</span>${n ? `<span class="inv-x juego">${n} en juego</span>` : ''}</div></div>
+        <div class="inv-info"><p class="inv-tit">${esc(titulo(k))}</p><div class="inv-tags"><span class="rareza ${r}">${NOM[r]}</span><span class="inv-x">x${tot}</span>${obj ? `<span class="inv-x">+${(aporte(k, obj) * 100).toFixed(1)}%</span>` : ''}${n ? `<span class="inv-x juego">${n} en juego</span>` : ''}</div></div>
         <div class="inv-acc">
           ${n ? `<button class="inv-btn" type="button" data-k="menos" aria-label="Quitar una copia de ${esc(titulo(k))}">${ICO_MENOS}</button>` : ''}
           <button class="inv-btn${n ? ' on' : ''}" type="button" data-k="mas" aria-label="Sumar ${esc(titulo(k))}"${libre ? '' : ' disabled'}>${ICO_MAS}</button>
@@ -392,6 +400,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
     renderSlots(); renderInv();
     const p = prob();
     if (animar) animarProb(p); else { probMostrada = p; pintarProb(p); }
+    $('mult').textContent = (obj && p > 0) ? 'x' + (1 / p).toFixed(2) : '';
     $('btnObtener').disabled = !puede();
     $('btnObtener').textContent = ocupado ? 'Girando…' : 'Obtener';
     document.body.classList.toggle('ocupado', ocupado);
@@ -436,6 +445,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
   function fijarDir(d) {
     if (ocupado) return;
     dir = d; $('dirDer').setAttribute('aria-pressed', d > 0); $('dirIzq').setAttribute('aria-pressed', d < 0);
+    pintarProb(probMostrada);   // la zona verde se refleja hacia el lado elegido
   }
   $('dirDer').onclick = () => fijarDir(1); $('dirIzq').onclick = () => fijarDir(-1);
 
@@ -494,7 +504,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
       }
       probMostrada = p; pintarProb(p);
       giro.parar();
-      await frenarEn(angulo(gana, p * 360));
+      await frenarEn(mod(dir * angulo(gana, p * 360)));
       await espera(500);
       if (real) await cargar();
       sel = {};
@@ -521,7 +531,8 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
     $('hojaRes').hidden = false; $('cerrarRes').focus();
   }
   function cerrarRes() { $('hojaRes').hidden = true; ocupado = false; $('dialWrap').classList.remove('gano', 'perdio'); actualizar(false); }
-  $('hojaRes').addEventListener('click', e => { if (e.target.id === 'cerrarRes') cerrarRes(); });
+  $('hojaRes').addEventListener('click', e => { if (e.target.id === 'cerrarRes' || e.target.id === 'hojaRes') cerrarRes(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('hojaRes').hidden) cerrarRes(); });
 
   /* ---------- Confeti (se desvanece y desaparece) ---------- */
   function confeti() {
@@ -562,7 +573,7 @@ body.ocupado .fold,body.ocupado .dir{pointer-events:none}
   }
   pintarAguja(0); fijarDir(1);
   revelar();
-  cargar().then(() => { renderCat(); actualizar(false); });
+  cargar().then(() => { renderCat(); actualizar(false); if (!real) setTimeout(() => aviso('Modo de prueba: inicia sesión en cube para usar tu inventario real'), 1900); });
 })();
 </script>
 </body>
