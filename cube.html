@@ -2351,7 +2351,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
       return `<button class="emp" data-id="${e.id}"><img src="${LOGO[m.l]}" alt="${m.n}">
         <span class="emp-n">${m.n}<span>${m.s}</span></span>
         <span class="emp-p">$${fm(e.precio)}<span class="${s.d1 >= 0 ? 'up-t' : 'dn-t'}">${pc(s.d1)}</span></span>
-        ${svg(e.hist, 120, 28)}${e.tags.length ? `<span class="tags" style="grid-column:2/-1;align-self:center">${e.tags.slice(0, 2).map(t => `<span class="tag ${t[1]}">${t[0]}</span>`).join('')}</span>` : ''}
+        ${svg(e.hist, 120, 28)}
         <span class="emp-info"><span class="rk">${RK[m.r]}</span><span>Volatilidad ±${(s.sd * 100).toFixed(1)}% diaria</span><span>Mín. $10</span>${v ? `<span class="rk">Tu inversión $${fm(v)}</span>` : ''}</span></button>`;
     }).join('');
     $('invRoot').innerHTML = `
