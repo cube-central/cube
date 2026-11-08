@@ -3,9 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ECECEC">
+<meta name="theme-color" content="#101214">
 <title>Cube</title>
-<script src="cube-tema.js"></script>
+<script>
+/* Tema: oscuro por defecto. Valores guardados: light | dark | live (live = claro de día, oscuro de noche) */
+(function () {
+  var K = 'cube_tema';
+  function get() { try { return localStorage.getItem(K) || 'dark'; } catch (e) { return 'dark'; } }
+  function efectivo(p) { if (p === 'live') { var h = new Date().getHours(); return (h >= 19 || h < 6) ? 'dark' : 'light'; } return p === 'light' ? 'light' : 'dark'; }
+  function aplicar() {
+    var e = efectivo(get());
+    document.documentElement.setAttribute('data-tema', e);
+    var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', e === 'dark' ? '#101214' : '#ECECEC');
+  }
+  window.cubeTema = { get: get, efectivo: efectivo, set: function (p) { try { localStorage.setItem(K, p); } catch (e) {} aplicar(); window.dispatchEvent(new Event('cube:tema')); } };
+  aplicar();
+  setInterval(function () { if (get() === 'live') aplicar(); }, 60000);
+})();
+</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
 <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
@@ -552,6 +567,26 @@
   .b-inv{background:var(--verde);color:var(--negro)}.b-ret{background:#191D20;color:#F0F1EB}.trade-b button:disabled{opacity:.4}
   .trade small{display:block;color:#A1AAA5;font-size:.72rem;line-height:1.4;margin-top:8px}
   .mov{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--linea);font-size:.8rem}.mov:last-child{border:0}
+
+  /* ===== Ajustes de diseño (tema oscuro por defecto) ===== */
+  :root{--sup:#D6D8D3}
+  :root[data-tema="dark"]{--sup:#23282C}
+  /* botones circulares: verde ácido con ícono oscuro */
+  .circ-ico{background:var(--verde);color:var(--negro)}
+  .circ,.lbl-g{color:var(--texto-suave)}
+  /* pestañas y superficies secundarias: gris */
+  .fold::before,#invFold::before{background:var(--sup)}
+  .fold-tab{background:var(--sup);color:var(--texto-suave)}
+  .fold-tab[aria-selected="true"]{background:var(--tarjeta);color:var(--texto)}
+  .platinum{background:var(--sup);color:var(--texto)}
+  .plat-txt span{color:var(--texto-suave)}
+  :root[data-tema="dark"] .plat-logo{color:var(--verde)}
+  .col-box{background:var(--sup);color:var(--tinta)}
+  /* números y créditos: blancos, más pequeños y livianos */
+  .monto{font-weight:400;letter-spacing:-.02em}
+  .monto.g{font-size:clamp(1.9rem,9vw,2.9rem)}
+  .monto.p{font-size:clamp(1.4rem,5.6vw,1.8rem)}
+  .tr-disp b{font-weight:500}
 </style>
 </head>
 <body>
