@@ -661,6 +661,106 @@ body.pausado #gHalo{animation-play-state:paused}
 .tr-btn.tr-no{background:#131313;color:#fff;border:1px solid #2a2d29;min-height:60px}
 .tr-btn.tr-no:active{background:#1b1d1a}
 </style>
+<style id="ops-css">
+/* ===== Sagradas operaciones · Noticias · Rendimiento · Alarma ===== */
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(255,59,48,.65)}70%,100%{box-shadow:0 0 0 9px rgba(255,59,48,0)}}
+@keyframes latido{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes parpadeo{0%,100%{background:#c40000}50%{background:#7a0000}}
+
+body.en-ops #home,body.en-noticias #home,body.en-ops .pie,body.en-noticias .pie{display:none}
+body.en-ops,body.en-noticias{padding-bottom:130px}
+#ops,#noticias{display:none;max-width:480px;margin:0 auto;animation:entra .4s cubic-bezier(.2,.8,.2,1) both}
+body.en-ops #ops,body.en-noticias #noticias{display:block}
+#ops .top,#noticias .buscar-top{padding:calc(env(safe-area-inset-top,0px) + 14px) 9% 0}
+#ops .top{display:flex}
+#noticias .buscar-top{margin-bottom:0}
+#noticias .buscar-top h1{font:700 1.3rem 'Poppins',sans-serif}
+#grafico .top-ico,#ops .top-ico{width:46px;height:46px;border-radius:50%;background:#131313;color:#fff}
+.punto-n{position:absolute;top:9px;right:10px;width:12px;height:12px;border-radius:50%;background:#ff3b30;border:2px solid #131313;animation:ping 1.8s infinite}
+
+/* Hero */
+.ops-hero{position:relative;overflow:hidden;margin:18px 9% 0;padding:28px 26px 24px;border-radius:44px;background:#121212}
+.ops-hero::before{content:"";position:absolute;right:-70px;top:-70px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(198,255,0,.2),transparent 65%);pointer-events:none}
+.ops-lbl{font:400 .9rem 'Open Sans',sans-serif;color:#8a8a8a}
+.ops-hero h1{font:700 2.2rem/1.15 'Poppins',sans-serif;letter-spacing:-.01em;margin-top:2px}
+.ops-seg{display:flex;gap:6px;margin-top:20px}
+.ops-seg i{flex:1;height:8px;border-radius:99px;background:#232622;transition:background .4s}
+.ops-seg i.on{background:var(--grad)}
+.ops-sub{display:flex;justify-content:space-between;gap:8px;margin-top:12px;font:400 .76rem 'Open Sans',sans-serif;color:#8a8a8a}
+.op-h{margin:26px 9% 0;font:500 .85rem 'Open Sans',sans-serif;color:#8a8a8a}
+
+/* Tarjeta de operación */
+.op{margin:14px 9% 0;padding:24px 22px 22px;border-radius:38px;background:#121212;border:1px solid #1d201c;animation:entra .45s both}
+.op-top{display:flex;align-items:center;gap:12px}
+.op-ico{flex:none;width:48px;height:48px;border-radius:50%;background:var(--grad);color:#0A0A0A;display:grid;place-items:center}
+.op-ico svg{width:24px;height:24px}
+.op-cat{font:400 .82rem 'Open Sans',sans-serif;color:#8a8a8a}
+.op-emp{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 8px;margin-top:1px;font:600 1.02rem/1.2 'Poppins',sans-serif}
+.op-emp small{font:400 .72rem 'Open Sans',sans-serif;color:#6d706a}
+.op-ctx{margin-top:16px;font:400 .9rem/1.55 'Open Sans',sans-serif;color:#d4d6d0}
+.op-opts{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.op-opt{display:flex;gap:12px;width:100%;text-align:left;padding:14px 16px;border-radius:24px;background:#1b1d1a;border:1.5px solid transparent;transition:border-color .2s,background .2s,box-shadow .2s,transform .16s cubic-bezier(.3,1.5,.5,1)}
+.op-opt.on{border-color:var(--acento);background:#1f2319;box-shadow:0 0 0 4px rgba(198,255,0,.08)}
+.op-let{flex:none;width:30px;height:30px;border-radius:50%;background:#2a2d29;display:grid;place-items:center;font:700 .8rem 'Poppins',sans-serif;color:#fff;transition:background .2s,color .2s}
+.op-opt.on .op-let{background:var(--grad);color:#0A0A0A}
+.op-tx{min-width:0;display:flex;flex-direction:column;gap:4px}
+.op-tx b{font:600 .95rem/1.25 'Poppins',sans-serif}
+.op-tx .d{font:400 .8rem/1.4 'Open Sans',sans-serif;color:#a2a59f}
+.op-tx em{font-style:normal;font:500 .76rem/1.35 'Open Sans',sans-serif}
+.op-tx em.pro{color:var(--acento)}
+.op-tx em.con{color:#ff7a7a}
+.op-go{width:100%;min-height:58px;margin-top:16px;border-radius:999px;background:var(--grad);color:#0A0A0A;font:700 1rem 'Poppins',sans-serif}
+.op-go:disabled{background:#1b1d1a;color:#5d605a}
+.op.hecha{padding:18px 20px;background:#0f100f;border-color:#171916}
+.op.hecha .op-ico{background:#1b1d1a;color:var(--acento);width:42px;height:42px}
+.op.hecha .op-ico svg{width:20px;height:20px}
+.op-dec{margin-top:12px;font:400 .84rem/1.4 'Open Sans',sans-serif;color:#9a9d97}
+.op-dec b{color:#fff;font-weight:600}
+.op-lnk{margin-top:8px;padding:6px 0;font:600 .8rem 'Poppins',sans-serif;color:var(--acento)}
+
+/* Noticias */
+.nw-lista{padding:0 9%}
+.nw{--c:#8a8d87;position:relative;margin-top:12px;padding:18px 18px 16px 24px;border-radius:26px;background:#121212;overflow:hidden;animation:entra .4s both}
+.nw::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c)}
+.nw.up{--c:#C6FF00}.nw.down,.nw.alerta{--c:#ff4d4d}.nw.flat{--c:#8a8d87}
+.nw-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.nw-tag{padding:2px 11px;border-radius:99px;font:600 .68rem 'Poppins',sans-serif;background:var(--c);color:#0A0A0A}
+.nw.down .nw-tag,.nw.alerta .nw-tag{color:#fff}
+.nw-t{font:.72rem 'Open Sans',sans-serif;color:#6d706a}
+.nw h3{margin-top:10px;font:700 1.02rem/1.3 'Poppins',sans-serif}
+.nw p{margin-top:6px;font:400 .86rem/1.5 'Open Sans',sans-serif;color:#b5b8b1}
+.nw-ft{margin-top:12px;font:500 .74rem 'Open Sans',sans-serif;color:#6d706a}
+.nw-ft b{font-weight:600}
+.nw.up .nw-ft b{color:#C6FF00}.nw.down .nw-ft b,.nw.alerta .nw-ft b{color:#ff6b6b}
+.nw-vacio{padding:40px 9%;text-align:center;font:400 .88rem/1.5 'Open Sans',sans-serif;color:#8a8a8a}
+
+/* Rendimiento en la gráfica */
+.gcard{height:min(calc(100svh - 215px),720px);min-height:520px}
+.g-rend{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding:8px 8px 8px 20px;border-radius:999px;background:#1b1d1a}
+.g-rend small{display:block;font:400 .68rem 'Open Sans',sans-serif;color:#8a8a8a}
+.g-rend b{font:700 1.05rem 'Poppins',sans-serif}
+.g-rend button{height:42px;padding:0 22px;border-radius:999px;background:var(--grad);color:#0A0A0A;font:700 .85rem 'Poppins',sans-serif}
+
+/* Alarma */
+#alarmaVig{position:fixed;inset:0;z-index:900;pointer-events:none;display:none;box-shadow:inset 0 0 130px 24px rgba(255,30,30,.6);animation:latido 1s ease-in-out infinite}
+#alarmaBar{position:fixed;top:0;left:0;right:0;z-index:950;display:none;align-items:center;justify-content:center;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 8px) 14px 8px;background:#c40000;color:#fff;font:700 .72rem 'Poppins',sans-serif;letter-spacing:.04em;text-transform:uppercase;text-align:center;animation:parpadeo 1s steps(2) infinite}
+#alarmaBar button{flex:none;padding:5px 12px;border-radius:99px;background:rgba(0,0,0,.4);color:#fff;font:600 .68rem 'Poppins',sans-serif;letter-spacing:0;text-transform:none}
+body.alarma{padding-top:44px;--verde:#ff3b3b;--grad:linear-gradient(180deg,#ff5a5a 0%,#c40000 100%);--acento:#ff5a5a;background:radial-gradient(120% 60% at 0 0,#2e0707 0%,#0e0202 45%,#000 100%) fixed}
+body.alarma #alarmaVig,body.alarma #alarmaBar{display:flex}
+body.alarma #alarmaVig{display:block}
+body.alarma #gLine{stroke:#ff3b3b}
+body.alarma #gA stop{stop-color:#ff3b3b}
+body.alarma #gHalo{fill:#ff3b3b}
+body.alarma #gDot{stroke:#ff3b3b}
+body.alarma .g-rng .on::after{background:#ff4d4d}
+body.alarma .pausa[aria-pressed="true"]{color:#ff5a5a}
+body.alarma .caja,body.alarma .gcard,body.alarma .ops-hero,body.alarma .op,body.alarma .nw,body.alarma .tr-card,body.alarma .nav-pill,body.alarma #home .top-ico,body.alarma #grafico .top-ico,body.alarma #ops .top-ico,body.alarma .perfil-pill,body.alarma #navPerfil{background-color:#1c0a0a}
+body.alarma .op-opt,body.alarma .g-rend,body.alarma .ops-seg i{background:#2a1010}
+body.alarma .ops-seg i.on{background:var(--grad)}
+body.alarma .op-opt.on{background:#2e1212}
+body.alarma .nav-pill .bottom-nav-item.activo{color:#ff6b6b}
+@media (prefers-reduced-motion:reduce){#alarmaBar,#alarmaVig{animation:none}}
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -763,7 +863,7 @@ body.pausado #gHalo{animation-play-state:paused}
 
 <!-- LA SAGRADA CONTINUIDAD -->
 <section id="grafico" aria-label="La sagrada continuidad">
-  <header class="top"><button class="perfil-pill" id="btnPerfilG" type="button" aria-label="Abrir perfil"></button></header>
+  <header class="top"><button class="perfil-pill" id="btnPerfilG" type="button" aria-label="Abrir perfil"></button><button class="top-ico" type="button" data-a="noticias" aria-label="Noticias" title="Noticias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7.5 9h6M7.5 12.5h6M7.5 16h3"/></svg></button></header>
   <div class="gcard">
     <div class="g-top">
       <div><span class="g-lbl">La sagrada continuidad</span><h1 id="gEstado">Estable</h1></div>
@@ -771,9 +871,35 @@ body.pausado #gHalo{animation-play-state:paused}
     </div>
     <div class="g-px"><b id="gVal">1.000,00</b><i id="gDelta" class="up">▲ 0,00%</i></div>
     <div class="g-stats"><div><small>Mínimo</small><b id="gMin">0</b></div><div class="c"><small>Actual</small><b id="gAct">0</b></div><div><small>Máximo</small><b id="gMax">0</b></div></div>
+    <div class="g-rend"><div><small>Rendimiento acumulado</small><b id="gRend">$0</b></div><button id="btnRetirar" type="button">Retirar</button></div>
     <div class="g-chart" id="gChart"><svg id="gSvg" aria-hidden="true"></svg></div>
     <div class="g-rng" id="gRng"><button type="button" data-n="30">20s</button><button type="button" data-n="60" class="on">40s</button><button type="button" data-n="120">1m</button><button type="button" data-n="240">3m</button></div>
   </div>
+</section>
+
+<!-- SAGRADAS OPERACIONES -->
+<section id="ops" aria-label="Las sagradas operaciones">
+  <header class="top">
+    <button class="perfil-pill" id="btnPerfilOps" type="button" aria-label="Abrir perfil"></button>
+    <button class="top-ico" type="button" data-a="noticias" aria-label="Noticias" title="Noticias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7.5 9h6M7.5 12.5h6M7.5 16h3"/></svg></button>
+  </header>
+  <div class="ops-hero">
+    <span class="ops-lbl">Las sagradas operaciones</span>
+    <h1 id="opsEstado">Incompletas</h1>
+    <div class="ops-seg" id="opsSeg"></div>
+    <div class="ops-sub"><span id="opsCuenta"></span><span id="opsReset"></span></div>
+  </div>
+  <div id="opsLista"></div>
+</section>
+
+<!-- NOTICIAS -->
+<section id="noticias" aria-label="Noticias">
+  <div class="buscar-top">
+    <button class="volver-btn" id="cerrarNoticias" type="button" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <h1>Noticias</h1>
+  </div>
+  <div class="nw-lista" id="nwLista"></div>
+  <p class="nw-vacio" id="nwVacio" hidden>Aún no hay noticias. Toma decisiones en las sagradas operaciones y sus consecuencias aparecerán aquí.</p>
 </section>
 
 <!-- ENVIAR CRÉDITOS: buscar alias -->
@@ -986,6 +1112,8 @@ body.pausado #gHalo{animation-play-state:paused}
   <button id="navBuscar" hidden aria-hidden="true"></button>
 </nav>
 
+<div id="alarmaVig" aria-hidden="true"></div>
+<div id="alarmaBar" role="alert"><span id="alarmaTxt">Alerta · caída de la sagrada continuidad</span><button id="alarmaMute" type="button">Silenciar</button></div>
 <div id="pausaVeil" hidden role="dialog" aria-label="Pausado"><button type="button" aria-label="Reanudar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><p>Pausado · toca para reanudar</p></div>
 
 <!-- ================= CUENTA / SESIÓN / NAVEGACIÓN ================= -->
@@ -1020,7 +1148,7 @@ const IMG_BASE = "https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/";
 
 function activarItemNav(idBtn) {   // solo Inicio (en la página principal) y Perfil se marcan; en cualquier sección ninguno
   document.querySelectorAll('.bottom-nav-item').forEach(el => el.classList.remove('activo'));
-  const el = (idBtn === 'navWallet' || idBtn === 'navPerfil' || idBtn === 'navGrafico') ? document.getElementById(idBtn) : null;
+  const el = (idBtn === 'navWallet' || idBtn === 'navPerfil' || idBtn === 'navGrafico' || idBtn === 'navOrbe') ? document.getElementById(idBtn) : null;
   if (el) el.classList.add('activo');
 }
 
@@ -1032,7 +1160,7 @@ window.card = window.card || (p => `<div class="portada" data-id="${p.img}"><img
 
 // Cierra cualquier pantalla abierta (menos el perfil) para que nunca se mezclen dos vistas
 window.cubeLimpiarVistas = function () {
-  document.body.classList.remove('buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico');
+  document.body.classList.remove('buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico', 'en-ops', 'en-noticias');
 };
 
 window.abrirModal = function (tipo) {
@@ -1049,7 +1177,7 @@ window.abrirModal = function (tipo) {
 };
 
 function cerrarModales() {
-  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico');
+  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico', 'en-ops', 'en-noticias');
   activarItemNav('navWallet');
   window.scrollTo(0, 0);
   iniciarAuto();
@@ -1098,7 +1226,7 @@ document.getElementById('menuOverlay').onclick = () => cerrarModales();
 // Se recalcula al hacer scroll, al cambiar de pantalla (clase del body) y al cambiar el alto de la página,
 // así nunca se queda oculta al volver al inicio.
 const bottomNav = document.getElementById('bottomNav');
-const CLASES_VISTA = ['buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico', 'perfil-abierto'];
+const CLASES_VISTA = ['buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico', 'en-ops', 'en-noticias', 'perfil-abierto'];
 let navPend = false;
 function actualizarNav() {
   navPend = false;
@@ -2154,6 +2282,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
       return;
     }
     aviso(`Enviaste $${fmt(monto)} a ${nombre(dest)}.`);
+    if (window.cubeGrafico) window.cubeGrafico.gasto(monto);
     if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
     volver();
   };
@@ -2283,6 +2412,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     else {
       if (window.cubeAjusteDia) window.cubeAjusteDia(ok ? -x : data.neto);
       aviso(ok ? 'Invertiste $' + fm(x) + ' en ' + EMP[e.id].n : 'Retiraste $' + fm(data.neto) + ' créditos');
+      if (ok && window.cubeGrafico) window.cubeGrafico.gasto(x);
       if (window.cubeRefrescarCreditos) await window.cubeRefrescarCreditos(); await cargar();
     }
   }
@@ -2508,6 +2638,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
       $('dnSi').disabled = false;
       if (error) { const m = (error.message || ''); err.textContent = m.includes('SALDO') ? 'No tienes créditos suficientes.' : (error.code === 'PGRST202' || m.includes('donar_creditos')) ? 'Las donaciones aún no están habilitadas.' : 'No se pudo donar. Inténtalo de nuevo.'; return; }
       cerrar(); aviso(`Donaste $${fm(x)} a ${o.n}. ¡Gracias!`);
+      if (window.cubeGrafico) window.cubeGrafico.gasto(x);
       if (window.cubeAjusteDia) window.cubeAjusteDia(-x);
       if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
       abrirCaridad();
@@ -2544,6 +2675,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     bp.setAttribute('aria-pressed', p); bp.setAttribute('aria-label', p ? 'Reanudar' : 'Pausar');
     ['.app', '#bottomNav', '.pie'].forEach(s => { const el = document.querySelector(s); if (el) el.inert = p; });
     if (document.activeElement && p) document.activeElement.blur();
+    if (p) sirenaOff(); else if (alarma) sirenaOn();
   }
   bp.onclick = () => pausar(!pausado);
   veil.onclick = () => pausar(false);
@@ -2553,7 +2685,71 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const TICK = 700, N0 = 300, BASE = 1000;
   let serie = [], v = BASE, nVis = 60, cur = null, acc = 0, prev = performance.now(), minC = 0, maxC = 1, escala = false;
   const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) * 1.15;
-  const paso = () => (v += (BASE - v) * .012 + gauss() * 1.8 + (Math.random() < .03 ? gauss() * 6 : 0));
+  /* --- Motor: presión (impulsos), rendimiento, caída sostenida, alarma --- */
+  let presion = 0, caidaMs = 0, calma = 0, nivelCast = 0, alarma = false, silencio = false, ac = null, sirena = null;
+  const paso = () => { v += (BASE - v) * .012 + gauss() * 1.8 + (Math.random() < .03 ? gauss() * 6 : 0) + presion; presion *= .97; if (Math.abs(presion) < .05) presion = 0; return v; };
+  const sis = o => { try { if (window.cubeOps) window.cubeOps.sistema(o); } catch (e) {} };
+  const miles = n => Math.round(n).toLocaleString('es-AR');
+  function desbloquear() { try { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); } catch (e) {} }
+  ['pointerdown', 'keydown', 'touchstart'].forEach(t => document.addEventListener(t, desbloquear, { passive: true }));
+  function sirenaOn() {
+    if (silencio || sirena) return;
+    if (!ac) desbloquear();
+    if (!ac) return;
+    try {
+      const o = ac.createOscillator(), g = ac.createGain(), lfo = ac.createOscillator(), lg = ac.createGain();
+      o.type = 'square'; o.frequency.value = 780; lfo.type = 'triangle'; lfo.frequency.value = 1.4; lg.gain.value = 240;
+      lfo.connect(lg); lg.connect(o.frequency); o.connect(g); g.connect(ac.destination);
+      g.gain.setValueAtTime(0, ac.currentTime); g.gain.linearRampToValueAtTime(.12, ac.currentTime + .25);
+      o.start(); lfo.start(); sirena = { o, g, lfo };
+    } catch (e) { sirena = null; }
+  }
+  function sirenaOff() {
+    if (!sirena) return;
+    const { o, g, lfo } = sirena; sirena = null;
+    try { g.gain.cancelScheduledValues(ac.currentTime); g.gain.setTargetAtTime(0, ac.currentTime, .08); setTimeout(() => { try { o.stop(); lfo.stop(); } catch (e) {} }, 400); } catch (e) {}
+  }
+  function alarmaOn() {
+    alarma = true; body.classList.add('alarma'); sirenaOn();
+    try { if (navigator.vibrate) navigator.vibrate([300, 150, 300]); } catch (e) {}
+    sis({ tipo: 'alerta', efecto: 'down', titulo: 'ALERTA: La Sagrada Continuidad se desploma', cuerpo: 'La gráfica lleva más de 5 segundos en caída. Cube activó el modo alarma y descontará créditos de tu caja, cada vez más, hasta que el mercado se estabilice.' });
+  }
+  function alarmaOff() {
+    alarma = false; body.classList.remove('alarma'); sirenaOff();
+    sis({ tipo: 'recuperacion', efecto: 'up', titulo: 'Cube cancela la alarma: la Sagrada Continuidad se estabiliza', cuerpo: 'La caída se detuvo y la gráfica vuelve a una zona segura. Los descuentos de créditos han cesado.' });
+  }
+  function motor() {
+    const n = serie.length;
+    const y = Math.max(0, v - 995) * .15;
+    if (y > 0 && window.cubeOps) window.cubeOps.rendir(y);
+    if (!alarma && presion > -1 && Math.random() < 1 / 4500) presion -= 9 + Math.random() * 3;   // caída espontánea, poco probable
+    const baja = presion <= (caidaMs > 0 ? -1.2 : -3) && serie[n - 1] < serie[n - 4] + (caidaMs > 0 ? 2 : 0);
+    if (baja) { caidaMs += TICK; calma = 0; }
+    else if (caidaMs > 0 && ++calma >= 4) { caidaMs = 0; calma = 0; nivelCast = 0; if (alarma) alarmaOff(); }
+    if (caidaMs >= 5000) {
+      if (!alarma) alarmaOn();
+      const nivel = Math.floor(caidaMs / 5000);
+      while (nivelCast < nivel) {
+        nivelCast++;
+        if (window.cubeOps) window.cubeOps.castigo(Math.min(960, 15 * Math.pow(2, nivelCast - 1)));
+      }
+      const t = $('alarmaTxt'); if (t) t.textContent = 'Alerta · caída de la sagrada continuidad · próximo descuento −$' + Math.min(960, 15 * Math.pow(2, nivelCast));
+    }
+  }
+  // Gastar o retirar créditos presiona la gráfica según el monto
+  function gasto(m) {
+    m = Number(m) || 0; let s = 0;
+    if (m >= 10000) s = 8 + Math.min(5, Math.log10(m / 10000) * 6) + Math.random() * 1.5;
+    else if (m >= 5000) s = 3.6 + (m - 5000) / 5000 * 2.4;
+    else if (m >= 1000) s = 1.4 + (m - 1000) / 4000 * 1.4;
+    if (s <= 0) return 0;
+    s *= .9 + Math.random() * .2; presion -= s;
+    sis({ tipo: 'mercado', efecto: 'down', titulo: 'Salida de créditos presiona la Sagrada Continuidad', cuerpo: 'Se movieron $' + miles(m) + ' créditos y la gráfica ' + (m >= 5000 ? 'cae con fuerza.' : 'cede terreno.') });
+    return s;
+  }
+  window.cubeGrafico = { valor: () => v, impulso: n => { presion += Number(n) || 0; }, gasto, enAlarma: () => alarma };
+  const mute = $('alarmaMute');
+  if (mute) mute.onclick = () => { silencio = !silencio; if (silencio) sirenaOff(); else if (alarma && !pausado) sirenaOn(); mute.textContent = silencio ? 'Activar sonido' : 'Silenciar'; };
   for (let i = 0; i < N0; i++) serie.push(paso());
   const visible = () => body.classList.contains('en-grafico');
   const svg = $('gSvg');
@@ -2599,7 +2795,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const dt = Math.min(now - prev, 120); prev = now;
     if (!pausado) {
       acc += dt;
-      while (acc >= TICK) { acc -= TICK; serie.push(paso()); if (serie.length > N0 + 50) serie.shift(); if (visible()) txt(); }
+      while (acc >= TICK) { acc -= TICK; serie.push(paso()); if (serie.length > N0 + 50) serie.shift(); motor(); if (visible()) txt(); }
       if (visible()) dibujar(acc / TICK);
     }
     requestAnimationFrame(loop);
@@ -2634,6 +2830,344 @@ window.addEventListener('cube-wallet-accion', function (e) {
     sp.className = 'rip'; sp.style.cssText = 'width:' + s + 'px;height:' + s + 'px;left:' + (e.clientX - r.left - s / 2) + 'px;top:' + (e.clientY - r.top - s / 2) + 'px';
     h.appendChild(sp); setTimeout(() => sp.remove(), 600);
   }, true);
+})();
+</script>
+<script>
+/* ===== Sagradas operaciones · Noticias · Rendimiento de la gráfica ===== */
+(function () {
+  const $ = id => document.getElementById(id), body = document.body;
+  const db = () => window.cubeDb, U = () => window.usuario && window.usuario();
+  const sesion = () => { const u = U(); return u && u.supa ? u : null; };
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fm = n => Number(n || 0).toLocaleString('es-AR', { maximumFractionDigits: 2 });
+  const aviso = t => window.cubeAviso ? window.cubeAviso(t) : alert(t);
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const hoyKey = () => new Date().toLocaleDateString('sv-SE');
+
+  const IC = {
+    contrato: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 14l2 2 4-4"/>',
+    alerta: '<path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/>',
+    alianza: '<circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/>',
+    banco: '<path d="M3 10 12 4l9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>',
+    precio: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/>',
+    check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>'
+  };
+  const svg = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
+
+  /* ---------- Las 5 operaciones ----------
+     p = probabilidades [c]orrecta, [n]eutra, [i]ncorrecta, [r]iesgo; rg = probabilidad de que el riesgo salga bien */
+  const OPS = [
+    { id: 'astra', cat: 'Nuevos contratos', ico: 'contrato', emp: 'Astra Orbital', sector: 'Industria espacial',
+      tema: 'su red de satélites',
+      ctx: 'Astra Orbital, empresa de lanzamientos espaciales, necesita un socio para poner en órbita 12 satélites de comunicaciones. Hay demanda creciente, pero un solo fallo de cohete cuesta una fortuna. Tienes tres caminos sobre la mesa.',
+      ok: 'Los satélites ya transmiten con normalidad y los clientes piden más capacidad.', ko: 'Un retraso técnico en el lanzamiento encareció toda la operación.', nt: 'El calendario de lanzamientos sigue su curso habitual.',
+      opts: [
+        { k: 'A', t: 'Contrato fijo de 3 años', d: 'Cobras una tarifa mensual acordada de antemano.', pro: 'Ingresos garantizados desde el primer mes.', con: 'Techo bajo: si el negocio crece, no participas.', p: { c: .45, n: .45, i: .10, r: 0 } },
+        { k: 'B', t: 'Participación en las ganancias', d: 'No hay tarifa; recibes un porcentaje de lo que facture Astra.', pro: 'Puede multiplicar tu retorno si todo sale bien.', con: 'Si un lanzamiento falla, no cobras nada.', p: { c: .15, n: .10, i: .20, r: .55 }, rg: .55 },
+        { k: 'C', t: 'Pedir una prueba piloto', d: 'Primero un lanzamiento de 2 satélites; luego decides.', pro: 'Reduces la incertidumbre antes de comprometerte.', con: 'Astra puede ofrecerle el contrato a otro socio.', p: { c: .30, n: .50, i: .20, r: 0 } }
+      ] },
+    { id: 'vizio', cat: 'Nuevas emergencias', ico: 'alerta', emp: 'Vizio', sector: 'Hardware y dispositivos',
+      tema: 'su posible quiebra',
+      ctx: 'Vizio, fabricante de pantallas, debe 4 millones de créditos y el plazo vence en 72 horas. Si no consigue liquidez se declarará en quiebra y 1.800 empleos quedarán en el aire. Sus fábricas valen más que la deuda, pero nadie sabe si volverá a ser rentable.',
+      ok: 'La empresa retomó la producción y los acreedores respiran.', ko: 'Los proveedores cortaron el crédito y el sector entero lo resintió.', nt: 'Los acreedores aceptaron esperar y la situación sigue sin resolverse.',
+      opts: [
+        { k: 'A', t: 'Rescatarla con un préstamo', d: 'Prestas dinero a Vizio con intereses y plazo de 2 años.', pro: 'Salvas empleos y, si se recupera, cobras con intereses.', con: 'Si quiebra igual, pierdes todo lo prestado.', p: { c: .20, n: .10, i: .20, r: .50 }, rg: .5 },
+        { k: 'B', t: 'Comprar sus fábricas con descuento', d: 'Adquieres los activos cuando su precio está por el suelo.', pro: 'Activos baratos y control directo de la producción.', con: 'Mala imagen por "aprovecharte" y costos de mantenimiento.', p: { c: .30, n: .30, i: .30, r: .10 }, rg: .5 },
+        { k: 'C', t: 'No intervenir', d: 'Dejas que el mercado resuelva por su cuenta.', pro: 'No arriesgas ni un crédito.', con: 'Una quiebra sacude a proveedores y a todo el sector.', p: { c: .05, n: .45, i: .50, r: 0 } }
+      ] },
+    { id: 'parallax', cat: 'Alianzas y estrenos', ico: 'alianza', emp: 'Parallax', sector: 'Gaming',
+      tema: 'el lanzamiento de Eclipse',
+      ctx: 'Parallax prepara «Eclipse», su mayor estreno del año, pero le falta presupuesto para marketing global. Sus lanzamientos anteriores fueron virales, aunque dos retrasos seguidos inquietan a los inversionistas.',
+      ok: 'El estreno fue viral y los servidores se llenaron en horas.', ko: 'Las reseñas fueron tibias y las ventas quedaron por debajo de lo prometido.', nt: 'El estreno pasó sin pena ni gloria, con ventas normales.',
+      opts: [
+        { k: 'A', t: 'Co-financiar el lanzamiento', d: 'Pones el dinero a cambio de una parte de las ventas.', pro: 'Un éxito viral puede darte ganancias enormes.', con: 'Si el juego decepciona, pierdes lo invertido.', p: { c: .15, n: .10, i: .20, r: .55 }, rg: .5 },
+        { k: 'B', t: 'Licenciar la marca a otro estudio', d: 'Cobras por usar el nombre, sin involucrarte en el desarrollo.', pro: 'Ingreso moderado y sin riesgo de desarrollo.', con: 'El socio puede dañar la reputación de la marca.', p: { c: .30, n: .35, i: .30, r: .05 }, rg: .5 },
+        { k: 'C', t: 'Esperar al próximo trimestre', d: 'Aplazas la decisión hasta tener más datos.', pro: 'Evitas apostar en un momento de dudas.', con: 'La competencia puede adelantarse con su propio estreno.', p: { c: .15, n: .55, i: .30, r: 0 } }
+      ] },
+    { id: 'living', cat: 'Gestión de tesorería', ico: 'banco', emp: 'Living', sector: 'Holding tecnológico',
+      tema: 'su caja excedente',
+      ctx: 'Living cerró el trimestre con 2,5 millones de créditos sin usar. Dejarlos quietos los desgasta; moverlos mal puede costar caro. Tu equipo de finanzas te presenta tres destinos posibles para ese dinero.',
+      ok: 'La inversión rindió por encima de lo previsto y la caja se fortaleció.', ko: 'El rendimiento fue peor de lo esperado y la caja se resintió.', nt: 'El rendimiento fue el esperado, sin sorpresas.',
+      opts: [
+        { k: 'A', t: 'Bonos de bajo rendimiento', d: 'Compras deuda segura que paga poco pero con certeza.', pro: 'Casi sin riesgo de perder capital.', con: 'Ganancia pequeña; no vence a la inflación del ecosistema.', p: { c: .35, n: .55, i: .10, r: 0 } },
+        { k: 'B', t: 'Recomprar acciones propias', d: 'Usas la caja para comprar parte de la propia empresa.', pro: 'Sube el valor por acción y da señal de confianza.', con: 'Menos liquidez ante una emergencia.', p: { c: .35, n: .25, i: .30, r: .10 }, rg: .5 },
+        { k: 'C', t: 'Fondear una startup de IA de Umbral', d: 'Entras como socio temprano en un proyecto ambicioso.', pro: 'Potencial de ganancia altísimo si despega.', con: 'La mayoría de startups no sobreviven.', p: { c: .10, n: .10, i: .20, r: .60 }, rg: .45 }
+      ] },
+    { id: 'livent', cat: 'Precios y suscripciones', ico: 'precio', emp: 'Living Entertainment', sector: 'Streaming',
+      tema: 'el precio de la suscripción',
+      ctx: 'Living Entertainment tiene 3 millones de suscriptores y sus costos de contenido suben. La junta propone ajustar la mensualidad, justo cuando la competencia lanzó ofertas muy agresivas.',
+      ok: 'Los suscriptores aceptaron el cambio y los ingresos mensuales subieron.', ko: 'Las cancelaciones se dispararon y la base de suscriptores se encogió.', nt: 'La base de suscriptores casi no se movió.',
+      opts: [
+        { k: 'A', t: 'Subir 20% desde ya', d: 'Aplicas el aumento completo este mes.', pro: 'Impulso inmediato en ingresos.', con: 'Riesgo de cancelaciones masivas hacia la competencia.', p: { c: .15, n: .10, i: .20, r: .55 }, rg: .45 },
+        { k: 'B', t: 'Subir 8% de forma gradual', d: 'Un ajuste pequeño ahora y otro dentro de seis meses.', pro: 'Los usuarios lo notan menos.', con: 'Ingresos extra más lentos y deja ver la presión de costos.', p: { c: .35, n: .35, i: .25, r: .05 }, rg: .5 },
+        { k: 'C', t: 'Mantener precios y recortar costos', d: 'Conservas la tarifa y reduces gasto en producciones.', pro: 'Fidelizas al público y evitas fugas.', con: 'Menos estrenos puede cansar a los suscriptores.', p: { c: .15, n: .55, i: .30, r: 0 } }
+      ] }
+  ];
+
+  /* ---------- Noticias: plantillas ---------- */
+  const TPL = {
+    correcta: [
+      { t: '{emp} sale fortalecida tras decidir sobre {tema}', c: 'La elección «{op}» fue recibida con entusiasmo por inversionistas y analistas. {extra} La Sagrada Continuidad responde al alza.' },
+      { t: 'Acierto en {emp}: {tema} supera las expectativas', c: 'Fuentes cercanas confirman que «{op}» generó más valor del previsto. {extra} Cube registra un impulso positivo.' },
+      { t: 'El mercado aplaude la jugada de {emp}', c: 'Tras optar por «{op}», la compañía recibe elogios por su criterio. {extra} La gráfica sube con fuerza moderada.' }
+    ],
+    neutra: [
+      { t: '{emp}: {tema} avanza sin sobresaltos', c: 'La decisión «{op}» no movió la aguja: ni sorpresas ni reproches. {extra} La Sagrada Continuidad se mantiene estable.' },
+      { t: 'Jornada tranquila para {emp}', c: 'Analistas describen «{op}» como una medida prudente y sin impacto inmediato. {extra} No hay cambios en la gráfica.' },
+      { t: 'Sin cambios visibles en {emp} tras {tema}', c: 'El mercado recibió «{op}» con indiferencia. {extra} La gráfica sigue igual.' }
+    ],
+    incorrecta: [
+      { t: 'Tropiezo en {emp}: {tema} no sale como se esperaba', c: 'La elección «{op}» generó dudas entre los inversionistas. {extra} La Sagrada Continuidad registra una caída.' },
+      { t: 'Alarma moderada en {emp} por {tema}', c: 'Varios analistas cuestionan que se haya optado por «{op}». {extra} La gráfica cede terreno.' },
+      { t: 'Críticas a {emp} tras optar por «{op}»', c: 'La decisión no convenció al mercado. {extra} Cube registra un retroceso.' }
+    ],
+    riesgo_gana: [
+      { t: '¡Apuesta ganadora! {emp} multiplica el valor de {tema}', c: 'Pocos creían en «{op}», pero el riesgo valió la pena. {extra} La Sagrada Continuidad se dispara.' },
+      { t: 'Jugada audaz y premio mayor para {emp}', c: 'La apuesta por «{op}» salió mejor de lo imaginado. {extra} La gráfica sube con fuerza.' }
+    ],
+    riesgo_pierde: [
+      { t: 'Golpe duro: la apuesta de {emp} en {tema} fracasa', c: 'La decisión «{op}» resultó demasiado arriesgada y el mercado reaccionó con dureza. {extra} La Sagrada Continuidad cae con fuerza.' },
+      { t: 'Pánico en el mercado tras la jugada de {emp}', c: 'Lo que parecía una gran oportunidad con «{op}» se volvió un problema serio. {extra} La gráfica se desploma.' }
+    ]
+  };
+  const TAG = { correcta: 'Favorable', neutra: 'Neutral', incorrecta: 'Desfavorable', riesgo_gana: 'Apuesta ganada', riesgo_pierde: 'Apuesta perdida', alerta: 'Alerta', recuperacion: 'Recuperación', mercado: 'Mercado' };
+  const EFECTO_TXT = { up: '▲ La Sagrada Continuidad sube', down: '▼ La Sagrada Continuidad cae', flat: '■ La Sagrada Continuidad se mantiene' };
+  const EFECTO = { correcta: 'up', riesgo_gana: 'up', neutra: 'flat', incorrecta: 'down', riesgo_pierde: 'down' };
+  const IMPULSO = { correcta: () => rnd(2.6, 3.8), riesgo_gana: () => rnd(4, 5.5), neutra: () => 0, incorrecta: () => -rnd(1.6, 2.8), riesgo_pierde: () => -rnd(4, 6) };
+
+  function sortear(o) {
+    const p = o.p, x = Math.random();
+    if (x < p.c) return 'correcta';
+    if (x < p.c + p.n) return 'neutra';
+    if (x < p.c + p.n + p.i) return 'incorrecta';
+    return Math.random() < (o.rg != null ? o.rg : .5) ? 'riesgo_gana' : 'riesgo_pierde';
+  }
+  function armarNoticia(op, o, tipo) {
+    const tp = pick(TPL[tipo]), efecto = EFECTO[tipo];
+    const extra = efecto === 'up' ? op.ok : efecto === 'down' ? op.ko : op.nt;
+    const rep = s => s.replace(/\{emp\}/g, op.emp).replace(/\{tema\}/g, op.tema).replace(/\{op\}/g, o.t).replace(/\{extra\}/g, extra);
+    return { id: 'n' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), ts: Date.now(), op: op.id, tipo, efecto, titulo: rep(tp.t), cuerpo: rep(tp.c), emp: op.emp, leida: false };
+  }
+
+  /* ---------- Estado por usuario ---------- */
+  const clave = () => { const u = U(); return u ? 'cube_ops_' + (u.id || u.email) : null; };
+  function leer() {
+    const k = clave(); let s = null;
+    if (k) { try { s = JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { s = null; } }
+    s = s && typeof s === 'object' ? s : {};
+    s.hechas = s.hechas || {}; s.noticias = Array.isArray(s.noticias) ? s.noticias : [];
+    if (s.dia !== hoyKey()) { s.dia = hoyKey(); s.hechas = {}; }
+    return s;
+  }
+  function guardar(s) { const k = clave(); if (k) { try { localStorage.setItem(k, JSON.stringify(s)); } catch (e) {} } }
+
+  /* ---------- Punto rojo ---------- */
+  document.querySelectorAll('.top-ico[data-a="noticias"]').forEach(b => { const p = document.createElement('span'); p.className = 'punto-n'; p.hidden = true; b.appendChild(p); });
+  function pintarPunto() {
+    const hay = !!sesion() && leer().noticias.some(n => !n.leida);
+    document.querySelectorAll('.punto-n').forEach(p => { p.hidden = !hay; });
+  }
+
+  /* ---------- Navegación ---------- */
+  const MIAS = ['en-ops', 'en-noticias'];
+  const OTRAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico'];
+  new MutationObserver(() => {
+    if (MIAS.some(c => body.classList.contains(c)) && OTRAS.some(c => body.classList.contains(c))) body.classList.remove(...MIAS);
+  }).observe(body, { attributes: true, attributeFilter: ['class'] });
+
+  function copiarPerfil() { const o = $('btnPerfilTop'), d = $('btnPerfilOps'); if (o && d) d.innerHTML = o.innerHTML.replace(/ id="[^"]*"/g, ''); }
+  $('btnPerfilOps').onclick = () => abrirPerfilDesdeBoton();
+  window.addEventListener('cube:usuario-listo', () => { copiarPerfil(); pintarPunto(); cargarEstado(); });
+
+  let origen = 'home';
+  function abrirOps() {
+    if (!sesion()) { window.abrirModal('auth'); return; }
+    cerrarModales(); body.classList.add('en-ops'); activarItemNav('navOrbe');
+    copiarPerfil(); pintar(); pintarPunto(); window.scrollTo(0, 0);
+  }
+  $('navOrbe').onclick = abrirOps;
+
+  function abrirNoticias() {
+    if (!sesion()) { aviso('Inicia sesión para ver tus noticias.'); return; }
+    origen = body.classList.contains('en-ops') ? 'ops' : body.classList.contains('en-grafico') ? 'grafico' : 'home';
+    if (window.cubeLimpiarVistas) window.cubeLimpiarVistas();
+    body.classList.remove('perfil-abierto', ...MIAS); body.classList.add('en-noticias');
+    activarItemNav(null);
+    const s = leer(); s.noticias.forEach(n => { n.leida = true; }); guardar(s);
+    pintarNoticias(); pintarPunto(); window.scrollTo(0, 0);
+  }
+  $('cerrarNoticias').onclick = () => {
+    if (origen === 'ops') abrirOps();
+    else if (origen === 'grafico') { cerrarModales(); $('navGrafico').click(); }
+    else cerrarModales();
+  };
+  window.addEventListener('cube-wallet-accion', e => {
+    if (e.detail && e.detail.accion === 'noticias') { e.preventDefault(); abrirNoticias(); }
+  });
+
+  /* ---------- Operaciones ---------- */
+  function cabecera(op, hecha) {
+    return `<div class="op-top"><span class="op-ico">${svg(hecha ? 'check' : op.ico)}</span><div><div class="op-cat">${esc(op.cat)}</div><div class="op-emp">${esc(op.emp)} <small>${esc(op.sector)}</small></div></div></div>`;
+  }
+  function cardPend(op, i) {
+    return `<article class="op" data-op="${op.id}" style="animation-delay:${i * 0.06}s">${cabecera(op, false)}
+      <p class="op-ctx">${esc(op.ctx)}</p>
+      <div class="op-opts" role="radiogroup" aria-label="Opciones">${op.opts.map(o => `<button class="op-opt" type="button" role="radio" aria-checked="false" data-k="${o.k}"><span class="op-let">${o.k}</span><span class="op-tx"><b>${esc(o.t)}</b><span class="d">${esc(o.d)}</span><em class="pro">+ ${esc(o.pro)}</em><em class="con">− ${esc(o.con)}</em></span></button>`).join('')}</div>
+      <button class="op-go" type="button" disabled>Confirmar decisión</button></article>`;
+  }
+  function cardHecha(op, h) {
+    const o = op.opts.find(x => x.k === h.k);
+    return `<article class="op hecha" data-op="${op.id}">${cabecera(op, true)}
+      <p class="op-dec">Tu decisión: <b>«${esc(o ? o.t : h.k)}»</b></p>
+      <button class="op-lnk" type="button" data-ver-noticia>Ver noticia →</button></article>`;
+  }
+  function restante() {
+    const n = new Date(), f = new Date(n.getFullYear(), n.getMonth(), n.getDate() + 1), m = Math.max(0, Math.floor((f - n) / 6e4));
+    return 'Se renuevan en ' + Math.floor(m / 60) + ' h ' + (m % 60) + ' min';
+  }
+  function pintar() {
+    const s = leer(), hechas = OPS.filter(o => s.hechas[o.id]), pend = OPS.filter(o => !s.hechas[o.id]);
+    $('opsEstado').textContent = pend.length ? 'Incompletas' : 'Completadas';
+    $('opsSeg').innerHTML = OPS.map((o, i) => `<i class="${i < hechas.length ? 'on' : ''}"></i>`).join('');
+    $('opsCuenta').textContent = hechas.length + ' de ' + OPS.length + ' completadas';
+    $('opsReset').textContent = restante();
+    $('opsLista').innerHTML = pend.map(cardPend).join('') + (hechas.length ? '<h2 class="op-h">Completadas hoy</h2>' + hechas.map(o => cardHecha(o, s.hechas[o.id])).join('') : '');
+  }
+  $('opsLista').addEventListener('click', e => {
+    const opt = e.target.closest('.op-opt');
+    if (opt) {
+      const card = opt.closest('.op');
+      card.querySelectorAll('.op-opt').forEach(b => { const on = b === opt; b.classList.toggle('on', on); b.setAttribute('aria-checked', on); });
+      card.querySelector('.op-go').disabled = false; card.dataset.sel = opt.dataset.k; return;
+    }
+    const go = e.target.closest('.op-go');
+    if (go && !go.disabled) { const c = go.closest('.op'); decidir(c.dataset.op, c.dataset.sel); return; }
+    if (e.target.closest('[data-ver-noticia]')) abrirNoticias();
+  });
+  function decidir(id, k) {
+    if (!sesion()) { aviso('Inicia sesión para tomar decisiones.'); return; }
+    const op = OPS.find(o => o.id === id), opt = op && op.opts.find(x => x.k === k), s = leer();
+    if (!opt || s.hechas[id]) return;
+    const tipo = sortear(opt), n = armarNoticia(op, opt, tipo);
+    s.hechas[id] = { k, tipo, noticia: n.id, ts: Date.now() };
+    s.noticias.unshift(n); s.noticias = s.noticias.slice(0, 80);
+    guardar(s);
+    if (window.cubeGrafico) window.cubeGrafico.impulso(IMPULSO[tipo]());
+    pintar(); pintarPunto();
+    aviso('Decisión registrada. Revisa Noticias para ver el resultado.');
+  }
+  setInterval(() => { if (body.classList.contains('en-ops') && sesion()) $('opsReset').textContent = restante(); }, 30000);
+
+  /* ---------- Noticias ---------- */
+  function hace(ts) {
+    const m = Math.floor((Date.now() - ts) / 6e4);
+    if (m < 1) return 'ahora'; if (m < 60) return 'hace ' + m + ' min';
+    const h = Math.floor(m / 60); if (h < 24) return 'hace ' + h + ' h';
+    const d = Math.floor(h / 24); return d === 1 ? 'ayer' : 'hace ' + d + ' días';
+  }
+  function pintarNoticias() {
+    const l = leer().noticias;
+    $('nwLista').innerHTML = l.map((n, i) => `<article class="nw ${n.tipo === 'alerta' ? 'alerta' : n.efecto}" style="animation-delay:${Math.min(i, 8) * 0.04}s"><div class="nw-top"><span class="nw-tag">${esc(TAG[n.tipo] || 'Noticia')}</span><span class="nw-t">${hace(n.ts)}</span></div><h3>${esc(n.titulo)}</h3><p>${esc(n.cuerpo)}</p><div class="nw-ft"><b>${EFECTO_TXT[n.efecto] || ''}</b></div></article>`).join('');
+    $('nwVacio').hidden = l.length > 0;
+  }
+  function sistema(o) {
+    if (!sesion()) return;
+    const s = leer();
+    s.noticias.unshift({ id: 'n' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), ts: Date.now(), op: null, tipo: o.tipo || 'mercado', efecto: o.efecto || 'flat', titulo: o.titulo, cuerpo: o.cuerpo, leida: false });
+    s.noticias = s.noticias.slice(0, 80); guardar(s); pintarPunto();
+    if (body.classList.contains('en-noticias')) { s.noticias.forEach(n => { n.leida = true; }); guardar(s); pintarNoticias(); pintarPunto(); }
+  }
+
+  /* ---------- Rendimiento acumulado (servidor: ver cube-operaciones.sql) ---------- */
+  let acum = 0, pend = 0, busy = false, hab = false, avisoSql = false, refrescando = false;
+  const noInstalado = err => { const m = (err && (err.message || '')) || ''; return (err && err.code === 'PGRST202') || /ops_/.test(m) && /function|exist|schema/i.test(m); };
+  function pintarRend() { const e = $('gRend'); if (e) e.textContent = '$' + fm(acum); }
+  async function cargarEstado() {
+    acum = 0; pend = 0; hab = false;
+    if (!sesion() || !db()) { pintarRend(); return; }
+    const { data, error } = await db().rpc('ops_estado_get');
+    if (error) { console.warn('ops_estado_get', error); if (noInstalado(error) && !avisoSql) { avisoSql = true; console.warn('Ejecuta cube-operaciones.sql en Supabase para activar el rendimiento.'); } pintarRend(); return; }
+    acum = Number(data) || 0; hab = true; pintarRend();
+  }
+  async function flush() {
+    if (busy || !hab || pend < .01 || !sesion()) return;
+    busy = true; const m = Math.round(Math.min(pend, 2000) * 100) / 100;
+    try {
+      const { data, error } = await db().rpc('ops_acumular', { p_monto: m });
+      if (error) throw error;
+      pend = Math.max(0, pend - m); acum = Number(data) + pend;
+    } catch (e) { console.warn('ops_acumular', e); }
+    busy = false;
+  }
+  function refrescarCreditos() {
+    if (refrescando || !window.cubeRefrescarCreditos) return;
+    refrescando = true; Promise.resolve(window.cubeRefrescarCreditos()).finally(() => setTimeout(() => { refrescando = false; }, 1500));
+  }
+  async function castigo(n) {
+    if (!sesion() || !hab) return;
+    pend = Math.max(0, pend - n); acum = Math.max(0, acum - n); pintarRend();
+    aviso('ALERTA · −$' + fm(n) + ' créditos de tu caja');
+    try {
+      const { data, error } = await db().rpc('ops_penalizar', { p_monto: n });
+      if (error) throw error;
+      acum = Number(data.acumulado) + pend; pintarRend();
+    } catch (e) { console.warn('ops_penalizar', e); }
+    refrescarCreditos();
+  }
+  window.cubeOps = {
+    rendir(y) { if (hab && y > 0 && sesion()) { acum += y; pend += y; } },
+    castigo, sistema, acum: () => acum
+  };
+  setInterval(() => { if (body.classList.contains('en-grafico')) pintarRend(); }, 700);
+  setInterval(flush, 10000);
+
+  /* ---------- Retirar ---------- */
+  const sh = document.createElement('div');
+  sh.className = 'v-sheet'; sh.hidden = true;
+  sh.innerHTML = '<div class="v-card" role="dialog" aria-modal="true" aria-label="Retirar rendimiento"><div id="rtCuerpo"></div></div>';
+  body.appendChild(sh);
+  const cerrarSh = () => { sh.hidden = true; };
+  sh.addEventListener('click', e => { if (e.target === sh) cerrarSh(); });
+  const impacto = m => m >= 10000 ? 'Impacto severo: la gráfica puede desplomarse y activar la alarma.' : m >= 5000 ? 'Impacto alto: podría iniciarse una caída fuerte.' : m >= 1000 ? 'Impacto moderado: la gráfica bajará un poco.' : 'Impacto bajo: la gráfica se mantiene estable.';
+
+  $('btnRetirar').onclick = async () => {
+    if (!sesion()) { window.abrirModal('auth'); return; }
+    if (!hab) { aviso('El rendimiento aún no está habilitado. Falta ejecutar cube-operaciones.sql en Supabase.'); return; }
+    await flush();
+    $('rtCuerpo').innerHTML = `<p class="v-card-t" style="margin-top:6px">Retirar rendimiento</p>
+      <p class="v-nota" style="min-height:0;margin:8px 2px 4px">Disponible: <b>$${fm(acum)}</b></p>
+      <input class="ls-input" id="rtMonto" type="number" inputmode="decimal" min="1" placeholder="Monto a retirar">
+      <div class="sh-q">${[25, 50, 100].map(x => `<button type="button" data-q="${x}">${x === 100 ? 'Todo' : x + '%'}</button>`).join('')}</div>
+      <p class="v-nota" id="rtNota" style="min-height:3em;margin:2px 2px 10px">Retirar montos grandes hace caer la gráfica.</p>
+      <div class="v-acc"><button class="b-sec" id="rtNo" type="button">Cancelar</button><button class="b-pri" id="rtSi" type="button">Retirar</button></div>`;
+    sh.hidden = false;
+    const inp = $('rtMonto'), nota = $('rtNota');
+    const pintaNota = () => { const m = parseFloat(inp.value); nota.textContent = m > 0 ? impacto(m) : 'Retirar montos grandes hace caer la gráfica.'; };
+    inp.oninput = pintaNota;
+    $('rtCuerpo').querySelectorAll('[data-q]').forEach(b => b.onclick = () => { inp.value = Math.floor(acum * (+b.dataset.q) / 100 * 100) / 100; pintaNota(); });
+    $('rtNo').onclick = cerrarSh;
+    $('rtSi').onclick = async () => {
+      const m = Math.round(parseFloat(inp.value) * 100) / 100;
+      if (!(m >= 1)) { nota.textContent = 'Indica un monto válido (mínimo $1).'; return; }
+      if (m > acum + .001) { nota.textContent = 'No tienes tanto rendimiento acumulado.'; return; }
+      $('rtSi').disabled = true;
+      await flush();
+      const { data, error } = await db().rpc('ops_retirar', { p_monto: m });
+      $('rtSi').disabled = false;
+      if (error) {
+        const msg = error.message || '';
+        nota.textContent = msg.includes('ACUM_INSUFICIENTE') ? 'No tienes tanto rendimiento acumulado.' : noInstalado(error) ? 'Falta ejecutar cube-operaciones.sql en Supabase.' : 'No se pudo retirar. Inténtalo de nuevo.';
+        return;
+      }
+      acum = Number(data.acumulado) + pend; pintarRend();
+      cerrarSh(); aviso('Retiraste $' + fm(m) + ' a tu caja de créditos.');
+      if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
+      if (window.cubeGrafico) window.cubeGrafico.gasto(m);
+    };
+  };
+
+  pintarPunto(); pintarRend(); copiarPerfil();
 })();
 </script>
 </body>
