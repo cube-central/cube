@@ -300,55 +300,11 @@
   @media (prefers-reduced-motion:reduce){.tl-it,.tl-it::before,.tl-it::after{opacity:1!important;transform:none!important;transition:none!important}.tl-it::before,.tl-it::after{transform:none!important}}
 
 
-  /* ===== Inventario / Colección (mochila) ===== */
-  #invFold{display:none}
-  body.en-inventario #fold,body.en-inventario .te,body.en-inventario .pie{display:none}
-  body.en-inventario #invFold{display:block}
-  #invFold::before{content:"";position:absolute;top:var(--th);width:var(--r);height:var(--r);background:var(--verde);z-index:0}
-  #invFold[data-tab="inv"]::before{right:0}
-  #invFold[data-tab="col"]::before{left:0}
-  #tabInv{left:0;width:50%}
-  #tabCol{left:50%;right:0}
-  #invFold[data-tab="inv"] #tabCol{left:calc(50% - var(--r));padding-left:var(--r);border-radius:0 var(--r) 0 0}
-  #invFold[data-tab="col"] #tabInv{width:calc(50% + var(--r));padding-right:var(--r);border-radius:var(--r) 0 0 0}
-  #tabInv[aria-selected="true"]::after{left:calc(100% - 1px);-webkit-mask:radial-gradient(circle at 100% 0,transparent var(--f),#000 calc(var(--f) + .6px));mask:radial-gradient(circle at 100% 0,transparent var(--f),#000 calc(var(--f) + .6px))}
-  #tabCol[aria-selected="true"]::after{right:calc(100% - 1px);-webkit-mask:radial-gradient(circle at 0 0,transparent var(--f),#000 calc(var(--f) + .6px));mask:radial-gradient(circle at 0 0,transparent var(--f),#000 calc(var(--f) + .6px))}
-  #invFold[data-tab="inv"] .fold-card{border-radius:0 var(--r) var(--r) var(--r)}
-  #invFold[data-tab="col"] .fold-card{border-radius:var(--r) 0 var(--r) var(--r)}
   .inv-card{padding:clamp(22px,6.4vw,32px) clamp(14px,4.6vw,22px) clamp(26px,8vw,38px)!important}
   .inv-lista{display:flex;flex-direction:column;gap:12px}
-  .inv-fila{display:flex;align-items:center;gap:10px}
-  .inv-acc{display:flex;flex-direction:row;align-items:center;gap:6px;flex:none}
-  .inv-acc .inv-btn{width:30px;height:30px;min-width:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;display:grid;place-items:center;color:var(--tinta);transition:transform .12s,opacity .2s}
-  .inv-acc .inv-btn svg{width:20px;height:20px}
-  .inv-acc .inv-btn:active{transform:scale(.85)}
-  .inv-acc .inv-btn.on{background:none;color:var(--tinta)}
-  .inv-acc .inv-btn.on svg{fill:currentColor}
-  .inv-acc .inv-btn:focus-visible,.col-t:focus-visible{outline:2px solid var(--tinta);outline-offset:2px}
-  .inv-cov{flex:0 0 31%;aspect-ratio:16/8.5;border-radius:12px;overflow:hidden;background:var(--fondo);cursor:pointer}
-  .inv-cov img{width:100%;height:100%;object-fit:cover;display:block}
-  .inv-info{flex:1;min-width:0}
-  .inv-tit{font-weight:500;font-size:.72rem;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--texto)}
-  .inv-tags{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-top:6px}
-  .inv-info .rareza{margin-top:0;padding:1px 8px;font-size:.58rem}
-  .inv-x{display:inline-block;padding:1px 7px;border-radius:999px;background:var(--oscuro);color:var(--verde);font-size:.58rem;font-weight:700;line-height:1.4}
-  .col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 10px}
-  .col-t{display:flex;flex-direction:column;gap:3px;min-width:0;text-align:left}
-  .col-box{position:relative;display:grid;place-items:center;aspect-ratio:16/8.5;border-radius:14px;background:var(--verde);color:var(--negro);overflow:hidden;transition:transform .12s}
-  .col-t:active .col-box{transform:scale(.95)}
-  .col-box>svg{width:24%;height:auto}
-  .col-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-  .col-ok{position:absolute;top:5px;right:5px;width:18px;height:18px;border-radius:50%;background:#0A0A0A;color:var(--verde);display:grid;place-items:center}
-  .col-ok svg{width:11px;height:11px}
-  .col-t.pop .col-box{animation:colPop .45s cubic-bezier(.3,1.5,.5,1)}
-  @keyframes colPop{0%{transform:scale(.8)}100%{transform:scale(1)}}
-  .col-n{font-size:.72rem;font-weight:500;line-height:1.2;color:var(--texto);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .col-r{font-size:.68rem;line-height:1.2;color:var(--texto-suave)}
-  @media (prefers-reduced-motion:reduce){.col-t.pop .col-box{animation:none}}
 
 
   /* ===== Secciones bajo los heroes (Continuar viendo y por capítulos) ===== */
-  body.en-inventario .secs{display:none}
   .secs{margin-top:34px}
   .sec{margin-top:34px}
   .sec h2{padding:0 var(--margen);font-size:clamp(1.35rem,6.2vw,1.75rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--tinta)}
@@ -494,14 +450,7 @@
   .perfil-opcion,.perfil-modal .perfil-opciones button,.perfil-modal .perfil-opciones a{background:var(--panel)}
   .perfil-opciones svg{color:var(--tinta)!important}
   .perfil-salir{margin-top:7px}
-  .perfil-tema{margin-top:7px;padding:10px 12px 12px;background:var(--panel);border-radius:10px}
-  .tema-tit{display:flex;align-items:center;gap:10px;font-weight:500;font-size:.84rem;color:var(--texto)}
-  .tema-tit svg{width:17px;height:17px;flex:none;color:var(--tinta)}
-  .tema-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
-  .tema-opts button{height:38px;border-radius:9px;background:var(--fondo);color:var(--texto);font-weight:500;font-size:.82rem}
-  .tema-opts button[aria-checked="true"]{background:var(--verde);color:var(--negro);font-weight:700}
-  .tema-opts button:focus-visible{outline:2px solid var(--tinta);outline-offset:2px}
-  .tema-nota{display:block;margin-top:8px;min-height:1em;font-size:.74rem;color:var(--texto-suave)}
+  .perfil-modal .perfil-opciones .opcion-flecha{color:#8a8d87!important;opacity:1}
   /* ===== Portafolio / Inversiones ===== */
   .inv-res{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
   .chip{display:inline-flex;align-items:center;gap:5px;min-height:30px;padding:0 14px;border-radius:999px;font-size:.78rem;font-weight:600;background:var(--fondo);color:var(--tinta)}
@@ -554,20 +503,20 @@
   .mov{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--linea);font-size:.8rem}.mov:last-child{border:0}
 
   /* ===== Secciones nuevas: Ventas, Caridad, Inversiones, Compra + Transferir rediseñado ===== */
-  body.en-ventas #home,body.en-caridad #home,body.en-invertir #home,body.en-compra #home,
-  body.en-ventas .pie,body.en-caridad .pie,body.en-invertir .pie,body.en-compra .pie{display:none}
-  body.en-ventas,body.en-caridad,body.en-invertir,body.en-compra{padding-bottom:110px}
-  #ventas,#caridad,#invertir,#compra{display:none;margin:0 auto;max-width:640px;padding:calc(env(safe-area-inset-top,0px) + 28px) var(--margen) 30px}
-  body.en-ventas #ventas,body.en-caridad #caridad,body.en-invertir #invertir,body.en-compra #compra{display:block}
+  body.en-ventas #home,body.en-caridad #home,body.en-invertir #home,
+  body.en-ventas .pie,body.en-caridad .pie,body.en-invertir .pie{display:none}
+  body.en-ventas,body.en-caridad,body.en-invertir{padding-bottom:110px}
+  #ventas,#caridad,#invertir{display:none;margin:0 auto;max-width:640px;padding:calc(env(safe-area-inset-top,0px) + 28px) var(--margen) 30px}
+  body.en-ventas #ventas,body.en-caridad #caridad,body.en-invertir #invertir{display:block}
   #enviar{padding-top:calc(env(safe-area-inset-top,0px) + 28px)}
   .pg-t{font-size:clamp(1.6rem,7vw,2rem);font-weight:400;line-height:1.15;color:var(--texto)}
   .pg-s{margin:10px 0 16px;font-size:clamp(.82rem,3.6vw,.95rem);color:var(--texto-suave)}
   .pg-h{margin:22px 0 12px;font-size:clamp(1rem,4.4vw,1.2rem);font-weight:400;color:var(--texto);opacity:.85}
   .pg-btn{display:inline-flex;align-items:center;gap:14px;height:56px;padding:0 34px 0 26px;border-radius:999px;background:var(--tarjeta);color:var(--texto);font-size:.95rem}
   .pg-btn svg{width:20px;height:20px}
-  #enviar .buscador,#compra .buscador{height:56px;padding-left:22px}
-  #enviar .bs-lupa,#compra .bs-lupa{width:40px;height:40px;margin-right:8px}
-  #enviar .bs-lupa svg,#compra .bs-lupa svg{width:20px;height:20px}
+  #enviar .buscador{height:56px;padding-left:22px}
+  #enviar .bs-lupa{width:40px;height:40px;margin-right:8px}
+  #enviar .bs-lupa svg{width:20px;height:20px}
   #enviar .en-panel{margin-top:0;padding:0;min-height:0;background:none;border-radius:0;gap:16px}
   #enviar .en-av{width:56px;height:56px}#enviar .en-av svg{width:30px;height:30px}
   #enviar .en-tx b{font-weight:700;font-size:.92rem}#enviar .en-tx small{font-size:.86rem}
@@ -601,50 +550,6 @@
   .ic-min{font-size:.95rem;font-weight:500}.ic-min small{color:var(--texto-suave);font-size:.95rem}
   .ic-pc{font-size:.85rem;font-weight:500}
   #invRoot .inv-lista{margin-top:0}
-  /* Compra */
-  .emp-r{display:flex;gap:12px;align-items:center;padding:14px;margin-bottom:10px;border-radius:26px;background:var(--tarjeta)}
-  .emp-av{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:1.05rem;color:#fff}
-  .emp-r .tx{min-width:0;flex:1;display:flex;flex-direction:column;line-height:1.3}
-  .emp-r .tx b{font-size:.95rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .emp-r .tx small{color:var(--texto-suave);font-size:.75rem}
-  .emp-r .va{text-align:right;flex:none;font-weight:700;font-size:.95rem;line-height:1.25}
-  .emp-r .va small{display:block;font-weight:500;font-size:.68rem;color:var(--texto-suave)}
-
-  body.en-empresa #home,body.en-empresa .pie{display:none}
-  body.en-empresa{padding-bottom:110px}
-  #empresa{display:none;margin:0 auto;max-width:640px;padding:calc(env(safe-area-inset-top,0px) + 28px) var(--margen) 30px}
-  body.en-empresa #empresa{display:block}
-  .cp-l{margin:16px 0 8px;font-size:.82rem;color:var(--texto-suave)}
-  .cp-in{width:100%;height:52px;padding:0 20px;border-radius:999px;background:var(--tarjeta);color:var(--texto);font:inherit;font-size:.95rem;border:2px solid transparent;outline:none}
-  .cp-in:focus{border-color:var(--verde)}
-  .cp-chips,.cp-emo,.cp-sw{display:flex;flex-wrap:wrap;gap:8px}
-  .cp-chips button,.cp-emo button{height:38px;padding:0 14px;border-radius:999px;background:var(--tarjeta);font-size:.85rem;border:2px solid transparent}
-  .cp-emo button{min-width:42px;font-size:1.05rem}.cp-emo .cp-up{font-size:.82rem}
-  .cp-chips .on,.cp-emo .on{border-color:var(--tinta)}
-  .cp-sw button{width:34px;height:34px;border-radius:50%;border:2px solid var(--fondo);box-shadow:0 0 0 1px var(--linea)}
-  .cp-sw .on{box-shadow:0 0 0 2.5px var(--tinta)}
-  .cp-go{display:block;width:100%;height:56px;margin-top:6px;border-radius:999px;background:var(--verde);color:var(--negro);font-weight:600;font-size:1rem}
-  .cp-go:disabled{opacity:.5}
-  .emp-hd{position:relative;display:flex;align-items:center;gap:14px;padding:18px;border-radius:30px}
-  .eh-tx{min-width:0;display:flex;flex-direction:column;gap:2px;line-height:1.25}
-  .eh-tx b{font-size:1.15rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .eh-tx small{font-size:.8rem;opacity:.85;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .eh-chip{align-self:flex-start;margin-top:6px;padding:2px 10px;border-radius:999px;font-size:.7rem;font-weight:600}
-  .eh-edit{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.14);color:inherit}
-  .eh-edit svg{width:17px;height:17px}
-  .emp-card{margin-top:12px;padding:20px;border-radius:30px;background:var(--tarjeta)}
-  .emp-card>small{color:var(--texto-suave);font-size:.8rem}
-  .emp-val{font-size:clamp(2rem,9vw,2.6rem);font-weight:700;letter-spacing:-.03em;line-height:1.1}
-  .emp-bars{display:block;width:100%;height:70px;color:var(--tinta)}
-  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-  .kpi{display:flex;flex-direction:column;gap:5px;padding:14px 16px;border-radius:24px;background:var(--tarjeta)}
-  .kpi small{font-size:.72rem;color:var(--texto-suave)}.kpi b{font-size:1.15rem;font-weight:700}
-  .kpi .bar{display:block;height:6px;border-radius:99px;background:var(--fondo);overflow:hidden}
-  .kpi .bar i{display:block;height:100%;border-radius:99px;background:var(--tinta)}
-  .emp-acc{display:flex;gap:10px;margin-top:12px}.emp-acc .pg-btn{flex:1;height:48px;padding:0;justify-content:center;font-size:.85rem}
-  .fila-r.act .ch-logo{width:40px;height:40px}.fila-r.act .tx small{white-space:normal}
-  .act-b{flex:none;height:36px;padding:0 14px;border-radius:999px;background:var(--verde);color:var(--negro);font-weight:600;font-size:.8rem;white-space:nowrap}
-  .act-b:disabled{background:var(--fondo);color:var(--texto-suave)}
 </style>
 
 <style id="rediseno">
@@ -664,7 +569,7 @@ body{background:radial-gradient(120% 60% at 0 0,#10160a 0%,#050605 45%,#000 100%
 @keyframes fade{from{opacity:0}}
 @keyframes flash{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:none}}
 @keyframes sub{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-#nuevoHome,#buscar,#lista,#notifs,#almacen,#enviar,#transf,#ventas,#caridad,#invertir,#compra,#empresa,#grafico,#invFold,.perfil-modal{animation:entra .4s cubic-bezier(.2,.8,.2,1) both}
+#nuevoHome,#buscar,#lista,#notifs,#almacen,#enviar,#transf,#ventas,#caridad,#invertir,#grafico,.perfil-modal{animation:entra .4s cubic-bezier(.2,.8,.2,1) both}
 button{transition:transform .16s cubic-bezier(.3,1.5,.5,1),background-color .2s,opacity .2s,color .2s}
 button:not(:disabled):active{transform:scale(.94)}
 .rp{position:relative;overflow:hidden}
@@ -690,7 +595,6 @@ button:not(:disabled):active{transform:scale(.94)}
 .acc4 .circ:nth-child(2){animation-delay:.06s}.acc4 .circ:nth-child(3){animation-delay:.12s}.acc4 .circ:nth-child(4){animation-delay:.18s}
 #home .circ-ico{width:13.4cqw;height:13.4cqw;background:var(--grad);color:#0A0A0A;box-shadow:0 0 0 0 rgba(198,255,0,0)}
 #home .circ:hover .circ-ico{box-shadow:0 0 22px rgba(198,255,0,.3)}
-body.en-inventario #nuevoHome{display:none}
 /* barra inferior */
 .bottom-nav{width:min(82vw,460px);gap:2.6%}
 .nav-pill{height:clamp(54px,15vw,64px);background:#131313;box-shadow:none;padding:0 4px}
@@ -825,9 +729,6 @@ body.pausado #gHalo{animation-play-state:paused}
           <button class="circ" type="button" data-a="invertir" aria-label="Invierte">
             <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>Invierte
           </button>
-          <button class="circ" type="button" data-a="comprar" aria-label="Compra">
-            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span>Compra
-          </button>
         </div>
       </section>
     </div>
@@ -837,16 +738,6 @@ body.pausado #gHalo{animation-play-state:paused}
       <span class="plat-txt"><b>Platinum Card</b><span>Contenido exclusivo.</span></span>
       <span class="plat-logo">cube</span>
     </button>
-  </div>
-  <div class="fold" id="invFold" data-tab="inv">
-    <div class="fold-tabs" role="tablist" aria-label="Inventario y colección">
-      <button class="fold-tab" id="tabInv" type="button" role="tab" aria-selected="true" aria-controls="paneInv">Inventario</button>
-      <button class="fold-tab" id="tabCol" type="button" role="tab" aria-selected="false" aria-controls="paneCol" tabindex="-1">Colección</button>
-    </div>
-    <div class="fold-card inv-card">
-      <section id="paneInv" role="tabpanel" aria-labelledby="tabInv"><div class="inv-lista" id="invLista"></div></section>
-      <section id="paneCol" role="tabpanel" aria-labelledby="tabCol" hidden><div class="col-grid" id="colGrid"></div></section>
-    </div>
   </div>
 </div><!-- /home -->
 
@@ -928,25 +819,6 @@ body.pausado #gHalo{animation-play-state:paused}
   <div class="ch-grid" id="chGrid"></div>
   <h2 class="pg-h">Donaciones</h2>
   <div id="donLista"></div>
-</section>
-
-<!-- COMPRA -->
-<section id="compra" aria-label="Compra">
-  <h1 class="pg-t">Compra</h1>
-  <p class="pg-s">Descubre y compra empresas de otros usuarios.</p>
-  <div class="buscador" role="search">
-    <input id="campoEmp" type="search" placeholder="Empresa, sector o usuario..." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar empresas">
-    <button class="bs-lupa" id="btnLupaEmp" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-  </div>
-  <h2 class="pg-h" id="empTit">Destacados de hoy</h2>
-  <div id="empLista"></div>
-</section>
-
-<!-- EMPRESA -->
-<section id="empresa" aria-label="Empresa">
-  <h1 class="pg-t">Empresa</h1>
-  <p class="pg-s">Crea y haz crecer tu propia empresa.</p>
-  <div id="empRoot"></div>
 </section>
 
 <!-- TRANSFERENCIA -->
@@ -1039,18 +911,6 @@ body.pausado #gHalo{animation-play-state:paused}
     <button class="perfil-opcion" id="irFavoritos" hidden><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>Favoritos</span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
     <button class="perfil-opcion" id="irNotificaciones"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><span>Notificaciones</span><b class="perfil-cuenta" id="notifCuenta" hidden>0</b></span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
   
-    <button class="perfil-opcion" data-a="logros"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-1.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98 1.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>Logros</span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
-    <button class="perfil-opcion" data-a="noticias"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7.5 9h6M7.5 12.5h6M7.5 16h3"/></svg>Noticias</span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
-    <button class="perfil-opcion" data-a="edicion-coleccionista"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-35 12 12)"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 11v2M13 17v2"/></g></svg>Colección</span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
-  </div>
-  <div class="perfil-tema" role="radiogroup" aria-label="Tema de la página">
-    <div class="tema-tit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span>Tema</span></div>
-    <div class="tema-opts">
-      <button type="button" role="radio" data-tema="light" aria-checked="true">Light</button>
-      <button type="button" role="radio" data-tema="dark" aria-checked="false">Dark</button>
-      <button type="button" role="radio" data-tema="live" aria-checked="false">Live</button>
-    </div>
-    <small class="tema-nota" id="temaNota"></small>
   </div>
   <div class="perfil-opciones perfil-salir">
     <button class="perfil-opcion salir" id="btnSalir"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></svg>Cerrar sesión</span></button>
@@ -1120,8 +980,8 @@ body.pausado #gHalo{animation-play-state:paused}
   </div>
   <button class="bottom-nav-item" id="navPerfil" aria-label="Perfil"><span class="nav-foto" id="navFoto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span></button>
   <div class="nav-pill">
-    <button class="bottom-nav-item" id="navHome" aria-label="Inventario y colección"><svg viewBox="0 0 24 24" fill="currentColor"><g transform="rotate(-35 12 12)"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></g></svg></button>
-    <button class="bottom-nav-item" id="navOrbe" aria-label="Empresa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5L19.5 7"/></svg></button>
+    <button class="bottom-nav-item" id="navHome" aria-label="Colección"><svg viewBox="0 0 24 24" fill="currentColor"><g transform="rotate(-35 12 12)"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></g></svg></button>
+    <button class="bottom-nav-item" id="navOrbe" aria-label="Próximamente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5L19.5 7"/></svg></button>
   </div>
   <button id="navBuscar" hidden aria-hidden="true"></button>
 </nav>
@@ -1172,7 +1032,7 @@ window.card = window.card || (p => `<div class="portada" data-id="${p.img}"><img
 
 // Cierra cualquier pantalla abierta (menos el perfil) para que nunca se mezclen dos vistas
 window.cubeLimpiarVistas = function () {
-  document.body.classList.remove('buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico');
+  document.body.classList.remove('buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico');
 };
 
 window.abrirModal = function (tipo) {
@@ -1189,7 +1049,7 @@ window.abrirModal = function (tipo) {
 };
 
 function cerrarModales() {
-  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico');
+  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico');
   activarItemNav('navWallet');
   window.scrollTo(0, 0);
   iniciarAuto();
@@ -1238,7 +1098,7 @@ document.getElementById('menuOverlay').onclick = () => cerrarModales();
 // Se recalcula al hacer scroll, al cambiar de pantalla (clase del body) y al cambiar el alto de la página,
 // así nunca se queda oculta al volver al inicio.
 const bottomNav = document.getElementById('bottomNav');
-const CLASES_VISTA = ['buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico', 'perfil-abierto'];
+const CLASES_VISTA = ['buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico', 'perfil-abierto'];
 let navPend = false;
 function actualizarNav() {
   navPend = false;
@@ -1776,135 +1636,25 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   $('tSheet').addEventListener('click', e => { if (e.target === $('tSheet')) cerrar(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('tSheet').hidden) cerrar(); });
 
-  // Cualquier portada de Buscar, Favoritos o Mi inventario abre el panel (salvo Próximamente y Premium)
+  // Cualquier portada de Buscar o Favoritos abre el panel (salvo Próximamente y Premium)
   document.addEventListener('click', e => {
-    const el = e.target.closest('#grilla .res-card, #listaGrilla .portada, #invLista .inv-cov, #colGrid .col-t.ok, .secs .sec-card, #heroTrack .hero-item');
+    const el = e.target.closest('#grilla .res-card, #listaGrilla .portada, .secs .sec-card, #heroTrack .hero-item');
     if (!el || !el.dataset.id || !esVendible(el.dataset.id)) return;
     abrir(el.dataset.id);
   });
 })();
 
 </script>
-<!-- ================= INVENTARIO Y COLECCIÓN (mochila) ================= -->
+<!-- ================= RAREZA DE LAS HISTORIAS (la usa Buscar) ================= -->
 <script>
 (function () {
-  const $ = id => document.getElementById(id), body = document.body;
-  const NOM = { comun: 'Común', raro: 'Raro', extraordinario: 'Extraordinario', legendario: 'Legendario' };
-  const FEM = { comun: 'común', raro: 'rara', extraordinario: 'extraordinaria', legendario: 'legendaria' };
-  const ORD = { comun: 0, raro: 1, extraordinario: 2, legendario: 3 };
-  // Rareza de cada historia. Se calcula con su precio (hasta 100 común, hasta 250 raro, hasta 450 extraordinario, más legendario);
-  // lo que esté en FIJAS manda sobre el precio.
+  // Hasta 100 común, hasta 250 raro, hasta 450 extraordinario, más legendario; lo que esté en FIJAS manda sobre el precio.
   const FIJAS = { 'bigfoot.webp': 'raro', 'bigfoot-2.webp': 'raro', 'ratman.webp': 'raro', 'las-entrevistas.webp': 'legendario', 'divina-comedia.webp': 'legendario', 'triangle-room.webp': 'legendario', 'eternamente-vivo.webp': 'extraordinario', 'eternamente-vivo-2.webp': 'legendario' };
-  const EXTRA_COL = ['triangle-room.webp'];   // historias que aparecen en la Colección aunque estén como “próximamente” en el catálogo
-  const rareza = img => {
+  window.cubeRareza = img => {
     if (FIJAS[img]) return FIJAS[img];
     const p = window.cubeInv ? window.cubeInv.precio(img) : 100;
     return p <= 100 ? 'comun' : p <= 250 ? 'raro' : p <= 450 ? 'extraordinario' : 'legendario';
   };
-  window.cubeRareza = rareza;
-  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const cat = () => window.catalogo || [];
-  const titulo = img => { const p = cat().find(x => x.img === img); return p ? p.alt : img.replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' '); };
-  const src = img => IMG_BASE + img;
-  const aviso = t => (window.cubeAviso ? window.cubeAviso(t) : null);
-  const ordenar = l => l.slice().sort((a, b) => (ORD[rareza(a)] - ORD[rareza(b)]) || titulo(a).localeCompare(titulo(b), 'es', { sensitivity: 'base' }));
-
-  const ICO_LISTA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h12M3 11h12M3 16h7M18 13v8M14 17h8"/></svg>';
-  const ICO_FAV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>';
-  const ICO_MAS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
-  const ICO_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
-
-  const esFav = img => { const u = window.usuario(); return !!(u && (u.favoritos || []).some(f => f && f.img === img)); };
-
-  // ---- Colección guardada por usuario ----
-  const kCol = () => { const u = window.usuario(); return u ? 'cube_coleccion_' + (u.id || u.email) : null; };
-  const leerCol = () => { const k = kCol(); if (!k) return []; try { return JSON.parse(localStorage.getItem(k) || '[]'); } catch (e) { return []; } };
-  const guardarCol = a => { const k = kCol(); if (k) localStorage.setItem(k, JSON.stringify(a)); };
-
-  // ---- Inventario ----
-  function pintarInv() {
-    const l = ordenar(window.cubeInv ? window.cubeInv.lista().filter(i => window.cubeInv.cantidad(i) > 0) : []);
-    $('invLista').innerHTML = l.length ? l.map(img => {
-      const n = Math.min(window.cubeInv.cantidad(img), window.cubeInv.MAX || 3), r = rareza(img);
-      return `<div class="inv-fila" data-id="${esc(img)}">
-        <div class="inv-cov" data-id="${esc(img)}"><img src="${src(img)}" alt="${esc(titulo(img))}" loading="lazy"></div>
-        <div class="inv-info"><p class="inv-tit">${esc(titulo(img))}</p><div class="inv-tags"><span class="rareza ${r}">${NOM[r]}</span><span class="inv-x">x${n}</span></div></div>
-        <div class="inv-acc">
-          <button class="inv-btn" type="button" data-k="lista" aria-label="Agregar a una lista">${ICO_LISTA}</button>
-          <button class="inv-btn${esFav(img) ? ' on' : ''}" type="button" data-k="fav" aria-label="Favorita" aria-pressed="${esFav(img)}">${ICO_FAV}</button>
-        </div>
-      </div>`;
-    }).join('') : '<p class="cw-vacio">Aún no tienes historias en tu inventario.</p>';
-  }
-  $('invLista').addEventListener('click', e => {
-    const b = e.target.closest('.inv-btn'); if (!b) return;
-    const img = b.closest('.inv-fila').dataset.id, u = window.usuario();
-    if (!u) return aviso('Inicia sesión para usar esta opción.');
-    if (b.dataset.k === 'fav') {
-      const fav = esFav(img);
-      u.favoritos = (u.favoritos || []).filter(f => f && f.img !== img);
-      if (!fav) u.favoritos.push({ img, alt: titulo(img) });
-      window.guardarUsuario ? window.guardarUsuario(u) : localStorage.setItem('cube_sesion_activa', JSON.stringify(u));
-      b.classList.toggle('on', !fav); b.setAttribute('aria-pressed', String(!fav));
-      aviso(fav ? `“${titulo(img)}” salió de tus favoritos.` : `“${titulo(img)}” está en tus favoritos.`);
-    } else {
-      if (window.cubeListas) window.cubeListas.guardar(img); else aviso('Las listas no están disponibles.');
-    }
-  });
-
-  // ---- Colección ----
-  function pintarCol() {
-    const tengo = new Set(leerCol());
-    const l = ordenar(cat().filter(p => (!p.pronto && !p.v) || EXTRA_COL.includes(p.img)).map(p => p.img));
-    $('colGrid').innerHTML = l.map(img => {
-      const ok = tengo.has(img), r = rareza(img);
-      return `<button class="col-t${ok ? ' ok' : ''}" type="button" data-id="${esc(img)}" aria-label="${esc(titulo(img))}, ${NOM[r]}${ok ? ', en tu colección' : ''}">
-        <span class="col-box">${ok ? `<img src="${src(img)}" alt="" loading="lazy"><span class="col-ok">${ICO_OK}</span>` : ICO_MAS}</span>
-        <span class="col-n">${esc(titulo(img))}</span><span class="col-r">${NOM[r]}</span></button>`;
-    }).join('');
-  }
-  $('colGrid').addEventListener('click', e => {
-    const t = e.target.closest('.col-t'); if (!t || t.classList.contains('ok')) return;   // las ya coleccionadas abren su ficha
-    const img = t.dataset.id;
-    if (!window.usuario()) return aviso('Inicia sesión para armar tu colección.');
-    if (window.cubeInv && window.cubeInv.cantidad(img) > 0) {
-      const a = leerCol(); if (!a.includes(img)) a.push(img); guardarCol(a);
-      pintarCol();
-      const n = $('colGrid').querySelector(`.col-t[data-id="${CSS.escape(img)}"]`); if (n) n.classList.add('pop');
-      aviso(`“${titulo(img)}” se agregó a tu colección.`);
-    } else aviso(`Te falta “${titulo(img)}” (${FEM[rareza(img)]})`);
-  });
-
-  // ---- Pestañas y apertura ----
-  const fold = $('invFold');
-  const TB = { inv: [$('tabInv'), $('paneInv')], col: [$('tabCol'), $('paneCol')] };
-  function irTab(n, enfocar) {
-    fold.dataset.tab = n;
-    Object.keys(TB).forEach(k => { const on = k === n; TB[k][0].setAttribute('aria-selected', on ? 'true' : 'false'); TB[k][0].tabIndex = on ? 0 : -1; TB[k][1].hidden = !on; });
-    if (n === 'col') pintarCol(); else pintarInv();
-    if (enfocar) TB[n][0].focus();
-  }
-  $('tabInv').onclick = () => irTab('inv');
-  $('tabCol').onclick = () => irTab('col');
-  fold.querySelector('.fold-tabs').addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') { e.preventDefault(); irTab('col', true); }
-    else if (e.key === 'ArrowLeft') { e.preventDefault(); irTab('inv', true); }
-  });
-  function abrir(tab) {
-    cerrarModales();
-    body.classList.add('en-inventario');
-    activarItemNav('navHome');
-    irTab(tab || 'inv');
-    window.scrollTo(0, 0);
-  }
-  window.cubeAbrirInventario = abrir;
-  $('navHome').onclick = () => abrir('inv');
-  ['navBuscar', 'navPerfil', 'btnPerfilTop'].forEach(id => $(id).addEventListener('click', () => body.classList.remove('en-inventario')));
-  // El trofeo de arriba (Colección) abre la pestaña Colección
-  window.addEventListener('cube-wallet-accion', e => { if (e.detail && e.detail.accion === 'edicion-coleccionista') { e.preventDefault(); abrir('col'); } });
-  const refrescar = () => { if (body.classList.contains('en-inventario')) (fold.dataset.tab === 'col' ? pintarCol : pintarInv)(); };
-  window.addEventListener('cube:inventario', refrescar);
-  window.addEventListener('cube:usuario-listo', refrescar);
 })();
 </script>
 
@@ -2066,20 +1816,6 @@ window.cubeAbrirProfit = window.cubeAbrirObtener = function () { location.href =
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="cube-supabase.js"></script>
 <script>
-(function () {
-  const T = window.cubeTema, nota = document.getElementById('temaNota');
-  const botones = Array.from(document.querySelectorAll('.tema-opts button'));
-  function pintar() {
-    const p = T ? T.get() : 'light';
-    botones.forEach(b => b.setAttribute('aria-checked', b.dataset.tema === p ? 'true' : 'false'));
-    nota.textContent = p === 'live' ? 'Claro de día y oscuro de noche (ahora: ' + (T.efectivo(p) === 'dark' ? 'oscuro' : 'claro') + ').' : '';
-  }
-  botones.forEach(b => { b.onclick = () => { if (T) T.set(b.dataset.tema); pintar(); }; });
-  window.addEventListener('cube:tema', pintar);
-  pintar();
-})();
-</script>
-<script>
 window.addEventListener('cube-wallet-accion', function (e) {
   if (e.detail && e.detail.accion === 'lotes') {
     e.preventDefault();               // evita el aviso "Próximamente"
@@ -2201,7 +1937,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     cont.hidden = true;
     $('listaGrilla').hidden = false;
     $('listaGrilla').innerHTML = l.items.map(f => window.card(cat().find(p => p.img === f.img) || { img: f.img, alt: titulo(f.img) })).join('');
-    $('listaVacia').textContent = 'Esta lista está vacía. Agrega historias desde tu inventario.';
+    $('listaVacia').textContent = 'Esta lista está vacía.';
     $('listaVacia').hidden = l.items.length > 0;
     mostrarBase();
   }
@@ -2267,7 +2003,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const ICO_AL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>';
   const av = f => (f && /^(data:image|https?:)/.test(f)) ? `<img src="${esc(f)}" alt="">` : ICO_P;
   const nombre = r => '@' + String(r.username || '').replace(/^@/, '');
-  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico'];
+  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico'];
   const OTRAS = VISTAS.filter(v => v !== 'en-enviar' && v !== 'en-transf');
 
   function mostrar(clase) {
@@ -2668,13 +2404,13 @@ window.addEventListener('cube-wallet-accion', function (e) {
 <script src="cube-push.js"></script>
 
 <script>
-/* ===== Ventas · Caridad · Inversiones · Compra · navegación ===== */
+/* ===== Ventas · Caridad · Inversiones · navegación ===== */
 (function () {
   const $ = id => document.getElementById(id), body = document.body;
   const aviso = t => window.cubeAviso ? window.cubeAviso(t) : alert(t);
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fm = n => Number(n || 0).toLocaleString('es-AR', { maximumFractionDigits: 2 });
-  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico'];
+  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico'];
   const user = () => window.usuario && window.usuario();
   function mostrar(c) {
     body.classList.remove(...VISTAS); body.classList.add(c);
@@ -2694,11 +2430,10 @@ window.addEventListener('cube-wallet-accion', function (e) {
   // ---------- Accesos ----------
   window.addEventListener('cube-wallet-accion', e => {
     const a = e.detail && e.detail.accion;
-    const mapa = { ventas: ['en-ventas', pintarVentas], caridad: ['en-caridad', abrirCaridad], invertir: ['en-invertir', () => window.cubeInvCargar && window.cubeInvCargar()], comprar: ['en-compra', pintarEmpresas] };
+    const mapa = { ventas: ['en-ventas', pintarVentas], caridad: ['en-caridad', abrirCaridad], invertir: ['en-invertir', () => window.cubeInvCargar && window.cubeInvCargar()] };
     if (!mapa[a]) return;
     e.preventDefault(); mostrar(mapa[a][0]); mapa[a][1]();
   });
-  document.querySelectorAll('#perfilModal [data-a="edicion-coleccionista"]').forEach(b => b.addEventListener('click', () => body.classList.remove('perfil-abierto')));
   $('navBuscar').onclick = () => aviso('El ránking llegará pronto.');
   const tit = $('enTit');
   $('campoAlias').addEventListener('input', e => { tit.textContent = e.target.value.trim() ? 'Resultados' : 'Recientes'; });
@@ -2779,215 +2514,6 @@ window.addEventListener('cube-wallet-accion', function (e) {
     };
   }
 
-  // ---------- COMPRA: empresas reales de usuarios (tabla "empresas", ver cube-empresas.sql) ----------
-  const COL = ['#2E9E00', '#F59E0B', '#3B82F6', '#8B5CF6', '#E5484D', '#0EA5A5', '#171917'];
-  const hash = t => { let h = 2166136261; for (const ch of String(t)) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
-  const hoy = () => new Date().toLocaleDateString('sv-SE');
-  const fmV = n => Math.abs(n) >= 1e6 ? (n / 1e6).toFixed(2).replace('.', ',') + ' M' : fm(Math.round(n));
-  const filaEmp = e => {
-    const v = e.ventas_semana_ant > 0 ? (e.ventas_semana / e.ventas_semana_ant - 1) * 100 : null, g = Number(e.ganancia_mes || 0);
-    return `<div class="emp-r">${window.cubeLogo(e, 46)}<div class="tx"><b>${esc(e.nombre)}</b><small>${esc(e.sector || 'Empresa')} · @${esc(e.username || '')}</small>
-    <div class="chips-m">${v === null ? '' : `<span class="chip ${v >= 0 ? 'up' : 'dn'}">Ventas ${v >= 0 ? '▲' : '▼'} ${Math.abs(v).toFixed(1).replace('.', ',')}%</span>`}<span class="chip ${g < 0 ? 'dn' : ''}">${g < 0 ? 'Pérdida' : 'Ganancia'} $${fmV(Math.abs(g))}/mes</span>${v !== null && v > 12 ? '<span class="chip up">En alza</span>' : v !== null && v < -8 ? '<span class="chip dn">En caída</span>' : ''}</div></div>
-    <div class="va">$${fmV(Number(e.valor || 0))}<small>valor de la empresa</small></div></div>`;
-  };
-  let secE = 0;
-  async function pintarEmpresas() {
-    const L = $('empLista'), q = $('campoEmp').value.trim().replace(/^@/, ''), n = ++secE;
-    const vacio = t => { L.innerHTML = `<p class="en-vacio" style="text-align:left;padding:0">${t}</p>`; };
-    $('empTit').textContent = q ? 'Resultados' : 'Destacados de hoy';
-    if (!window.cubeDb) return vacio('Inicia sesión para ver las empresas.');
-    const { data, error } = await window.cubeDb.rpc('compra_empresas', { p_q: q || null });
-    if (n !== secE) return;
-    if (error) return vacio('Las empresas aún no están disponibles.');
-    let lista = data || [];
-    if (!q) { const d = hoy(); lista = lista.slice().sort((a, b) => hash(a.id + d) - hash(b.id + d)).slice(0, 10); }   // 10 distintas cada día, iguales para todos
-    if (!lista.length) return vacio(q ? 'No encontramos esa empresa.' : 'Aún no hay empresas de usuarios para mostrar.');
-    L.innerHTML = lista.map(filaEmp).join('');
-  }
-  let tE = null;
-  $('campoEmp').addEventListener('input', () => { clearTimeout(tE); tE = setTimeout(pintarEmpresas, 280); });
-  $('btnLupaEmp').onclick = () => { pintarEmpresas(); $('campoEmp').blur(); };
-  window.addEventListener('cube:usuario-listo', () => { if (body.classList.contains('en-compra')) pintarEmpresas(); });
-})();
-
-</script>
-<script>
-/* ===== EMPRESA: crear, personalizar y gestionar ===== */
-(function () {
-  const $ = id => document.getElementById(id), body = document.body, db = () => window.cubeDb, user = () => window.usuario && window.usuario();
-  const aviso = t => window.cubeAviso ? window.cubeAviso(t) : alert(t);
-  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const fm = n => Number(n || 0).toLocaleString('es-AR', { maximumFractionDigits: 2 });
-  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico'];
-  const SECT = ['Tecnología', 'Gastronomía', 'Moda', 'Videojuegos', 'Salud', 'Educación', 'Entretenimiento', 'Energía'];
-  const COL = ['#C6FF00', '#2E9E00', '#3B82F6', '#8B5CF6', '#E5484D', '#F59E0B', '#0EA5A5', '#171917'];
-  const EMO = ['🚀', '🍔', '👕', '🎮', '💊', '📚', '🎬', '⚡', '🌱', '🎵'];
-  const MSG = { SALDO_INSUFICIENTE: 'No tienes créditos suficientes.', CAJA_INSUFICIENTE: 'La caja de tu empresa no alcanza.', NOMBRE_INVALIDO: 'El nombre debe tener entre 3 y 24 caracteres.', NOMBRE_EN_USO: 'Ese nombre ya está en uso.', YA_TIENES: 'Ya tienes una empresa.', EN_ESPERA: 'Esta actividad aún está en espera.', EQUIPO_LLENO: 'Tu equipo está al máximo para este nivel. Sube de nivel investigando.', LOGO_GRANDE: 'El logo es demasiado pesado.', MONTO_INVALIDO: 'Monto inválido.' };
-  const msg = e => { const m = (e && e.message) || ''; if (e && (e.code === 'PGRST202' || /does not exist|schema cache/i.test(m))) return 'El sistema de empresas aún no está habilitado (falta ejecutar cube-empresas.sql).'; for (const k in MSG) if (m.includes(k)) return MSG[k]; return 'No se pudo completar la acción.'; };
-  const lum = h => { const n = parseInt(String(h).slice(1), 16) || 0; return (.299 * (n >> 16) + .587 * (n >> 8 & 255) + .114 * (n & 255)) / 255; };
-
-  function mostrar(c) {
-    body.classList.remove(...VISTAS); body.classList.add(c);
-    if (typeof detenerAuto === 'function') detenerAuto();
-    activarItemNav(null); window.scrollTo(0, 0);
-  }
-
-  // Logo: imagen subida, emoji o inicial sobre el color de marca
-  window.cubeLogo = (e, sz, bg) => {
-    sz = sz || 46; const col = e.color || COL[0], fg = lum(col) > .6 ? '#0A0A0A' : '#fff', l = String(e.logo || ''); let dentro;
-    if (l.startsWith('data:image')) dentro = `<img src="${esc(l)}" alt="" style="width:100%;height:100%;object-fit:cover">`;
-    else if (l.startsWith('e:')) dentro = `<span style="font-size:${Math.round(sz * .5)}px;line-height:1">${esc(l.slice(2))}</span>`;
-    else dentro = esc(String(e.nombre || '?').charAt(0).toUpperCase());
-    return `<span class="emp-av" style="flex:none;width:${sz}px;height:${sz}px;border-radius:${Math.round(sz * .3)}px;overflow:hidden;background:${bg || col};color:${fg};font-size:${Math.round(sz * .42)}px">${dentro}</span>`;
-  };
-  const tarjeta = (e, extra) => {
-    const col = e.color || COL[0], fg = lum(col) > .6 ? '#0A0A0A' : '#fff', velo = fg === '#fff' ? 'rgba(255,255,255,.22)' : 'rgba(0,0,0,.12)';
-    return `<div class="emp-hd" style="background:${col};color:${fg}">${window.cubeLogo(e, 64, velo)}<div class="eh-tx"><b>${esc(e.nombre || 'Tu empresa')}</b><small>${esc(e.eslogan || 'Tu eslogan aquí')}</small><span class="eh-chip" style="background:${velo}">${esc(e.sector || '')}${e.nivel ? ' · Nivel ' + e.nivel : ''}</span></div>${extra || ''}</div>`;
-  };
-
-  // Hoja modal
-  const sh = document.createElement('div');
-  sh.className = 'v-sheet'; sh.hidden = true;
-  sh.innerHTML = '<div class="v-card" role="dialog" aria-modal="true"><div id="eqCuerpo"></div></div>';
-  body.appendChild(sh);
-  const cerrar = () => { sh.hidden = true; };
-  sh.addEventListener('click', e => { if (e.target === sh) cerrar(); });
-  const hoja = h => { $('eqCuerpo').innerHTML = h; sh.hidden = false; };
-
-  // Selectores de color y logo (compartidos entre crear y editar)
-  const selectores = f => `<p class="cp-l">Color de marca</p><div class="cp-sw">${COL.map(c => `<button type="button" class="${c === f.color ? 'on' : ''}" data-c="${c}" style="background:${c}" aria-label="Color ${c}"></button>`).join('')}</div>
-    <p class="cp-l">Logo</p><div class="cp-emo">${EMO.map(x => `<button type="button" class="${f.logo === 'e:' + x ? 'on' : ''}" data-e="${x}">${x}</button>`).join('')}<button type="button" class="${!f.logo ? 'on' : ''}" data-e="">Aa</button><button type="button" class="cp-up ${String(f.logo || '').startsWith('data:') ? 'on' : ''}" data-up="1">Subir imagen</button></div><input type="file" accept="image/*" data-file="1" hidden>`;
-  const reducir = file => new Promise((ok, ko) => {
-    const im = new Image(), u = URL.createObjectURL(file);
-    im.onload = () => { const c = document.createElement('canvas'); c.width = c.height = 192; const s = Math.min(im.width, im.height); c.getContext('2d').drawImage(im, (im.width - s) / 2, (im.height - s) / 2, s, s, 0, 0, 192, 192); URL.revokeObjectURL(u); ok(c.toDataURL('image/webp', .82)); };
-    im.onerror = ko; im.src = u;
-  });
-  function ligar(root, f, cambio) {
-    root.querySelectorAll('[data-c]').forEach(b => b.onclick = () => { f.color = b.dataset.c; cambio(); });
-    root.querySelectorAll('[data-e]').forEach(b => b.onclick = () => { f.logo = b.dataset.e ? 'e:' + b.dataset.e : null; cambio(); });
-    const inp = root.querySelector('[data-file]');
-    root.querySelector('[data-up]').onclick = () => inp.click();
-    inp.onchange = async () => { const x = inp.files[0]; inp.value = ''; if (!x) return; try { f.logo = await reducir(x); cambio(); } catch (e) { aviso('No se pudo leer la imagen.'); } };
-  }
-  const creditos = d => { if (window.cubeAjusteDia) window.cubeAjusteDia(d); if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos(); };
-
-  // ---------- Carga ----------
-  async function cargar() {
-    const R = $('empRoot');
-    if (!user() || !db()) { R.innerHTML = '<p class="en-vacio" style="text-align:left;padding:0">Inicia sesión para crear tu empresa.</p>'; return; }
-    R.innerHTML = '<p class="cw-vacio">Cargando…</p>';
-    const { data, error } = await db().rpc('emp_estado');
-    if (error) { R.innerHTML = `<p class="en-vacio" style="text-align:left;padding:0">${esc(msg(error))}</p>`; return; }
-    if (!data) pintarCrear(); else pintarPanel(data);
-    cargarComunidad();
-  }
-  async function cargarComunidad() {
-    const { data } = await db().rpc('compra_empresas', { p_q: null });
-    const l = (data || []).slice(0, 8);
-    $('empRoot').insertAdjacentHTML('beforeend', `<h2 class="pg-h">Empresas de la comunidad</h2>` + (l.length ? l.map(e => `<div class="emp-r">${window.cubeLogo(e, 44)}<div class="tx"><b>${esc(e.nombre)}</b><small>${esc(e.sector || 'Empresa')} · @${esc(e.username || '')} · Nivel ${e.nivel}</small></div><div class="va">$${fm(e.valor)}<small>valor</small></div></div>`).join('') : '<p class="en-vacio" style="text-align:left;padding:0">Aún no hay otras empresas. ¡Sé la primera!</p>'));
-  }
-
-  // ---------- Crear ----------
-  function pintarCrear() {
-    const f = { nombre: '', sector: SECT[0], eslogan: '', color: COL[0], logo: 'e:🚀' };
-    $('empRoot').innerHTML = `<div id="cpPrev"></div>
-      <p class="cp-l">Nombre de la empresa</p><input class="cp-in" id="cpNom" maxlength="24" placeholder="Ej: Nova Studio" autocomplete="off">
-      <p class="cp-l">Sector</p><div class="cp-chips" id="cpSec">${SECT.map((s, i) => `<button type="button" class="${i ? '' : 'on'}" data-s="${s}">${s}</button>`).join('')}</div>
-      <p class="cp-l">Eslogan</p><input class="cp-in" id="cpEsl" maxlength="60" placeholder="Una frase que te represente" autocomplete="off">
-      <div id="cpSel"></div>
-      <p class="pg-s" style="margin-top:18px">Fundar tu empresa cuesta $100 créditos, que se convierten en el capital inicial de tu caja.</p>
-      <button class="cp-go" id="cpGo" type="button">Fundar empresa</button>`;
-    const prev = () => { $('cpPrev').innerHTML = tarjeta(f); };
-    const sel = () => { $('cpSel').innerHTML = selectores(f); ligar($('cpSel'), f, () => { sel(); prev(); }); };
-    $('cpNom').oninput = e => { f.nombre = e.target.value; prev(); };
-    $('cpEsl').oninput = e => { f.eslogan = e.target.value; prev(); };
-    $('cpSec').querySelectorAll('[data-s]').forEach(b => b.onclick = () => { f.sector = b.dataset.s; $('cpSec').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); prev(); });
-    prev(); sel();
-    $('cpGo').onclick = async () => {
-      const n = f.nombre.trim();
-      if (n.length < 3) return aviso(MSG.NOMBRE_INVALIDO);
-      if ((window.cubeSaldo || 0) < 100) return aviso('Necesitas $100 créditos para fundar tu empresa.');
-      if (!confirm(`¿Fundar ${n} por $100 créditos?`)) return;
-      $('cpGo').disabled = true;
-      const { error } = await db().rpc('emp_crear', { p_nombre: n, p_sector: f.sector, p_eslogan: f.eslogan.trim(), p_color: f.color, p_logo: f.logo });
-      $('cpGo').disabled = false;
-      if (error) return aviso(msg(error));
-      creditos(-100); aviso('¡Empresa fundada!'); cargar();
-    };
-  }
-
-  // ---------- Panel ----------
-  const ACT = [
-    { id: 'marketing', n: 'Campaña de marketing', d: '+35 % de ventas durante 3 días y más reputación.', c: e => 30 * e.nivel, i: '<path d="M3 11v2a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1Z"/><path d="M17 9a4 4 0 0 1 0 6"/>' },
-    { id: 'contratar', n: 'Contratar empleado', d: 'Más equipo, más ventas diarias (cada empleado cuesta $4 al día).', c: e => 60 * e.empleados, i: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M19 8v6M16 11h6"/>' },
-    { id: 'investigar', n: 'Investigación y desarrollo', d: 'Sube tu tecnología; cada 3 puntos subes de nivel.', c: e => 80 * (e.tecnologia + 1), i: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/>' },
-    { id: 'evento', n: 'Evento y patrocinio', d: 'Gana reputación. 20 % de probabilidad de que salga mal.', c: e => 50 * e.nivel, i: '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9Z"/>' }
-  ];
-  const espera = h => { const ms = new Date(h) - Date.now(); if (ms <= 0) return null; const m = Math.ceil(ms / 6e4); return m >= 60 ? Math.ceil(m / 60) + ' h' : m + ' min'; };
-  const barras = dias => {
-    if (!dias.length) return '<p class="en-vacio" style="padding:10px 0;text-align:left">Tus ventas aparecerán desde mañana.</p>';
-    const mx = Math.max(...dias.map(d => Number(d.ventas)), 1), w = 280, h = 70, n = dias.length, bw = w / n;
-    return `<svg viewBox="0 0 ${w} ${h}" class="emp-bars" preserveAspectRatio="none">${dias.map((d, i) => { const bh = Math.max(2, Number(d.ventas) / mx * (h - 4)); return `<rect x="${(i * bw + 2).toFixed(1)}" y="${(h - bh).toFixed(1)}" width="${(bw - 4).toFixed(1)}" height="${bh.toFixed(1)}" rx="3" fill="currentColor" opacity="${i === n - 1 ? 1 : .4}"/>`; }).join('')}</svg>`;
-  };
-  const kpi = (t, v, p, s) => `<div class="kpi"><small>${t}</small><b>${v}</b>${p == null ? '' : `<span class="bar"><i style="width:${Math.max(0, Math.min(100, p))}%"></i></span>`}<small>${s || ''}</small></div>`;
-  function pintarPanel(d) {
-    const e = d.empresa, dias = d.dias || [], cool = d.cool || {}, movs = d.movs || [], v7 = Number(e.ventas_semana), va = Number(e.ventas_semana_ant);
-    const cam = va > 0 ? (v7 / va - 1) * 100 : null, gan = Number(e.ganancia_mes), maxEq = 5 * e.nivel;
-    $('empRoot').innerHTML = `${tarjeta(e, '<button class="eh-edit" id="empEdit" type="button" aria-label="Personalizar empresa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>')}
-      <div class="emp-card"><small>Valor de la empresa</small><div class="emp-val">$${fm(e.valor)}</div>
-        <div class="chips-m"><span class="chip">Caja $${fm(e.caja)}</span>${cam === null ? '' : `<span class="chip ${cam >= 0 ? 'up' : 'dn'}">Ventas ${cam >= 0 ? '▲' : '▼'} ${Math.abs(cam).toFixed(1).replace('.', ',')}%</span>`}<span class="chip ${gan < 0 ? 'dn' : ''}">${gan < 0 ? 'Pérdida' : 'Ganancia'} $${fm(Math.abs(gan))}/mes</span></div>
-        <p class="cp-l" style="margin-top:14px">Ventas de los últimos días</p>${barras(dias)}</div>
-      <div class="kpis">${kpi('Empleados', e.empleados + ' / ' + maxEq, e.empleados / maxEq * 100, 'Capacidad de tu nivel')}${kpi('Reputación', e.reputacion + ' / 100', e.reputacion, e.reputacion >= 70 ? 'Excelente' : e.reputacion >= 40 ? 'Buena' : 'Baja')}${kpi('Tecnología', e.tecnologia, (e.tecnologia % 3) / 3 * 100, (3 - e.tecnologia % 3) + ' para el nivel ' + Math.min(10, e.nivel + 1))}${kpi('Nivel', e.nivel + ' / 10', e.nivel * 10, e.marketing_hasta && new Date(e.marketing_hasta) > new Date() ? 'Marketing activo' : 'Sin campañas')}</div>
-      <div class="emp-acc"><button class="pg-btn" id="empAp" type="button">Aportar a la caja</button><button class="pg-btn" id="empRe" type="button">Retirar ganancias</button></div>
-      <h2 class="pg-h">Actividades</h2>
-      ${ACT.map(a => { const w = cool[a.id] ? espera(cool[a.id]) : null, c = a.c(e); return `<div class="fila-r act"><span class="ch-logo" style="background:var(--oscuro);color:var(--verde)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${a.i}</svg></span><div class="tx"><b>${a.n}</b><small>${a.d}</small></div><button class="act-b" data-act="${a.id}" type="button" ${w ? 'disabled' : ''}>${w ? 'En espera · ' + w : '$' + fm(c)}</button></div>`; }).join('')}
-      <h2 class="pg-h">Actividad reciente</h2>
-      ${movs.length ? movs.map(m => `<div class="mov"><span>${esc(m.titulo)} · ${new Date(m.creado).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' })}</span><b class="${m.monto < 0 ? 'dn-t' : 'up-t'}">${m.monto < 0 ? '−' : '+'}$${fm(Math.abs(m.monto))}</b></div>`).join('') : '<p class="en-vacio" style="text-align:left;padding:0">Sin movimientos todavía.</p>'}`;
-    $('empEdit').onclick = () => editar(e);
-    $('empAp').onclick = () => caja('aportar', e);
-    $('empRe').onclick = () => caja('retirar', e);
-    $('empRoot').querySelectorAll('[data-act]').forEach(b => b.onclick = async () => {
-      b.disabled = true;
-      const { data, error } = await db().rpc('emp_actividad', { p_tipo: b.dataset.act });
-      if (error) { aviso(msg(error)); b.disabled = false; return; }
-      aviso(data || 'Actividad realizada.'); cargar();
-    });
-  }
-  function caja(dir, e) {
-    const ap = dir === 'aportar';
-    hoja(`<p class="v-card-t" style="margin-top:6px">${ap ? 'Aportar a la caja' : 'Retirar ganancias'}</p>
-      <p class="v-nota" style="margin:8px 2px">${ap ? 'Tus créditos disponibles: $' + fm(window.cubeSaldo || 0) : 'Caja de la empresa: $' + fm(e.caja) + '. Se cobra una comisión del 5 %.'}</p>
-      <input class="ls-input" id="cjMonto" type="number" inputmode="decimal" min="1" placeholder="Monto en créditos">
-      <p class="v-nota" id="cjErr" style="min-height:2.4em;margin:6px 2px 8px"></p>
-      <div class="v-acc"><button class="b-sec" id="cjNo" type="button">Cancelar</button><button class="b-pri" id="cjSi" type="button">${ap ? 'Aportar' : 'Retirar'}</button></div>`);
-    $('cjNo').onclick = cerrar;
-    $('cjSi').onclick = async () => {
-      const x = parseFloat($('cjMonto').value);
-      if (!(x > 0)) { $('cjErr').textContent = MSG.MONTO_INVALIDO; return; }
-      $('cjSi').disabled = true;
-      const { error } = await db().rpc('emp_caja', { p_monto: x, p_dir: dir });
-      $('cjSi').disabled = false;
-      if (error) { $('cjErr').textContent = msg(error); return; }
-      cerrar(); creditos(ap ? -x : x * .95); aviso(ap ? 'Aporte realizado.' : 'Retiro realizado.'); cargar();
-    };
-  }
-  function editar(e) {
-    const f = { eslogan: e.eslogan || '', color: e.color || COL[0], logo: e.logo || null };
-    hoja(`<p class="v-card-t" style="margin-top:6px">Personalizar empresa</p><div id="edPrev" style="margin:10px 0"></div>
-      <p class="cp-l">Eslogan</p><input class="cp-in" id="edEsl" maxlength="60" value="${esc(f.eslogan)}" autocomplete="off"><div id="edSel"></div>
-      <div class="v-acc" style="margin-top:14px"><button class="b-sec" id="edNo" type="button">Cancelar</button><button class="b-pri" id="edSi" type="button">Guardar</button></div>`);
-    const prev = () => { $('edPrev').innerHTML = tarjeta({ ...e, ...f }); };
-    const sel = () => { $('edSel').innerHTML = selectores(f); ligar($('edSel'), f, () => { sel(); prev(); }); };
-    $('edEsl').oninput = ev => { f.eslogan = ev.target.value; prev(); };
-    prev(); sel(); $('edNo').onclick = cerrar;
-    $('edSi').onclick = async () => {
-      const { error } = await db().rpc('emp_actualizar', { p_eslogan: f.eslogan.trim(), p_color: f.color, p_logo: f.logo });
-      if (error) return aviso(msg(error));
-      cerrar(); aviso('Empresa actualizada.'); cargar();
-    };
-  }
-
-  $('navOrbe').onclick = () => { mostrar('en-empresa'); cargar(); };
 })();
 
 </script>
@@ -3099,7 +2625,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   $('btnPerfilG').onclick = () => abrirPerfilDesdeBoton();
 
   /* --- Onda al tocar cualquier botón --- */
-  const SEL = '.circ,.bottom-nav-item,.perfil-opcion,.pg-btn,.b-pri,.b-sec,.tr-btn,.top-ico,.perfil-pill,.emp,.inv-card,.act-b,.cp-go,.ch-card,.bs-lupa,.en-fila,.pausa,.ojo,#gRng button';
+  const SEL = '.circ,.bottom-nav-item,.perfil-opcion,.pg-btn,.b-pri,.b-sec,.tr-btn,.top-ico,.perfil-pill,.emp,.inv-card,.ch-card,.bs-lupa,.en-fila,.pausa,.ojo,#gRng button';
   document.addEventListener('pointerdown', e => {
     const t = e.target.closest(SEL); if (!t || t.disabled) return;
     const h = t.classList.contains('circ') ? t.querySelector('.circ-ico') : t; if (!h) return;
