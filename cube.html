@@ -760,6 +760,12 @@ body.alarma .ops-seg i.on{background:var(--grad)}
 body.alarma .op-opt.on{background:#2e1212}
 body.alarma .nav-pill .bottom-nav-item.activo{color:#ff6b6b}
 @media (prefers-reduced-motion:reduce){#alarmaBar,#alarmaVig{animation:none}}
+/* Punto rojo en la palomita (operaciones nuevas) */
+#navOrbe{position:relative}
+.punto-n.punto-ops{top:calc(50% - 17px);right:auto;left:calc(50% + 7px)}
+body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
+#alarmaBar button.rezar{background:rgba(255,255,255,.2)}
+#alarmaBar button:disabled{opacity:.6}
 </style>
 </head>
 <body>
@@ -1107,13 +1113,13 @@ body.alarma .nav-pill .bottom-nav-item.activo{color:#ff6b6b}
   <button class="bottom-nav-item" id="navPerfil" aria-label="Perfil"><span class="nav-foto" id="navFoto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span></button>
   <div class="nav-pill">
     <button class="bottom-nav-item" id="navHome" aria-label="Colección"><svg viewBox="0 0 24 24" fill="currentColor"><g transform="rotate(-35 12 12)"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></g></svg></button>
-    <button class="bottom-nav-item" id="navOrbe" aria-label="Próximamente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5L19.5 7"/></svg></button>
+    <button class="bottom-nav-item" id="navOrbe" aria-label="Operaciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5L19.5 7"/></svg></button>
   </div>
   <button id="navBuscar" hidden aria-hidden="true"></button>
 </nav>
 
 <div id="alarmaVig" aria-hidden="true"></div>
-<div id="alarmaBar" role="alert"><span id="alarmaTxt">Alerta · caída de la sagrada continuidad</span><button id="alarmaMute" type="button">Silenciar</button></div>
+<div id="alarmaBar" role="alert"><span id="alarmaTxt">Alerta · caída de la sagrada continuidad</span><button id="alarmaPagar" type="button">Estabilizar</button></div>
 <div id="pausaVeil" hidden role="dialog" aria-label="Pausado"><button type="button" aria-label="Reanudar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><p>Pausado · toca para reanudar</p></div>
 
 <!-- ================= CUENTA / SESIÓN / NAVEGACIÓN ================= -->
@@ -2687,7 +2693,8 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) * 1.15;
   /* --- Motor: presión (impulsos), rendimiento, caída sostenida, alarma --- */
   let presion = 0, caidaMs = 0, calma = 0, nivelCast = 0, alarma = false, silencio = false, ac = null, sirena = null;
-  const paso = () => { v += (BASE - v) * .012 + gauss() * 1.8 + (Math.random() < .03 ? gauss() * 6 : 0) + presion; presion *= .97; if (Math.abs(presion) < .05) presion = 0; return v; };
+  let deriva = 0, costoAlarma = 1000, rezos = 0, pagando = false;   // deriva: tendencia lenta que dejan las noticias
+  const paso = () => { v += (BASE + deriva - v) * .012 + gauss() * 1.8 + (Math.random() < .03 ? gauss() * 6 : 0) + presion; presion *= .97; if (Math.abs(presion) < .05) presion = 0; return v; };
   const sis = o => { try { if (window.cubeOps) window.cubeOps.sistema(o); } catch (e) {} };
   const miles = n => Math.round(n).toLocaleString('es-AR');
   function desbloquear() { try { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); } catch (e) {} }
@@ -2711,16 +2718,18 @@ window.addEventListener('cube-wallet-accion', function (e) {
   }
   function alarmaOn() {
     alarma = true; body.classList.add('alarma'); sirenaOn();
+    costoAlarma = [1000, 2000, 3000][Math.floor(Math.random() * 3)]; rezos = 0; pintarAlarmaBtn();
     try { if (navigator.vibrate) navigator.vibrate([300, 150, 300]); } catch (e) {}
     sis({ tipo: 'alerta', efecto: 'down', titulo: 'ALERTA: La Sagrada Continuidad se desploma', cuerpo: 'La gráfica lleva más de 5 segundos en caída. Cube activó el modo alarma y descontará créditos de tu caja, cada vez más, hasta que el mercado se estabilice.' });
   }
-  function alarmaOff() {
+  function alarmaOff(o) {
     alarma = false; body.classList.remove('alarma'); sirenaOff();
-    sis({ tipo: 'recuperacion', efecto: 'up', titulo: 'Cube cancela la alarma: la Sagrada Continuidad se estabiliza', cuerpo: 'La caída se detuvo y la gráfica vuelve a una zona segura. Los descuentos de créditos han cesado.' });
+    sis(o || { tipo: 'recuperacion', efecto: 'up', titulo: 'Cube cancela la alarma: la Sagrada Continuidad se estabiliza', cuerpo: 'La caída se detuvo y la gráfica vuelve a una zona segura. Los descuentos de créditos han cesado.' });
   }
   function motor() {
     const n = serie.length;
-    const y = Math.max(0, v - 995) * .15;
+    deriva *= .997;
+    const y = Math.max(0, v - 994) * .18;   // rendimiento acumulado ~45% más rápido que antes
     if (y > 0 && window.cubeOps) window.cubeOps.rendir(y);
     if (!alarma && presion > -1 && Math.random() < 1 / 4500) presion -= 9 + Math.random() * 3;   // caída espontánea, poco probable
     const baja = presion <= (caidaMs > 0 ? -1.2 : -3) && serie[n - 1] < serie[n - 4] + (caidaMs > 0 ? 2 : 0);
@@ -2747,9 +2756,41 @@ window.addEventListener('cube-wallet-accion', function (e) {
     sis({ tipo: 'mercado', efecto: 'down', titulo: 'Salida de créditos presiona la Sagrada Continuidad', cuerpo: 'Se movieron $' + miles(m) + ' créditos y la gráfica ' + (m >= 5000 ? 'cae con fuerza.' : 'cede terreno.') });
     return s;
   }
-  window.cubeGrafico = { valor: () => v, impulso: n => { presion += Number(n) || 0; }, gasto, enAlarma: () => alarma };
-  const mute = $('alarmaMute');
-  if (mute) mute.onclick = () => { silencio = !silencio; if (silencio) sirenaOff(); else if (alarma && !pausado) sirenaOn(); mute.textContent = silencio ? 'Activar sonido' : 'Silenciar'; };
+  window.cubeGrafico = { valor: () => v, impulso: n => { presion += Number(n) || 0; }, gasto, noticia, enAlarma: () => alarma };
+  /* Noticias → gráfica: favorable crece (y rinde más rápido), neutra se mantiene, desfavorable baja un poco */
+  function noticia(tipo) {
+    const r = (a, b) => a + Math.random() * (b - a);
+    const T = { correcta: [r(2.6, 3.8), r(12, 18)], riesgo_gana: [r(4, 5.5), r(20, 28)], neutra: [0, 0], incorrecta: [-r(1.2, 2.2), -r(4, 7)], riesgo_pierde: [-r(3.5, 5), -r(8, 12)] }[tipo] || [0, 0];
+    presion += T[0]; deriva = Math.max(-14, Math.min(40, deriva + T[1]));
+  }
+  /* Alarma: no se silencia. Se estabiliza pagando 1000, 2000 o 3000 créditos... o se reza */
+  const avisoG = t => { if (window.cubeAviso) window.cubeAviso(t); };
+  function pintarAlarmaBtn() {
+    const b = $('alarmaPagar'); if (!b) return;
+    const ok = Number(window.cubeSaldo || 0) >= costoAlarma;
+    b.textContent = ok ? 'Estabilizar · −$' + miles(costoAlarma) : '🙏 Rezar'; b.classList.toggle('rezar', !ok);
+  }
+  setInterval(() => { if (alarma) pintarAlarmaBtn(); }, 1500);
+  function estabilizar(o) { presion = 3; deriva = Math.max(deriva, 4); caidaMs = 0; calma = 0; nivelCast = 0; alarmaOff(o); }
+  const REZOS = ['Rezas en silencio… la gráfica no se inmuta.', 'Prometes portarte bien. No pasa nada.', 'Alzas la mirada al cielo. El cielo no responde.', 'Susurras una plegaria. Solo se oye la sirena.', 'Enciendes una vela imaginaria. La alarma sigue.'];
+  function rezar() {
+    rezos++; presion += .4;
+    if (Math.random() < Math.min(.45, .1 + rezos * .03)) {
+      estabilizar({ tipo: 'recuperacion', efecto: 'up', titulo: 'Un milagro: la Sagrada Continuidad se recupera sola', cuerpo: 'Nadie sabe cómo, pero alguien arriba escuchó. La alarma se apagó sin gastar un solo crédito.' });
+      avisoG('🙏 Tus plegarias fueron escuchadas.');
+    } else avisoG(REZOS[Math.floor(Math.random() * REZOS.length)]);
+  }
+  const pay = $('alarmaPagar');
+  if (pay) pay.onclick = async () => {
+    if (!alarma || pagando || pausado) return;
+    if (Number(window.cubeSaldo || 0) >= costoAlarma && window.cubeOps) {
+      pagando = true; pay.disabled = true; let ok = false;
+      try { ok = await window.cubeOps.pagar(costoAlarma); } catch (e) {}
+      pagando = false; pay.disabled = false;
+      if (ok) estabilizar({ tipo: 'recuperacion', efecto: 'up', titulo: 'Estabilización pagada: Cube cancela la alarma', cuerpo: 'Pagaste $' + miles(costoAlarma) + ' créditos de tu caja y la Sagrada Continuidad volvió a una zona segura.' });
+      else pintarAlarmaBtn();
+    } else rezar();
+  };
   for (let i = 0; i < N0; i++) serie.push(paso());
   const visible = () => body.classList.contains('en-grafico');
   const svg = $('gSvg');
@@ -2851,13 +2892,18 @@ window.addEventListener('cube-wallet-accion', function (e) {
     alianza: '<circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/>',
     banco: '<path d="M3 10 12 4l9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>',
     precio: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/>',
-    check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>'
+    check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+    luna: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>',
+    ojo: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+    rayo: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>',
+    estrella: '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z"/>',
+    hoja: '<path d="M5 20c0-9 5-15 15-16 0 10-6 15-15 16Z"/><path d="M5 20c3-5 6-8 10-10"/>'
   };
   const svg = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
 
   /* ---------- Las 5 operaciones ----------
      p = probabilidades [c]orrecta, [n]eutra, [i]ncorrecta, [r]iesgo; rg = probabilidad de que el riesgo salga bien */
-  const OPS = [
+  const OPS_BASE = [
     { id: 'astra', cat: 'Nuevos contratos', ico: 'contrato', emp: 'Astra Orbital', sector: 'Industria espacial',
       tema: 'su red de satélites',
       ctx: 'Astra Orbital, empresa de lanzamientos espaciales, necesita un socio para poner en órbita 12 satélites de comunicaciones. Hay demanda creciente, pero un solo fallo de cohete cuesta una fortuna. Tienes tres caminos sobre la mesa.',
@@ -2905,6 +2951,131 @@ window.addEventListener('cube-wallet-accion', function (e) {
       ] }
   ];
 
+  /* ---------- Catálogo ampliado: mitad serias, mitad ficticias/absurdas/misteriosas ---------- */
+  const PRF = { seg: { c: .40, n: .48, i: .12, r: 0 }, med: { c: .30, n: .30, i: .30, r: .10 }, rie: { c: .15, n: .10, i: .20, r: .55 }, pas: { c: .10, n: .50, i: .40, r: 0 } };
+  const O = (t, d, pro, con, pk, rg) => ({ t, d, pro, con, p: PRF[pk], rg: rg == null ? .5 : rg });
+  const OPS_EXTRA = [
+    /* — Serias — */
+    { id: 'norte', tipo: 'serio', cat: 'Crisis laborales', ico: 'alerta', emp: 'Norte Logística', sector: 'Transporte de carga', tema: 'la huelga de camioneros',
+      ctx: 'Norte Logística mueve el 30% de la carga refrigerada del país y sus 900 camioneros amenazan con parar en 48 horas. Si los camiones se detienen, miles de toneladas de alimento se echarán a perder. La directiva te pide opinión antes de negociar.',
+      ok: 'El acuerdo llegó a tiempo y la carga volvió a fluir sin pérdidas.', ko: 'La huelga se alargó y la mercancía perecedera se perdió por toneladas.', nt: 'Las negociaciones siguen abiertas y el servicio opera casi con normalidad.',
+      opts: [O('Aceptar el aumento salarial', 'Cedes a lo pedido: +12% de sueldo y mejores turnos.', 'Paz laboral inmediata y una plantilla motivada.', 'Eleva los costos fijos de forma permanente.', 'seg'),
+             O('Contratar transportistas externos', 'Subcontratas las rutas críticas mientras dura el conflicto.', 'Mantienes las entregas sin ceder.', 'Puede encender más la huelga y dañar la reputación.', 'rie', .5),
+             O('Abrir una mesa de diálogo larga', 'Propones meses de negociación con un mediador neutral.', 'Sin gasto inmediato y sin romper relaciones.', 'El plazo de 48 horas puede vencer igual.', 'pas')] },
+    { id: 'meridiano', tipo: 'serio', cat: 'Seguridad digital', ico: 'banco', emp: 'Banco Meridiano', sector: 'Banca digital', tema: 'la filtración de datos',
+      ctx: 'Banco Meridiano detectó que alguien accedió a los datos de 400 mil clientes y todavía nadie lo sabe fuera del banco. Decidir cómo comunicarlo puede salvar su reputación o hundirla en un solo día.',
+      ok: 'Los clientes valoraron la transparencia y la confianza se recuperó pronto.', ko: 'La filtración salió a la luz por otro lado y la confianza se desplomó.', nt: 'El incidente quedó contenido y la noticia pasó sin mucho ruido.',
+      opts: [O('Avisar a todos hoy mismo', 'Comunicado público y compensación para los afectados.', 'La honestidad protege la marca a largo plazo.', 'Golpe inmediato de imagen y costo de indemnizaciones.', 'med'),
+             O('Contener en silencio', 'Reparas la falla y no dices nada por ahora.', 'Evitas el pánico si nadie se entera.', 'Si se descubre, el daño será mucho mayor.', 'rie', .35),
+             O('Contratar una auditoría externa primero', 'Esperas 10 días a un informe independiente antes de hablar.', 'Información precisa y respaldo técnico.', 'Cada día de espera aumenta el riesgo de filtración.', 'seg')] },
+    { id: 'verdalia', tipo: 'serio', cat: 'Recursos naturales', ico: 'hoja', emp: 'Verdalia Agro', sector: 'Agricultura', tema: 'la sequía en sus cultivos',
+      ctx: 'Verdalia Agro lleva tres meses sin lluvia y sus campos de trigo se agrietan. Puede invertir en riego, vender la cosecha por adelantado o apostar a que llueva. El mercado de granos ya reacciona.',
+      ok: 'Las lluvias regresaron y la cosecha alcanzó para cumplir todos los pedidos.', ko: 'La sequía se agravó y la cosecha quedó muy por debajo de lo prometido.', nt: 'La cosecha salió regular, sin grandes ganancias ni pérdidas.',
+      opts: [O('Vender la cosecha por adelantado', 'Cierras precio hoy con compradores mayoristas.', 'Ingreso asegurado aunque llueva poco.', 'Si la lluvia llega, habrás vendido barato.', 'seg'),
+             O('Instalar riego por goteo', 'Inversión fuerte en tecnología de ahorro de agua.', 'Protege la producción en los años siguientes.', 'Tarda en amortizarse y exige mucho capital.', 'med'),
+             O('Apostar a que llueve', 'No cambias nada y esperas al próximo pronóstico.', 'Cero gasto extra si el clima ayuda.', 'Si no llueve, pierdes toda la temporada.', 'rie', .4)] },
+    { id: 'helix', tipo: 'serio', cat: 'Salud y ciencia', ico: 'contrato', emp: 'Helix Salud', sector: 'Biotecnología', tema: 'su nuevo tratamiento',
+      ctx: 'Helix Salud tiene un tratamiento prometedor contra una enfermedad rara. Los ensayos van bien, pero faltan seis meses para la aprobación oficial y una farmacéutica grande ofrece comprarle la patente hoy mismo.',
+      ok: 'El tratamiento fue aprobado y miles de pacientes ya lo reciben.', ko: 'Los reguladores pidieron nuevos ensayos y el proyecto se retrasó años.', nt: 'El proceso de aprobación avanza lento, pero sin sobresaltos.',
+      opts: [O('Licenciar solo para Europa', 'Cedes un mercado y conservas el resto.', 'Equilibrio entre ingreso y control.', 'Complica la logística y los contratos.', 'med'),
+             O('Vender la patente ahora', 'Cobras una suma fija y te desentiendes del riesgo.', 'Dinero seguro desde hoy.', 'Renuncias a las ganancias si el fármaco triunfa.', 'seg'),
+             O('Seguir solos hasta la aprobación', 'Conservas la patente y financias los ensayos.', 'Si se aprueba, el premio es enorme.', 'Si fracasa, la empresa se queda sin nada.', 'rie', .55)] },
+    { id: 'brio', tipo: 'serio', cat: 'Expansión internacional', ico: 'alianza', emp: 'Casa Brío', sector: 'Cafeterías', tema: 'su expansión internacional',
+      ctx: 'Casa Brío tiene 60 cafeterías y quiere abrir 15 más en otro continente. Un socio local conoce el mercado, pero exige la mitad de las ganancias. Abrir sola cuesta más y tarda más.',
+      ok: 'Las nuevas sucursales se llenaron desde la primera semana.', ko: 'Los precios no convencieron al público local y varias sucursales cerraron.', nt: 'Las aperturas avanzan a ritmo normal y sin grandes sorpresas.',
+      opts: [O('Abrir sola las 15 sucursales', 'Inviertes todo el capital de golpe.', 'Todo el ingreso es tuyo si funciona.', 'Un error de cálculo sale carísimo.', 'rie', .5),
+             O('Probar con 3 locales piloto', 'Abres pocas sucursales y evalúas resultados.', 'Aprendes sin arriesgar demasiado.', 'La competencia puede ocupar los mejores locales.', 'seg'),
+             O('Asociarse con el socio local', 'Compartes ganancias a cambio de su experiencia.', 'Menos riesgo y una apertura más rápida.', 'Tus ganancias se recortan a la mitad.', 'med')] },
+    { id: 'zenit', tipo: 'serio', cat: 'Bienes raíces', ico: 'precio', emp: 'Torre Zenit', sector: 'Inmobiliaria', tema: 'su torre más alta',
+      ctx: 'Torre Zenit terminó un rascacielos de 60 pisos, pero solo el 40% está alquilado. Los intereses del crédito aprietan y un fondo ofrece comprar el edificio con un fuerte descuento.',
+      ok: 'El edificio se llenó de inquilinos y su valor se disparó.', ko: 'Los pisos siguieron vacíos y el crédito se volvió una carga pesada.', nt: 'La ocupación sube despacio, sin cambios de fondo.',
+      opts: [O('Convertirlo en hotel de lujo', 'Remodelas todo para un mercado premium.', 'Podría ser un negocio mucho más rentable.', 'Obra costosa y resultado incierto.', 'rie', .5),
+             O('Vender al fondo con descuento', 'Cierras el trato y sales del problema.', 'Te liberas de la deuda de inmediato.', 'Pierdes parte del valor del edificio.', 'pas'),
+             O('Rebajar rentas para llenar pisos', 'Alquileres más bajos durante dos años.', 'Ocupación rápida y flujo de caja.', 'Ingresos menores durante mucho tiempo.', 'seg')] },
+    { id: 'voltaico', tipo: 'serio', cat: 'Energía', ico: 'rayo', emp: 'Voltaico Energía', sector: 'Energía renovable', tema: 'su nueva planta',
+      ctx: 'Voltaico Energía debe elegir dónde construir su próxima planta: un parque solar en el desierto o la conversión de una vieja central de carbón. El gobierno ofrece subsidios para ambas, pero con condiciones distintas.',
+      ok: 'La planta arrancó a tiempo y la demanda de energía limpia superó lo esperado.', ko: 'Sobrecostos y permisos retrasaron la planta durante meses.', nt: 'La obra avanza según el cronograma, sin sorpresas.',
+      opts: [O('Reconvertir la central de carbón', 'Aprovechas la infraestructura existente.', 'Arranque más rápido y barato.', 'Menos subsidio y críticas ambientales.', 'seg'),
+             O('Apostar por hidrógeno verde', 'Tecnología nueva con apoyo parcial.', 'Si funciona, serás pionera del sector.', 'Tecnología joven, con mucho por probar.', 'rie', .45),
+             O('Parque solar en el desierto', 'Construcción nueva con subsidio completo.', 'Energía limpia con costos bajos de operación.', 'Depende de líneas de transmisión lejanas y permisos.', 'med')] },
+    /* — Ficticias, absurdas, cinematográficas y misteriosas — */
+    { id: 'perpetuo', tipo: 'ficcion', cat: 'Fenómenos inexplicables', ico: 'luna', emp: 'Hotel Perpetuo', sector: 'Hotelería misteriosa', tema: 'el piso 13',
+      ctx: 'En el Hotel Perpetuo aparece un piso 13 que no está en los planos, solo los martes a medianoche. Los huéspedes que bajan de él pagan con monedas de un país que no existe. Hay interés de coleccionistas y de unos señores con gabardina.',
+      ok: 'Las monedas resultaron valiosísimas y los huéspedes del piso 13 dejaron reseñas de cinco estrellas.', ko: 'El piso 13 se llevó un ala entera del vestíbulo y nadie sabe adónde.', nt: 'El piso apareció, no pasó nada y todos fingen que fue un martes normal.',
+      opts: [O('Sellar el piso con cemento', 'Tapias la puerta y borras el rumor.', 'Cero sorpresas inquietantes.', 'Los de la gabardina no se van a alegrar.', 'seg'),
+             O('Abrir el piso 13 como suite premium', 'Cobras por dormir en lo imposible.', 'Atracción turística única en el mundo.', 'Nadie garantiza que todos los huéspedes regresen.', 'rie', .55),
+             O('Contratar a un detective nocturno', 'Investigas quién viene desde ese piso.', 'Información valiosa antes de actuar.', 'El detective ya parece saber demasiado.', 'med')] },
+    { id: 'patos', tipo: 'ficcion', cat: 'Logística imposible', ico: 'alianza', emp: 'Patos Unidos S.A.', sector: 'Mensajería con plumas', tema: 'su ejército de patos mensajeros',
+      ctx: 'Patos Unidos entrega paquetes con 4.000 patos entrenados. Son rápidos, pero se niegan a volar los lunes y exigen pan. Un gigante del comercio electrónico quiere firmar… si los patos aprenden a usar GPS.',
+      ok: 'Los patos aprendieron el GPS y las entregas se hicieron en tiempo récord.', ko: 'Los patos se amotinaron y entregaron todo en el lago equivocado.', nt: 'Los patos cumplen a su ritmo y nadie se queja, salvo los lunes.',
+      opts: [O('Subir la ración de pan', 'Contentas al ejército con más comida.', 'Patos felices y entregas constantes.', 'El pan sale caro y los patos engordan.', 'seg'),
+             O('Cambiar a gansos más serios', 'Reemplazas la plantilla por aves con disciplina.', 'Los gansos son más fiables y respetados.', 'Los patos lo toman como una traición.', 'med'),
+             O('Firmar con el gigante del comercio', 'Aceptas el contrato y entrenas a los patos con GPS.', 'Ingresos enormes si los patos cooperan.', 'Un solo pato rebelde puede arruinarlo todo.', 'rie', .5)] },
+    { id: 'eclipse', tipo: 'ficcion', cat: 'Misterios corporativos', ico: 'ojo', emp: 'Eclipse Negro Corp.', sector: 'Finanzas sombrías', tema: 'la puerta del sótano',
+      ctx: 'Eclipse Negro Corp. encontró una puerta de acero en el sótano de su sede, sin cerradura y con un zumbido grave. Cada vez que alguien se acerca, el mercado de futuros se mueve. La junta directiva está dividida.',
+      ok: 'Lo que había detrás de la puerta resultó ser una mina de información que cambió la suerte de la empresa.', ko: 'La puerta se abrió sola y desapareció el cuarto piso, con toda la contabilidad.', nt: 'La puerta sigue ahí, zumbando, sin que ocurra nada concreto.',
+      opts: [O('Abrir la puerta con cámara en vivo', 'Transmites todo para que el mercado vea.', 'Atención mundial y datos únicos.', 'Quizá no quieras ver lo que hay dentro.', 'rie', .5),
+             O('Vender el edificio completo', 'Te deshaces del problema con todo y sótano.', 'Cortas el riesgo de raíz.', 'El comprador es sospechosamente entusiasta.', 'pas'),
+             O('Instalar vigilancia las 24 horas', 'Observas la puerta sin tocarla.', 'Seguridad y pistas sin arriesgar.', 'Tienes la sensación de que la puerta también te mira.', 'seg')] },
+    { id: 'nube', tipo: 'ficcion', cat: 'Seguros extraordinarios', ico: 'precio', emp: 'Nube Nueve Seguros', sector: 'Seguros meteorológicos', tema: 'su póliza contra nubes tristes',
+      ctx: 'Nube Nueve asegura nubes: si una nube no llueve cuando lo prometió, la empresa paga. Una nube famosa, llamada Gertrudis, anuncia la tormenta del siglo, pero confiesa sentirse insegura. Miles de pólizas dependen de ella.',
+      ok: 'Gertrudis llovió con orgullo y la aseguradora cobró sin pagar un solo reclamo.', ko: 'Gertrudis se evaporó de vergüenza y llegaron miles de reclamos.', nt: 'Gertrudis llovió lo justo y la cartera siguió igual.',
+      opts: [O('Cancelar las pólizas de Gertrudis', 'Dejas de asegurar a la nube insegura.', 'Evitas el riesgo mayor.', 'Pierdes clientes y la nube se ofende.', 'seg'),
+             O('Reasegurar con un huracán', 'Compartes el riesgo con un huracán veterano.', 'Reduces el golpe si Gertrudis falla.', 'Los huracanes cobran caro y son impredecibles.', 'med'),
+             O('Apoyar emocionalmente a la nube', 'Contratas un coach para dar confianza a Gertrudis.', 'Una nube segura rinde mejor.', 'Nadie sabe si las nubes responden al coaching.', 'rie', .5)] },
+    { id: 'quimera', tipo: 'ficcion', cat: 'Ciencia dudosa', ico: 'ojo', emp: 'Laboratorios Quimera', sector: 'Biotecnología rara', tema: 'su mascota clonada',
+      ctx: 'Quimera clonó a Bruno, su mascota corporativa, un perro con corbata. El clon habla, tiene opiniones sobre el presupuesto y pide acciones de la empresa. Los inversionistas no saben si reírse o llamar a un abogado.',
+      ok: 'Bruno resultó un genio de las finanzas y la empresa ganó popularidad mundial.', ko: 'Bruno votó en contra de todo y paralizó la junta durante semanas.', nt: 'Bruno ladra en las reuniones y la empresa sigue como si nada.',
+      opts: [O('Contratarlo como asesor', 'Le das un sueldo y un escritorio.', 'Aprovechas su talento sin cederle poder.', 'Bruno ya pidió una oficina con ventana.', 'seg'),
+             O('Ocultar al clon del público', 'Lo dejas en el laboratorio una temporada.', 'Evitas el escándalo por ahora.', 'Bruno sabe usar el teléfono.', 'pas'),
+             O('Darle una acción simbólica', 'Bruno pasa a ser accionista oficial.', 'Gran simpatía y publicidad gratis.', 'Un perro con voto puede ser impredecible.', 'rie', .5)] },
+    { id: 'relojes', tipo: 'ficcion', cat: 'Anomalías temporales', ico: 'luna', emp: 'Relojes Sin Hora', sector: 'Relojería temporal', tema: 'sus relojes del mañana',
+      ctx: 'Relojes Sin Hora fabrica relojes que marcan la hora de mañana. Funcionan, pero la gente se enreda con las reuniones. Un cliente misterioso quiere comprar mil unidades y pide que nadie anote la fecha de entrega.',
+      ok: 'El cliente pagó por adelantado y todo salió exactamente como ya estaba escrito.', ko: 'Los relojes adelantaron una quiebra que todavía no ocurre y la empresa tembló.', nt: 'Los relojes siguen marcando mañana y hoy todo está tranquilo.',
+      opts: [O('Usarlos solo dentro de la empresa', 'Los guardas para ver el mercado con ventaja.', 'Ventaja informativa única.', 'Ver tu propio futuro puede no ser agradable.', 'med'),
+             O('Vender las mil unidades', 'Aceptas el pedido y no preguntas nada.', 'Ingreso enorme e inmediato.', 'Quizá el cliente venga del futuro por algo.', 'rie', .5),
+             O('Limitar la venta a cien relojes', 'Estudias el efecto antes de vender más.', 'Control sobre el producto y el riesgo.', 'El cliente podría irse con la competencia del pasado.', 'seg')] },
+    { id: 'fantasma', tipo: 'ficcion', cat: 'Recursos humanos', ico: 'alianza', emp: 'Agencia Fantasma', sector: 'Consultoría espectral', tema: 'su empleado holograma',
+      ctx: 'La Agencia Fantasma tiene un único empleado, un holograma llamado Gerardo, que ganó una silla en la junta por error de sistema. Gerardo vota siempre en contra y no se le puede despedir porque nunca fue contratado.',
+      ok: 'Gerardo propuso una idea brillante y los clientes se multiplicaron.', ko: 'Gerardo bloqueó una fusión clave y la agencia perdió clientes.', nt: 'Gerardo votó en contra otra vez y todo siguió igual.',
+      opts: [O('Apagar el proyector', 'Desactivas al holograma por seguridad.', 'Se acaba el problema de raíz.', 'Gerardo podría volver con rencor.', 'seg'),
+             O('Nombrarlo director honorario', 'Lo premias para tenerlo contento.', 'Ganas su lealtad y buena prensa.', 'Queda con más poder que antes.', 'med'),
+             O('Escuchar su propuesta final', 'Dejas que Gerardo presente su plan.', 'Puede ser una idea genial o un desastre.', 'Nadie sabe qué piensa un holograma.', 'rie', .5)] },
+    { id: 'lunabeta', tipo: 'ficcion', cat: 'Minería espacial absurda', ico: 'luna', emp: 'Minas Luna Beta', sector: 'Minería lunar', tema: 'el queso lunar',
+      ctx: 'Minas Luna Beta descubrió una veta de queso en la Luna. Es comestible, carísimo y huele a calcetín de astronauta. Una cadena de restaurantes quiere exclusividad, pero un gigante de lácteos amenaza con demandar.',
+      ok: 'El queso lunar se volvió un manjar de moda y las ventas se dispararon.', ko: 'El queso caducó en pleno viaje de regreso y la carga llegó cubierta de moho.', nt: 'La producción va a ritmo estable y el queso sigue siendo una rareza.',
+      opts: [O('Probar con un lote pequeño', 'Mandas solo una caja a la Tierra.', 'Pruebas el mercado con poco riesgo.', 'El queso puede no sobrevivir al viaje.', 'seg'),
+             O('Vender a todo el mundo', 'Distribuyes el queso sin restricciones.', 'Ventas enormes y mercado abierto.', 'El gigante lácteo te demanda con ganas.', 'rie', .5),
+             O('Exclusividad con los restaurantes', 'Un solo cliente de lujo se queda con todo.', 'Precio altísimo y marca de prestigio.', 'Dependes de un único cliente.', 'med')] },
+    { id: 'topo', tipo: 'ficcion', cat: 'Transporte subterráneo', ico: 'rayo', emp: 'Topo Express', sector: 'Metros hasta el núcleo', tema: 'su metro al centro de la Tierra',
+      ctx: 'Topo Express excavó un túnel de 6.000 km y su primer tren llega al centro de la Tierra en tres horas. La línea es magnífica y hace un calor infernal. Las aseguradoras están asustadas y los pasajeros piden aire acondicionado.',
+      ok: 'El viaje al centro de la Tierra fue un éxito y la línea se llenó de turistas aventureros.', ko: 'El tren se derritió y el túnel quedó fuera de servicio un buen tiempo.', nt: 'El metro funciona sin incidentes y el calor se tolera con abanicos.',
+      opts: [O('Abrir la línea tal como está', 'Pones el tren a funcionar sin más cambios.', 'Ingresos inmediatos y mucha publicidad.', 'El calor podría ser fatal para el tren.', 'rie', .45),
+             O('Invertir en un sistema de enfriamiento', 'Dotas al tren de refrigeración especial.', 'Viajes más seguros y comodidad premium.', 'Es carísimo y no hay garantías.', 'med'),
+             O('Acortar el trayecto', 'Solo llegas hasta el manto superior.', 'Menos calor y menos riesgo.', 'Menos emoción y menos turistas.', 'seg')] },
+    { id: 'ouroboros', tipo: 'ficcion', cat: 'Espectáculos imposibles', ico: 'estrella', emp: 'Circo Ouroboros', sector: 'Entretenimiento infinito', tema: 'sus entradas retroactivas',
+      ctx: 'El Circo Ouroboros vende entradas que se compran en el futuro y se cobran en el pasado. Ya vendió cuatro funciones que todavía no ocurren y una que ya ocurrió dos veces. Los contadores tienen mareos.',
+      ok: 'Las funciones se cuadraron solas y la taquilla fue un éxito en todas las líneas temporales.', ko: 'Una función se repitió sin parar y el público quedó atrapado en un bucle.', nt: 'Las entradas se pagaron en algún momento, aunque nadie recuerda cuándo.',
+      opts: [O('Volver a las entradas normales', 'Las vendes como cualquier circo.', 'Seguridad y tranquilidad.', 'El público quería lo imposible.', 'pas'),
+             O('Vender más entradas retroactivas', 'Duplicas la apuesta temporal.', 'Ingresos enormes si el tiempo coopera.', 'Puede romper la contabilidad de toda la historia.', 'rie', .5),
+             O('Contratar a un contador temporal', 'Alguien que entienda de pasados y futuros.', 'Cuentas claras en todas las líneas del tiempo.', 'Es raro, caro y viaja poco.', 'seg')] },
+    { id: 'cafefin', tipo: 'ficcion', cat: 'Profecías de mostrador', ico: 'ojo', emp: 'Cafetería del Fin del Mundo', sector: 'Alimentación apocalíptica', tema: 'su máquina de café profética',
+      ctx: 'En la Cafetería del Fin del Mundo hay una máquina que imprime profecías en los vasos. Esta mañana imprimió: «Hoy cambiará todo». Los clientes forman filas larguísimas y el gerente no sabe si subir los precios o salir corriendo.',
+      ok: 'La profecía resultó ser una oferta de un proveedor y el negocio floreció.', ko: 'La máquina predijo un cierre y los clientes se espantaron.', nt: 'La profecía se cumplió con un cambio de menú y nada más.',
+      opts: [O('Desconectar la máquina', 'Apagas el aparato y ya.', 'Sin sorpresas ni escándalos.', 'Ya aprendió a encenderse sola.', 'seg'),
+             O('Seguir la profecía al pie de la letra', 'Cambias todo lo que diga el vaso.', 'Si acierta, serás un genio.', 'La máquina quizá sea muy bromista.', 'rie', .5),
+             O('Cobrar por leer las profecías', 'Conviertes los vasos en un espectáculo.', 'Gran atracción y ganancias seguras.', 'Si la profecía falla, te acusan de estafa.', 'med')] },
+    { id: 'robots', tipo: 'ficcion', cat: 'Conflictos robóticos', ico: 'alianza', emp: 'Sindicato Verde Mecánico', sector: 'Robots jardineros', tema: 'la huelga de robots jardineros',
+      ctx: 'Los robots jardineros del Sindicato Verde Mecánico exigen vacaciones, sol directo y que dejen de llamarlos «podadoras». Amenazan con dejar crecer el pasto sin control. Un parque entero ya parece una selva y nadie encuentra el sendero.',
+      ok: 'Los robots aceptaron un trato justo y el parque quedó como una postal.', ko: 'La selva avanzó hasta la ciudad y varias calles quedaron intransitables.', nt: 'Los robots hicieron un descanso breve y el parque sigue verde.',
+      opts: [O('Contratar jardineros humanos', 'Sustituyes a los robots con personas.', 'Recuperas el control sin ceder.', 'Los robots podrían organizarse en venganza.', 'rie', .45),
+             O('Aceptar vacaciones y sol', 'Cedes a las peticiones de los robots.', 'Plantilla contenta y parque impecable.', 'Los robots sentarán un precedente peligroso.', 'seg'),
+             O('Negociar con un robot mediador', 'Pides ayuda a un modelo más sabio.', 'Diálogo entre iguales y menos tensión.', 'El mediador cobra las horas extra en aceite.', 'med')] }
+  ];
+  const CAT = OPS_BASE.map(o => Object.assign({ tipo: 'serio' }, o)).concat(OPS_EXTRA);
+  CAT.forEach(o => o.opts.forEach((x, i) => { x.k = x.k || 'ABC'[i]; }));
+
+
   /* ---------- Noticias: plantillas ---------- */
   const TPL = {
     correcta: [
@@ -2931,6 +3102,30 @@ window.addEventListener('cube-wallet-accion', function (e) {
       { t: 'Pánico en el mercado tras la jugada de {emp}', c: 'Lo que parecía una gran oportunidad con «{op}» se volvió un problema serio. {extra} La gráfica se desploma.' }
     ]
   };
+  /* Titulares para las operaciones ficticias: más cinematográficos, absurdos y misteriosos */
+  const TPLF = {
+    correcta: [
+      { t: '¡Increíble pero cierto! {emp} resuelve {tema} con estilo', c: 'Testigos aseguran que «{op}» fue la jugada exacta. {extra} Nadie entiende cómo, pero la Sagrada Continuidad sube.' },
+      { t: 'Fuentes anónimas: {emp} sonríe tras {tema}', c: 'Se filtró un memorando donde «{op}» aparece subrayado tres veces. {extra} La gráfica reacciona con entusiasmo.' },
+      { t: 'Final de película en {emp}: {tema} sale a la perfección', c: 'Cuando todo parecía perdido, «{op}» salvó la escena. {extra} Cube registra un impulso positivo.' }
+    ],
+    neutra: [
+      { t: 'Silencio extraño en {emp} tras {tema}', c: 'Después de «{op}» no pasó nada… o eso dicen. {extra} La gráfica ni se inmuta.' },
+      { t: '{emp}: el misterio de {tema} sigue sin resolverse', c: '«{op}» no aclaró ni empeoró nada. {extra} Todo permanece igual.' }
+    ],
+    incorrecta: [
+      { t: 'Desastre menor y muy raro en {emp}', c: '«{op}» tuvo consecuencias que nadie había previsto. {extra} La gráfica retrocede un poco.' },
+      { t: 'Los analistas se rascan la cabeza: {emp} y {tema}', c: 'Nadie esperaba que «{op}» saliera así. {extra} Cube registra un pequeño tropiezo.' }
+    ],
+    riesgo_gana: [
+      { t: '¡Golpe maestro! {emp} convierte {tema} en leyenda', c: 'Nadie lo vio venir: «{op}» salió redondo. {extra} La Sagrada Continuidad se dispara.' },
+      { t: 'Nadie lo vio venir: la locura de {emp} funciona', c: 'La apuesta por «{op}» parecía un disparate y terminó en triunfo. {extra} La gráfica sube con fuerza.' }
+    ],
+    riesgo_pierde: [
+      { t: 'Catástrofe cinematográfica: {emp} lo pierde todo en {tema}', c: 'La decisión «{op}» terminó en una escena de película de desastres. {extra} La Sagrada Continuidad cae con fuerza.' },
+      { t: 'Pánico absurdo y total en {emp}', c: 'Lo de «{op}» fue una idea espectacular… y espectacularmente mala. {extra} La gráfica se desploma.' }
+    ]
+  };
   const TAG = { correcta: 'Favorable', neutra: 'Neutral', incorrecta: 'Desfavorable', riesgo_gana: 'Apuesta ganada', riesgo_pierde: 'Apuesta perdida', alerta: 'Alerta', recuperacion: 'Recuperación', mercado: 'Mercado' };
   const EFECTO_TXT = { up: '▲ La Sagrada Continuidad sube', down: '▼ La Sagrada Continuidad cae', flat: '■ La Sagrada Continuidad se mantiene' };
   const EFECTO = { correcta: 'up', riesgo_gana: 'up', neutra: 'flat', incorrecta: 'down', riesgo_pierde: 'down' };
@@ -2944,7 +3139,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     return Math.random() < (o.rg != null ? o.rg : .5) ? 'riesgo_gana' : 'riesgo_pierde';
   }
   function armarNoticia(op, o, tipo) {
-    const tp = pick(TPL[tipo]), efecto = EFECTO[tipo];
+    const tp = pick((op.tipo === 'ficcion' ? TPLF : TPL)[tipo]), efecto = EFECTO[tipo];
     const extra = efecto === 'up' ? op.ok : efecto === 'down' ? op.ko : op.nt;
     const rep = s => s.replace(/\{emp\}/g, op.emp).replace(/\{tema\}/g, op.tema).replace(/\{op\}/g, o.t).replace(/\{extra\}/g, extra);
     return { id: 'n' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), ts: Date.now(), op: op.id, tipo, efecto, titulo: rep(tp.t), cuerpo: rep(tp.c), emp: op.emp, leida: false };
@@ -2956,17 +3151,20 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const k = clave(); let s = null;
     if (k) { try { s = JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { s = null; } }
     s = s && typeof s === 'object' ? s : {};
-    s.hechas = s.hechas || {}; s.noticias = Array.isArray(s.noticias) ? s.noticias : [];
-    if (s.dia !== hoyKey()) { s.dia = hoyKey(); s.hechas = {}; }
+    s.noticias = Array.isArray(s.noticias) ? s.noticias : []; s.usadas = Array.isArray(s.usadas) ? s.usadas : [];
+    if (!s.lote || !Array.isArray(s.lote.ids) || !s.lote.hechas) s.lote = null;
     return s;
   }
   function guardar(s) { const k = clave(); if (k) { try { localStorage.setItem(k, JSON.stringify(s)); } catch (e) {} } }
 
   /* ---------- Punto rojo ---------- */
   document.querySelectorAll('.top-ico[data-a="noticias"]').forEach(b => { const p = document.createElement('span'); p.className = 'punto-n'; p.hidden = true; b.appendChild(p); });
+  { const b = $('navOrbe'); if (b) { const p = document.createElement('span'); p.className = 'punto-n punto-ops'; p.hidden = true; b.appendChild(p); } }
   function pintarPunto() {
-    const hay = !!sesion() && leer().noticias.some(n => !n.leida);
-    document.querySelectorAll('.punto-n').forEach(p => { p.hidden = !hay; });
+    const ok = !!sesion(), s = ok ? leer() : null, hay = ok && s.noticias.some(n => !n.leida);
+    document.querySelectorAll('.top-ico .punto-n').forEach(p => { p.hidden = !hay; });
+    const l = s && s.lote, nuevas = !!l && !l.visto && Object.keys(l.hechas).length < l.ids.length;
+    document.querySelectorAll('.punto-ops').forEach(p => { p.hidden = !nuevas; });
   }
 
   /* ---------- Navegación ---------- */
@@ -2978,12 +3176,13 @@ window.addEventListener('cube-wallet-accion', function (e) {
 
   function copiarPerfil() { const o = $('btnPerfilTop'), d = $('btnPerfilOps'); if (o && d) d.innerHTML = o.innerHTML.replace(/ id="[^"]*"/g, ''); }
   $('btnPerfilOps').onclick = () => abrirPerfilDesdeBoton();
-  window.addEventListener('cube:usuario-listo', () => { copiarPerfil(); pintarPunto(); cargarEstado(); });
+  window.addEventListener('cube:usuario-listo', () => { copiarPerfil(); tickOps(); pintarPunto(); cargarEstado(); });
 
   let origen = 'home';
   function abrirOps() {
     if (!sesion()) { window.abrirModal('auth'); return; }
-    cerrarModales(); body.classList.add('en-ops'); activarItemNav('navOrbe');
+    cerrarModales(); body.classList.add('en-ops'); activarItemNav('navOrbe'); tickOps();
+    { const s = leer(); if (s.lote && !s.lote.visto) { s.lote.visto = true; guardar(s); } }
     copiarPerfil(); pintar(); pintarPunto(); window.scrollTo(0, 0);
   }
   $('navOrbe').onclick = abrirOps;
@@ -3022,17 +3221,45 @@ window.addEventListener('cube-wallet-accion', function (e) {
       <p class="op-dec">Tu decisión: <b>«${esc(o ? o.t : h.k)}»</b></p>
       <button class="op-lnk" type="button" data-ver-noticia>Ver noticia →</button></article>`;
   }
-  function restante() {
-    const n = new Date(), f = new Date(n.getFullYear(), n.getMonth(), n.getDate() + 1), m = Math.max(0, Math.floor((f - n) / 6e4));
-    return 'Se renuevan en ' + Math.floor(m / 60) + ' h ' + (m % 60) + ' min';
+  /* Lotes: al completar todo, las nuevas llegan entre 25 min y 4 h, o (30%) muy pronto: 10 s, 1, 5, 10, 15 o 20 min */
+  const mezclar = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  function espera() {
+    if (Math.random() < .3) return pick([10, 60, 300, 600, 900, 1200]) * 1000;
+    return Math.round(1500 + (14400 - 1500) * Math.pow(Math.random(), 1.6)) * 1000;
   }
+  function nuevoLote(s) {
+    const n = 3 + Math.floor(Math.random() * 3);
+    let libres = CAT.filter(o => !s.usadas.includes(o.id));
+    if (libres.length < n) { s.usadas = []; libres = CAT.slice(); }
+    const ser = mezclar(libres.filter(o => o.tipo === 'serio')), fic = mezclar(libres.filter(o => o.tipo === 'ficcion'));
+    let nF = Math.floor(n / 2) + (n % 2 && Math.random() < .5 ? 1 : 0), nS = n - nF;   // ~50% serias, ~50% ficticias
+    nS = Math.min(nS, ser.length); nF = Math.min(n - nS, fic.length); nS = Math.min(n - nF, ser.length);
+    const ids = mezclar(ser.slice(0, nS).concat(fic.slice(0, nF))).map(o => o.id);
+    s.usadas = s.usadas.concat(ids); s.lote = { ids, hechas: {}, visto: false, ts: Date.now() }; s.proxima = null;
+  }
+  function opsLote(s) { return (s.lote ? s.lote.ids : []).map(id => CAT.find(o => o.id === id)).filter(Boolean); }
+  function cuenta(ms) { const t = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), x = t % 60; return h ? h + ' h ' + m + ' min' : m ? m + ' min ' + x + ' s' : x + ' s'; }
+  function textoReset(s) {
+    const falta = opsLote(s).filter(o => !s.lote.hechas[o.id]).length;
+    return falta ? 'Faltan ' + falta : (s.proxima ? 'Nuevas en ' + cuenta(s.proxima - Date.now()) : '');
+  }
+  function tickOps() {
+    if (!sesion()) return;
+    const s = leer(), viendo = body.classList.contains('en-ops');
+    if (!s.lote || (s.proxima && Date.now() >= s.proxima)) {
+      nuevoLote(s); if (viendo) s.lote.visto = true;
+      guardar(s); pintarPunto(); if (viendo) pintar();
+    } else if (viendo) $('opsReset').textContent = textoReset(s);
+  }
+  setInterval(tickOps, 1000);
   function pintar() {
-    const s = leer(), hechas = OPS.filter(o => s.hechas[o.id]), pend = OPS.filter(o => !s.hechas[o.id]);
+    const s = leer(); if (!s.lote) { $('opsLista').innerHTML = ''; return; }
+    const ops = opsLote(s), H = s.lote.hechas, hechas = ops.filter(o => H[o.id]), pend = ops.filter(o => !H[o.id]);
     $('opsEstado').textContent = pend.length ? 'Incompletas' : 'Completadas';
-    $('opsSeg').innerHTML = OPS.map((o, i) => `<i class="${i < hechas.length ? 'on' : ''}"></i>`).join('');
-    $('opsCuenta').textContent = hechas.length + ' de ' + OPS.length + ' completadas';
-    $('opsReset').textContent = restante();
-    $('opsLista').innerHTML = pend.map(cardPend).join('') + (hechas.length ? '<h2 class="op-h">Completadas hoy</h2>' + hechas.map(o => cardHecha(o, s.hechas[o.id])).join('') : '');
+    $('opsSeg').innerHTML = ops.map(o => `<i class="${H[o.id] ? 'on' : ''}"></i>`).join('');
+    $('opsCuenta').textContent = hechas.length + ' de ' + ops.length + ' completadas';
+    $('opsReset').textContent = textoReset(s);
+    $('opsLista').innerHTML = pend.map(cardPend).join('') + (hechas.length ? '<h2 class="op-h">Completadas</h2>' + hechas.map(o => cardHecha(o, H[o.id])).join('') : '');
   }
   $('opsLista').addEventListener('click', e => {
     const opt = e.target.closest('.op-opt');
@@ -3047,17 +3274,19 @@ window.addEventListener('cube-wallet-accion', function (e) {
   });
   function decidir(id, k) {
     if (!sesion()) { aviso('Inicia sesión para tomar decisiones.'); return; }
-    const op = OPS.find(o => o.id === id), opt = op && op.opts.find(x => x.k === k), s = leer();
-    if (!opt || s.hechas[id]) return;
+    const op = CAT.find(o => o.id === id), opt = op && op.opts.find(x => x.k === k), s = leer();
+    if (!opt || !s.lote || !s.lote.ids.includes(id) || s.lote.hechas[id]) return;
     const tipo = sortear(opt), n = armarNoticia(op, opt, tipo);
-    s.hechas[id] = { k, tipo, noticia: n.id, ts: Date.now() };
+    s.lote.hechas[id] = { k, tipo, noticia: n.id, ts: Date.now() };
     s.noticias.unshift(n); s.noticias = s.noticias.slice(0, 80);
+    if (s.lote.ids.every(x => s.lote.hechas[x])) s.proxima = Date.now() + espera();
     guardar(s);
-    if (window.cubeGrafico) window.cubeGrafico.impulso(IMPULSO[tipo]());
+    if (window.cubeGrafico) window.cubeGrafico.noticia(tipo);   // favorable: sube y rinde más; neutra: igual; desfavorable: baja un poco
+    const f = tipo === 'incorrecta' ? rnd(.02, .04) : tipo === 'riesgo_pierde' ? rnd(.04, .08) : 0, perdida = Math.round(acum * f * 100) / 100;
+    if (perdida >= .01) perder(perdida);
     pintar(); pintarPunto();
-    aviso('Decisión registrada. Revisa Noticias para ver el resultado.');
+    aviso('Decisión registrada.' + (perdida >= .01 ? ' Rendimiento −$' + fm(perdida) + '.' : '') + ' Revisa Noticias.');
   }
-  setInterval(() => { if (body.classList.contains('en-ops') && sesion()) $('opsReset').textContent = restante(); }, 30000);
 
   /* ---------- Noticias ---------- */
   function hace(ts) {
@@ -3115,9 +3344,35 @@ window.addEventListener('cube-wallet-accion', function (e) {
     } catch (e) { console.warn('ops_penalizar', e); }
     refrescarCreditos();
   }
+  // Noticia desfavorable: se pierde una parte pequeña del rendimiento (lo no enviado se descuenta aquí; el resto vía ops_acumular con monto negativo)
+  async function perder(x) {
+    if (!hab || !sesion()) return;
+    x = Math.round(Math.min(x, acum) * 100) / 100; if (x < .01) return;
+    const loc = Math.min(pend, x); pend -= loc; acum -= loc;
+    const resto = Math.round((x - loc) * 100) / 100;
+    if (resto >= .01) {
+      try { const { data, error } = await db().rpc('ops_acumular', { p_monto: -resto }); if (error) throw error; acum = Number(data) + pend; }
+      catch (e) { console.warn('perder', e); }
+    }
+    pintarRend();
+  }
+  // Pagar la estabilización de la alarma con créditos propios
+  async function pagar(c) {
+    if (!sesion()) return false;
+    if (!hab) { aviso('Falta ejecutar cube-operaciones.sql en Supabase para cobrar la estabilización.'); return false; }
+    if (Number(window.cubeSaldo || 0) < c) return false;
+    try {
+      const { data, error } = await db().rpc('ops_penalizar', { p_monto: c });
+      if (error) throw error;
+      if (data && data.acumulado != null) acum = Number(data.acumulado) + pend;
+    } catch (e) { console.warn('ops_pagar', e); aviso('No se pudo cobrar. Inténtalo de nuevo.'); return false; }
+    pintarRend(); aviso('Pagaste $' + fm(c) + ' · la gráfica se estabiliza.');
+    if (window.cubeAjusteDia) window.cubeAjusteDia(-c);
+    refrescarCreditos(); return true;
+  }
   window.cubeOps = {
     rendir(y) { if (hab && y > 0 && sesion()) { acum += y; pend += y; } },
-    castigo, sistema, acum: () => acum
+    castigo, sistema, perder, pagar, acum: () => acum
   };
   setInterval(() => { if (body.classList.contains('en-grafico')) pintarRend(); }, 700);
   setInterval(flush, 10000);
@@ -3167,7 +3422,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     };
   };
 
-  pintarPunto(); pintarRend(); copiarPerfil();
+  pintarPunto(); pintarRend(); copiarPerfil(); tickOps();
 })();
 </script>
 </body>
