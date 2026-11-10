@@ -2679,7 +2679,10 @@ window.addEventListener('cube-wallet-accion', function (e) {
   function pausar(p) {
     pausado = window.cubePausado = p; body.classList.toggle('pausado', p); veil.hidden = !p;
     bp.setAttribute('aria-pressed', p); bp.setAttribute('aria-label', p ? 'Reanudar' : 'Pausar');
-    ['.app', '#bottomNav', '.pie'].forEach(s => { const el = document.querySelector(s); if (el) el.inert = p; });
+    Array.from(body.children).forEach(el => { if (el.id !== 'pausaVeil' && el.tagName !== 'SCRIPT') el.inert = p; });   // toda la página queda inactiva
+    let desde = Date.now();
+    try { const d = Number(localStorage.getItem('cube_pausa')); if (p) { if (!d) localStorage.setItem('cube_pausa', String(desde)); } else { if (d) desde = d; localStorage.removeItem('cube_pausa'); } } catch (e) {}
+    window.dispatchEvent(new CustomEvent('cube:pausa', { detail: { pausado: p, desde } }));
     if (document.activeElement && p) document.activeElement.blur();
     if (p) sirenaOff(); else if (alarma) sirenaOn();
   }
@@ -2693,7 +2696,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) * 1.15;
   /* --- Motor: presión (impulsos), rendimiento, caída sostenida, alarma --- */
   let presion = 0, caidaMs = 0, calma = 0, nivelCast = 0, alarma = false, silencio = false, ac = null, sirena = null;
-  let deriva = 0, costoAlarma = 1000, rezos = 0, pagando = false;   // deriva: tendencia lenta que dejan las noticias
+  let deriva = 0, costoAlarma = 1000, rezos = 0, pagando = false, abandono = false;   // deriva: tendencia lenta que dejan las noticias
   const paso = () => { v += (BASE + deriva - v) * .012 + gauss() * 1.8 + (Math.random() < .03 ? gauss() * 6 : 0) + presion; presion *= .97; if (Math.abs(presion) < .05) presion = 0; return v; };
   const sis = o => { try { if (window.cubeOps) window.cubeOps.sistema(o); } catch (e) {} };
   const miles = n => Math.round(n).toLocaleString('es-AR');
@@ -2729,6 +2732,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   function motor() {
     const n = serie.length;
     deriva *= .997;
+    if (abandono) { deriva = Math.max(-40, deriva - .3); presion -= .12; }   // sin operaciones: la gráfica cae de inmediato y sigue cayendo
     const y = Math.max(0, v - 994) * .18;   // rendimiento acumulado ~45% más rápido que antes
     if (y > 0 && window.cubeOps) window.cubeOps.rendir(y);
     if (!alarma && presion > -1 && Math.random() < 1 / 4500) presion -= 9 + Math.random() * 3;   // caída espontánea, poco probable
@@ -2756,7 +2760,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     sis({ tipo: 'mercado', efecto: 'down', titulo: 'Salida de créditos presiona la Sagrada Continuidad', cuerpo: 'Se movieron $' + miles(m) + ' créditos y la gráfica ' + (m >= 5000 ? 'cae con fuerza.' : 'cede terreno.') });
     return s;
   }
-  window.cubeGrafico = { valor: () => v, impulso: n => { presion += Number(n) || 0; }, gasto, noticia, enAlarma: () => alarma };
+  window.cubeGrafico = { valor: () => v, impulso: n => { presion += Number(n) || 0; }, gasto, noticia, abandono: b => { b = !!b; if (b === abandono) return; abandono = b; if (!b) deriva *= .3; }, enAlarma: () => alarma };
   /* Noticias → gráfica: favorable crece (y rinde más rápido), neutra se mantiene, desfavorable baja un poco */
   function noticia(tipo) {
     const r = (a, b) => a + Math.random() * (b - a);
@@ -2842,6 +2846,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
+  try { if (localStorage.getItem('cube_pausa')) pausar(true); } catch (e) {}   // si cerró la página en pausa, vuelve en pausa
   $('gRng').onclick = e => {
     const b = e.target.closest('button'); if (!b) return;
     nVis = +b.dataset.n; $('gRng').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); txt();
@@ -3221,11 +3226,10 @@ window.addEventListener('cube-wallet-accion', function (e) {
       <p class="op-dec">Tu decisión: <b>«${esc(o ? o.t : h.k)}»</b></p>
       <button class="op-lnk" type="button" data-ver-noticia>Ver noticia →</button></article>`;
   }
-  /* Lotes: al completar todo, las nuevas llegan entre 25 min y 4 h, o (30%) muy pronto: 10 s, 1, 5, 10, 15 o 20 min */
+  /* Lotes: al completar todo, las nuevas llegan al azar en 5, 10, 15, 20, 30 o 45 s, o en 1, 2, 3, 4 o 5 min (nunca más de 5 min) */
   const mezclar = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
   function espera() {
-    if (Math.random() < .3) return pick([10, 60, 300, 600, 900, 1200]) * 1000;
-    return Math.round(1500 + (14400 - 1500) * Math.pow(Math.random(), 1.6)) * 1000;
+    return (Math.random() < .5 ? pick([5, 10, 15, 20, 30, 45]) : pick([1, 2, 3, 4, 5]) * 60) * 1000;
   }
   function nuevoLote(s) {
     const n = 3 + Math.floor(Math.random() * 3);
@@ -3243,13 +3247,31 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const falta = opsLote(s).filter(o => !s.lote.hechas[o.id]).length;
     return falta ? 'Faltan ' + falta : (s.proxima ? 'Nuevas en ' + cuenta(s.proxima - Date.now()) : '');
   }
+  /* Inactividad: con operaciones pendientes y sin decidir nada durante 5 a 8 min (tiempo activo, no en pausa), la gráfica empieza a caer */
+  let idleMs = 0, limiteMs = rnd(300000, 480000), ultimoTick = Date.now(), avisadoIdle = false;
+  function reiniciarIdle() { idleMs = 0; limiteMs = rnd(300000, 480000); avisadoIdle = false; if (window.cubeGrafico) window.cubeGrafico.abandono(false); }
+  window.addEventListener('cube:pausa', e => {
+    const d = e.detail || {}; if (d.pausado) return;
+    ultimoTick = Date.now();
+    const dt = Date.now() - (d.desde || Date.now());
+    if (dt > 0 && sesion()) { const s = leer(); if (s.proxima) { s.proxima += dt; guardar(s); } }   // la espera no corre en pausa
+  });
   function tickOps() {
-    if (!sesion()) return;
+    const ahora = Date.now(), dt = Math.min(ahora - ultimoTick, 2000); ultimoTick = ahora;
+    if (window.cubePausado || !sesion()) return;
     const s = leer(), viendo = body.classList.contains('en-ops');
-    if (!s.lote || (s.proxima && Date.now() >= s.proxima)) {
+    if (!s.lote || (s.proxima && ahora >= s.proxima)) {
       nuevoLote(s); if (viendo) s.lote.visto = true;
-      guardar(s); pintarPunto(); if (viendo) pintar();
+      guardar(s); pintarPunto(); if (viendo) pintar(); reiniciarIdle();
     } else if (viendo) $('opsReset').textContent = textoReset(s);
+    const hayPend = opsLote(s).some(o => !s.lote.hechas[o.id]);
+    if (hayPend) {
+      idleMs += dt;
+      if (idleMs > limiteMs) {
+        if (!avisadoIdle) { avisadoIdle = true; sistema({ tipo: 'mercado', efecto: 'down', titulo: 'Sin decisiones: la Sagrada Continuidad empieza a caer', cuerpo: 'Llevas varios minutos sin resolver operaciones y el mercado pierde la paciencia. Toma una decisión para frenar la caída, o pausa si vas a ausentarte.' }); }
+        if (window.cubeGrafico) window.cubeGrafico.abandono(true);
+      }
+    } else if (idleMs || avisadoIdle) reiniciarIdle();
   }
   setInterval(tickOps, 1000);
   function pintar() {
@@ -3280,7 +3302,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     s.lote.hechas[id] = { k, tipo, noticia: n.id, ts: Date.now() };
     s.noticias.unshift(n); s.noticias = s.noticias.slice(0, 80);
     if (s.lote.ids.every(x => s.lote.hechas[x])) s.proxima = Date.now() + espera();
-    guardar(s);
+    guardar(s); reiniciarIdle();
     if (window.cubeGrafico) window.cubeGrafico.noticia(tipo);   // favorable: sube y rinde más; neutra: igual; desfavorable: baja un poco
     const f = tipo === 'incorrecta' ? rnd(.02, .04) : tipo === 'riesgo_pierde' ? rnd(.04, .08) : 0, perdida = Math.round(acum * f * 100) / 100;
     if (perdida >= .01) perder(perdida);
@@ -3320,7 +3342,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     acum = Number(data) || 0; hab = true; pintarRend();
   }
   async function flush() {
-    if (busy || !hab || pend < .01 || !sesion()) return;
+    if (busy || !hab || pend < .01 || !sesion() || window.cubePausado) return;
     busy = true; const m = Math.round(Math.min(pend, 2000) * 100) / 100;
     try {
       const { data, error } = await db().rpc('ops_acumular', { p_monto: m });
