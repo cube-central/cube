@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ECECEC">
+<meta name="theme-color" content="#000000">
 <title>Cube</title>
 <script src="cube-tema.js"></script>
 <link rel="manifest" href="manifest.webmanifest">
@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Playfair+Display:ital,wght@0,400;1,400&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* Diseño nuevo: fondo #ECECEC · verde ácido #C6FF00 · tarjetas blancas · texto negro */
 :root{--verde:#C6FF00;--fondo:#ECECEC;--panel:#FFFFFF;--tarjeta:#FFFFFF;--texto:#0A0A0A;--texto-suave:#6B6F68;--negro:#0A0A0A;--tinta:#0A0A0A;--acento:#0A0A0A;--oscuro:#171917;--linea:#D6D8D3;--sutil:rgba(0,0,0,.06);--margen:3.4vw;color-scheme:light}
@@ -646,6 +646,117 @@
   .act-b{flex:none;height:36px;padding:0 14px;border-radius:999px;background:var(--verde);color:var(--negro);font-weight:600;font-size:.8rem;white-space:nowrap}
   .act-b:disabled{background:var(--fondo);color:var(--texto-suave)}
 </style>
+
+<style id="rediseno">
+/* ===== REDISEÑO · negro profundo + lima ===== */
+:root,:root[data-tema],:root[data-tema="dark"],:root[data-tema="light"]{--verde:#C6FF00;--grad:linear-gradient(180deg,#c6ff00 0%,#8fc700 100%);--fondo:#1b1d1a;--panel:#131313;--tarjeta:#131313;--texto:#fff;--texto-suave:#8a8d87;--tinta:#fff;--acento:#C6FF00;--oscuro:#171917;--linea:#262826;--sutil:rgba(255,255,255,.06);color-scheme:dark}
+html{background:#000}
+body{background:radial-gradient(120% 60% at 0 0,#10160a 0%,#050605 45%,#000 100%) fixed;color:#fff}
+.pie,:root[data-tema] .pie{--texto:#F4F5F2;--texto-suave:#858D87;--panel:#1D2220;background:#000}
+.pie .logo,:root[data-tema] .pie .logo{color:#C6FF00}
+.pp-av,.bs-lupa,.nav-foto{background:var(--grad);color:#0A0A0A}
+.b-pri{background:var(--grad)}.cw-badge{background:var(--grad)}
+/* animaciones base */
+@keyframes entra{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes rip{to{transform:scale(1);opacity:0}}
+@keyframes halo{0%{transform:scale(.5);opacity:.55}100%{transform:scale(2.4);opacity:0}}
+@keyframes fade{from{opacity:0}}
+@keyframes flash{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:none}}
+@keyframes sub{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#nuevoHome,#buscar,#lista,#notifs,#almacen,#enviar,#transf,#ventas,#caridad,#invertir,#compra,#empresa,#grafico,#invFold,.perfil-modal{animation:entra .4s cubic-bezier(.2,.8,.2,1) both}
+button{transition:transform .16s cubic-bezier(.3,1.5,.5,1),background-color .2s,opacity .2s,color .2s}
+button:not(:disabled):active{transform:scale(.94)}
+.rp{position:relative;overflow:hidden}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.4);transform:scale(0);animation:rip .55s ease-out forwards;pointer-events:none}
+.bottom-nav-item.activo svg{animation:pop .35s}
+/* ===== Inicio ===== */
+#fold{display:none!important}
+#home{container-type:inline-size;max-width:480px;padding-bottom:130px}
+#home .top{padding:calc(env(safe-area-inset-top,0px) + 14px) 9cqw 0}
+#home .top-ico{width:46px;height:46px;border-radius:50%;background:#131313;color:#fff}
+.caja{position:relative;margin:7cqw 9cqw 0;min-height:37.5cqw;padding:6.6cqw 8cqw 6cqw;border-radius:8.6cqw;background:#121212}
+.caja-lbl{font:400 3.3cqw 'Open Sans',sans-serif;color:#8a8a8a}
+.monto-n{display:flex;align-items:baseline;margin-top:1.6cqw;font:700 7.8cqw/1.1 'Poppins',sans-serif;letter-spacing:-.01em;color:#fff}
+.monto-n.oculto>span{display:none}.monto-n.oculto::after{content:"$****"}
+.monto-n.flip{animation:flash .3s ease-out}
+.caja .gana{margin-top:3cqw;min-height:0;padding:1.4cqw 3.4cqw;font:500 2.7cqw 'Open Sans',sans-serif;background:var(--grad);color:#0A0A0A}
+.caja.oculta .gana{display:none!important}
+.ojo{position:absolute;top:5.4cqw;right:7cqw;width:10cqw;height:8cqw;display:grid;place-items:center;color:#8a8a8a;border-radius:99px}
+.ojo svg{width:6.6cqw;height:6.6cqw;animation:pop .3s}
+.ojo .e-off,.ojo[aria-pressed="true"] .e-on{display:none}.ojo[aria-pressed="true"] .e-off{display:block}
+.acc4{display:grid;grid-template-columns:repeat(4,1fr);padding:0 5cqw;margin-top:6.4cqw}
+.acc4 .circ{gap:2.4cqw;font:400 3.5cqw 'Open Sans',sans-serif;color:#fff;animation:entra .5s both}
+.acc4 .circ:nth-child(2){animation-delay:.06s}.acc4 .circ:nth-child(3){animation-delay:.12s}.acc4 .circ:nth-child(4){animation-delay:.18s}
+#home .circ-ico{width:13.4cqw;height:13.4cqw;background:var(--grad);color:#0A0A0A;box-shadow:0 0 0 0 rgba(198,255,0,0)}
+#home .circ:hover .circ-ico{box-shadow:0 0 22px rgba(198,255,0,.3)}
+body.en-inventario #nuevoHome{display:none}
+/* barra inferior */
+.bottom-nav{width:min(82vw,460px);gap:2.6%}
+.nav-pill{height:clamp(54px,15vw,64px);background:#131313;box-shadow:none;padding:0 4px}
+.nav-pill .bottom-nav-item{flex:1;width:auto;height:100%;border-radius:999px;background:none;color:#454845}
+.nav-pill .bottom-nav-item.activo{background:none;color:#fff}
+.nav-pill .bottom-nav-item svg{width:26px;height:26px}
+#navPerfil{width:clamp(64px,17.6vw,76px);height:clamp(64px,17.6vw,76px);background:var(--grad);box-shadow:none}
+/* ===== La sagrada continuidad ===== */
+#grafico{display:none;max-width:480px;margin:0 auto}
+body.en-grafico #grafico{display:block}
+body.en-grafico #home,body.en-grafico .pie{display:none}
+body.en-grafico{padding-bottom:110px}
+#grafico .top{display:flex;padding:calc(env(safe-area-inset-top,0px) + 14px) 9% 0}
+.gcard{margin:18px 9% 0;height:min(calc(100svh - 270px),640px);min-height:430px;padding:28px 26px 18px;border-radius:44px;background:#121212;display:flex;flex-direction:column;overflow:hidden}
+.g-top{display:flex;justify-content:space-between;align-items:flex-start}
+.g-lbl{font:400 .9rem 'Open Sans',sans-serif;color:#8a8a8a}
+.g-top h1{font:700 2.2rem/1.15 'Poppins',sans-serif;letter-spacing:-.01em}
+.g-top h1.flash{animation:flash .35s}
+.pausa{width:34px;height:34px;border:2px solid currentColor;border-radius:50%;color:#8a8a8a;display:grid;place-items:center;transition:color .2s,transform .16s}
+.pausa svg{width:14px;height:14px;animation:pop .25s}
+.pausa .i-play,.pausa[aria-pressed="true"] .i-pause{display:none}.pausa[aria-pressed="true"] .i-play{display:block}
+.pausa[aria-pressed="true"]{color:#C6FF00}
+.g-px{display:flex;align-items:center;gap:10px;margin-top:4px}
+#gVal{font:600 1.3rem 'Poppins',sans-serif}
+#gDelta{font-style:normal;font-size:.76rem;font-weight:600;padding:2px 10px;border-radius:99px;background:#1f221d}
+.up{color:#C6FF00}.dn{color:#ff5c5c}
+.g-stats{display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:16px;text-align:center}
+.g-stats small{display:block;font:400 .7rem 'Open Sans',sans-serif;color:#6d706a}
+.g-stats b{font:500 .9rem 'Poppins',sans-serif;color:#8a8a8a}.g-stats .c b{color:#fff;font-weight:700}
+.g-chart{flex:1;min-height:0;margin:12px -26px 0;touch-action:pan-y;cursor:crosshair}
+.g-chart svg{display:block;width:100%;height:100%;overflow:hidden}
+#gHalo{transform-box:fill-box;transform-origin:center;animation:halo 1.8s ease-out infinite}
+body.pausado #gHalo{animation-play-state:paused}
+.gl{stroke:rgba(255,255,255,.05);stroke-width:1}
+.g-rng{display:flex;justify-content:space-between;margin-top:10px}
+.g-rng button{position:relative;padding:6px 14px;font:500 .8rem 'Open Sans',sans-serif;color:#6d706a}
+.g-rng .on{color:#fff}.g-rng .on::after{content:"";position:absolute;left:22%;right:22%;bottom:0;height:2px;border-radius:2px;background:#C6FF00;animation:sub .3s ease-out}
+/* pausa global */
+#pausaVeil{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;background:rgba(0,0,0,.66);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);animation:fade .25s;cursor:pointer}
+#pausaVeil[hidden]{display:none}
+#pausaVeil button{width:88px;height:88px;border-radius:50%;background:var(--grad);color:#0A0A0A;display:grid;place-items:center;animation:pop .35s}
+#pausaVeil svg{width:36px;height:36px}
+#pausaVeil p{font:400 .85rem 'Open Sans',sans-serif;color:#bbb}
+/* ===== Transferir ===== */
+#enviar,#transf{max-width:480px}
+.pg-t{font:700 clamp(1.8rem,8vw,2.3rem)/1.1 'Poppins',sans-serif;letter-spacing:-.02em}
+.pg-s{font-family:'Open Sans',sans-serif}
+#enviar .buscador{height:60px;background:#131313;border:1px solid #20231f}
+#enviar .bs-lupa{width:44px;height:44px}
+.al-mio{background:#131313;border:1px solid #20231f;padding:10px 16px;margin-left:0}
+.al-mio svg{color:#C6FF00}
+#enviar .pg-h{font:500 .85rem 'Open Sans',sans-serif;color:#8a8a8a;opacity:1;margin-top:26px}
+#enviar .en-panel{gap:10px}
+#enviar .en-fila{padding:10px 16px 10px 10px;background:#131313;border-radius:999px;animation:entra .35s both}
+#enviar .en-fila:hover{background:#191b18}
+#enviar .en-av{width:52px;height:52px;background:var(--grad)}
+.tr-card{padding:30px 24px 28px;border-radius:44px;background:#121212;text-align:center}
+.tr-card h2{font:400 .85rem 'Open Sans',sans-serif;color:#8a8a8a}
+.tr-av{background:var(--grad);width:min(30vw,112px);height:min(30vw,112px);margin-bottom:14px;animation:pop .45s}
+.tr-who b{font:700 1.15rem 'Poppins',sans-serif}
+.tr-input{background:#1b1d1a;text-align:center;height:76px;font:700 1.9rem 'Poppins',sans-serif;letter-spacing:-.01em}
+.tr-input:focus{border-color:#C6FF00;box-shadow:0 0 0 4px rgba(198,255,0,.12)}
+.tr-btn{background:var(--grad);color:#0A0A0A;font-weight:700;min-height:64px}
+.tr-btn.tr-no{background:#131313;color:#fff;border:1px solid #2a2d29;min-height:60px}
+.tr-btn.tr-no:active{background:#1b1d1a}
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -660,14 +771,23 @@
       <span class="pp-av" id="ppAv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
       <span class="pp-nombre" id="ppNombre">Iniciar sesión</span>
     </button>
-    <div class="top-acciones">
-      <button class="top-ico" type="button" data-a="logros" aria-label="Logros" title="Logros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-1.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98 1.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></button>
-      <button class="top-ico" type="button" data-a="noticias" aria-label="Noticias" title="Noticias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7.5 9h6M7.5 12.5h6M7.5 16h3"/></svg></button>
-      <button class="top-ico" type="button" data-a="edicion-coleccionista" aria-label="Colección" title="Colección"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-35 12 12)"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 11v2M13 17v2"/></g></svg></button>
-      <button class="top-ico" type="button" data-a="notificaciones" aria-label="Notificaciones" title="Notificaciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><b class="cw-badge" id="cwBadge" hidden>0</b></button>
-    </div>
+    <button class="top-ico" type="button" data-a="noticias" aria-label="Noticias" title="Noticias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7.5 9h6M7.5 12.5h6M7.5 16h3"/></svg></button>
   </header>
 
+  <main id="nuevoHome">
+    <section class="caja" id="caja" aria-label="Caja de créditos">
+      <span class="caja-lbl">Caja de créditos</span>
+      <button class="ojo" id="btnOjo" type="button" aria-pressed="false" aria-label="Ocultar créditos"><svg class="e-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><svg class="e-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 5.1A9.7 9.7 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.5C3.8 8.3 2 12 2 12s3.6 7 10 7c1.7 0 3.2-.4 4.5-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></button>
+      <div class="monto-n" id="montoN"><span>$</span><span class="js-creditos">0</span></div>
+      <div class="gana" id="cwGana" hidden></div>
+    </section>
+    <div class="acc4">
+      <button class="circ" type="button" data-a="transferir" aria-label="Enviar"><span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h15M15 4l4 4-4 4"/><path d="M20 16H5M9 12l-4 4 4 4"/></svg></span>Enviar</button>
+      <button class="circ" type="button" data-a="upgrade" aria-label="Upgrade"><span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5 12 7l5.5 5.5"/><path d="M6.5 19 12 13.5 17.5 19"/><path d="M6.5 4.5h11"/></svg></span>Upgrade</button>
+      <button class="circ" type="button" data-a="logros" aria-label="Logros"><span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-1.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98 1.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>Logros</button>
+      <button class="circ" type="button" data-a="edicion-coleccionista" aria-label="Colección"><span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-35 12 12)"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 11v2M13 17v2"/></g></svg></span>Colección</button>
+    </div>
+  </main>
   <div class="fold" id="fold" data-tab="inicio">
     <div class="fold-tabs" role="tablist" aria-label="Secciones">
       <button class="fold-tab" id="tabInicio" type="button" role="tab" aria-selected="true" aria-controls="paneInicio">Inicio</button>
@@ -679,7 +799,7 @@
       <section id="paneInicio" role="tabpanel" aria-labelledby="tabInicio">
         <div class="lbl-g">Créditos</div>
         <div class="monto g"><span>$</span><span id="cwCreditos" class="js-creditos">0</span></div>
-        <div class="gana" id="cwGana" hidden></div>
+        <div class="gana" id="cwGanaOld" hidden></div>
         <div class="circulos">
           <button class="circ" type="button" data-a="transferir" aria-label="Enviar">
             <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h15M15 4l4 4-4 4"/><path d="M20 16H5M9 12l-4 4 4 4"/></svg></span>Enviar
@@ -748,6 +868,21 @@
   <h2 id="tituloBuscar">Resultados de búsqueda</h2>
   <div class="grilla" id="grilla"></div>
   <p class="sin-resultados" id="sinResultados">Sin resultados.</p>
+</section>
+
+<!-- LA SAGRADA CONTINUIDAD -->
+<section id="grafico" aria-label="La sagrada continuidad">
+  <header class="top"><button class="perfil-pill" id="btnPerfilG" type="button" aria-label="Abrir perfil"></button></header>
+  <div class="gcard">
+    <div class="g-top">
+      <div><span class="g-lbl">La sagrada continuidad</span><h1 id="gEstado">Estable</h1></div>
+      <button class="pausa" id="btnPausa" type="button" aria-pressed="false" aria-label="Pausar"><svg class="i-pause" viewBox="0 0 14 14" fill="currentColor"><rect x="2" y="1" width="3.4" height="12" rx="1"/><rect x="8.6" y="1" width="3.4" height="12" rx="1"/></svg><svg class="i-play" viewBox="0 0 14 14" fill="currentColor"><path d="M3 1.5v11l9-5.5z"/></svg></button>
+    </div>
+    <div class="g-px"><b id="gVal">1.000,00</b><i id="gDelta" class="up">▲ 0,00%</i></div>
+    <div class="g-stats"><div><small>Mínimo</small><b id="gMin">0</b></div><div class="c"><small>Actual</small><b id="gAct">0</b></div><div><small>Máximo</small><b id="gMax">0</b></div></div>
+    <div class="g-chart" id="gChart"><svg id="gSvg" aria-hidden="true"></svg></div>
+    <div class="g-rng" id="gRng"><button type="button" data-n="30">20s</button><button type="button" data-n="60" class="on">40s</button><button type="button" data-n="120">1m</button><button type="button" data-n="240">3m</button></div>
+  </div>
 </section>
 
 <!-- ENVIAR CRÉDITOS: buscar alias -->
@@ -980,21 +1115,18 @@
 
 <nav class="bottom-nav" id="bottomNav" aria-label="Navegación inferior">
   <div class="nav-pill">
-    <button class="bottom-nav-item activo" id="navWallet" aria-label="Inicio">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-    </button>
-    <button class="bottom-nav-item" id="navHome" aria-label="Inventario">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><path d="M9.5 6.2V5a2.5 2.5 0 0 1 5 0v1.2"/><rect x="5" y="6.2" width="14" height="15" rx="5"/><path d="M5 12h14"/><rect x="8.5" y="14.6" width="7" height="4" rx="1.2"/></svg>
-    </button>
-    <button class="bottom-nav-item" id="navBuscar" aria-label="Ránking">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><rect x="2.5" y="12" width="6" height="9" rx="1"/><rect x="9" y="6" width="6" height="15" rx="1"/><rect x="15.5" y="15" width="6" height="6" rx="1"/><path d="M12 2.5v0"/></svg>
-    </button>
-    <button class="bottom-nav-item" id="navOrbe" aria-label="Empresa">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16"/><path d="M14 10h5a1 1 0 0 1 1 1v10"/><path d="M2 21h20"/><path d="M8 8h2M8 12h2M8 16h2"/></svg>
-    </button>
+    <button class="bottom-nav-item activo" id="navWallet" aria-label="Inicio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></button>
+    <button class="bottom-nav-item" id="navGrafico" aria-label="La sagrada continuidad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17.5 9 11l4 4 8-8"/><path d="M15.5 6.5H21V12"/></svg></button>
   </div>
   <button class="bottom-nav-item" id="navPerfil" aria-label="Perfil"><span class="nav-foto" id="navFoto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span></button>
+  <div class="nav-pill">
+    <button class="bottom-nav-item" id="navHome" aria-label="Inventario y colección"><svg viewBox="0 0 24 24" fill="currentColor"><g transform="rotate(-35 12 12)"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></g></svg></button>
+    <button class="bottom-nav-item" id="navOrbe" aria-label="Empresa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5L19.5 7"/></svg></button>
+  </div>
+  <button id="navBuscar" hidden aria-hidden="true"></button>
 </nav>
+
+<div id="pausaVeil" hidden role="dialog" aria-label="Pausado"><button type="button" aria-label="Reanudar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><p>Pausado · toca para reanudar</p></div>
 
 <!-- ================= CUENTA / SESIÓN / NAVEGACIÓN ================= -->
 <script>
@@ -1028,7 +1160,7 @@ const IMG_BASE = "https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/";
 
 function activarItemNav(idBtn) {   // solo Inicio (en la página principal) y Perfil se marcan; en cualquier sección ninguno
   document.querySelectorAll('.bottom-nav-item').forEach(el => el.classList.remove('activo'));
-  const el = (idBtn === 'navWallet' || idBtn === 'navPerfil') ? document.getElementById(idBtn) : null;
+  const el = (idBtn === 'navWallet' || idBtn === 'navPerfil' || idBtn === 'navGrafico') ? document.getElementById(idBtn) : null;
   if (el) el.classList.add('activo');
 }
 
@@ -1040,7 +1172,7 @@ window.card = window.card || (p => `<div class="portada" data-id="${p.img}"><img
 
 // Cierra cualquier pantalla abierta (menos el perfil) para que nunca se mezclen dos vistas
 window.cubeLimpiarVistas = function () {
-  document.body.classList.remove('buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa');
+  document.body.classList.remove('buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico');
 };
 
 window.abrirModal = function (tipo) {
@@ -1057,7 +1189,7 @@ window.abrirModal = function (tipo) {
 };
 
 function cerrarModales() {
-  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa');
+  document.body.classList.remove('auth-abierto', 'perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico');
   activarItemNav('navWallet');
   window.scrollTo(0, 0);
   iniciarAuto();
@@ -1106,7 +1238,7 @@ document.getElementById('menuOverlay').onclick = () => cerrarModales();
 // Se recalcula al hacer scroll, al cambiar de pantalla (clase del body) y al cambiar el alto de la página,
 // así nunca se queda oculta al volver al inicio.
 const bottomNav = document.getElementById('bottomNav');
-const CLASES_VISTA = ['buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'perfil-abierto'];
+const CLASES_VISTA = ['buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico', 'perfil-abierto'];
 let navPend = false;
 function actualizarNav() {
   navPend = false;
@@ -2135,7 +2267,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const ICO_AL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>';
   const av = f => (f && /^(data:image|https?:)/.test(f)) ? `<img src="${esc(f)}" alt="">` : ICO_P;
   const nombre = r => '@' + String(r.username || '').replace(/^@/, '');
-  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa'];
+  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico'];
   const OTRAS = VISTAS.filter(v => v !== 'en-enviar' && v !== 'en-transf');
 
   function mostrar(clase) {
@@ -2542,7 +2674,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const aviso = t => window.cubeAviso ? window.cubeAviso(t) : alert(t);
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fm = n => Number(n || 0).toLocaleString('es-AR', { maximumFractionDigits: 2 });
-  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa'];
+  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico'];
   const user = () => window.usuario && window.usuario();
   function mostrar(c) {
     body.classList.remove(...VISTAS); body.classList.add(c);
@@ -2686,7 +2818,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const aviso = t => window.cubeAviso ? window.cubeAviso(t) : alert(t);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fm = n => Number(n || 0).toLocaleString('es-AR', { maximumFractionDigits: 2 });
-  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa'];
+  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-inventario', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-compra', 'en-empresa', 'en-grafico'];
   const SECT = ['Tecnología', 'Gastronomía', 'Moda', 'Videojuegos', 'Salud', 'Educación', 'Entretenimiento', 'Energía'];
   const COL = ['#C6FF00', '#2E9E00', '#3B82F6', '#8B5CF6', '#E5484D', '#F59E0B', '#0EA5A5', '#171917'];
   const EMO = ['🚀', '🍔', '👕', '🎮', '💊', '📚', '🎬', '⚡', '🌱', '🎵'];
@@ -2858,6 +2990,125 @@ window.addEventListener('cube-wallet-accion', function (e) {
   $('navOrbe').onclick = () => { mostrar('en-empresa'); cargar(); };
 })();
 
+</script>
+
+<script>
+/* ===== Rediseño: ojo, gráfico, pausa global y animaciones ===== */
+(function () {
+  const $ = id => document.getElementById(id), body = document.body;
+  const fmt = n => n.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  /* --- Ojo: ocultar créditos --- */
+  const ojo = $('btnOjo'), caja = $('caja'), montoN = $('montoN');
+  function setOjo(on, anim) {
+    ojo.setAttribute('aria-pressed', on); ojo.setAttribute('aria-label', on ? 'Mostrar créditos' : 'Ocultar créditos');
+    montoN.classList.toggle('oculto', on); caja.classList.toggle('oculta', on);
+    if (anim) { montoN.classList.remove('flip'); void montoN.offsetWidth; montoN.classList.add('flip'); }
+    try { localStorage.setItem('cube_ojo', on ? '1' : '0'); } catch (e) {}
+  }
+  let o0 = false; try { o0 = localStorage.getItem('cube_ojo') === '1'; } catch (e) {}
+  setOjo(o0, false);
+  ojo.onclick = () => setOjo(ojo.getAttribute('aria-pressed') !== 'true', true);
+
+  /* --- Pausa global --- */
+  let pausado = false;
+  const veil = $('pausaVeil'), bp = $('btnPausa');
+  function pausar(p) {
+    pausado = window.cubePausado = p; body.classList.toggle('pausado', p); veil.hidden = !p;
+    bp.setAttribute('aria-pressed', p); bp.setAttribute('aria-label', p ? 'Reanudar' : 'Pausar');
+    ['.app', '#bottomNav', '.pie'].forEach(s => { const el = document.querySelector(s); if (el) el.inert = p; });
+    if (document.activeElement && p) document.activeElement.blur();
+  }
+  bp.onclick = () => pausar(!pausado);
+  veil.onclick = () => pausar(false);
+  ['keydown', 'keypress', 'keyup'].forEach(t => document.addEventListener(t, e => { if (pausado) { e.preventDefault(); e.stopPropagation(); } }, true));
+
+  /* --- Gráfico --- */
+  const TICK = 700, N0 = 300, BASE = 1000;
+  let serie = [], v = BASE, nVis = 60, cur = null, acc = 0, prev = performance.now(), minC = 0, maxC = 1, escala = false;
+  const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) * 1.15;
+  const paso = () => (v += (BASE - v) * .012 + gauss() * 1.8 + (Math.random() < .03 ? gauss() * 6 : 0));
+  for (let i = 0; i < N0; i++) serie.push(paso());
+  const visible = () => body.classList.contains('en-grafico');
+  const svg = $('gSvg');
+  svg.innerHTML = '<defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6FF00" stop-opacity=".3"/><stop offset="1" stop-color="#C6FF00" stop-opacity="0"/></linearGradient></defs><g id="gGrid"><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/></g><path id="gArea" fill="url(#gA)"/><path id="gLine" fill="none" stroke="#C6FF00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><line id="gCur" y1="0" stroke="rgba(255,255,255,.35)"/><circle id="gHalo" r="9" fill="#C6FF00"/><circle id="gDot" r="5.5" fill="#fff" stroke="#C6FF00" stroke-width="2.5"/>';
+  const gArea = $('gArea'), gLine = $('gLine'), gCur = $('gCur'), gHalo = $('gHalo'), gDot = $('gDot'), grid = $('gGrid').children;
+  const f1 = x => x.toFixed(1);
+  function curva(P) {
+    let d = 'M' + f1(P[0][0]) + ' ' + f1(P[0][1]);
+    for (let i = 0; i < P.length - 1; i++) {
+      const p0 = P[i - 1] || P[i], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2] || p2;
+      d += 'C' + f1(p1[0] + (p2[0] - p0[0]) / 6) + ' ' + f1(p1[1] + (p2[1] - p0[1]) / 6) + ' ' + f1(p2[0] - (p3[0] - p1[0]) / 6) + ' ' + f1(p2[1] - (p3[1] - p1[1]) / 6) + ' ' + f1(p2[0]) + ' ' + f1(p2[1]);
+    }
+    return d;
+  }
+  function dibujar(frac) {
+    const W = svg.clientWidth, H = svg.clientHeight; if (!W || !H) return;
+    const w = serie.slice(-(nVis + 1)), step = W / (nVis - 1);
+    let lo = Math.min(...w), hi = Math.max(...w); const pad = (hi - lo) * .2 + .5; lo -= pad; hi += pad * 1.5;
+    if (!escala) { minC = lo; maxC = hi; escala = true; } else { minC += (lo - minC) * .12; maxC += (hi - maxC) * .12; }
+    const P = w.map((x, i) => [(i - frac) * step, H - (x - minC) / (maxC - minC) * H]);
+    const d = curva(P); gLine.setAttribute('d', d);
+    gArea.setAttribute('d', d + 'L' + f1(P[P.length - 1][0]) + ' ' + H + 'L' + f1(P[0][0]) + ' ' + H + 'Z');
+    for (let i = 0; i < 3; i++) { const y = H * (i + 1) / 4; grid[i].setAttribute('y1', y); grid[i].setAttribute('y2', y); }
+    const xc = cur == null ? W : Math.min(W, Math.max(0, cur));
+    let j = 0; while (j < P.length - 2 && P[j + 1][0] < xc) j++;
+    const a = P[j], b = P[j + 1], t = b[0] === a[0] ? 0 : Math.min(1, Math.max(0, (xc - a[0]) / (b[0] - a[0])));
+    const y = a[1] + (b[1] - a[1]) * t;
+    gDot.setAttribute('cx', xc); gDot.setAttribute('cy', y); gHalo.setAttribute('cx', xc); gHalo.setAttribute('cy', y);
+    gCur.setAttribute('x1', xc); gCur.setAttribute('x2', xc); gCur.setAttribute('y2', H); gCur.style.opacity = cur == null ? 0 : 1;
+    if (cur != null) $('gVal').textContent = fmt(w[j] + (w[j + 1] - w[j]) * t);
+  }
+  function txt() {
+    const w = serie.slice(-nVis), lo = Math.min(...w), hi = Math.max(...w), ult = w[w.length - 1], ch = (ult / w[0] - 1) * 100;
+    $('gMin').textContent = fmt(lo); $('gMax').textContent = fmt(hi); $('gAct').textContent = fmt(ult);
+    const d = $('gDelta'); d.textContent = (ch >= 0 ? '▲ ' : '▼ ') + fmt(Math.abs(ch)) + '%'; d.className = ch >= 0 ? 'up' : 'dn';
+    if (cur == null) $('gVal').textContent = fmt(ult);
+    let s = 0; for (let i = 1; i < w.length; i++) s += Math.abs(w[i] / w[i - 1] - 1);
+    const vol = s / (w.length - 1) * 100;
+    const e = vol > .22 ? 'Inestable' : ch > .35 ? 'Creciendo' : ch < -.35 ? 'Decayendo' : 'Estable';
+    const h1 = $('gEstado'); if (h1.textContent !== e) { h1.textContent = e; h1.classList.remove('flash'); void h1.offsetWidth; h1.classList.add('flash'); }
+  }
+  function loop(now) {
+    const dt = Math.min(now - prev, 120); prev = now;
+    if (!pausado) {
+      acc += dt;
+      while (acc >= TICK) { acc -= TICK; serie.push(paso()); if (serie.length > N0 + 50) serie.shift(); if (visible()) txt(); }
+      if (visible()) dibujar(acc / TICK);
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+  $('gRng').onclick = e => {
+    const b = e.target.closest('button'); if (!b) return;
+    nVis = +b.dataset.n; $('gRng').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); txt();
+  };
+  const ch = $('gChart'), mover = e => { cur = e.clientX - ch.getBoundingClientRect().left; };
+  ch.addEventListener('pointerdown', e => { ch.setPointerCapture(e.pointerId); mover(e); });
+  ch.addEventListener('pointermove', e => { if (e.buttons || e.pointerType === 'mouse') mover(e); });
+  const soltar = () => { cur = null; txt(); };
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => ch.addEventListener(t, soltar));
+
+  /* --- Navegación --- */
+  $('navGrafico').onclick = () => {
+    if (visible()) return;
+    cerrarModales(); body.classList.add('en-grafico'); activarItemNav('navGrafico');
+    $('btnPerfilG').innerHTML = $('btnPerfilTop').innerHTML.replace(/ id="[^"]*"/g, '');
+    escala = false; txt(); window.scrollTo(0, 0);
+  };
+  $('btnPerfilG').onclick = () => abrirPerfilDesdeBoton();
+
+  /* --- Onda al tocar cualquier botón --- */
+  const SEL = '.circ,.bottom-nav-item,.perfil-opcion,.pg-btn,.b-pri,.b-sec,.tr-btn,.top-ico,.perfil-pill,.emp,.inv-card,.act-b,.cp-go,.ch-card,.bs-lupa,.en-fila,.pausa,.ojo,#gRng button';
+  document.addEventListener('pointerdown', e => {
+    const t = e.target.closest(SEL); if (!t || t.disabled) return;
+    const h = t.classList.contains('circ') ? t.querySelector('.circ-ico') : t; if (!h) return;
+    h.classList.add('rp');
+    const r = h.getBoundingClientRect(), s = Math.max(r.width, r.height) * 1.6, sp = document.createElement('span');
+    sp.className = 'rip'; sp.style.cssText = 'width:' + s + 'px;height:' + s + 'px;left:' + (e.clientX - r.left - s / 2) + 'px;top:' + (e.clientY - r.top - s / 2) + 'px';
+    h.appendChild(sp); setTimeout(() => sp.remove(), 600);
+  }, true);
+})();
 </script>
 </body>
 </html>
