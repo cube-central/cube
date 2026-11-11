@@ -767,7 +767,7 @@ body.alarma .nav-pill .bottom-nav-item.activo{color:#ff6b6b}
 #navOrbe{position:relative}
 .punto-n.punto-ops{top:calc(50% - 17px);right:auto;left:calc(50% + 7px)}
 body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
-#alarmaBar button.rezar{background:rgba(255,255,255,.2)}
+#alarmaBar button:disabled{opacity:.55}
 #alarmaBar button:disabled{opacity:.6}
 .gref{stroke-width:1.3;stroke-dasharray:5 4;opacity:.75}
 .gtx{font:600 9px 'Open Sans',sans-serif;opacity:.9}
@@ -2711,7 +2711,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) * 1.15;
   /* --- Motor: presión (impulsos), rendimiento, caída sostenida, alarma --- */
   let presion = 0, caidaMs = 0, calma = 0, nivelCast = 0, alarma = false, silencio = false, ac = null, sirena = null;
-  let costoAlarma = 1000, rezos = 0, pagando = false, abandono = false;
+  let costoAlarma = 1000, pagando = false, abandono = false;
   let modo = 'neutral', bajada = 0, alzaF = 1;   // modo: neutral (quieta) · alza (sobre la línea hasta +64%) · baja (caída y recuperación lenta)
   /* La gráfica es neutral y se mantiene entre las dos líneas. Solo sale de ahí por: operaciones sin resolver (caída violenta),
      decisiones favorables (alza), desfavorables (caída) o un retiro con mala suerte (caída violenta). */
@@ -2748,7 +2748,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   }
   function alarmaOn() {
     alarma = true; body.classList.add('alarma'); sirenaOn();
-    costoAlarma = [1000, 2000, 3000][Math.floor(Math.random() * 3)]; rezos = 0; pintarAlarmaBtn();
+    costoAlarma = [1000, 2000, 3000][Math.floor(Math.random() * 3)]; pintarAlarmaBtn();
     try { if (navigator.vibrate) navigator.vibrate([300, 150, 300]); } catch (e) {}
     sis({ tipo: 'alerta', efecto: 'down', titulo: 'ALERTA: La Sagrada Continuidad se desploma', cuerpo: 'Tu rendimiento acumulado llegó a cero y la gráfica sigue bajo la línea inferior. Cube activó el modo alarma y descuenta las pérdidas directamente de tu caja de créditos hasta que el mercado se estabilice.' });
   }
@@ -2762,7 +2762,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     if (modo === 'alza' && zona > 0) { alzaF *= 1 + .05 / CICLO; if (alzaF >= 1 + META_ALZA) { modo = 'neutral'; alzaF = 1; } }   // al rendir +64% vuelve al estado neutro
     if (r === 'caja') { calma = 0; if (!alarma) alarmaOn(); }
     else if (alarma && zona >= 0 && ++calma >= 4) { calma = 0; alarmaOff(); }
-    const t = $('alarmaTxt'); if (alarma && t) t.textContent = 'Alerta · rendimiento en cero · las pérdidas salen de tu caja de créditos';
+    const t = $('alarmaTxt'); if (alarma && t) t.textContent = 'Alarma · −$50 de tu caja cada 2 s hasta que se estabilice';
   }
   // Gastar o retirar créditos presiona la gráfica según el monto
   function gasto() { return 0; }   // la gráfica permanece neutral: gastar créditos ya no la mueve
@@ -2784,33 +2784,24 @@ window.addEventListener('cube-wallet-accion', function (e) {
     else if (tipo === 'riesgo_pierde') caer(r(24, 30));
   }
 
-  /* Alarma: no se silencia. Se estabiliza pagando 1000, 2000 o 3000 créditos... o se reza */
+  /* Alarma: no se silencia. Se estabiliza pagando 1000, 2000 o 3000 créditos */
   const avisoG = t => { if (window.cubeAviso) window.cubeAviso(t); };
   function pintarAlarmaBtn() {
     const b = $('alarmaPagar'); if (!b) return;
     const ok = Number(window.cubeSaldo || 0) >= costoAlarma;
-    b.textContent = ok ? 'Estabilizar · −$' + miles(costoAlarma) : '🙏 Rezar'; b.classList.toggle('rezar', !ok);
+    b.textContent = 'Estabilizar · −$' + miles(costoAlarma); b.disabled = !ok || pagando;
   }
   setInterval(() => { if (alarma) pintarAlarmaBtn(); }, 1500);
   function estabilizar(o) { presion = 0; bajada = 0; modo = 'neutral'; alzaF = 1; if (v < LOW + 3) { v = LOW + 3; serie[serie.length - 1] = v; } calma = 0; alarmaOff(o); }
-  const REZOS = ['Rezas en silencio… la gráfica no se inmuta.', 'Prometes portarte bien. No pasa nada.', 'Alzas la mirada al cielo. El cielo no responde.', 'Susurras una plegaria. Solo se oye la sirena.', 'Enciendes una vela imaginaria. La alarma sigue.'];
-  function rezar() {
-    rezos++; if (modo === 'baja') v += .8;
-    if (Math.random() < Math.min(.45, .1 + rezos * .03)) {
-      estabilizar({ tipo: 'recuperacion', efecto: 'up', titulo: 'Un milagro: la Sagrada Continuidad se recupera sola', cuerpo: 'Nadie sabe cómo, pero alguien arriba escuchó. La alarma se apagó sin gastar un solo crédito.' });
-      avisoG('🙏 Tus plegarias fueron escuchadas.');
-    } else avisoG(REZOS[Math.floor(Math.random() * REZOS.length)]);
-  }
   const pay = $('alarmaPagar');
   if (pay) pay.onclick = async () => {
     if (!alarma || pagando || pausado) return;
     if (Number(window.cubeSaldo || 0) >= costoAlarma && window.cubeOps) {
       pagando = true; pay.disabled = true; let ok = false;
       try { ok = await window.cubeOps.pagar(costoAlarma); } catch (e) {}
-      pagando = false; pay.disabled = false;
+      pagando = false; pintarAlarmaBtn();
       if (ok) estabilizar({ tipo: 'recuperacion', efecto: 'up', titulo: 'Estabilización pagada: Cube cancela la alarma', cuerpo: 'Pagaste $' + miles(costoAlarma) + ' créditos de tu caja y la Sagrada Continuidad volvió a una zona segura.' });
-      else pintarAlarmaBtn();
-    } else rezar();
+    }
   };
   for (let i = 0; i < N0; i++) serie.push(paso());
   const visible = () => body.classList.contains('en-grafico');
@@ -3293,24 +3284,33 @@ window.addEventListener('cube-wallet-accion', function (e) {
   }
 
   /* ---------- Rendimiento acumulado (servidor: ver cube-operaciones.sql) ---------- */
-  let acum = 0, pend = 0, busy = false, hab = false, avisoSql = false, refrescando = false;
+  let acum = 0, pend = 0, srv = 0, negOK = true, busy = false, hab = false, avisoSql = false, refrescando = false;
   const noInstalado = err => { const m = (err && (err.message || '')) || ''; return (err && err.code === 'PGRST202') || /ops_/.test(m) && /function|exist|schema/i.test(m); };
   function pintarRend() { const e = $('gRend'); if (e) e.textContent = '$' + fm(acum); }
   async function cargarEstado() {
-    acum = 0; pend = 0; hab = false;
+    acum = 0; pend = 0; srv = 0; hab = false;
     if (!sesion() || !db()) { pintarRend(); return; }
     const { data, error } = await db().rpc('ops_estado_get');
     if (error) { console.warn('ops_estado_get', error); if (noInstalado(error) && !avisoSql) { avisoSql = true; console.warn('Ejecuta cube-operaciones.sql en Supabase para activar el rendimiento.'); } pintarRend(); return; }
-    acum = Number(data) || 0; hab = true; pintarRend();
+    srv = Number(data) || 0; try { pend = Number(localStorage.getItem(kPend())) || 0; } catch (e) { pend = 0; }
+    acum = Math.max(0, srv + pend); hab = true; pintarRend();
   }
+  const kPend = () => (clave() || 'cube_ops') + '_pend';
+  setInterval(() => { if (hab && sesion()) { try { localStorage.setItem(kPend(), String(Math.round(pend * 100) / 100)); } catch (e) {} } }, 1500);
+  /* El rendimiento siempre es servidor + pendiente local. Si el servidor no aplica una pérdida (rechaza o ignora montos negativos),
+     la pérdida se queda en el pendiente local: así el número nunca vuelve a un valor anterior. */
   async function flush() {
     if (busy || !hab || Math.abs(pend) < .01 || !sesion() || window.cubePausado) return;
+    if (pend < 0 && !negOK) return;
     busy = true; const m = Math.round(Math.max(-2000, Math.min(pend, 2000)) * 100) / 100;
     try {
       const { data, error } = await db().rpc('ops_acumular', { p_monto: m });
       if (error) throw error;
-      pend -= m; acum = Number(data) + pend;
-    } catch (e) { console.warn('ops_acumular', e); if (m < 0) pend -= m; }   // si el servidor no admite montos negativos, esa pérdida queda solo en local
+      const nv = Number(data);
+      if (m < 0 && nv > srv + m + .05) { negOK = false; srv = nv; }   // el servidor ignoró la pérdida: se mantiene local
+      else { srv = nv; pend -= m; }
+      acum = Math.max(0, srv + pend);
+    } catch (e) { console.warn('ops_acumular', e); if (m < 0) negOK = false; }
     busy = false;
   }
   function refrescarCreditos() {
@@ -3319,12 +3319,12 @@ window.addEventListener('cube-wallet-accion', function (e) {
   }
   async function castigo(n) {
     if (!sesion() || !hab) return;
-    pend = Math.max(0, pend - n); acum = Math.max(0, acum - n); pintarRend();
+    acum = Math.max(0, acum - n); pend -= Math.min(n, srv + pend > 0 ? srv + pend : 0); pintarRend();
     aviso('ALERTA · −$' + fm(n) + ' créditos de tu caja');
     try {
       const { data, error } = await db().rpc('ops_penalizar', { p_monto: n });
       if (error) throw error;
-      acum = Number(data.acumulado) + pend; pintarRend();
+      srv = Number(data.acumulado); acum = Math.max(0, srv + pend); pintarRend();
     } catch (e) { console.warn('ops_penalizar', e); }
     refrescarCreditos();
   }
@@ -3338,31 +3338,34 @@ window.addEventListener('cube-wallet-accion', function (e) {
   /* ---------- Zonas: dos líneas de referencia ----------
      Sobre la línea superior: +5% cada ciclo (~10 s). Entre ambas: sin cambios. Bajo la inferior: −3% cada ciclo.
      Con rendimiento en cero, la pérdida sale de la caja de créditos y se activa la alarma.
-     El % se calcula sobre el mayor entre el rendimiento acumulado y una semilla (así hay movimiento aun en cero);
-     las pérdidas también consideran lo retirado recientemente tras una caída violenta. */
-  const SEMILLA = 200, CICLO = 14;
-  let pendCaja = 0, cajaBusy = false, expuesto = 0;
+     Las pérdidas son el 3% del rendimiento actual; las ganancias, el 5% (con una semilla mínima solo para poder arrancar desde cero).
+     Con la alarma sonando se descuentan 50 créditos de la caja cada 2 segundos. */
+  let expuesto = 0;   // (ya no influye en las pérdidas; se conserva por compatibilidad)
+  const SEMILLA = 20, CICLO = 14;   // la semilla solo permite arrancar desde cero; con rendimiento sobre 20 el % es exacto
+  let cajaBusy = false;
   function zona(z) {
     if (!hab || !sesion() || window.cubePausado) return null;
-    expuesto *= .996;
-    if (z > 0) { const g = Math.max(acum, SEMILLA) * .05 / CICLO; acum += g; pend += g; return null; }
-    if (z < 0) {
-      const l = Math.max(acum, SEMILLA, expuesto) * .03 / CICLO, resto = l - restar(l);
-      if (resto > 1e-6) { pendCaja += resto; return 'caja'; }
+    if (z > 0) { const g = Math.max(acum, SEMILLA) * .05 / CICLO; acum += g; pend += g; return null; }   // +5% por ciclo
+    if (z < 0) {   // −3% por ciclo, siempre que la gráfica esté bajo la línea, aunque vaya subiendo
+      if (acum <= 0) return 'caja';
+      restar(acum * .03 / CICLO);
+      if (acum < .5) restar(acum);   // cuando queda casi nada, llega a cero
+      return acum <= 0 ? 'caja' : null;
     }
     return null;
   }
-  async function flushCaja() {
-    if (cajaBusy || !hab || !sesion() || window.cubePausado || pendCaja < 1) return;
-    cajaBusy = true; const m = Math.floor(pendCaja * 100) / 100; pendCaja -= m;
+  // Con la alarma sonando: −50 créditos de la caja cada 2 segundos
+  async function cobrarAlarma() {
+    if (cajaBusy || !hab || !sesion() || window.cubePausado || !(window.cubeGrafico && window.cubeGrafico.enAlarma())) return;
+    cajaBusy = true;
     try {
-      const { data, error } = await db().rpc('ops_penalizar', { p_monto: m });
+      const { error } = await db().rpc('ops_penalizar', { p_monto: 50 });
       if (error) throw error;
-      aviso('ALERTA · −$' + fm(m) + ' créditos de tu caja'); refrescarCreditos();
+      refrescarCreditos();
     } catch (e) { console.warn('ops_penalizar', e); }
     cajaBusy = false;
   }
-  setInterval(flushCaja, 4000);
+  setInterval(cobrarAlarma, 2000);
   // Pagar la estabilización de la alarma con créditos propios
   async function pagar(c) {
     if (!sesion()) return false;
@@ -3371,7 +3374,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     try {
       const { data, error } = await db().rpc('ops_penalizar', { p_monto: c });
       if (error) throw error;
-      if (data && data.acumulado != null) acum = Number(data.acumulado) + pend;
+      if (data && data.acumulado != null) { srv = Number(data.acumulado); acum = Math.max(0, srv + pend); }
     } catch (e) { console.warn('ops_pagar', e); aviso('No se pudo cobrar. Inténtalo de nuevo.'); return false; }
     pintarRend(); aviso('Pagaste $' + fm(c) + ' · la gráfica se estabiliza.');
     if (window.cubeAjusteDia) window.cubeAjusteDia(-c);
@@ -3430,7 +3433,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
         nota.textContent = msg.includes('ACUM_INSUFICIENTE') ? 'No tienes tanto rendimiento acumulado.' : noInstalado(error) ? 'Falta ejecutar cube-operaciones.sql en Supabase.' : 'No se pudo retirar. Inténtalo de nuevo.';
         return;
       }
-      acum = Number(data.acumulado) + pend; pintarRend();
+      srv = Number(data.acumulado); acum = Math.max(0, srv + pend); pintarRend();
       cerrarSh();
       const cae = window.cubeGrafico ? window.cubeGrafico.retiro(q, m) : false;
       if (cae) exponer(m);
