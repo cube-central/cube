@@ -766,6 +766,15 @@ body.alarma .nav-pill .bottom-nav-item.activo{color:#ff6b6b}
 body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 #alarmaBar button.rezar{background:rgba(255,255,255,.2)}
 #alarmaBar button:disabled{opacity:.6}
+.gref{stroke-width:1.3;stroke-dasharray:5 4;opacity:.75}
+.gtx{font:600 9px 'Open Sans',sans-serif;opacity:.9}
+.g-rend small.zn{margin-top:2px;font-weight:600;color:#8a8a8a}.g-rend small.zn.up{color:#C6FF00}.g-rend small.zn.dn{color:#ff5a5a}
+.rt-opc{display:grid;gap:8px;margin:10px 0}
+.rt-opc button{text-align:left;padding:11px 14px;border-radius:14px;background:var(--fondo);border:1.5px solid transparent;display:grid;gap:2px}
+.rt-opc button.on{border-color:#C6FF00}
+.rt-opc b{font:700 .92rem 'Poppins',sans-serif}
+.rt-opc small{font-size:.72rem;line-height:1.35;color:var(--texto-suave)}
+.rt-opc .rk1 small span{color:#C6FF00}.rt-opc .rk2 small span{color:#ffc247}.rt-opc .rk3 small span{color:#ff5a5a}
 </style>
 </head>
 <body>
@@ -877,7 +886,7 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
     </div>
     <div class="g-px"><b id="gVal">1.000,00</b><i id="gDelta" class="up">▲ 0,00%</i></div>
     <div class="g-stats"><div><small>Mínimo</small><b id="gMin">0</b></div><div class="c"><small>Actual</small><b id="gAct">0</b></div><div><small>Máximo</small><b id="gMax">0</b></div></div>
-    <div class="g-rend"><div><small>Rendimiento acumulado</small><b id="gRend">$0</b></div><button id="btnRetirar" type="button">Retirar</button></div>
+    <div class="g-rend"><div><small>Rendimiento acumulado</small><b id="gRend">$0</b><small class="zn" id="gZona"></small></div><button id="btnRetirar" type="button">Retirar</button></div>
     <div class="g-chart" id="gChart"><svg id="gSvg" aria-hidden="true"></svg></div>
     <div class="g-rng" id="gRng"><button type="button" data-n="30">20s</button><button type="button" data-n="60" class="on">40s</button><button type="button" data-n="120">1m</button><button type="button" data-n="240">3m</button></div>
   </div>
@@ -2692,6 +2701,8 @@ window.addEventListener('cube-wallet-accion', function (e) {
 
   /* --- Gráfico --- */
   const TICK = 700, N0 = 300, BASE = 1000;
+  const UP = BASE + 3, LOW = BASE - 11;   // líneas de referencia: sobre UP hay beneficio, bajo LOW hay pérdida
+  let zona = 0;
   let serie = [], v = BASE, nVis = 60, cur = null, acc = 0, prev = performance.now(), minC = 0, maxC = 1, escala = false;
   const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) * 1.15;
   /* --- Motor: presión (impulsos), rendimiento, caída sostenida, alarma --- */
@@ -2723,30 +2734,26 @@ window.addEventListener('cube-wallet-accion', function (e) {
     alarma = true; body.classList.add('alarma'); sirenaOn();
     costoAlarma = [1000, 2000, 3000][Math.floor(Math.random() * 3)]; rezos = 0; pintarAlarmaBtn();
     try { if (navigator.vibrate) navigator.vibrate([300, 150, 300]); } catch (e) {}
-    sis({ tipo: 'alerta', efecto: 'down', titulo: 'ALERTA: La Sagrada Continuidad se desploma', cuerpo: 'La gráfica lleva más de 5 segundos en caída. Cube activó el modo alarma y descontará créditos de tu caja, cada vez más, hasta que el mercado se estabilice.' });
+    sis({ tipo: 'alerta', efecto: 'down', titulo: 'ALERTA: La Sagrada Continuidad se desploma', cuerpo: 'Tu rendimiento acumulado llegó a cero y la gráfica sigue bajo la línea inferior. Cube activó el modo alarma y descuenta las pérdidas directamente de tu caja de créditos hasta que el mercado se estabilice.' });
   }
   function alarmaOff(o) {
     alarma = false; body.classList.remove('alarma'); sirenaOff();
     sis(o || { tipo: 'recuperacion', efecto: 'up', titulo: 'Cube cancela la alarma: la Sagrada Continuidad se estabiliza', cuerpo: 'La caída se detuvo y la gráfica vuelve a una zona segura. Los descuentos de créditos han cesado.' });
   }
   function motor() {
-    const n = serie.length;
     deriva *= .997;
-    if (abandono) { deriva = Math.max(-40, deriva - .3); presion -= .12; }   // sin operaciones: la gráfica cae de inmediato y sigue cayendo
-    const y = Math.max(0, v - 994) * .18;   // rendimiento acumulado ~45% más rápido que antes
-    if (y > 0 && window.cubeOps) window.cubeOps.rendir(y);
+    if (abandono) { deriva = Math.max(-40, deriva - .3); presion -= .12; }   // sin operaciones: la gráfica cae y sigue cayendo
+    zona = v > UP ? 1 : v < LOW ? -1 : 0;   // 1 beneficio · 0 neutral · -1 pérdida
+    const r = window.cubeOps ? window.cubeOps.zona(zona) : null;   // 'caja' = el rendimiento llegó a cero y se pierde de la caja
     if (!alarma && presion > -1 && Math.random() < 1 / 4500) presion -= 9 + Math.random() * 3;   // caída espontánea, poco probable
-    const baja = presion <= (caidaMs > 0 ? -1.2 : -3) && serie[n - 1] < serie[n - 4] + (caidaMs > 0 ? 2 : 0);
-    if (baja) { caidaMs += TICK; calma = 0; }
-    else if (caidaMs > 0 && ++calma >= 4) { caidaMs = 0; calma = 0; nivelCast = 0; if (alarma) alarmaOff(); }
-    if (caidaMs >= 5000) {
-      if (!alarma) alarmaOn();
-      const nivel = Math.floor(caidaMs / 5000);
-      while (nivelCast < nivel) {
-        nivelCast++;
-        if (window.cubeOps) window.cubeOps.castigo(Math.min(960, 15 * Math.pow(2, nivelCast - 1)));
-      }
-      const t = $('alarmaTxt'); if (t) t.textContent = 'Alerta · caída de la sagrada continuidad · próximo descuento −$' + Math.min(960, 15 * Math.pow(2, nivelCast));
+    if (r === 'caja') { calma = 0; if (!alarma) alarmaOn(); }
+    else if (alarma && zona >= 0 && ++calma >= 4) { calma = 0; alarmaOff(); }
+    const t = $('alarmaTxt'); if (alarma && t) t.textContent = 'Alerta · rendimiento en cero · las pérdidas salen de tu caja de créditos';
+    const zt = $('gZona');
+    if (zt) {
+      const tx = alarma ? '▼ Rendimiento en cero · pierdes de tu caja' : zona > 0 ? '▲ Zona de beneficio · +5–6% cada 10 s' : zona < 0 ? '▼ Zona de pérdida · −3–5% cada 10 s' : '● Zona neutral · sin cambios';
+      if (zt.textContent !== tx) zt.textContent = tx;
+      zt.className = 'zn ' + (alarma || zona < 0 ? 'dn' : zona > 0 ? 'up' : '');
     }
   }
   // Gastar o retirar créditos presiona la gráfica según el monto
@@ -2760,7 +2767,16 @@ window.addEventListener('cube-wallet-accion', function (e) {
     sis({ tipo: 'mercado', efecto: 'down', titulo: 'Salida de créditos presiona la Sagrada Continuidad', cuerpo: 'Se movieron $' + miles(m) + ' créditos y la gráfica ' + (m >= 5000 ? 'cae con fuerza.' : 'cede terreno.') });
     return s;
   }
-  window.cubeGrafico = { valor: () => v, impulso: n => { presion += Number(n) || 0; }, gasto, noticia, abandono: b => { b = !!b; if (b === abandono) return; abandono = b; if (!b) deriva *= .3; }, enAlarma: () => alarma };
+  window.cubeGrafico = { valor: () => v, impulso: n => { presion += Number(n) || 0; }, gasto, noticia, retiro, zona: () => zona, abandono: b => { b = !!b; if (b === abandono) return; abandono = b; if (!b) deriva *= .3; }, enAlarma: () => alarma };
+  /* Retiro de rendimientos: 25% riesgo bajo (10%), 50% riesgo 50/50, 100% caída instantánea */
+  function retiro(q, m) {
+    const p = q >= 100 ? 1 : q >= 50 ? .5 : .1, cae = Math.random() < p;
+    if (cae) {
+      presion -= (q >= 100 ? 12 : 9) + Math.random() * 4;
+      sis({ tipo: 'alerta', efecto: 'down', titulo: 'Caída violenta tras retirar el ' + q + '% del rendimiento', cuerpo: 'La salida de $' + miles(m) + ' créditos desató una venta masiva y la Sagrada Continuidad se desploma. Si baja de la línea inferior y tu rendimiento se agota, perderás créditos de tu caja.' });
+    }
+    return cae;
+  }
   /* Noticias → gráfica: favorable crece (y rinde más rápido), neutra se mantiene, desfavorable baja un poco */
   function noticia(tipo) {
     const r = (a, b) => a + Math.random() * (b - a);
@@ -2775,7 +2791,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     b.textContent = ok ? 'Estabilizar · −$' + miles(costoAlarma) : '🙏 Rezar'; b.classList.toggle('rezar', !ok);
   }
   setInterval(() => { if (alarma) pintarAlarmaBtn(); }, 1500);
-  function estabilizar(o) { presion = 3; deriva = Math.max(deriva, 4); caidaMs = 0; calma = 0; nivelCast = 0; alarmaOff(o); }
+  function estabilizar(o) { presion = Math.max(presion, 0) + 2; deriva = Math.max(deriva, 6); if (v < LOW + 3) { v = LOW + 3; serie[serie.length - 1] = v; } calma = 0; alarmaOff(o); }
   const REZOS = ['Rezas en silencio… la gráfica no se inmuta.', 'Prometes portarte bien. No pasa nada.', 'Alzas la mirada al cielo. El cielo no responde.', 'Susurras una plegaria. Solo se oye la sirena.', 'Enciendes una vela imaginaria. La alarma sigue.'];
   function rezar() {
     rezos++; presion += .4;
@@ -2798,8 +2814,8 @@ window.addEventListener('cube-wallet-accion', function (e) {
   for (let i = 0; i < N0; i++) serie.push(paso());
   const visible = () => body.classList.contains('en-grafico');
   const svg = $('gSvg');
-  svg.innerHTML = '<defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6FF00" stop-opacity=".3"/><stop offset="1" stop-color="#C6FF00" stop-opacity="0"/></linearGradient></defs><g id="gGrid"><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/></g><path id="gArea" fill="url(#gA)"/><path id="gLine" fill="none" stroke="#C6FF00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><line id="gCur" y1="0" stroke="rgba(255,255,255,.35)"/><circle id="gHalo" r="9" fill="#C6FF00"/><circle id="gDot" r="5.5" fill="#fff" stroke="#C6FF00" stroke-width="2.5"/>';
-  const gArea = $('gArea'), gLine = $('gLine'), gCur = $('gCur'), gHalo = $('gHalo'), gDot = $('gDot'), grid = $('gGrid').children;
+  svg.innerHTML = '<defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6FF00" stop-opacity=".3"/><stop offset="1" stop-color="#C6FF00" stop-opacity="0"/></linearGradient></defs><g id="gGrid"><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/></g><line id="gUp" class="gref" stroke="#C6FF00" x1="0" x2="100%"/><line id="gLo" class="gref" stroke="#ff5a5a" x1="0" x2="100%"/><text id="gUpT" class="gtx" fill="#C6FF00" x="8">▲ Beneficio +5–6%</text><text id="gLoT" class="gtx" fill="#ff5a5a" x="8">▼ Pérdida −3–5%</text><path id="gArea" fill="url(#gA)"/><path id="gLine" fill="none" stroke="#C6FF00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><line id="gCur" y1="0" stroke="rgba(255,255,255,.35)"/><circle id="gHalo" r="9" fill="#C6FF00"/><circle id="gDot" r="5.5" fill="#fff" stroke="#C6FF00" stroke-width="2.5"/>';
+  const gArea = $('gArea'), gLine = $('gLine'), gCur = $('gCur'), gHalo = $('gHalo'), gDot = $('gDot'), grid = $('gGrid').children, gUp = $('gUp'), gLo = $('gLo'), gUpT = $('gUpT'), gLoT = $('gLoT');
   const f1 = x => x.toFixed(1);
   function curva(P) {
     let d = 'M' + f1(P[0][0]) + ' ' + f1(P[0][1]);
@@ -2812,9 +2828,12 @@ window.addEventListener('cube-wallet-accion', function (e) {
   function dibujar(frac) {
     const W = svg.clientWidth, H = svg.clientHeight; if (!W || !H) return;
     const w = serie.slice(-(nVis + 1)), step = W / (nVis - 1);
-    let lo = Math.min(...w), hi = Math.max(...w); const pad = (hi - lo) * .2 + .5; lo -= pad; hi += pad * 1.5;
+    let lo = Math.min(...w, LOW), hi = Math.max(...w, UP); const pad = (hi - lo) * .2 + .5; lo -= pad; hi += pad * 1.5;
     if (!escala) { minC = lo; maxC = hi; escala = true; } else { minC += (lo - minC) * .12; maxC += (hi - maxC) * .12; }
     const P = w.map((x, i) => [(i - frac) * step, H - (x - minC) / (maxC - minC) * H]);
+    const yU = H - (UP - minC) / (maxC - minC) * H, yL = H - (LOW - minC) / (maxC - minC) * H;
+    gUp.setAttribute('y1', yU); gUp.setAttribute('y2', yU); gLo.setAttribute('y1', yL); gLo.setAttribute('y2', yL);
+    gUpT.setAttribute('y', Math.max(10, yU - 5)); gLoT.setAttribute('y', Math.min(H - 4, yL + 12));
     const d = curva(P); gLine.setAttribute('d', d);
     gArea.setAttribute('d', d + 'L' + f1(P[P.length - 1][0]) + ' ' + H + 'L' + f1(P[0][0]) + ' ' + H + 'Z');
     for (let i = 0; i < 3; i++) { const y = H * (i + 1) / 4; grid[i].setAttribute('y1', y); grid[i].setAttribute('y2', y); }
@@ -3342,13 +3361,13 @@ window.addEventListener('cube-wallet-accion', function (e) {
     acum = Number(data) || 0; hab = true; pintarRend();
   }
   async function flush() {
-    if (busy || !hab || pend < .01 || !sesion() || window.cubePausado) return;
-    busy = true; const m = Math.round(Math.min(pend, 2000) * 100) / 100;
+    if (busy || !hab || Math.abs(pend) < .01 || !sesion() || window.cubePausado) return;
+    busy = true; const m = Math.round(Math.max(-2000, Math.min(pend, 2000)) * 100) / 100;
     try {
       const { data, error } = await db().rpc('ops_acumular', { p_monto: m });
       if (error) throw error;
-      pend = Math.max(0, pend - m); acum = Number(data) + pend;
-    } catch (e) { console.warn('ops_acumular', e); }
+      pend -= m; acum = Number(data) + pend;
+    } catch (e) { console.warn('ops_acumular', e); if (m < 0) pend -= m; }   // si el servidor no admite montos negativos, esa pérdida queda solo en local
     busy = false;
   }
   function refrescarCreditos() {
@@ -3366,18 +3385,41 @@ window.addEventListener('cube-wallet-accion', function (e) {
     } catch (e) { console.warn('ops_penalizar', e); }
     refrescarCreditos();
   }
-  // Noticia desfavorable: se pierde una parte pequeña del rendimiento (lo no enviado se descuenta aquí; el resto vía ops_acumular con monto negativo)
+  const exponer = m => { expuesto = Math.max(expuesto, m); };
+  function restar(x) { const t = Math.min(acum, x); acum -= t; pend -= t; return t; }   // la pérdida sale primero del rendimiento acumulado
   async function perder(x) {
     if (!hab || !sesion()) return;
-    x = Math.round(Math.min(x, acum) * 100) / 100; if (x < .01) return;
-    const loc = Math.min(pend, x); pend -= loc; acum -= loc;
-    const resto = Math.round((x - loc) * 100) / 100;
-    if (resto >= .01) {
-      try { const { data, error } = await db().rpc('ops_acumular', { p_monto: -resto }); if (error) throw error; acum = Number(data) + pend; }
-      catch (e) { console.warn('perder', e); }
-    }
-    pintarRend();
+    const t = Math.round(Math.min(x, acum) * 100) / 100; if (t < .01) return;
+    restar(t); pintarRend();
   }
+  /* ---------- Zonas: dos líneas de referencia ----------
+     Sobre la línea superior: +5–6% cada ciclo (~10 s). Entre ambas: sin cambios. Bajo la inferior: −3–5% cada ciclo.
+     Con rendimiento en cero, la pérdida sale de la caja de créditos y se activa la alarma.
+     El % se calcula sobre el mayor entre el rendimiento acumulado y una semilla (así hay movimiento aun en cero);
+     las pérdidas también consideran lo retirado recientemente tras una caída violenta. */
+  const SEMILLA = 200, CICLO = 14;
+  let pendCaja = 0, cajaBusy = false, expuesto = 0;
+  function zona(z) {
+    if (!hab || !sesion() || window.cubePausado) return null;
+    expuesto *= .996;
+    if (z > 0) { const g = Math.max(acum, SEMILLA) * rnd(.05, .06) / CICLO; acum += g; pend += g; return null; }
+    if (z < 0) {
+      const l = Math.max(acum, SEMILLA, expuesto) * rnd(.03, .05) / CICLO, resto = l - restar(l);
+      if (resto > 1e-6) { pendCaja += resto; return 'caja'; }
+    }
+    return null;
+  }
+  async function flushCaja() {
+    if (cajaBusy || !hab || !sesion() || window.cubePausado || pendCaja < 1) return;
+    cajaBusy = true; const m = Math.floor(pendCaja * 100) / 100; pendCaja -= m;
+    try {
+      const { data, error } = await db().rpc('ops_penalizar', { p_monto: m });
+      if (error) throw error;
+      aviso('ALERTA · −$' + fm(m) + ' créditos de tu caja'); refrescarCreditos();
+    } catch (e) { console.warn('ops_penalizar', e); }
+    cajaBusy = false;
+  }
+  setInterval(flushCaja, 4000);
   // Pagar la estabilización de la alarma con créditos propios
   async function pagar(c) {
     if (!sesion()) return false;
@@ -3394,7 +3436,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   }
   window.cubeOps = {
     rendir(y) { if (hab && y > 0 && sesion()) { acum += y; pend += y; } },
-    castigo, sistema, perder, pagar, acum: () => acum
+    castigo, sistema, perder, pagar, zona, exponer(m) { expuesto = Math.max(expuesto, m); }, acum: () => acum
   };
   setInterval(() => { if (body.classList.contains('en-grafico')) pintarRend(); }, 700);
   setInterval(flush, 10000);
@@ -3408,25 +3450,35 @@ window.addEventListener('cube-wallet-accion', function (e) {
   sh.addEventListener('click', e => { if (e.target === sh) cerrarSh(); });
   const impacto = m => m >= 10000 ? 'Impacto severo: la gráfica puede desplomarse y activar la alarma.' : m >= 5000 ? 'Impacto alto: podría iniciarse una caída fuerte.' : m >= 1000 ? 'Impacto moderado: la gráfica bajará un poco.' : 'Impacto bajo: la gráfica se mantiene estable.';
 
+  const RIESGO = {
+    25: { cls: 'rk1', nom: 'Riesgo bajo', det: 'Pocas probabilidades (~10%) de una caída violenta.' },
+    50: { cls: 'rk2', nom: 'Riesgo medio', det: '50/50: la mitad de las veces la gráfica se desploma.' },
+    100: { cls: 'rk3', nom: 'Riesgo extremo', det: 'La caída es instantánea y segura.' }
+  };
   $('btnRetirar').onclick = async () => {
     if (!sesion()) { window.abrirModal('auth'); return; }
     if (!hab) { aviso('El rendimiento aún no está habilitado. Falta ejecutar cube-operaciones.sql en Supabase.'); return; }
     await flush();
+    const z = window.cubeGrafico ? window.cubeGrafico.zona() : 0;
+    const zt = z > 0 ? 'zona de beneficio ▲' : z < 0 ? 'zona de pérdida ▼' : 'zona neutral ●';
+    const monto = q => Math.floor(acum * q / 100 * 100) / 100;
     $('rtCuerpo').innerHTML = `<p class="v-card-t" style="margin-top:6px">Retirar rendimiento</p>
-      <p class="v-nota" style="min-height:0;margin:8px 2px 4px">Disponible: <b>$${fm(acum)}</b></p>
-      <input class="ls-input" id="rtMonto" type="number" inputmode="decimal" min="1" placeholder="Monto a retirar">
-      <div class="sh-q">${[25, 50, 100].map(x => `<button type="button" data-q="${x}">${x === 100 ? 'Todo' : x + '%'}</button>`).join('')}</div>
-      <p class="v-nota" id="rtNota" style="min-height:3em;margin:2px 2px 10px">Retirar montos grandes hace caer la gráfica.</p>
-      <div class="v-acc"><button class="b-sec" id="rtNo" type="button">Cancelar</button><button class="b-pri" id="rtSi" type="button">Retirar</button></div>`;
+      <p class="v-nota" style="min-height:0;margin:8px 2px 4px">Disponible: <b>$${fm(acum)}</b> · la gráfica está en ${zt}</p>
+      <div class="rt-opc">${[25, 50, 100].map(q => `<button type="button" class="${RIESGO[q].cls}" data-q="${q}"><b>${q === 100 ? 'Todo (100%)' : q + '%'} · $${fm(monto(q))}</b><small><span>${RIESGO[q].nom}</span> · ${RIESGO[q].det}</small></button>`).join('')}</div>
+      <p class="v-nota" id="rtNota" style="min-height:3em;margin:2px 2px 10px">Elige cuánto retirar. Cuanto más retiras, más riesgo de que la gráfica caiga bajo la línea inferior y pierdas créditos.</p>
+      <div class="v-acc"><button class="b-sec" id="rtNo" type="button">Cancelar</button><button class="b-pri" id="rtSi" type="button" disabled>Retirar</button></div>`;
     sh.hidden = false;
-    const inp = $('rtMonto'), nota = $('rtNota');
-    const pintaNota = () => { const m = parseFloat(inp.value); nota.textContent = m > 0 ? impacto(m) : 'Retirar montos grandes hace caer la gráfica.'; };
-    inp.oninput = pintaNota;
-    $('rtCuerpo').querySelectorAll('[data-q]').forEach(b => b.onclick = () => { inp.value = Math.floor(acum * (+b.dataset.q) / 100 * 100) / 100; pintaNota(); });
+    const nota = $('rtNota'); let q = 0;
+    $('rtCuerpo').querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
+      q = +b.dataset.q;
+      $('rtCuerpo').querySelectorAll('[data-q]').forEach(x => x.classList.toggle('on', x === b));
+      nota.textContent = monto(q) >= 1 ? RIESGO[q].nom + ': ' + RIESGO[q].det : 'Con ese porcentaje el monto sería menor a $1.';
+      $('rtSi').disabled = !(monto(q) >= 1);
+    });
     $('rtNo').onclick = cerrarSh;
     $('rtSi').onclick = async () => {
-      const m = Math.round(parseFloat(inp.value) * 100) / 100;
-      if (!(m >= 1)) { nota.textContent = 'Indica un monto válido (mínimo $1).'; return; }
+      const m = monto(q);
+      if (!q || !(m >= 1)) { nota.textContent = 'Elige una opción con al menos $1.'; return; }
       if (m > acum + .001) { nota.textContent = 'No tienes tanto rendimiento acumulado.'; return; }
       $('rtSi').disabled = true;
       await flush();
@@ -3438,9 +3490,11 @@ window.addEventListener('cube-wallet-accion', function (e) {
         return;
       }
       acum = Number(data.acumulado) + pend; pintarRend();
-      cerrarSh(); aviso('Retiraste $' + fm(m) + ' a tu caja de créditos.');
+      cerrarSh();
+      const cae = window.cubeGrafico ? window.cubeGrafico.retiro(q, m) : false;
+      if (cae) exponer(m);
+      aviso('Retiraste $' + fm(m) + ' (' + q + '%). ' + (cae ? '¡Caída violenta! La gráfica se desploma.' : 'El mercado lo absorbió sin sobresaltos.'));
       if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
-      if (window.cubeGrafico) window.cubeGrafico.gasto(m);
     };
   };
 
