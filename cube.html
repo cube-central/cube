@@ -886,7 +886,7 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
     </div>
     <div class="g-px"><b id="gVal">1.000,00</b><i id="gDelta" class="up">▲ 0,00%</i></div>
     <div class="g-stats"><div><small>Mínimo</small><b id="gMin">0</b></div><div class="c"><small>Actual</small><b id="gAct">0</b></div><div><small>Máximo</small><b id="gMax">0</b></div></div>
-    <div class="g-rend"><div><small>Rendimiento acumulado</small><b id="gRend">$0</b><small class="zn" id="gZona"></small></div><button id="btnRetirar" type="button">Retirar</button></div>
+    <div class="g-rend"><div><small>Rendimiento acumulado</small><b id="gRend">$0</b></div><button id="btnRetirar" type="button">Retirar</button></div>
     <div class="g-chart" id="gChart"><svg id="gSvg" aria-hidden="true"></svg></div>
     <div class="g-rng" id="gRng"><button type="button" data-n="30">20s</button><button type="button" data-n="60" class="on">40s</button><button type="button" data-n="120">1m</button><button type="button" data-n="240">3m</button></div>
   </div>
@@ -2701,14 +2701,27 @@ window.addEventListener('cube-wallet-accion', function (e) {
 
   /* --- Gráfico --- */
   const TICK = 700, N0 = 300, BASE = 1000;
-  const UP = BASE + 3, LOW = BASE - 11;   // líneas de referencia: sobre UP hay beneficio, bajo LOW hay pérdida
+  const UP = BASE + 6, LOW = BASE - 6;   // líneas de referencia: sobre UP el rendimiento sube (+5%), bajo LOW baja (−3%), en medio no cambia
+  const CICLO = 14, META_ALZA = .64;      // CICLO: ticks por ciclo (~10 s) · META_ALZA: tras una alza favorable la gráfica sigue sobre la línea hasta rendir +64%
   let zona = 0;
   let serie = [], v = BASE, nVis = 60, cur = null, acc = 0, prev = performance.now(), minC = 0, maxC = 1, escala = false;
   const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) * 1.15;
   /* --- Motor: presión (impulsos), rendimiento, caída sostenida, alarma --- */
   let presion = 0, caidaMs = 0, calma = 0, nivelCast = 0, alarma = false, silencio = false, ac = null, sirena = null;
-  let deriva = 0, costoAlarma = 1000, rezos = 0, pagando = false, abandono = false;   // deriva: tendencia lenta que dejan las noticias
-  const paso = () => { v += (BASE + deriva - v) * .012 + gauss() * 1.8 + (Math.random() < .03 ? gauss() * 6 : 0) + presion; presion *= .97; if (Math.abs(presion) < .05) presion = 0; return v; };
+  let costoAlarma = 1000, rezos = 0, pagando = false, abandono = false;
+  let modo = 'neutral', bajada = 0, alzaF = 1;   // modo: neutral (quieta) · alza (sobre la línea hasta +64%) · baja (caída y recuperación lenta)
+  /* La gráfica es neutral y se mantiene entre las dos líneas. Solo sale de ahí por: operaciones sin resolver (caída violenta),
+     decisiones favorables (alza), desfavorables (caída) o un retiro con mala suerte (caída violenta). */
+  const paso = () => {
+    if (abandono) { modo = 'baja'; v -= 2.6 + Math.random() * 2; if (v < BASE - 60) v = BASE - 60 + gauss() * .6; }   // caída violenta y sostenida
+    else if (modo === 'alza') { v += (UP + 9 - v) * .06 + gauss() * .9 + presion; if (v > UP) v = Math.max(v, UP + 1.2); }   // sube y se mantiene sobre la línea aunque baje un poco
+    else if (modo === 'baja') { v += .14 + gauss() * .5 + presion; if (v >= LOW + 2 && bajada < .5) modo = 'neutral'; }   // sube poco a poco, pero bajo la línea el rendimiento sigue bajando
+    else { v += (BASE - v) * .1 + gauss() * .55 + presion; if (v >= LOW && v <= UP) v = Math.min(Math.max(v, LOW + 2), UP - 2); }
+    if (bajada > .05) { const d = bajada * .25; v -= d; bajada -= d; } else bajada = 0;
+    presion *= .8; if (Math.abs(presion) < .05) presion = 0;
+    return v;
+  };
+  const caer = t => { bajada += t; modo = 'baja'; alzaF = 1; };
   const sis = o => { try { if (window.cubeOps) window.cubeOps.sistema(o); } catch (e) {} };
   const miles = n => Math.round(n).toLocaleString('es-AR');
   function desbloquear() { try { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); } catch (e) {} }
@@ -2741,48 +2754,33 @@ window.addEventListener('cube-wallet-accion', function (e) {
     sis(o || { tipo: 'recuperacion', efecto: 'up', titulo: 'Cube cancela la alarma: la Sagrada Continuidad se estabiliza', cuerpo: 'La caída se detuvo y la gráfica vuelve a una zona segura. Los descuentos de créditos han cesado.' });
   }
   function motor() {
-    deriva *= .997;
-    if (abandono) { deriva = Math.max(-40, deriva - .3); presion -= .12; }   // sin operaciones: la gráfica cae y sigue cayendo
-    zona = v > UP ? 1 : v < LOW ? -1 : 0;   // 1 beneficio · 0 neutral · -1 pérdida
+    zona = v > UP ? 1 : v < LOW ? -1 : 0;   // 1 sube el rendimiento · 0 neutral · -1 baja el rendimiento (solo importa la posición, no si la gráfica sube o baja)
     const r = window.cubeOps ? window.cubeOps.zona(zona) : null;   // 'caja' = el rendimiento llegó a cero y se pierde de la caja
-    if (!alarma && presion > -1 && Math.random() < 1 / 4500) presion -= 9 + Math.random() * 3;   // caída espontánea, poco probable
+    if (modo === 'alza' && zona > 0) { alzaF *= 1 + .05 / CICLO; if (alzaF >= 1 + META_ALZA) { modo = 'neutral'; alzaF = 1; } }   // al rendir +64% vuelve al estado neutro
     if (r === 'caja') { calma = 0; if (!alarma) alarmaOn(); }
     else if (alarma && zona >= 0 && ++calma >= 4) { calma = 0; alarmaOff(); }
     const t = $('alarmaTxt'); if (alarma && t) t.textContent = 'Alerta · rendimiento en cero · las pérdidas salen de tu caja de créditos';
-    const zt = $('gZona');
-    if (zt) {
-      const tx = alarma ? '▼ Rendimiento en cero · pierdes de tu caja' : zona > 0 ? '▲ Zona de beneficio · +5–6% cada 10 s' : zona < 0 ? '▼ Zona de pérdida · −3–5% cada 10 s' : '● Zona neutral · sin cambios';
-      if (zt.textContent !== tx) zt.textContent = tx;
-      zt.className = 'zn ' + (alarma || zona < 0 ? 'dn' : zona > 0 ? 'up' : '');
-    }
   }
   // Gastar o retirar créditos presiona la gráfica según el monto
-  function gasto(m) {
-    m = Number(m) || 0; let s = 0;
-    if (m >= 10000) s = 8 + Math.min(5, Math.log10(m / 10000) * 6) + Math.random() * 1.5;
-    else if (m >= 5000) s = 3.6 + (m - 5000) / 5000 * 2.4;
-    else if (m >= 1000) s = 1.4 + (m - 1000) / 4000 * 1.4;
-    if (s <= 0) return 0;
-    s *= .9 + Math.random() * .2; presion -= s;
-    sis({ tipo: 'mercado', efecto: 'down', titulo: 'Salida de créditos presiona la Sagrada Continuidad', cuerpo: 'Se movieron $' + miles(m) + ' créditos y la gráfica ' + (m >= 5000 ? 'cae con fuerza.' : 'cede terreno.') });
-    return s;
-  }
-  window.cubeGrafico = { valor: () => v, impulso: n => { presion += Number(n) || 0; }, gasto, noticia, retiro, zona: () => zona, abandono: b => { b = !!b; if (b === abandono) return; abandono = b; if (!b) deriva *= .3; }, enAlarma: () => alarma };
-  /* Retiro de rendimientos: 25% riesgo bajo (10%), 50% riesgo 50/50, 100% caída instantánea */
+  function gasto() { return 0; }   // la gráfica permanece neutral: gastar créditos ya no la mueve
+  window.cubeGrafico = { valor: () => v, impulso: n => { presion += Number(n) || 0; }, gasto, noticia, retiro, zona: () => zona, abandono: b => { b = !!b; if (b === abandono) return; abandono = b; if (b) { modo = 'baja'; alzaF = 1; } }, enAlarma: () => alarma };
+  /* Retiro de rendimientos: 25% → 10% de probabilidad de caída violenta · 50% → 50% · 100% → caída segura */
   function retiro(q, m) {
     const p = q >= 100 ? 1 : q >= 50 ? .5 : .1, cae = Math.random() < p;
     if (cae) {
-      presion -= (q >= 100 ? 12 : 9) + Math.random() * 4;
-      sis({ tipo: 'alerta', efecto: 'down', titulo: 'Caída violenta tras retirar el ' + q + '% del rendimiento', cuerpo: 'La salida de $' + miles(m) + ' créditos desató una venta masiva y la Sagrada Continuidad se desploma. Si baja de la línea inferior y tu rendimiento se agota, perderás créditos de tu caja.' });
+      caer((q >= 100 ? 40 : 32) + Math.random() * 6);
+      sis({ tipo: 'alerta', efecto: 'down', titulo: 'Caída violenta tras retirar el ' + q + '% del rendimiento', cuerpo: 'La salida de $' + miles(m) + ' créditos desató una venta masiva y la Sagrada Continuidad se desploma. Mientras siga bajo la línea inferior tu rendimiento seguirá bajando, aunque la gráfica suba poco a poco.' });
     }
     return cae;
   }
-  /* Noticias → gráfica: favorable crece (y rinde más rápido), neutra se mantiene, desfavorable baja un poco */
+  /* Noticias → gráfica: favorable = alza (sobre la línea hasta rendir +64%), neutra = sin cambios, desfavorable = caída */
   function noticia(tipo) {
     const r = (a, b) => a + Math.random() * (b - a);
-    const T = { correcta: [r(2.6, 3.8), r(12, 18)], riesgo_gana: [r(4, 5.5), r(20, 28)], neutra: [0, 0], incorrecta: [-r(1.2, 2.2), -r(4, 7)], riesgo_pierde: [-r(3.5, 5), -r(8, 12)] }[tipo] || [0, 0];
-    presion += T[0]; deriva = Math.max(-14, Math.min(40, deriva + T[1]));
+    if (tipo === 'correcta' || tipo === 'riesgo_gana') { modo = 'alza'; alzaF = 1; bajada = 0; presion += tipo === 'riesgo_gana' ? 3 : 2; }
+    else if (tipo === 'incorrecta') caer(r(14, 18));
+    else if (tipo === 'riesgo_pierde') caer(r(24, 30));
   }
+
   /* Alarma: no se silencia. Se estabiliza pagando 1000, 2000 o 3000 créditos... o se reza */
   const avisoG = t => { if (window.cubeAviso) window.cubeAviso(t); };
   function pintarAlarmaBtn() {
@@ -2791,10 +2789,10 @@ window.addEventListener('cube-wallet-accion', function (e) {
     b.textContent = ok ? 'Estabilizar · −$' + miles(costoAlarma) : '🙏 Rezar'; b.classList.toggle('rezar', !ok);
   }
   setInterval(() => { if (alarma) pintarAlarmaBtn(); }, 1500);
-  function estabilizar(o) { presion = Math.max(presion, 0) + 2; deriva = Math.max(deriva, 6); if (v < LOW + 3) { v = LOW + 3; serie[serie.length - 1] = v; } calma = 0; alarmaOff(o); }
+  function estabilizar(o) { presion = 0; bajada = 0; modo = 'neutral'; alzaF = 1; if (v < LOW + 3) { v = LOW + 3; serie[serie.length - 1] = v; } calma = 0; alarmaOff(o); }
   const REZOS = ['Rezas en silencio… la gráfica no se inmuta.', 'Prometes portarte bien. No pasa nada.', 'Alzas la mirada al cielo. El cielo no responde.', 'Susurras una plegaria. Solo se oye la sirena.', 'Enciendes una vela imaginaria. La alarma sigue.'];
   function rezar() {
-    rezos++; presion += .4;
+    rezos++; if (modo === 'baja') v += .8;
     if (Math.random() < Math.min(.45, .1 + rezos * .03)) {
       estabilizar({ tipo: 'recuperacion', efecto: 'up', titulo: 'Un milagro: la Sagrada Continuidad se recupera sola', cuerpo: 'Nadie sabe cómo, pero alguien arriba escuchó. La alarma se apagó sin gastar un solo crédito.' });
       avisoG('🙏 Tus plegarias fueron escuchadas.');
@@ -2814,8 +2812,8 @@ window.addEventListener('cube-wallet-accion', function (e) {
   for (let i = 0; i < N0; i++) serie.push(paso());
   const visible = () => body.classList.contains('en-grafico');
   const svg = $('gSvg');
-  svg.innerHTML = '<defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6FF00" stop-opacity=".3"/><stop offset="1" stop-color="#C6FF00" stop-opacity="0"/></linearGradient></defs><g id="gGrid"><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/></g><line id="gUp" class="gref" stroke="#C6FF00" x1="0" x2="100%"/><line id="gLo" class="gref" stroke="#ff5a5a" x1="0" x2="100%"/><text id="gUpT" class="gtx" fill="#C6FF00" x="8">▲ Beneficio +5–6%</text><text id="gLoT" class="gtx" fill="#ff5a5a" x="8">▼ Pérdida −3–5%</text><path id="gArea" fill="url(#gA)"/><path id="gLine" fill="none" stroke="#C6FF00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><line id="gCur" y1="0" stroke="rgba(255,255,255,.35)"/><circle id="gHalo" r="9" fill="#C6FF00"/><circle id="gDot" r="5.5" fill="#fff" stroke="#C6FF00" stroke-width="2.5"/>';
-  const gArea = $('gArea'), gLine = $('gLine'), gCur = $('gCur'), gHalo = $('gHalo'), gDot = $('gDot'), grid = $('gGrid').children, gUp = $('gUp'), gLo = $('gLo'), gUpT = $('gUpT'), gLoT = $('gLoT');
+  svg.innerHTML = '<defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6FF00" stop-opacity=".3"/><stop offset="1" stop-color="#C6FF00" stop-opacity="0"/></linearGradient></defs><g id="gGrid"><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/></g><line id="gUp" class="gref" stroke="#C6FF00" x1="0" x2="100%"/><line id="gLo" class="gref" stroke="#ff5a5a" x1="0" x2="100%"/><path id="gArea" fill="url(#gA)"/><path id="gLine" fill="none" stroke="#C6FF00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><line id="gCur" y1="0" stroke="rgba(255,255,255,.35)"/><circle id="gHalo" r="9" fill="#C6FF00"/><circle id="gDot" r="5.5" fill="#fff" stroke="#C6FF00" stroke-width="2.5"/>';
+  const gArea = $('gArea'), gLine = $('gLine'), gCur = $('gCur'), gHalo = $('gHalo'), gDot = $('gDot'), grid = $('gGrid').children, gUp = $('gUp'), gLo = $('gLo');
   const f1 = x => x.toFixed(1);
   function curva(P) {
     let d = 'M' + f1(P[0][0]) + ' ' + f1(P[0][1]);
@@ -2833,7 +2831,6 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const P = w.map((x, i) => [(i - frac) * step, H - (x - minC) / (maxC - minC) * H]);
     const yU = H - (UP - minC) / (maxC - minC) * H, yL = H - (LOW - minC) / (maxC - minC) * H;
     gUp.setAttribute('y1', yU); gUp.setAttribute('y2', yU); gLo.setAttribute('y1', yL); gLo.setAttribute('y2', yL);
-    gUpT.setAttribute('y', Math.max(10, yU - 5)); gLoT.setAttribute('y', Math.min(H - 4, yL + 12));
     const d = curva(P); gLine.setAttribute('d', d);
     gArea.setAttribute('d', d + 'L' + f1(P[P.length - 1][0]) + ' ' + H + 'L' + f1(P[0][0]) + ' ' + H + 'Z');
     for (let i = 0; i < 3; i++) { const y = H * (i + 1) / 4; grid[i].setAttribute('y1', y); grid[i].setAttribute('y2', y); }
@@ -3266,9 +3263,9 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const falta = opsLote(s).filter(o => !s.lote.hechas[o.id]).length;
     return falta ? 'Faltan ' + falta : (s.proxima ? 'Nuevas en ' + cuenta(s.proxima - Date.now()) : '');
   }
-  /* Inactividad: con operaciones pendientes y sin decidir nada durante 5 a 8 min (tiempo activo, no en pausa), la gráfica empieza a caer */
-  let idleMs = 0, limiteMs = rnd(300000, 480000), ultimoTick = Date.now(), avisadoIdle = false;
-  function reiniciarIdle() { idleMs = 0; limiteMs = rnd(300000, 480000); avisadoIdle = false; if (window.cubeGrafico) window.cubeGrafico.abandono(false); }
+  /* Inactividad: si 3 min después de aparecer operaciones nuevas aún quedan sin resolver (tiempo activo, no en pausa), la gráfica cae violentamente hasta resolverlas */
+  let idleMs = 0, limiteMs = 180000, ultimoTick = Date.now(), avisadoIdle = false;
+  function reiniciarIdle() { idleMs = 0; limiteMs = 180000; avisadoIdle = false; if (window.cubeGrafico) window.cubeGrafico.abandono(false); }
   window.addEventListener('cube:pausa', e => {
     const d = e.detail || {}; if (d.pausado) return;
     ultimoTick = Date.now();
@@ -3287,7 +3284,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     if (hayPend) {
       idleMs += dt;
       if (idleMs > limiteMs) {
-        if (!avisadoIdle) { avisadoIdle = true; sistema({ tipo: 'mercado', efecto: 'down', titulo: 'Sin decisiones: la Sagrada Continuidad empieza a caer', cuerpo: 'Llevas varios minutos sin resolver operaciones y el mercado pierde la paciencia. Toma una decisión para frenar la caída, o pausa si vas a ausentarte.' }); }
+        if (!avisadoIdle) { avisadoIdle = true; sistema({ tipo: 'mercado', efecto: 'down', titulo: 'Sin decisiones: la Sagrada Continuidad empieza a caer', cuerpo: 'Pasaron 3 minutos sin resolver las operaciones y el mercado pierde la paciencia. Resuélvelas para frenar la caída, o pausa si vas a ausentarte.' }); }
         if (window.cubeGrafico) window.cubeGrafico.abandono(true);
       }
     } else if (idleMs || avisadoIdle) reiniciarIdle();
@@ -3321,7 +3318,8 @@ window.addEventListener('cube-wallet-accion', function (e) {
     s.lote.hechas[id] = { k, tipo, noticia: n.id, ts: Date.now() };
     s.noticias.unshift(n); s.noticias = s.noticias.slice(0, 80);
     if (s.lote.ids.every(x => s.lote.hechas[x])) s.proxima = Date.now() + espera();
-    guardar(s); reiniciarIdle();
+    guardar(s);
+    if (s.lote.ids.every(x => s.lote.hechas[x])) reiniciarIdle();   // el reloj de 3 min solo se detiene al resolver todas
     if (window.cubeGrafico) window.cubeGrafico.noticia(tipo);   // favorable: sube y rinde más; neutra: igual; desfavorable: baja un poco
     const f = tipo === 'incorrecta' ? rnd(.02, .04) : tipo === 'riesgo_pierde' ? rnd(.04, .08) : 0, perdida = Math.round(acum * f * 100) / 100;
     if (perdida >= .01) perder(perdida);
@@ -3393,7 +3391,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     restar(t); pintarRend();
   }
   /* ---------- Zonas: dos líneas de referencia ----------
-     Sobre la línea superior: +5–6% cada ciclo (~10 s). Entre ambas: sin cambios. Bajo la inferior: −3–5% cada ciclo.
+     Sobre la línea superior: +5% cada ciclo (~10 s). Entre ambas: sin cambios. Bajo la inferior: −3% cada ciclo.
      Con rendimiento en cero, la pérdida sale de la caja de créditos y se activa la alarma.
      El % se calcula sobre el mayor entre el rendimiento acumulado y una semilla (así hay movimiento aun en cero);
      las pérdidas también consideran lo retirado recientemente tras una caída violenta. */
@@ -3402,9 +3400,9 @@ window.addEventListener('cube-wallet-accion', function (e) {
   function zona(z) {
     if (!hab || !sesion() || window.cubePausado) return null;
     expuesto *= .996;
-    if (z > 0) { const g = Math.max(acum, SEMILLA) * rnd(.05, .06) / CICLO; acum += g; pend += g; return null; }
+    if (z > 0) { const g = Math.max(acum, SEMILLA) * .05 / CICLO; acum += g; pend += g; return null; }
     if (z < 0) {
-      const l = Math.max(acum, SEMILLA, expuesto) * rnd(.03, .05) / CICLO, resto = l - restar(l);
+      const l = Math.max(acum, SEMILLA, expuesto) * .03 / CICLO, resto = l - restar(l);
       if (resto > 1e-6) { pendCaja += resto; return 'caja'; }
     }
     return null;
@@ -3452,18 +3450,16 @@ window.addEventListener('cube-wallet-accion', function (e) {
 
   const RIESGO = {
     25: { cls: 'rk1', nom: 'Riesgo bajo', det: 'Pocas probabilidades (~10%) de una caída violenta.' },
-    50: { cls: 'rk2', nom: 'Riesgo medio', det: '50/50: la mitad de las veces la gráfica se desploma.' },
+    50: { cls: 'rk2', nom: 'Riesgo medio', det: '50 % de probabilidad de una caída violenta.' },
     100: { cls: 'rk3', nom: 'Riesgo extremo', det: 'La caída es instantánea y segura.' }
   };
   $('btnRetirar').onclick = async () => {
     if (!sesion()) { window.abrirModal('auth'); return; }
     if (!hab) { aviso('El rendimiento aún no está habilitado. Falta ejecutar cube-operaciones.sql en Supabase.'); return; }
     await flush();
-    const z = window.cubeGrafico ? window.cubeGrafico.zona() : 0;
-    const zt = z > 0 ? 'zona de beneficio ▲' : z < 0 ? 'zona de pérdida ▼' : 'zona neutral ●';
-    const monto = q => Math.floor(acum * q / 100 * 100) / 100;
+        const monto = q => Math.floor(acum * q / 100 * 100) / 100;
     $('rtCuerpo').innerHTML = `<p class="v-card-t" style="margin-top:6px">Retirar rendimiento</p>
-      <p class="v-nota" style="min-height:0;margin:8px 2px 4px">Disponible: <b>$${fm(acum)}</b> · la gráfica está en ${zt}</p>
+      <p class="v-nota" style="min-height:0;margin:8px 2px 4px">Disponible: <b>$${fm(acum)}</b></p>
       <div class="rt-opc">${[25, 50, 100].map(q => `<button type="button" class="${RIESGO[q].cls}" data-q="${q}"><b>${q === 100 ? 'Todo (100%)' : q + '%'} · $${fm(monto(q))}</b><small><span>${RIESGO[q].nom}</span> · ${RIESGO[q].det}</small></button>`).join('')}</div>
       <p class="v-nota" id="rtNota" style="min-height:3em;margin:2px 2px 10px">Elige cuánto retirar. Cuanto más retiras, más riesgo de que la gráfica caiga bajo la línea inferior y pierdas créditos.</p>
       <div class="v-acc"><button class="b-sec" id="rtNo" type="button">Cancelar</button><button class="b-pri" id="rtSi" type="button" disabled>Retirar</button></div>`;
