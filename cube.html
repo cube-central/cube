@@ -716,6 +716,9 @@ body.en-ops #ops,body.en-noticias #noticias{display:block}
 .op.hecha .op-ico svg{width:20px;height:20px}
 .op-dec{margin-top:12px;font:400 .84rem/1.4 'Open Sans',sans-serif;color:#9a9d97}
 .op-dec b{color:#fff;font-weight:600}
+.op-ruta{margin-top:14px;padding-left:12px;border-left:2px solid #2a2d29}.op-ruta p{margin:0 0 8px;font:400 .8rem/1.45 'Open Sans',sans-serif;color:#9a9d97}.op-ruta b{color:#fff;font-weight:600}
+.op-paso{margin-top:18px;font:600 .72rem 'Poppins',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--acento)}
+.op-bloque{margin-top:14px}.op-bloque small{display:block;font:600 .68rem 'Poppins',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#8a8d87}.op-bloque p{margin:3px 0 0;font:400 .9rem/1.5 'Open Sans',sans-serif;color:#d4d6d0}
 .op-lnk{margin-top:8px;padding:6px 0;font:600 .8rem 'Poppins',sans-serif;color:var(--acento)}
 
 /* Noticias */
@@ -2922,179 +2925,97 @@ window.addEventListener('cube-wallet-accion', function (e) {
   };
   const svg = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
 
-  /* ---------- Las 5 operaciones ----------
-     p = probabilidades [c]orrecta, [n]eutra, [i]ncorrecta, [r]iesgo; rg = probabilidad de que el riesgo salga bien */
-  const OPS_BASE = [
-    { id: 'astra', cat: 'Nuevos contratos', ico: 'contrato', emp: 'Astra Orbital', sector: 'Industria espacial',
-      tema: 'su red de satélites',
-      ctx: 'Astra Orbital, empresa de lanzamientos espaciales, necesita un socio para poner en órbita 12 satélites de comunicaciones. Hay demanda creciente, pero un solo fallo de cohete cuesta una fortuna. Tienes tres caminos sobre la mesa.',
-      ok: 'Los satélites ya transmiten con normalidad y los clientes piden más capacidad.', ko: 'Un retraso técnico en el lanzamiento encareció toda la operación.', nt: 'El calendario de lanzamientos sigue su curso habitual.',
-      opts: [
-        { k: 'A', t: 'Contrato fijo de 3 años', d: 'Cobras una tarifa mensual acordada de antemano.', pro: 'Ingresos garantizados desde el primer mes.', con: 'Techo bajo: si el negocio crece, no participas.', p: { c: .45, n: .45, i: .10, r: 0 } },
-        { k: 'B', t: 'Participación en las ganancias', d: 'No hay tarifa; recibes un porcentaje de lo que facture Astra.', pro: 'Puede multiplicar tu retorno si todo sale bien.', con: 'Si un lanzamiento falla, no cobras nada.', p: { c: .15, n: .10, i: .20, r: .55 }, rg: .55 },
-        { k: 'C', t: 'Pedir una prueba piloto', d: 'Primero un lanzamiento de 2 satélites; luego decides.', pro: 'Reduces la incertidumbre antes de comprometerte.', con: 'Astra puede ofrecerle el contrato a otro socio.', p: { c: .30, n: .50, i: .20, r: 0 } }
-      ] },
-    { id: 'vizio', cat: 'Nuevas emergencias', ico: 'alerta', emp: 'Vizio', sector: 'Hardware y dispositivos',
-      tema: 'su posible quiebra',
-      ctx: 'Vizio, fabricante de pantallas, debe 4 millones de créditos y el plazo vence en 72 horas. Si no consigue liquidez se declarará en quiebra y 1.800 empleos quedarán en el aire. Sus fábricas valen más que la deuda, pero nadie sabe si volverá a ser rentable.',
-      ok: 'La empresa retomó la producción y los acreedores respiran.', ko: 'Los proveedores cortaron el crédito y el sector entero lo resintió.', nt: 'Los acreedores aceptaron esperar y la situación sigue sin resolverse.',
-      opts: [
-        { k: 'A', t: 'Rescatarla con un préstamo', d: 'Prestas dinero a Vizio con intereses y plazo de 2 años.', pro: 'Salvas empleos y, si se recupera, cobras con intereses.', con: 'Si quiebra igual, pierdes todo lo prestado.', p: { c: .20, n: .10, i: .20, r: .50 }, rg: .5 },
-        { k: 'B', t: 'Comprar sus fábricas con descuento', d: 'Adquieres los activos cuando su precio está por el suelo.', pro: 'Activos baratos y control directo de la producción.', con: 'Mala imagen por "aprovecharte" y costos de mantenimiento.', p: { c: .30, n: .30, i: .30, r: .10 }, rg: .5 },
-        { k: 'C', t: 'No intervenir', d: 'Dejas que el mercado resuelva por su cuenta.', pro: 'No arriesgas ni un crédito.', con: 'Una quiebra sacude a proveedores y a todo el sector.', p: { c: .05, n: .45, i: .50, r: 0 } }
-      ] },
-    { id: 'parallax', cat: 'Alianzas y estrenos', ico: 'alianza', emp: 'Parallax', sector: 'Gaming',
-      tema: 'el lanzamiento de Eclipse',
-      ctx: 'Parallax prepara «Eclipse», su mayor estreno del año, pero le falta presupuesto para marketing global. Sus lanzamientos anteriores fueron virales, aunque dos retrasos seguidos inquietan a los inversionistas.',
-      ok: 'El estreno fue viral y los servidores se llenaron en horas.', ko: 'Las reseñas fueron tibias y las ventas quedaron por debajo de lo prometido.', nt: 'El estreno pasó sin pena ni gloria, con ventas normales.',
-      opts: [
-        { k: 'A', t: 'Co-financiar el lanzamiento', d: 'Pones el dinero a cambio de una parte de las ventas.', pro: 'Un éxito viral puede darte ganancias enormes.', con: 'Si el juego decepciona, pierdes lo invertido.', p: { c: .15, n: .10, i: .20, r: .55 }, rg: .5 },
-        { k: 'B', t: 'Licenciar la marca a otro estudio', d: 'Cobras por usar el nombre, sin involucrarte en el desarrollo.', pro: 'Ingreso moderado y sin riesgo de desarrollo.', con: 'El socio puede dañar la reputación de la marca.', p: { c: .30, n: .35, i: .30, r: .05 }, rg: .5 },
-        { k: 'C', t: 'Esperar al próximo trimestre', d: 'Aplazas la decisión hasta tener más datos.', pro: 'Evitas apostar en un momento de dudas.', con: 'La competencia puede adelantarse con su propio estreno.', p: { c: .15, n: .55, i: .30, r: 0 } }
-      ] },
-    { id: 'living', cat: 'Gestión de tesorería', ico: 'banco', emp: 'Living', sector: 'Holding tecnológico',
-      tema: 'su caja excedente',
-      ctx: 'Living cerró el trimestre con 2,5 millones de créditos sin usar. Dejarlos quietos los desgasta; moverlos mal puede costar caro. Tu equipo de finanzas te presenta tres destinos posibles para ese dinero.',
-      ok: 'La inversión rindió por encima de lo previsto y la caja se fortaleció.', ko: 'El rendimiento fue peor de lo esperado y la caja se resintió.', nt: 'El rendimiento fue el esperado, sin sorpresas.',
-      opts: [
-        { k: 'A', t: 'Bonos de bajo rendimiento', d: 'Compras deuda segura que paga poco pero con certeza.', pro: 'Casi sin riesgo de perder capital.', con: 'Ganancia pequeña; no vence a la inflación del ecosistema.', p: { c: .35, n: .55, i: .10, r: 0 } },
-        { k: 'B', t: 'Recomprar acciones propias', d: 'Usas la caja para comprar parte de la propia empresa.', pro: 'Sube el valor por acción y da señal de confianza.', con: 'Menos liquidez ante una emergencia.', p: { c: .35, n: .25, i: .30, r: .10 }, rg: .5 },
-        { k: 'C', t: 'Fondear una startup de IA de Umbral', d: 'Entras como socio temprano en un proyecto ambicioso.', pro: 'Potencial de ganancia altísimo si despega.', con: 'La mayoría de startups no sobreviven.', p: { c: .10, n: .10, i: .20, r: .60 }, rg: .45 }
-      ] },
-    { id: 'livent', cat: 'Precios y suscripciones', ico: 'precio', emp: 'Living Entertainment', sector: 'Streaming',
-      tema: 'el precio de la suscripción',
-      ctx: 'Living Entertainment tiene 3 millones de suscriptores y sus costos de contenido suben. La junta propone ajustar la mensualidad, justo cuando la competencia lanzó ofertas muy agresivas.',
-      ok: 'Los suscriptores aceptaron el cambio y los ingresos mensuales subieron.', ko: 'Las cancelaciones se dispararon y la base de suscriptores se encogió.', nt: 'La base de suscriptores casi no se movió.',
-      opts: [
-        { k: 'A', t: 'Subir 20% desde ya', d: 'Aplicas el aumento completo este mes.', pro: 'Impulso inmediato en ingresos.', con: 'Riesgo de cancelaciones masivas hacia la competencia.', p: { c: .15, n: .10, i: .20, r: .55 }, rg: .45 },
-        { k: 'B', t: 'Subir 8% de forma gradual', d: 'Un ajuste pequeño ahora y otro dentro de seis meses.', pro: 'Los usuarios lo notan menos.', con: 'Ingresos extra más lentos y deja ver la presión de costos.', p: { c: .35, n: .35, i: .25, r: .05 }, rg: .5 },
-        { k: 'C', t: 'Mantener precios y recortar costos', d: 'Conservas la tarifa y reduces gasto en producciones.', pro: 'Fidelizas al público y evitas fugas.', con: 'Menos estrenos puede cansar a los suscriptores.', p: { c: .15, n: .55, i: .30, r: 0 } }
-      ] }
+  /* ---------- Dos modalidades ----------
+     HISTORIA: 4 decisiones (contexto → continuación → problema → decisión definitiva). Cada opción vale puntos [t, consecuencia, puntos]
+               y la suma define el desenlace. Tono: serio con drama, tensión y suspenso; sin absurdismo.
+     CONTRATO: se examina el antes, el presente y la oferta, y se decide contratar o no contratar. */
+  const H = (id, cat, ico, emp, sector, tema, ctx, ok, ko, nt, fases) => ({ id, modo: 'historia', tipo: 'historia', cat, ico, emp, sector, tema, ctx, ok, ko, nt, fases: fases.map(f => ({ t: f[0], o: f[1].map(x => ({ t: x[0], r: x[1], s: x[2] })) })) });
+  const HIST = [
+    H('sombra', 'Crisis en curso', 'alerta', 'Helix Dynamics', 'Sistemas de salud', 'el ciberataque',
+      'Son las 3:12 a. m. Helix Dynamics, proveedor de sistemas para 40 hospitales, detecta que alguien copia sus bases de datos desde dentro. Eres el único socio al que el director logró localizar.',
+      'Los hospitales recuperaron sus sistemas y el atacante quedó expuesto.', 'La filtración se hizo pública y varios hospitales rompieron contrato.', 'La crisis se contuvo, aunque con daños difíciles de medir.', [
+      ['El director te pone al teléfono: el intruso entró con credenciales válidas de una empleada. ¿Cuál es tu primera orden?', [
+        ['Apagar todos los servidores de inmediato', 'Cortas la fuga, pero los 40 hospitales quedan sin sistema y alguien tendrá que responder por eso.', 1],
+        ['Esperar a tener más datos', 'Pasan veinte minutos y los registros copiados se duplican.', -1],
+        ['Aislar solo la red afectada y vigilar', 'El atacante no sabe que lo observas. Ahora tienes un rastro que seguir.', 2]]],
+      ['La credencial es de Marta Rivas, jefa de nóminas, de vacaciones y sin conexión hace tres días. ¿Qué haces?', [
+        ['Acusarla ante la junta', 'La junta se agita y el verdadero responsable gana tiempo.', -1],
+        ['Revisar quién más usó ese equipo', 'La sala de servidores se abrió a las 2:40 con una tarjeta clonada.', 1],
+        ['Llamar a Marta y suspender su cuenta', 'Marta no sabía nada: le robaron el acceso. Descartas, por ahora, a un cómplice interno.', 2]]],
+      ['Llega el mensaje del atacante: cifrará todo a las 6:00 si no recibe 2 millones de créditos. Tu equipo solo puede restaurar copias de hace 48 horas.', [
+        ['Negociar mientras se rastrea la señal', 'Ganas dos horas, pero el atacante empieza a desconfiar.', 1],
+        ['Pagar para ganar tiempo', 'Pagas y el mensaje sube la apuesta. Nadie garantiza nada.', -1],
+        ['Rechazar y activar la restauración', 'Las copias de 48 horas bastan: se pierde poco y no pagas.', 2]]],
+      ['Faltan 40 minutos. Tienes la ubicación aproximada del atacante y los hospitales siguen sin sistema. Debes decidir cómo cerrar la noche.', [
+        ['Contraatacar y borrar sus servidores', 'Borras sus servidores, pero también la única prueba que lo vincula.', -1],
+        ['Entregar el rastro a las autoridades y restaurar', 'Las autoridades llegan antes del amanecer con pruebas intactas.', 2],
+        ['Anunciar el incidente ya para controlar el relato', 'Ganas credibilidad, pero el atacante aprovecha el ruido para escapar.', 1]]]]),
+    H('cumbre', 'Reunión a puerta cerrada', 'alianza', 'Orión Capital', 'Finanzas', 'la filtración en la junta',
+      'La junta de Orión Capital se reúne a puerta cerrada para aprobar una fusión de 900 millones. Horas antes, seguridad recibió un aviso anónimo: alguien en la sala filtra información a la competencia. Sospechas de tres personas: el director financiero Elías Vargas, la abogada Clara Mena y el socio fundador Rubén Ortiz.',
+      'El infiltrado fue descubierto y la fusión se cerró con ventaja.', 'El infiltrado siguió activo y la competencia se adelantó.', 'La reunión terminó sin culpables claros y sin cambios.', [
+      ['Tienes dos minutos antes de entrar. Sabes que la filtración incluye cifras que solo vio quien abrió el borrador del jueves. ¿Cómo empiezas?', [
+        ['Confrontar a los tres a la vez', 'Los tres niegan con la misma calma. Ahora saben que sospechas.', -1],
+        ['Pedir la lista de quién abrió el borrador', 'Solo cuatro personas lo abrieron: Elías, Clara, Rubén y una asistente. La lista se achica.', 2],
+        ['Observar en silencio durante la reunión', 'Notas que Clara mira el teléfono más de lo normal, pero no es una prueba.', 1]]],
+      ['Ya en la sala, se te ocurre sembrar una cifra falsa para ver cuál llega a la competencia. ¿Cómo la usas?', [
+        ['Dar la misma cifra falsa a todos', 'Si aparece fuera, no sabrás quién fue.', -1],
+        ['No mentir y vigilar sus teléfonos', 'No encuentras nada concluyente y el tiempo corre.', 1],
+        ['Dar una cifra falsa distinta a cada sospechoso', 'Elías recibe 810, Clara 790, Rubén 830. Quien la filtre se delatará solo.', 2]]],
+      ['Una hora después, un corredor rival llama a Orión ofreciendo comprar con descuento. Usa la cifra 790. Clara acaba de dejar la sala sin explicación.', [
+        ['Sospechar de Elías porque es el que más calla', 'Ignoras la evidencia y pierdes la oportunidad de actuar.', -1],
+        ['Preguntarle primero por qué salió', 'Clara responde con evasivas, pero te da tiempo para reunir más pruebas.', 1],
+        ['Confrontarla con la cifra 790', 'Clara palidece. La cifra no deja dudas.', 2]]],
+      ['Clara admite haber hablado con el rival, pero jura que la presionan: tienen algo contra su familia. La junta espera tu veredicto.', [
+        ['Entregarla a la junta y cerrar el caso', 'La junta la despide, pero el rival queda libre y sigue acechando.', -1],
+        ['Cancelar la fusión por seguridad', 'Proteges a todos, pero pierdes la mejor oportunidad del año.', 1],
+        ['Protegerla y usar su contacto para engañar al rival', 'Clara alimenta al rival con datos falsos mientras la fusión se cierra.', 2]]]]),
+    H('venta', 'Venta de una empresa', 'precio', 'Aurora Studios', 'Animación', 'su posible venta',
+      'Aurora Studios, estudio de animación con 15 años de historia, recibe una oferta de compra de Nimbus Media por 300 millones. Su fundadora, Irene Salas, duda: su equipo teme despidos y el último estreno apenas cubrió costos.',
+      'La venta se cerró en buenos términos y el estudio conservó a su equipo.', 'La venta dejó al estudio sin su equipo y con el catálogo en manos ajenas.', 'La situación del estudio no cambió de forma notable.', [
+      ['Irene te pide opinión antes de reunirse con Nimbus. ¿Qué buscas primero?', [
+        ['Aceptar la oferta de inmediato', 'Irene firma el borrador sin pensar si 300 millones es lo justo.', -1],
+        ['Revisar las cuentas de los últimos tres años', 'Los ingresos por licencias crecen 18 % anual. Aurora vale más de lo que parece.', 2],
+        ['Preguntar a Nimbus por qué compra ahora', 'Nimbus evade la respuesta: quiere cerrar antes de fin de mes.', 1]]],
+      ['Descubres que Nimbus negocia en paralelo con otro estudio, Caleidos. La oferta vence el viernes.', [
+        ['Amenazar con retirarte de la mesa', 'Nimbus duda, pero queda claro que Aurora está nerviosa.', 1],
+        ['Aceptar para no perder la oferta', 'Cedes toda tu ventaja de negociación.', -1],
+        ['Pedir una prórroga y contactar a un segundo comprador', 'Nimbus concede cinco días y Caleidos pide ver las cuentas.', 2]]],
+      ['Nimbus pone una condición nueva: el equipo directivo se va en seis meses y el catálogo pasa a su control total. Irene no duerme hace dos noches.', [
+        ['Proponer una venta parcial del 40 %', 'Nimbus no responde, pero tampoco se levanta de la mesa.', 1],
+        ['Exigir cláusulas de retención del equipo y garantías sobre el catálogo', 'Nimbus acepta revisar las cláusulas. Irene respira por primera vez en días.', 2],
+        ['Aceptar la condición con tal de cerrar', 'Irene firma. El equipo se entera por un rumor.', -1]]],
+      ['Nimbus mejora la oferta a 340 millones con cláusulas de protección, pero Caleidos aún no responde. Es hora de decidir.', [
+        ['Rechazar ambas y mantener el estudio', 'Aurora conserva su independencia, pero con las deudas del último estreno a cuestas.', -1],
+        ['Esperar una semana más a Caleidos', 'Caleidos mejora su oferta, pero Nimbus empieza a retirarse.', 1],
+        ['Cerrar con Nimbus bajo las cláusulas pactadas', 'La venta se firma con el equipo protegido y el catálogo a salvo.', 2]]]])
   ];
-
-  /* ---------- Catálogo ampliado: mitad serias, mitad ficticias/absurdas/misteriosas ---------- */
-  const PRF = { seg: { c: .40, n: .48, i: .12, r: 0 }, med: { c: .30, n: .30, i: .30, r: .10 }, rie: { c: .15, n: .10, i: .20, r: .55 }, pas: { c: .10, n: .50, i: .40, r: 0 } };
-  const O = (t, d, pro, con, pk, rg) => ({ t, d, pro, con, p: PRF[pk], rg: rg == null ? .5 : rg });
-  const OPS_EXTRA = [
-    /* — Serias — */
-    { id: 'norte', tipo: 'serio', cat: 'Crisis laborales', ico: 'alerta', emp: 'Norte Logística', sector: 'Transporte de carga', tema: 'la huelga de camioneros',
-      ctx: 'Norte Logística mueve el 30% de la carga refrigerada del país y sus 900 camioneros amenazan con parar en 48 horas. Si los camiones se detienen, miles de toneladas de alimento se echarán a perder. La directiva te pide opinión antes de negociar.',
-      ok: 'El acuerdo llegó a tiempo y la carga volvió a fluir sin pérdidas.', ko: 'La huelga se alargó y la mercancía perecedera se perdió por toneladas.', nt: 'Las negociaciones siguen abiertas y el servicio opera casi con normalidad.',
-      opts: [O('Aceptar el aumento salarial', 'Cedes a lo pedido: +12% de sueldo y mejores turnos.', 'Paz laboral inmediata y una plantilla motivada.', 'Eleva los costos fijos de forma permanente.', 'seg'),
-             O('Contratar transportistas externos', 'Subcontratas las rutas críticas mientras dura el conflicto.', 'Mantienes las entregas sin ceder.', 'Puede encender más la huelga y dañar la reputación.', 'rie', .5),
-             O('Abrir una mesa de diálogo larga', 'Propones meses de negociación con un mediador neutral.', 'Sin gasto inmediato y sin romper relaciones.', 'El plazo de 48 horas puede vencer igual.', 'pas')] },
-    { id: 'meridiano', tipo: 'serio', cat: 'Seguridad digital', ico: 'banco', emp: 'Banco Meridiano', sector: 'Banca digital', tema: 'la filtración de datos',
-      ctx: 'Banco Meridiano detectó que alguien accedió a los datos de 400 mil clientes y todavía nadie lo sabe fuera del banco. Decidir cómo comunicarlo puede salvar su reputación o hundirla en un solo día.',
-      ok: 'Los clientes valoraron la transparencia y la confianza se recuperó pronto.', ko: 'La filtración salió a la luz por otro lado y la confianza se desplomó.', nt: 'El incidente quedó contenido y la noticia pasó sin mucho ruido.',
-      opts: [O('Avisar a todos hoy mismo', 'Comunicado público y compensación para los afectados.', 'La honestidad protege la marca a largo plazo.', 'Golpe inmediato de imagen y costo de indemnizaciones.', 'med'),
-             O('Contener en silencio', 'Reparas la falla y no dices nada por ahora.', 'Evitas el pánico si nadie se entera.', 'Si se descubre, el daño será mucho mayor.', 'rie', .35),
-             O('Contratar una auditoría externa primero', 'Esperas 10 días a un informe independiente antes de hablar.', 'Información precisa y respaldo técnico.', 'Cada día de espera aumenta el riesgo de filtración.', 'seg')] },
-    { id: 'verdalia', tipo: 'serio', cat: 'Recursos naturales', ico: 'hoja', emp: 'Verdalia Agro', sector: 'Agricultura', tema: 'la sequía en sus cultivos',
-      ctx: 'Verdalia Agro lleva tres meses sin lluvia y sus campos de trigo se agrietan. Puede invertir en riego, vender la cosecha por adelantado o apostar a que llueva. El mercado de granos ya reacciona.',
-      ok: 'Las lluvias regresaron y la cosecha alcanzó para cumplir todos los pedidos.', ko: 'La sequía se agravó y la cosecha quedó muy por debajo de lo prometido.', nt: 'La cosecha salió regular, sin grandes ganancias ni pérdidas.',
-      opts: [O('Vender la cosecha por adelantado', 'Cierras precio hoy con compradores mayoristas.', 'Ingreso asegurado aunque llueva poco.', 'Si la lluvia llega, habrás vendido barato.', 'seg'),
-             O('Instalar riego por goteo', 'Inversión fuerte en tecnología de ahorro de agua.', 'Protege la producción en los años siguientes.', 'Tarda en amortizarse y exige mucho capital.', 'med'),
-             O('Apostar a que llueve', 'No cambias nada y esperas al próximo pronóstico.', 'Cero gasto extra si el clima ayuda.', 'Si no llueve, pierdes toda la temporada.', 'rie', .4)] },
-    { id: 'helix', tipo: 'serio', cat: 'Salud y ciencia', ico: 'contrato', emp: 'Helix Salud', sector: 'Biotecnología', tema: 'su nuevo tratamiento',
-      ctx: 'Helix Salud tiene un tratamiento prometedor contra una enfermedad rara. Los ensayos van bien, pero faltan seis meses para la aprobación oficial y una farmacéutica grande ofrece comprarle la patente hoy mismo.',
-      ok: 'El tratamiento fue aprobado y miles de pacientes ya lo reciben.', ko: 'Los reguladores pidieron nuevos ensayos y el proyecto se retrasó años.', nt: 'El proceso de aprobación avanza lento, pero sin sobresaltos.',
-      opts: [O('Licenciar solo para Europa', 'Cedes un mercado y conservas el resto.', 'Equilibrio entre ingreso y control.', 'Complica la logística y los contratos.', 'med'),
-             O('Vender la patente ahora', 'Cobras una suma fija y te desentiendes del riesgo.', 'Dinero seguro desde hoy.', 'Renuncias a las ganancias si el fármaco triunfa.', 'seg'),
-             O('Seguir solos hasta la aprobación', 'Conservas la patente y financias los ensayos.', 'Si se aprueba, el premio es enorme.', 'Si fracasa, la empresa se queda sin nada.', 'rie', .55)] },
-    { id: 'brio', tipo: 'serio', cat: 'Expansión internacional', ico: 'alianza', emp: 'Casa Brío', sector: 'Cafeterías', tema: 'su expansión internacional',
-      ctx: 'Casa Brío tiene 60 cafeterías y quiere abrir 15 más en otro continente. Un socio local conoce el mercado, pero exige la mitad de las ganancias. Abrir sola cuesta más y tarda más.',
-      ok: 'Las nuevas sucursales se llenaron desde la primera semana.', ko: 'Los precios no convencieron al público local y varias sucursales cerraron.', nt: 'Las aperturas avanzan a ritmo normal y sin grandes sorpresas.',
-      opts: [O('Abrir sola las 15 sucursales', 'Inviertes todo el capital de golpe.', 'Todo el ingreso es tuyo si funciona.', 'Un error de cálculo sale carísimo.', 'rie', .5),
-             O('Probar con 3 locales piloto', 'Abres pocas sucursales y evalúas resultados.', 'Aprendes sin arriesgar demasiado.', 'La competencia puede ocupar los mejores locales.', 'seg'),
-             O('Asociarse con el socio local', 'Compartes ganancias a cambio de su experiencia.', 'Menos riesgo y una apertura más rápida.', 'Tus ganancias se recortan a la mitad.', 'med')] },
-    { id: 'zenit', tipo: 'serio', cat: 'Bienes raíces', ico: 'precio', emp: 'Torre Zenit', sector: 'Inmobiliaria', tema: 'su torre más alta',
-      ctx: 'Torre Zenit terminó un rascacielos de 60 pisos, pero solo el 40% está alquilado. Los intereses del crédito aprietan y un fondo ofrece comprar el edificio con un fuerte descuento.',
-      ok: 'El edificio se llenó de inquilinos y su valor se disparó.', ko: 'Los pisos siguieron vacíos y el crédito se volvió una carga pesada.', nt: 'La ocupación sube despacio, sin cambios de fondo.',
-      opts: [O('Convertirlo en hotel de lujo', 'Remodelas todo para un mercado premium.', 'Podría ser un negocio mucho más rentable.', 'Obra costosa y resultado incierto.', 'rie', .5),
-             O('Vender al fondo con descuento', 'Cierras el trato y sales del problema.', 'Te liberas de la deuda de inmediato.', 'Pierdes parte del valor del edificio.', 'pas'),
-             O('Rebajar rentas para llenar pisos', 'Alquileres más bajos durante dos años.', 'Ocupación rápida y flujo de caja.', 'Ingresos menores durante mucho tiempo.', 'seg')] },
-    { id: 'voltaico', tipo: 'serio', cat: 'Energía', ico: 'rayo', emp: 'Voltaico Energía', sector: 'Energía renovable', tema: 'su nueva planta',
-      ctx: 'Voltaico Energía debe elegir dónde construir su próxima planta: un parque solar en el desierto o la conversión de una vieja central de carbón. El gobierno ofrece subsidios para ambas, pero con condiciones distintas.',
-      ok: 'La planta arrancó a tiempo y la demanda de energía limpia superó lo esperado.', ko: 'Sobrecostos y permisos retrasaron la planta durante meses.', nt: 'La obra avanza según el cronograma, sin sorpresas.',
-      opts: [O('Reconvertir la central de carbón', 'Aprovechas la infraestructura existente.', 'Arranque más rápido y barato.', 'Menos subsidio y críticas ambientales.', 'seg'),
-             O('Apostar por hidrógeno verde', 'Tecnología nueva con apoyo parcial.', 'Si funciona, serás pionera del sector.', 'Tecnología joven, con mucho por probar.', 'rie', .45),
-             O('Parque solar en el desierto', 'Construcción nueva con subsidio completo.', 'Energía limpia con costos bajos de operación.', 'Depende de líneas de transmisión lejanas y permisos.', 'med')] },
-    /* — Ficticias, absurdas, cinematográficas y misteriosas — */
-    { id: 'perpetuo', tipo: 'ficcion', cat: 'Fenómenos inexplicables', ico: 'luna', emp: 'Hotel Perpetuo', sector: 'Hotelería misteriosa', tema: 'el piso 13',
-      ctx: 'En el Hotel Perpetuo aparece un piso 13 que no está en los planos, solo los martes a medianoche. Los huéspedes que bajan de él pagan con monedas de un país que no existe. Hay interés de coleccionistas y de unos señores con gabardina.',
-      ok: 'Las monedas resultaron valiosísimas y los huéspedes del piso 13 dejaron reseñas de cinco estrellas.', ko: 'El piso 13 se llevó un ala entera del vestíbulo y nadie sabe adónde.', nt: 'El piso apareció, no pasó nada y todos fingen que fue un martes normal.',
-      opts: [O('Sellar el piso con cemento', 'Tapias la puerta y borras el rumor.', 'Cero sorpresas inquietantes.', 'Los de la gabardina no se van a alegrar.', 'seg'),
-             O('Abrir el piso 13 como suite premium', 'Cobras por dormir en lo imposible.', 'Atracción turística única en el mundo.', 'Nadie garantiza que todos los huéspedes regresen.', 'rie', .55),
-             O('Contratar a un detective nocturno', 'Investigas quién viene desde ese piso.', 'Información valiosa antes de actuar.', 'El detective ya parece saber demasiado.', 'med')] },
-    { id: 'patos', tipo: 'ficcion', cat: 'Logística imposible', ico: 'alianza', emp: 'Patos Unidos S.A.', sector: 'Mensajería con plumas', tema: 'su ejército de patos mensajeros',
-      ctx: 'Patos Unidos entrega paquetes con 4.000 patos entrenados. Son rápidos, pero se niegan a volar los lunes y exigen pan. Un gigante del comercio electrónico quiere firmar… si los patos aprenden a usar GPS.',
-      ok: 'Los patos aprendieron el GPS y las entregas se hicieron en tiempo récord.', ko: 'Los patos se amotinaron y entregaron todo en el lago equivocado.', nt: 'Los patos cumplen a su ritmo y nadie se queja, salvo los lunes.',
-      opts: [O('Subir la ración de pan', 'Contentas al ejército con más comida.', 'Patos felices y entregas constantes.', 'El pan sale caro y los patos engordan.', 'seg'),
-             O('Cambiar a gansos más serios', 'Reemplazas la plantilla por aves con disciplina.', 'Los gansos son más fiables y respetados.', 'Los patos lo toman como una traición.', 'med'),
-             O('Firmar con el gigante del comercio', 'Aceptas el contrato y entrenas a los patos con GPS.', 'Ingresos enormes si los patos cooperan.', 'Un solo pato rebelde puede arruinarlo todo.', 'rie', .5)] },
-    { id: 'eclipse', tipo: 'ficcion', cat: 'Misterios corporativos', ico: 'ojo', emp: 'Eclipse Negro Corp.', sector: 'Finanzas sombrías', tema: 'la puerta del sótano',
-      ctx: 'Eclipse Negro Corp. encontró una puerta de acero en el sótano de su sede, sin cerradura y con un zumbido grave. Cada vez que alguien se acerca, el mercado de futuros se mueve. La junta directiva está dividida.',
-      ok: 'Lo que había detrás de la puerta resultó ser una mina de información que cambió la suerte de la empresa.', ko: 'La puerta se abrió sola y desapareció el cuarto piso, con toda la contabilidad.', nt: 'La puerta sigue ahí, zumbando, sin que ocurra nada concreto.',
-      opts: [O('Abrir la puerta con cámara en vivo', 'Transmites todo para que el mercado vea.', 'Atención mundial y datos únicos.', 'Quizá no quieras ver lo que hay dentro.', 'rie', .5),
-             O('Vender el edificio completo', 'Te deshaces del problema con todo y sótano.', 'Cortas el riesgo de raíz.', 'El comprador es sospechosamente entusiasta.', 'pas'),
-             O('Instalar vigilancia las 24 horas', 'Observas la puerta sin tocarla.', 'Seguridad y pistas sin arriesgar.', 'Tienes la sensación de que la puerta también te mira.', 'seg')] },
-    { id: 'nube', tipo: 'ficcion', cat: 'Seguros extraordinarios', ico: 'precio', emp: 'Nube Nueve Seguros', sector: 'Seguros meteorológicos', tema: 'su póliza contra nubes tristes',
-      ctx: 'Nube Nueve asegura nubes: si una nube no llueve cuando lo prometió, la empresa paga. Una nube famosa, llamada Gertrudis, anuncia la tormenta del siglo, pero confiesa sentirse insegura. Miles de pólizas dependen de ella.',
-      ok: 'Gertrudis llovió con orgullo y la aseguradora cobró sin pagar un solo reclamo.', ko: 'Gertrudis se evaporó de vergüenza y llegaron miles de reclamos.', nt: 'Gertrudis llovió lo justo y la cartera siguió igual.',
-      opts: [O('Cancelar las pólizas de Gertrudis', 'Dejas de asegurar a la nube insegura.', 'Evitas el riesgo mayor.', 'Pierdes clientes y la nube se ofende.', 'seg'),
-             O('Reasegurar con un huracán', 'Compartes el riesgo con un huracán veterano.', 'Reduces el golpe si Gertrudis falla.', 'Los huracanes cobran caro y son impredecibles.', 'med'),
-             O('Apoyar emocionalmente a la nube', 'Contratas un coach para dar confianza a Gertrudis.', 'Una nube segura rinde mejor.', 'Nadie sabe si las nubes responden al coaching.', 'rie', .5)] },
-    { id: 'quimera', tipo: 'ficcion', cat: 'Ciencia dudosa', ico: 'ojo', emp: 'Laboratorios Quimera', sector: 'Biotecnología rara', tema: 'su mascota clonada',
-      ctx: 'Quimera clonó a Bruno, su mascota corporativa, un perro con corbata. El clon habla, tiene opiniones sobre el presupuesto y pide acciones de la empresa. Los inversionistas no saben si reírse o llamar a un abogado.',
-      ok: 'Bruno resultó un genio de las finanzas y la empresa ganó popularidad mundial.', ko: 'Bruno votó en contra de todo y paralizó la junta durante semanas.', nt: 'Bruno ladra en las reuniones y la empresa sigue como si nada.',
-      opts: [O('Contratarlo como asesor', 'Le das un sueldo y un escritorio.', 'Aprovechas su talento sin cederle poder.', 'Bruno ya pidió una oficina con ventana.', 'seg'),
-             O('Ocultar al clon del público', 'Lo dejas en el laboratorio una temporada.', 'Evitas el escándalo por ahora.', 'Bruno sabe usar el teléfono.', 'pas'),
-             O('Darle una acción simbólica', 'Bruno pasa a ser accionista oficial.', 'Gran simpatía y publicidad gratis.', 'Un perro con voto puede ser impredecible.', 'rie', .5)] },
-    { id: 'relojes', tipo: 'ficcion', cat: 'Anomalías temporales', ico: 'luna', emp: 'Relojes Sin Hora', sector: 'Relojería temporal', tema: 'sus relojes del mañana',
-      ctx: 'Relojes Sin Hora fabrica relojes que marcan la hora de mañana. Funcionan, pero la gente se enreda con las reuniones. Un cliente misterioso quiere comprar mil unidades y pide que nadie anote la fecha de entrega.',
-      ok: 'El cliente pagó por adelantado y todo salió exactamente como ya estaba escrito.', ko: 'Los relojes adelantaron una quiebra que todavía no ocurre y la empresa tembló.', nt: 'Los relojes siguen marcando mañana y hoy todo está tranquilo.',
-      opts: [O('Usarlos solo dentro de la empresa', 'Los guardas para ver el mercado con ventaja.', 'Ventaja informativa única.', 'Ver tu propio futuro puede no ser agradable.', 'med'),
-             O('Vender las mil unidades', 'Aceptas el pedido y no preguntas nada.', 'Ingreso enorme e inmediato.', 'Quizá el cliente venga del futuro por algo.', 'rie', .5),
-             O('Limitar la venta a cien relojes', 'Estudias el efecto antes de vender más.', 'Control sobre el producto y el riesgo.', 'El cliente podría irse con la competencia del pasado.', 'seg')] },
-    { id: 'fantasma', tipo: 'ficcion', cat: 'Recursos humanos', ico: 'alianza', emp: 'Agencia Fantasma', sector: 'Consultoría espectral', tema: 'su empleado holograma',
-      ctx: 'La Agencia Fantasma tiene un único empleado, un holograma llamado Gerardo, que ganó una silla en la junta por error de sistema. Gerardo vota siempre en contra y no se le puede despedir porque nunca fue contratado.',
-      ok: 'Gerardo propuso una idea brillante y los clientes se multiplicaron.', ko: 'Gerardo bloqueó una fusión clave y la agencia perdió clientes.', nt: 'Gerardo votó en contra otra vez y todo siguió igual.',
-      opts: [O('Apagar el proyector', 'Desactivas al holograma por seguridad.', 'Se acaba el problema de raíz.', 'Gerardo podría volver con rencor.', 'seg'),
-             O('Nombrarlo director honorario', 'Lo premias para tenerlo contento.', 'Ganas su lealtad y buena prensa.', 'Queda con más poder que antes.', 'med'),
-             O('Escuchar su propuesta final', 'Dejas que Gerardo presente su plan.', 'Puede ser una idea genial o un desastre.', 'Nadie sabe qué piensa un holograma.', 'rie', .5)] },
-    { id: 'lunabeta', tipo: 'ficcion', cat: 'Minería espacial absurda', ico: 'luna', emp: 'Minas Luna Beta', sector: 'Minería lunar', tema: 'el queso lunar',
-      ctx: 'Minas Luna Beta descubrió una veta de queso en la Luna. Es comestible, carísimo y huele a calcetín de astronauta. Una cadena de restaurantes quiere exclusividad, pero un gigante de lácteos amenaza con demandar.',
-      ok: 'El queso lunar se volvió un manjar de moda y las ventas se dispararon.', ko: 'El queso caducó en pleno viaje de regreso y la carga llegó cubierta de moho.', nt: 'La producción va a ritmo estable y el queso sigue siendo una rareza.',
-      opts: [O('Probar con un lote pequeño', 'Mandas solo una caja a la Tierra.', 'Pruebas el mercado con poco riesgo.', 'El queso puede no sobrevivir al viaje.', 'seg'),
-             O('Vender a todo el mundo', 'Distribuyes el queso sin restricciones.', 'Ventas enormes y mercado abierto.', 'El gigante lácteo te demanda con ganas.', 'rie', .5),
-             O('Exclusividad con los restaurantes', 'Un solo cliente de lujo se queda con todo.', 'Precio altísimo y marca de prestigio.', 'Dependes de un único cliente.', 'med')] },
-    { id: 'topo', tipo: 'ficcion', cat: 'Transporte subterráneo', ico: 'rayo', emp: 'Topo Express', sector: 'Metros hasta el núcleo', tema: 'su metro al centro de la Tierra',
-      ctx: 'Topo Express excavó un túnel de 6.000 km y su primer tren llega al centro de la Tierra en tres horas. La línea es magnífica y hace un calor infernal. Las aseguradoras están asustadas y los pasajeros piden aire acondicionado.',
-      ok: 'El viaje al centro de la Tierra fue un éxito y la línea se llenó de turistas aventureros.', ko: 'El tren se derritió y el túnel quedó fuera de servicio un buen tiempo.', nt: 'El metro funciona sin incidentes y el calor se tolera con abanicos.',
-      opts: [O('Abrir la línea tal como está', 'Pones el tren a funcionar sin más cambios.', 'Ingresos inmediatos y mucha publicidad.', 'El calor podría ser fatal para el tren.', 'rie', .45),
-             O('Invertir en un sistema de enfriamiento', 'Dotas al tren de refrigeración especial.', 'Viajes más seguros y comodidad premium.', 'Es carísimo y no hay garantías.', 'med'),
-             O('Acortar el trayecto', 'Solo llegas hasta el manto superior.', 'Menos calor y menos riesgo.', 'Menos emoción y menos turistas.', 'seg')] },
-    { id: 'ouroboros', tipo: 'ficcion', cat: 'Espectáculos imposibles', ico: 'estrella', emp: 'Circo Ouroboros', sector: 'Entretenimiento infinito', tema: 'sus entradas retroactivas',
-      ctx: 'El Circo Ouroboros vende entradas que se compran en el futuro y se cobran en el pasado. Ya vendió cuatro funciones que todavía no ocurren y una que ya ocurrió dos veces. Los contadores tienen mareos.',
-      ok: 'Las funciones se cuadraron solas y la taquilla fue un éxito en todas las líneas temporales.', ko: 'Una función se repitió sin parar y el público quedó atrapado en un bucle.', nt: 'Las entradas se pagaron en algún momento, aunque nadie recuerda cuándo.',
-      opts: [O('Volver a las entradas normales', 'Las vendes como cualquier circo.', 'Seguridad y tranquilidad.', 'El público quería lo imposible.', 'pas'),
-             O('Vender más entradas retroactivas', 'Duplicas la apuesta temporal.', 'Ingresos enormes si el tiempo coopera.', 'Puede romper la contabilidad de toda la historia.', 'rie', .5),
-             O('Contratar a un contador temporal', 'Alguien que entienda de pasados y futuros.', 'Cuentas claras en todas las líneas del tiempo.', 'Es raro, caro y viaja poco.', 'seg')] },
-    { id: 'cafefin', tipo: 'ficcion', cat: 'Profecías de mostrador', ico: 'ojo', emp: 'Cafetería del Fin del Mundo', sector: 'Alimentación apocalíptica', tema: 'su máquina de café profética',
-      ctx: 'En la Cafetería del Fin del Mundo hay una máquina que imprime profecías en los vasos. Esta mañana imprimió: «Hoy cambiará todo». Los clientes forman filas larguísimas y el gerente no sabe si subir los precios o salir corriendo.',
-      ok: 'La profecía resultó ser una oferta de un proveedor y el negocio floreció.', ko: 'La máquina predijo un cierre y los clientes se espantaron.', nt: 'La profecía se cumplió con un cambio de menú y nada más.',
-      opts: [O('Desconectar la máquina', 'Apagas el aparato y ya.', 'Sin sorpresas ni escándalos.', 'Ya aprendió a encenderse sola.', 'seg'),
-             O('Seguir la profecía al pie de la letra', 'Cambias todo lo que diga el vaso.', 'Si acierta, serás un genio.', 'La máquina quizá sea muy bromista.', 'rie', .5),
-             O('Cobrar por leer las profecías', 'Conviertes los vasos en un espectáculo.', 'Gran atracción y ganancias seguras.', 'Si la profecía falla, te acusan de estafa.', 'med')] },
-    { id: 'robots', tipo: 'ficcion', cat: 'Conflictos robóticos', ico: 'alianza', emp: 'Sindicato Verde Mecánico', sector: 'Robots jardineros', tema: 'la huelga de robots jardineros',
-      ctx: 'Los robots jardineros del Sindicato Verde Mecánico exigen vacaciones, sol directo y que dejen de llamarlos «podadoras». Amenazan con dejar crecer el pasto sin control. Un parque entero ya parece una selva y nadie encuentra el sendero.',
-      ok: 'Los robots aceptaron un trato justo y el parque quedó como una postal.', ko: 'La selva avanzó hasta la ciudad y varias calles quedaron intransitables.', nt: 'Los robots hicieron un descanso breve y el parque sigue verde.',
-      opts: [O('Contratar jardineros humanos', 'Sustituyes a los robots con personas.', 'Recuperas el control sin ceder.', 'Los robots podrían organizarse en venganza.', 'rie', .45),
-             O('Aceptar vacaciones y sol', 'Cedes a las peticiones de los robots.', 'Plantilla contenta y parque impecable.', 'Los robots sentarán un precedente peligroso.', 'seg'),
-             O('Negociar con un robot mediador', 'Pides ayuda a un modelo más sabio.', 'Diálogo entre iguales y menos tensión.', 'El mediador cobra las horas extra en aceite.', 'med')] }
+  const PC = { bueno: { p: { c: .55, n: .15, i: .05, r: .25 }, rg: .85 }, malo: { p: { c: 0, n: .1, i: .5, r: .4 }, rg: .1 }, dudoso: { p: { c: .3, n: .3, i: .2, r: .2 }, rg: .5 } };
+  const CT = (id, emp, sector, tema, antes, hoy, oferta, v) => ({ id, modo: 'contrato', tipo: 'contrato', cat: 'Contrataciones', ico: 'contrato', emp, sector, tema, antes, hoy, oferta, ctx: '',
+    ok: 'Los pagos llegaron a tiempo y el acuerdo rindió ganancias.', ko: 'La empresa incumplió y el acuerdo dejó pérdidas.', nt: 'El panorama de la empresa no cambió de forma notable.',
+    opts: [{ k: 'A', t: 'Contratar', p: PC[v].p, rg: PC[v].rg }, { k: 'B', t: 'No contratar', p: { c: 0, n: 1, i: 0, r: 0 }, rg: .5 }] });
+  const CONT = [
+    CT('ferrovia', 'Ferrovía Norte', 'Transporte', 'su financiamiento',
+      'Su primer tramo abrió hace cuatro años y cubrió sus costos desde el segundo.',
+      'Mueve 120.000 pasajeros al mes, con deuda baja y contratos de carga firmados por tres años.',
+      'Pide 5 millones y ofrece 12 % anual durante 5 años, con la línea como garantía.', 'bueno'),
+    CT('brillo', 'Brillo Digital', 'Aplicaciones', 'su ronda de inversión',
+      'Lanzó dos apps que no pasaron de 10.000 usuarios y cerró una de ellas.',
+      'Gasta 400.000 al mes sin ingresos recurrentes, y su fundador cambió de rumbo por tercera vez.',
+      'Pide 3 millones por el 30 % de la empresa, sin garantías.', 'malo'),
+    CT('cobalto', 'Cobalto Minería', 'Minería', 'su reapertura',
+      'Operó una mina ocho años con buenas ganancias, hasta que una inundación la paralizó el año pasado.',
+      'Ya reabrió, pero produce al 60 % y tiene litigios pendientes por la inundación.',
+      'Pide 6 millones y ofrece 15 % anual por 4 años, con la mina como único respaldo.', 'dudoso'),
+    CT('casaverde', 'Casa Verde Alimentos', 'Alimentación', 'su expansión',
+      'Una cadena local que creció diez años seguidos sin perder rentabilidad.',
+      'Abrirá 8 sucursales nuevas; las 3 más recientes recuperaron su inversión en 14 meses.',
+      'Pide 2 millones, con 9 % anual y 20 % de participación en ganancias.', 'bueno'),
+    CT('titan', 'Titán Logística', 'Transporte de carga', 'su rescate',
+      'Hace tres años lideraba el sector y ganaba cada licitación.',
+      'Perdió sus dos mayores clientes y retrasó pagos a proveedores dos veces este año.',
+      'Pide 8 millones y ofrece 18 % anual: una tasa muy tentadora.', 'malo')
   ];
-  const CAT = OPS_BASE.map(o => Object.assign({ tipo: 'serio' }, o)).concat(OPS_EXTRA);
-  CAT.forEach(o => o.opts.forEach((x, i) => { x.k = x.k || 'ABC'[i]; }));
+  const CAT = HIST.concat(CONT);
 
 
   /* ---------- Noticias: plantillas ---------- */
@@ -3160,7 +3081,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     return Math.random() < (o.rg != null ? o.rg : .5) ? 'riesgo_gana' : 'riesgo_pierde';
   }
   function armarNoticia(op, o, tipo) {
-    const tp = pick((op.tipo === 'ficcion' ? TPLF : TPL)[tipo]), efecto = EFECTO[tipo];
+    const tp = pick(TPL[tipo]), efecto = EFECTO[tipo];
     const extra = efecto === 'up' ? op.ok : efecto === 'down' ? op.ko : op.nt;
     const rep = s => s.replace(/\{emp\}/g, op.emp).replace(/\{tema\}/g, op.tema).replace(/\{op\}/g, o.t).replace(/\{extra\}/g, extra);
     return { id: 'n' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), ts: Date.now(), op: op.id, tipo, efecto, titulo: rep(tp.t), cuerpo: rep(tp.c), emp: op.emp, leida: false };
@@ -3230,16 +3151,24 @@ window.addEventListener('cube-wallet-accion', function (e) {
   function cabecera(op, hecha) {
     return `<div class="op-top"><span class="op-ico">${svg(hecha ? 'check' : op.ico)}</span><div><div class="op-cat">${esc(op.cat)}</div><div class="op-emp">${esc(op.emp)} <small>${esc(op.sector)}</small></div></div></div>`;
   }
-  function cardPend(op, i) {
-    return `<article class="op" data-op="${op.id}" style="animation-delay:${i * 0.06}s">${cabecera(op, false)}
-      <p class="op-ctx">${esc(op.ctx)}</p>
-      <div class="op-opts" role="radiogroup" aria-label="Opciones">${op.opts.map(o => `<button class="op-opt" type="button" role="radio" aria-checked="false" data-k="${o.k}"><span class="op-let">${o.k}</span><span class="op-tx"><b>${esc(o.t)}</b><span class="d">${esc(o.d)}</span><em class="pro">+ ${esc(o.pro)}</em><em class="con">− ${esc(o.con)}</em></span></button>`).join('')}</div>
-      <button class="op-go" type="button" disabled>Confirmar decisión</button></article>`;
+  const optsHtml = l => `<div class="op-opts" role="radiogroup" aria-label="Opciones">${l.map((o, i) => `<button class="op-opt" type="button" role="radio" aria-checked="false" data-k="${o.k}"><span class="op-let">${String.fromCharCode(65 + i)}</span><span class="op-tx"><b>${esc(o.t)}</b>${o.d ? `<span class="d">${esc(o.d)}</span>` : ''}${o.pro ? `<em class="pro">+ ${esc(o.pro)}</em>` : ''}${o.con ? `<em class="con">− ${esc(o.con)}</em>` : ''}</span></button>`).join('')}</div>`;
+  function cardPend(op, i, s) {
+    const ani = `style="animation-delay:${i * 0.06}s"`;
+    if (op.modo === 'contrato') {
+      const bl = (t, x) => `<div class="op-bloque"><small>${t}</small><p>${esc(x)}</p></div>`;
+      return `<article class="op" data-op="${op.id}" ${ani}>${cabecera(op, false)}${bl('Antes', op.antes)}${bl('Presente', op.hoy)}${bl('Lo que ofrece', op.oferta)}
+        ${optsHtml(op.opts)}<button class="op-go" type="button" disabled>Confirmar decisión</button></article>`;
+    }
+    const st = (s && s.lote && s.lote.prog && s.lote.prog[op.id]) || { paso: 0, ruta: [] }, f = op.fases[st.paso], ult = st.paso === op.fases.length - 1;
+    const ruta = st.ruta.length ? `<div class="op-ruta">${st.ruta.map(x => `<p><b>${esc(x.t)}</b> — ${esc(x.r)}</p>`).join('')}</div>` : '';
+    return `<article class="op" data-op="${op.id}" ${ani}>${cabecera(op, false)}<p class="op-ctx">${esc(op.ctx)}</p>${ruta}
+      <p class="op-paso">Decisión ${st.paso + 1} de ${op.fases.length}${ult ? ' · definitiva' : ''}</p><p class="op-ctx" style="margin-top:6px">${esc(f.t)}</p>
+      ${optsHtml(f.o.map((x, j) => ({ k: String(j), t: x.t })))}<button class="op-go" type="button" disabled>${ult ? 'Tomar la decisión definitiva' : 'Continuar'}</button></article>`;
   }
   function cardHecha(op, h) {
-    const o = op.opts.find(x => x.k === h.k);
+    const o = op.opts && op.opts.find(x => x.k === h.k);
     return `<article class="op hecha" data-op="${op.id}">${cabecera(op, true)}
-      <p class="op-dec">Tu decisión: <b>«${esc(o ? o.t : h.k)}»</b></p>
+      <p class="op-dec">Tu decisión: <b>«${esc(h.t || (o ? o.t : h.k))}»</b></p>
       <button class="op-lnk" type="button" data-ver-noticia>Ver noticia →</button></article>`;
   }
   /* Lotes: al completar todo, las nuevas llegan al azar en 5, 10, 15, 20, 30 o 45 s, o en 1, 2, 3, 4 o 5 min (nunca más de 5 min) */
@@ -3251,11 +3180,11 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const n = 3 + Math.floor(Math.random() * 3);
     let libres = CAT.filter(o => !s.usadas.includes(o.id));
     if (libres.length < n) { s.usadas = []; libres = CAT.slice(); }
-    const ser = mezclar(libres.filter(o => o.tipo === 'serio')), fic = mezclar(libres.filter(o => o.tipo === 'ficcion'));
-    let nF = Math.floor(n / 2) + (n % 2 && Math.random() < .5 ? 1 : 0), nS = n - nF;   // ~50% serias, ~50% ficticias
-    nS = Math.min(nS, ser.length); nF = Math.min(n - nS, fic.length); nS = Math.min(n - nF, ser.length);
-    const ids = mezclar(ser.slice(0, nS).concat(fic.slice(0, nF))).map(o => o.id);
-    s.usadas = s.usadas.concat(ids); s.lote = { ids, hechas: {}, visto: false, ts: Date.now() }; s.proxima = null;
+    const his = mezclar(libres.filter(o => o.modo === 'historia')), con = mezclar(libres.filter(o => o.modo === 'contrato'));
+    let nH = Math.floor(n / 2) + (n % 2 && Math.random() < .5 ? 1 : 0), nC = n - nH;   // ~50% historias, ~50% contrataciones
+    nH = Math.min(nH, his.length); nC = Math.min(n - nH, con.length); nH = Math.min(n - nC, his.length);
+    const ids = mezclar(his.slice(0, nH).concat(con.slice(0, nC))).map(o => o.id);
+    s.usadas = s.usadas.concat(ids); s.lote = { ids, hechas: {}, prog: {}, visto: false, ts: Date.now() }; s.proxima = null;
   }
   function opsLote(s) { return (s.lote ? s.lote.ids : []).map(id => CAT.find(o => o.id === id)).filter(Boolean); }
   function cuenta(ms) { const t = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), x = t % 60; return h ? h + ' h ' + m + ' min' : m ? m + ' min ' + x + ' s' : x + ' s'; }
@@ -3263,9 +3192,9 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const falta = opsLote(s).filter(o => !s.lote.hechas[o.id]).length;
     return falta ? 'Faltan ' + falta : (s.proxima ? 'Nuevas en ' + cuenta(s.proxima - Date.now()) : '');
   }
-  /* Inactividad: si 3 min después de aparecer operaciones nuevas aún quedan sin resolver (tiempo activo, no en pausa), la gráfica cae violentamente hasta resolverlas */
-  let idleMs = 0, limiteMs = 180000, ultimoTick = Date.now(), avisadoIdle = false;
-  function reiniciarIdle() { idleMs = 0; limiteMs = 180000; avisadoIdle = false; if (window.cubeGrafico) window.cubeGrafico.abandono(false); }
+  /* Inactividad: si 15 min después de aparecer operaciones nuevas aún quedan sin resolver (tiempo activo, no en pausa), la gráfica cae violentamente hasta resolverlas */
+  let idleMs = 0, limiteMs = 900000, ultimoTick = Date.now(), avisadoIdle = false;
+  function reiniciarIdle() { idleMs = 0; limiteMs = 900000; avisadoIdle = false; if (window.cubeGrafico) window.cubeGrafico.abandono(false); }
   window.addEventListener('cube:pausa', e => {
     const d = e.detail || {}; if (d.pausado) return;
     ultimoTick = Date.now();
@@ -3276,7 +3205,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const ahora = Date.now(), dt = Math.min(ahora - ultimoTick, 2000); ultimoTick = ahora;
     if (window.cubePausado || !sesion()) return;
     const s = leer(), viendo = body.classList.contains('en-ops');
-    if (!s.lote || (s.proxima && ahora >= s.proxima)) {
+    if (!s.lote || opsLote(s).length === 0 || (s.proxima && ahora >= s.proxima)) {
       nuevoLote(s); if (viendo) s.lote.visto = true;
       guardar(s); pintarPunto(); if (viendo) pintar(); reiniciarIdle();
     } else if (viendo) $('opsReset').textContent = textoReset(s);
@@ -3284,7 +3213,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     if (hayPend) {
       idleMs += dt;
       if (idleMs > limiteMs) {
-        if (!avisadoIdle) { avisadoIdle = true; sistema({ tipo: 'mercado', efecto: 'down', titulo: 'Sin decisiones: la Sagrada Continuidad empieza a caer', cuerpo: 'Pasaron 3 minutos sin resolver las operaciones y el mercado pierde la paciencia. Resuélvelas para frenar la caída, o pausa si vas a ausentarte.' }); }
+        if (!avisadoIdle) { avisadoIdle = true; sistema({ tipo: 'mercado', efecto: 'down', titulo: 'Sin decisiones: la Sagrada Continuidad empieza a caer', cuerpo: 'Pasaron 15 minutos sin resolver las operaciones y el mercado pierde la paciencia. Resuélvelas para frenar la caída, o pausa si vas a ausentarte.' }); }
         if (window.cubeGrafico) window.cubeGrafico.abandono(true);
       }
     } else if (idleMs || avisadoIdle) reiniciarIdle();
@@ -3297,7 +3226,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     $('opsSeg').innerHTML = ops.map(o => `<i class="${H[o.id] ? 'on' : ''}"></i>`).join('');
     $('opsCuenta').textContent = hechas.length + ' de ' + ops.length + ' completadas';
     $('opsReset').textContent = textoReset(s);
-    $('opsLista').innerHTML = pend.map(cardPend).join('') + (hechas.length ? '<h2 class="op-h">Completadas</h2>' + hechas.map(o => cardHecha(o, H[o.id])).join('') : '');
+    $('opsLista').innerHTML = pend.map((o, i) => cardPend(o, i, s)).join('') + (hechas.length ? '<h2 class="op-h">Completadas</h2>' + hechas.map(o => cardHecha(o, H[o.id])).join('') : '');
   }
   $('opsLista').addEventListener('click', e => {
     const opt = e.target.closest('.op-opt');
@@ -3310,21 +3239,37 @@ window.addEventListener('cube-wallet-accion', function (e) {
     if (go && !go.disabled) { const c = go.closest('.op'); decidir(c.dataset.op, c.dataset.sel); return; }
     if (e.target.closest('[data-ver-noticia]')) abrirNoticias();
   });
-  function decidir(id, k) {
-    if (!sesion()) { aviso('Inicia sesión para tomar decisiones.'); return; }
-    const op = CAT.find(o => o.id === id), opt = op && op.opts.find(x => x.k === k), s = leer();
-    if (!opt || !s.lote || !s.lote.ids.includes(id) || s.lote.hechas[id]) return;
-    const tipo = sortear(opt), n = armarNoticia(op, opt, tipo);
-    s.lote.hechas[id] = { k, tipo, noticia: n.id, ts: Date.now() };
+  function resolver(op, k, label, tipo, s) {
+    const n = armarNoticia(op, { t: label }, tipo);
+    s.lote.hechas[op.id] = { k, t: label, tipo, noticia: n.id, ts: Date.now() };
+    if (s.lote.prog) delete s.lote.prog[op.id];
     s.noticias.unshift(n); s.noticias = s.noticias.slice(0, 80);
     if (s.lote.ids.every(x => s.lote.hechas[x])) s.proxima = Date.now() + espera();
     guardar(s);
-    if (s.lote.ids.every(x => s.lote.hechas[x])) reiniciarIdle();   // el reloj de 3 min solo se detiene al resolver todas
-    if (window.cubeGrafico) window.cubeGrafico.noticia(tipo);   // favorable: sube y rinde más; neutra: igual; desfavorable: baja un poco
+    if (s.lote.ids.every(x => s.lote.hechas[x])) reiniciarIdle();   // el reloj de 15 min solo se detiene al resolver todas
+    if (window.cubeGrafico) window.cubeGrafico.noticia(tipo);   // favorable: sube y rinde; neutra: igual; desfavorable: baja
     const f = tipo === 'incorrecta' ? rnd(.02, .04) : tipo === 'riesgo_pierde' ? rnd(.04, .08) : 0, perdida = Math.round(acum * f * 100) / 100;
     if (perdida >= .01) perder(perdida);
     pintar(); pintarPunto();
     aviso('Decisión registrada.' + (perdida >= .01 ? ' Rendimiento −$' + fm(perdida) + '.' : '') + ' Revisa Noticias.');
+  }
+  function decidir(id, k) {
+    if (!sesion()) { aviso('Inicia sesión para tomar decisiones.'); return; }
+    const op = CAT.find(o => o.id === id), s = leer();
+    if (!op || !s.lote || !s.lote.ids.includes(id) || s.lote.hechas[id]) return;
+    if (op.modo === 'contrato') {
+      const opt = op.opts.find(x => x.k === k); if (!opt) return;
+      resolver(op, k, opt.t, sortear(opt), s); return;
+    }
+    const pr = s.lote.prog = s.lote.prog || {}, st = pr[id] = pr[id] || { paso: 0, score: 0, ruta: [] }, opt = op.fases[st.paso].o[+k];
+    if (!opt) return;
+    st.score += opt.s; st.ruta.push({ t: opt.t, r: opt.r }); st.paso++;
+    if (st.paso >= op.fases.length) {   // la suma de puntos define el desenlace
+      const sc = st.score, tipo = sc >= 7 ? 'riesgo_gana' : sc >= 5 ? 'correcta' : sc >= 3 ? 'neutra' : sc >= 0 ? 'incorrecta' : 'riesgo_pierde';
+      resolver(op, 'F', opt.t, tipo, s); return;
+    }
+    guardar(s); pintar();
+    const c = document.querySelector('#opsLista .op[data-op="' + id + '"]'); if (c) c.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
   /* ---------- Noticias ---------- */
