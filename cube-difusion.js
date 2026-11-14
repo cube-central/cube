@@ -125,15 +125,20 @@
     else if (a === 'elegir') { elegida = presets[+b.dataset.i]; if (elegida) vistaConfirmar(o); }
     else if (a === 'enviar' && elegida) {
       b.disabled = true; b.textContent = 'Enviando…';
-      const { error } = await db().from('broadcasts').insert({
+      const { data: fila, error } = await db().from('broadcasts').insert({
         preset_id: elegida.id, tipo: elegida.tipo, titulo: elegida.titulo, texto: elegida.texto, url: elegida.url
-      });
+      }).select('id').single();
       if (error) {
         b.disabled = false; b.textContent = 'Enviar a todos';
         aviso(/hace menos de 10 minutos/.test(error.message || '') ? 'Esa notificación ya se envió hace poco.' : 'No se pudo enviar la notificación.');
         return;
       }
       vistaListo(o);
+      // push real a los dispositivos con Cube cerrado (si falla, igual quedó enviada dentro de Cube)
+      try {
+        const r = await db().functions.invoke('enviar-push', { body: { broadcast_id: fila.id } });
+        if (r.error) throw r.error;
+      } catch (e) { aviso('Llegó dentro de Cube, pero el push no se pudo enviar.'); }
     }
   }
   function ponerOpcion() {
