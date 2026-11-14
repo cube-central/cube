@@ -779,6 +779,90 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 .rt-opc small{font-size:.72rem;line-height:1.35;color:var(--texto-suave)}
 .rt-opc .rk1 small span{color:#C6FF00}.rt-opc .rk2 small span{color:#ffc247}.rt-opc .rk3 small span{color:#ff5a5a}
 </style>
+<style id="nuevo-inicio">
+/* ===== NUEVO INICIO · Cube: la ficción hecha noticia ===== */
+#home{padding-bottom:140px}
+.nh-top{padding:calc(env(safe-area-inset-top,0px) + 5cqw) 9cqw 0}
+.nh-user{display:flex;align-items:center;gap:2.6cqw;max-width:100%;text-align:left;color:#fff}
+.nh-av{flex:none;width:9.4cqw;height:9.4cqw;border-radius:50%;background:var(--grad);color:#0A0A0A;display:grid;place-items:center;overflow:hidden}
+.nh-av svg{width:5cqw;height:5cqw}
+.nh-av img{width:100%;height:100%;object-fit:cover;display:block}
+.nh-tx{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.nh-tx b{font:600 3.4cqw 'Poppins',sans-serif;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nh-tx small{font:400 3.3cqw 'Open Sans',sans-serif;color:#8a8d87}
+.nh-h{font:600 4.4cqw 'Poppins',sans-serif;color:#fff;letter-spacing:-.015em}
+
+/* tarjetas que se deslizan solas: Caja de créditos ⇄ La sagrada continuidad (cada una con su propio rectángulo) */
+.nh-card{margin:4.4cqw 0 0}
+.nh-track{display:flex;gap:2.8cqw;padding:0 9cqw;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:9cqw;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.nh-track::-webkit-scrollbar{display:none}
+.nh-slide{position:relative;flex:0 0 82cqw;height:42cqw;scroll-snap-align:start;scroll-snap-stop:always;padding:7cqw 7.4cqw 0;border-radius:8.6cqw;overflow:hidden;border:1px solid rgba(255,255,255,.07);background:linear-gradient(135deg,#0d1209 0%,#040504 55%,#000 100%)}
+.nh-slide .caja-lbl{display:block;font:500 2.5cqw/1 'Poppins',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7d827b}
+.nh-slide .monto-n{margin-top:3.6cqw;font:600 8.2cqw/1.1 'Poppins',sans-serif;letter-spacing:-.02em}
+.nh-slide .ojo{top:5cqw;right:5.4cqw}
+.nh-dots{display:flex;justify-content:center;gap:1.6cqw;margin-top:3.6cqw;pointer-events:none}
+.nh-dots i{width:1.3cqw;height:1.3cqw;border-radius:50%;background:rgba(255,255,255,.18);transition:background .3s,width .3s}
+.nh-dots i.on{width:3.8cqw;border-radius:99px;background:var(--verde)}
+.sc-estado{display:flex;align-items:center;gap:2.4cqw;margin-top:3.4cqw;font:600 5.6cqw/1.1 'Poppins',sans-serif;letter-spacing:-.015em;color:#fff}
+.sc-estado i{flex:none;width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--verde);animation:scPulso 2.6s ease-out infinite}
+@keyframes scPulso{0%{box-shadow:0 0 0 0 rgba(198,255,0,.45)}70%,100%{box-shadow:0 0 0 2.6cqw rgba(198,255,0,0)}}
+.sc-svg{position:absolute;left:0;right:0;bottom:3.4cqw;width:100%;height:15cqw;display:block}
+.sc-ref{stroke:#ff4d4d;stroke-opacity:.28;stroke-width:1;stroke-dasharray:2 5;vector-effect:non-scaling-stroke}
+.sc-area{fill:url(#scGrad);stroke:none}
+.sc-linea{fill:none;stroke:var(--verde);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 3px rgba(198,255,0,.4))}
+
+/* Sugerencias */
+.sug-sec{margin-top:7cqw}
+.sug-sec .nh-h{padding:0 9cqw}
+.sug-row{display:flex;gap:2.8cqw;margin-top:3.2cqw;padding:0 9cqw;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-left:9cqw;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.sug-row::-webkit-scrollbar{display:none}
+.sug{flex:0 0 49cqw;aspect-ratio:16/9;border-radius:7cqw;overflow:hidden;scroll-snap-align:start;position:relative;background:#0a0b0a;border:1px solid rgba(255,255,255,.06)}
+.sug img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;user-select:none}
+.sug:active{transform:scale(.97)}
+
+/* Noticias */
+#noticiasN{display:none;container-type:inline-size;max-width:480px;margin:0 auto;animation:entra .4s cubic-bezier(.2,.8,.2,1) both}
+body.en-noticias #noticiasN{display:block}
+.nw-in{padding-bottom:140px}
+.nw-h{padding:7cqw 9cqw 0}
+.nw-dest{display:block;width:100%;text-align:left;padding:0 9cqw;margin-top:3.4cqw}
+.nw-img{position:relative;border-radius:8.6cqw;overflow:hidden;border:1px solid rgba(255,255,255,.06);background:linear-gradient(135deg,#0d1209 0%,#040504 55%,#000 100%)}
+.nw-img svg{display:block;width:100%;height:100%}
+.nw-dest .nw-img{height:42cqw}
+.nw-fecha{display:flex;align-items:center;gap:1.8cqw;font:500 2.3cqw/1 'Poppins',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#6b706a;margin-top:4cqw}
+.nw-tag{display:inline-flex;align-items:center;gap:1cqw;color:var(--verde)}
+.nw-tag::before{content:'';width:1.3cqw;height:1.3cqw;border-radius:50%;background:currentColor}
+.nw-tag.alerta{color:#ff5c5c}.nw-tag.alterada{color:#ffc24d}
+.nw-dest .nw-t{display:block;margin-top:2.6cqw;font:600 4.7cqw/1.26 'Poppins',sans-serif;letter-spacing:-.018em;color:#fff}
+.nw-res{display:block;margin-top:2.6cqw;font:400 3.2cqw/1.6 'Open Sans',sans-serif;color:#9a9f98}
+.nw-sep{height:1px;margin:6.4cqw 9cqw 0;background:rgba(255,255,255,.08)}
+.nw-fila{display:block;width:calc(100% - 18cqw);margin:0 9cqw;text-align:left;padding:5.4cqw 0 0}
+.nw-fila-in{display:flex;align-items:center;justify-content:space-between;gap:4cqw}
+.nw-fila .nw-tx{flex:1;min-width:0}
+.nw-fila .nw-fecha{margin-top:0;font-size:2cqw}
+.nw-fila .nw-t{display:block;margin-top:2cqw;font:500 3.6cqw/1.32 'Poppins',sans-serif;letter-spacing:-.012em;color:#fff}
+.nw-fila .nw-res{max-height:0;overflow:hidden;margin-top:0;opacity:0;transition:max-height .35s ease,opacity .3s,margin .3s}
+.nw-fila.abierta .nw-res{max-height:34cqw;opacity:1;margin-top:2.4cqw}
+.nw-fila .nw-res{font-size:3cqw}
+.nw-fila .nw-img{flex:none;width:20.2cqw;height:20.2cqw;border-radius:6cqw}
+.nw-fila .nw-sep{margin:5.6cqw 0 0}
+
+/* Barra inferior: luna · Inicio | Noticias · lupa */
+.nb{--u:min(1vw,4.8px);position:fixed;left:50%;bottom:calc(var(--u)*5 + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:100;display:flex;align-items:center;gap:calc(var(--u)*2.3);transition:opacity .35s ease,visibility .35s ease,transform .35s ease}
+.nb.oculto{opacity:0;visibility:hidden;transform:translate(-50%,30px)}
+.nb-c{flex:none;width:calc(var(--u)*10.3);height:calc(var(--u)*10.3);border-radius:50%;background:#131513;color:#fff;display:grid;place-items:center}
+.nb-c svg{width:calc(var(--u)*4.7);height:calc(var(--u)*4.7)}
+.nb-seg{position:relative;display:flex;width:calc(var(--u)*41);height:calc(var(--u)*10.3);border-radius:999px;background:#131513}
+.nb-ind{position:absolute;top:0;bottom:0;left:0;width:50%;border-radius:999px;background:var(--grad);transition:transform .38s cubic-bezier(.3,1.25,.5,1),opacity .25s}
+.nb-seg[data-activo="noticias"] .nb-ind{transform:translateX(100%)}
+.nb-seg[data-activo="ninguno"] .nb-ind{opacity:0}
+.nb-op{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;font:500 calc(var(--u)*3) 'Poppins',sans-serif;letter-spacing:.01em;color:#cfd2cc;border-radius:999px;transition:color .25s}
+.nb-op span{display:block;transform:translateY(.04em)}
+.nb-op[aria-selected="true"]{color:#0A0A0A;font-weight:600}
+.nb button:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.sc-estado i{animation:none}.nb-ind{transition:none}}
+
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -788,78 +872,44 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 
 <div class="app">
 <div id="home">
-  <header class="top">
-    <button class="perfil-pill" id="btnPerfilTop" type="button" aria-label="Abrir perfil">
-      <span class="pp-av" id="ppAv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
-      <span class="pp-nombre" id="ppNombre">Iniciar sesión</span>
+  <header class="nh-top">
+    <button class="nh-user" id="btnPerfilTop" type="button" aria-label="Abrir perfil">
+      <span class="pp-av nh-av" id="ppAv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+      <span class="nh-tx"><b class="pp-nombre" id="ppNombre">Iniciar sesión</b><small id="ppRango" hidden>Obrero</small></span>
     </button>
-    <button class="top-ico" type="button" data-a="noticias" aria-label="Noticias" title="Noticias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7.5 9h6M7.5 12.5h6M7.5 16h3"/></svg></button>
   </header>
 
   <main id="nuevoHome">
-    <section class="caja" id="caja" aria-label="Caja de créditos">
-      <span class="caja-lbl">Caja de créditos</span>
-      <button class="ojo" id="btnOjo" type="button" aria-pressed="false" aria-label="Ocultar créditos"><svg class="e-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><svg class="e-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 5.1A9.7 9.7 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.5C3.8 8.3 2 12 2 12s3.6 7 10 7c1.7 0 3.2-.4 4.5-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></button>
-      <div class="monto-n" id="montoN"><span>$</span><span class="js-creditos">0</span></div>
-      <div class="gana" id="cwGana" hidden></div>
+    <section class="nh-card" id="nhCard" aria-roledescription="carrusel" aria-label="Caja de créditos y La sagrada continuidad">
+      <div class="nh-track" id="nhTrack">
+        <article class="nh-slide" id="caja" aria-label="Caja de créditos">
+          <span class="caja-lbl">Caja de créditos</span>
+          <button class="ojo" id="btnOjo" type="button" aria-pressed="false" aria-label="Ocultar créditos"><svg class="e-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><svg class="e-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 5.1A9.7 9.7 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.5C3.8 8.3 2 12 2 12s3.6 7 10 7c1.7 0 3.2-.4 4.5-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></button>
+          <div class="monto-n" id="montoN"><span>$</span><span class="js-creditos">0</span></div>
+        </article>
+        <article class="nh-slide sc" id="scSlide" aria-label="La sagrada continuidad">
+          <span class="caja-lbl">La sagrada continuidad</span>
+          <b class="sc-estado" id="scEstado"><i></i><span>Estable</span></b>
+          <svg class="sc-svg" id="scSvg" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
+            <defs><linearGradient id="scGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6FF00" stop-opacity=".16"/><stop offset="1" stop-color="#C6FF00" stop-opacity="0"/></linearGradient></defs>
+            <line class="sc-ref" x1="0" x2="300" y1="10" y2="10"/>
+            <line class="sc-ref" x1="0" x2="300" y1="90" y2="90"/>
+            <path id="scArea" class="sc-area" d=""/>
+            <path id="scLinea" class="sc-linea" d="M0 50H300"/>
+          </svg>
+        </article>
+      </div>
+      <div class="nh-dots" id="nhDots" aria-hidden="true"><i class="on"></i><i></i></div>
     </section>
-    <div class="acc4">
-      <button class="circ" type="button" data-a="transferir" aria-label="Enviar"><span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h15M15 4l4 4-4 4"/><path d="M20 16H5M9 12l-4 4 4 4"/></svg></span>Enviar</button>
-      <button class="circ" type="button" data-a="upgrade" aria-label="Upgrade"><span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5 12 7l5.5 5.5"/><path d="M6.5 19 12 13.5 17.5 19"/><path d="M6.5 4.5h11"/></svg></span>Upgrade</button>
-      <button class="circ" type="button" data-a="logros" aria-label="Logros"><span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-1.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98 1.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>Logros</button>
-      <button class="circ" type="button" data-a="edicion-coleccionista" aria-label="Colección"><span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-35 12 12)"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 11v2M13 17v2"/></g></svg></span>Colección</button>
-    </div>
+
+    <section class="sug-sec" aria-label="Sugerencias">
+      <h2 class="nh-h">Sugerencias</h2>
+      <div class="sug-row" id="sugRow"></div>
+    </section>
   </main>
-  <div class="fold" id="fold" data-tab="inicio">
-    <div class="fold-tabs" role="tablist" aria-label="Secciones">
-      <button class="fold-tab" id="tabInicio" type="button" role="tab" aria-selected="true" aria-controls="paneInicio">Inicio</button>
-      <button class="fold-tab" id="tabPortafolio" type="button" role="tab" aria-selected="false" aria-controls="panePortafolio" tabindex="-1">Portafolio</button>
-    </div>
-
-    <div class="fold-card">
-      <!-- INICIO -->
-      <section id="paneInicio" role="tabpanel" aria-labelledby="tabInicio">
-        <div class="lbl-g">Créditos</div>
-        <div class="monto g"><span>$</span><span id="cwCreditos" class="js-creditos">0</span></div>
-        <div class="gana" id="cwGanaOld" hidden></div>
-        <div class="circulos">
-          <button class="circ" type="button" data-a="transferir" aria-label="Enviar">
-            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h15M15 4l4 4-4 4"/><path d="M20 16H5M9 12l-4 4 4 4"/></svg></span>Enviar
-          </button>
-          <button class="circ" type="button" data-a="ventas" aria-label="Ventas">
-            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg></span>Ventas
-          </button>
-          <button class="circ" type="button" data-a="upgrade" aria-label="Upgrade">
-            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5 12 7l5.5 5.5"/><path d="M6.5 19 12 13.5 17.5 19"/><path d="M6.5 4.5h11"/></svg></span>Upgrade
-          </button>
-        </div>
-      </section>
-
-      <!-- PORTAFOLIO -->
-      <section id="panePortafolio" role="tabpanel" aria-labelledby="tabPortafolio" hidden>
-        <div class="lbl-g">Créditos</div>
-        <div class="monto g"><span>$</span><span class="js-creditos">0</span></div>
-        <div class="gana" id="cwInv">Invertiste en total $0</div>
-        <div class="circulos">
-          <button class="circ" type="button" data-a="caridad" aria-label="Caridad">
-            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10a4.2 4.2 0 0 1 7.5-2.6 4.2 4.2 0 0 1 7.5 2.6c0 5.4-7.5 10-7.5 10Z"/></svg></span>Caridad
-          </button>
-          <button class="circ" type="button" data-a="invertir" aria-label="Invierte">
-            <span class="circ-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>Invierte
-          </button>
-        </div>
-      </section>
-    </div>
-
-    <button class="platinum" type="button" data-a="platinum" aria-label="Platinum Card, contenido exclusivo">
-      <img class="plat-img" src="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/platinum-card.webp" alt="" width="585" height="427" loading="lazy">
-      <span class="plat-txt"><b>Platinum Card</b><span>Contenido exclusivo.</span></span>
-      <span class="plat-logo">cube</span>
-    </button>
-  </div>
 </div><!-- /home -->
 
-<div id="invSheet" role="dialog" aria-label="Detalle de empresa"></div>
+
 
 <!-- BÚSQUEDA -->
 <section id="buscar" aria-label="Buscar historias">
@@ -879,46 +929,17 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
   <p class="sin-resultados" id="sinResultados">Sin resultados.</p>
 </section>
 
-<!-- LA SAGRADA CONTINUIDAD -->
-<section id="grafico" aria-label="La sagrada continuidad">
-  <header class="top"><button class="perfil-pill" id="btnPerfilG" type="button" aria-label="Abrir perfil"></button><button class="top-ico" type="button" data-a="noticias" aria-label="Noticias" title="Noticias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7.5 9h6M7.5 12.5h6M7.5 16h3"/></svg></button></header>
-  <div class="gcard">
-    <div class="g-top">
-      <div><span class="g-lbl">La sagrada continuidad</span><h1 id="gEstado">Estable</h1></div>
-      <button class="pausa" id="btnPausa" type="button" aria-pressed="false" aria-label="Pausar"><svg class="i-pause" viewBox="0 0 14 14" fill="currentColor"><rect x="2" y="1" width="3.4" height="12" rx="1"/><rect x="8.6" y="1" width="3.4" height="12" rx="1"/></svg><svg class="i-play" viewBox="0 0 14 14" fill="currentColor"><path d="M3 1.5v11l9-5.5z"/></svg></button>
-    </div>
-    <div class="g-px"><b id="gVal">1.000,00</b><i id="gDelta" class="up">▲ 0,00%</i></div>
-    <div class="g-stats"><div><small>Mínimo</small><b id="gMin">0</b></div><div class="c"><small>Actual</small><b id="gAct">0</b></div><div><small>Máximo</small><b id="gMax">0</b></div></div>
-    <div class="g-rend"><div><small>Rendimiento acumulado</small><b id="gRend">$0</b></div><button id="btnRetirar" type="button">Retirar</button></div>
-    <div class="g-chart" id="gChart"><svg id="gSvg" aria-hidden="true"></svg></div>
-    <div class="g-rng" id="gRng"><button type="button" data-n="30">20s</button><button type="button" data-n="60" class="on">40s</button><button type="button" data-n="120">1m</button><button type="button" data-n="240">3m</button></div>
-  </div>
-</section>
-
-<!-- SAGRADAS OPERACIONES -->
-<section id="ops" aria-label="Las sagradas operaciones">
-  <header class="top">
-    <button class="perfil-pill" id="btnPerfilOps" type="button" aria-label="Abrir perfil"></button>
-    <button class="top-ico" type="button" data-a="noticias" aria-label="Noticias" title="Noticias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7.5 9h6M7.5 12.5h6M7.5 16h3"/></svg></button>
-  </header>
-  <div class="ops-hero">
-    <span class="ops-lbl">Las sagradas operaciones</span>
-    <h1 id="opsEstado">Incompletas</h1>
-    <div class="ops-seg" id="opsSeg"></div>
-    <div class="ops-sub"><span id="opsCuenta"></span><span id="opsReset"></span></div>
-  </div>
-  <div id="opsLista"></div>
-</section>
-
 <!-- NOTICIAS -->
-<section id="noticias" aria-label="Noticias">
-  <div class="buscar-top">
-    <button class="volver-btn" id="cerrarNoticias" type="button" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <h1>Noticias</h1>
+<section id="noticiasN" aria-label="Noticias">
+  <div class="nw-in">
+    <header class="nh-top">
+      <button class="nh-user" id="btnPerfilNoticias" type="button" aria-label="Abrir perfil"></button>
+    </header>
+    <h2 class="nh-h nw-h">Recientes</h2>
+    <div id="nwLista"></div>
   </div>
-  <div class="nw-lista" id="nwLista"></div>
-  <p class="nw-vacio" id="nwVacio" hidden>Aún no hay noticias. Toma decisiones en las sagradas operaciones y sus consecuencias aparecerán aquí.</p>
 </section>
+
 
 <!-- ENVIAR CRÉDITOS: buscar alias -->
 <section id="enviar" aria-label="Enviar créditos">
@@ -938,31 +959,6 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
   <button class="al-mio" id="alMio" type="button"></button>
   <h2 class="pg-h" id="enTit">Recientes</h2>
   <div class="en-panel" id="enPanel"></div>
-</section>
-
-<!-- INVERSIONES -->
-<section id="invertir" aria-label="Inversiones">
-  <h1 class="pg-t">Inversiones</h1>
-  <p class="pg-s">Invierte tus créditos en empresas y gana con su crecimiento.</p>
-  <div id="invRoot"><p class="cw-vacio">Cargando mercado…</p></div>
-</section>
-
-<!-- VENTAS -->
-<section id="ventas" aria-label="Ventas">
-  <h1 class="pg-t">Ventas</h1>
-  <p class="pg-s">Vende acciones de tu empresa.</p>
-  <button class="pg-btn" id="vtNueva" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>Crea una venta</button>
-  <h2 class="pg-h">Tus ventas</h2>
-  <div id="ventasLista"></div>
-</section>
-
-<!-- CARIDAD -->
-<section id="caridad" aria-label="Caridad">
-  <h1 class="pg-t">Caridad</h1>
-  <p class="pg-s">Dona de tu patrimonio a organizaciones benéficas.</p>
-  <div class="ch-grid" id="chGrid"></div>
-  <h2 class="pg-h">Donaciones</h2>
-  <div id="donLista"></div>
 </section>
 
 <!-- TRANSFERENCIA -->
@@ -1117,22 +1113,19 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
   </div>
 </footer>
 
-<nav class="bottom-nav" id="bottomNav" aria-label="Navegación inferior">
-  <div class="nav-pill">
-    <button class="bottom-nav-item activo" id="navWallet" aria-label="Inicio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></button>
-    <button class="bottom-nav-item" id="navGrafico" aria-label="La sagrada continuidad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17.5 9 11l4 4 8-8"/><path d="M15.5 6.5H21V12"/></svg></button>
+<nav class="nb" id="bottomNav" aria-label="Navegación inferior">
+  <button class="nb-c" id="navLuna" type="button" aria-label="Modo noche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg></button>
+  <div class="nb-seg" id="nbSeg" data-activo="inicio" role="tablist" aria-label="Secciones">
+    <i class="nb-ind" aria-hidden="true"></i>
+    <button class="nb-op" id="navWallet" type="button" role="tab" data-v="inicio" aria-selected="true"><span>Inicio</span></button>
+    <button class="nb-op" id="navNoticias" type="button" role="tab" data-v="noticias" aria-selected="false"><span>Noticias</span></button>
   </div>
-  <button class="bottom-nav-item" id="navPerfil" aria-label="Perfil"><span class="nav-foto" id="navFoto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span></button>
-  <div class="nav-pill">
-    <button class="bottom-nav-item" id="navHome" aria-label="Colección"><svg viewBox="0 0 24 24" fill="currentColor"><g transform="rotate(-35 12 12)"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></g></svg></button>
-    <button class="bottom-nav-item" id="navOrbe" aria-label="Operaciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5L19.5 7"/></svg></button>
-  </div>
-  <button id="navBuscar" hidden aria-hidden="true"></button>
+  <button class="nb-c" id="navLupa" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.4" y2="16.4"/></svg></button>
+  <button id="navBuscar" type="button" hidden aria-hidden="true"></button>
+  <span id="navFoto" hidden aria-hidden="true"></span>
 </nav>
 
-<div id="alarmaVig" aria-hidden="true"></div>
-<div id="alarmaBar" role="alert"><span id="alarmaTxt">Alerta · caída de la sagrada continuidad</span><button id="alarmaPagar" type="button">Estabilizar</button></div>
-<div id="pausaVeil" hidden role="dialog" aria-label="Pausado"><button type="button" aria-label="Reanudar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><p>Pausado · toca para reanudar</p></div>
+
 
 <!-- ================= CUENTA / SESIÓN / NAVEGACIÓN ================= -->
 <script>
@@ -1164,10 +1157,11 @@ const IMG_BASE = "https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/";
     if (typeof actualizarContadorNotif === 'function') actualizarContadorNotif();
   }
 
-function activarItemNav(idBtn) {   // solo Inicio (en la página principal) y Perfil se marcan; en cualquier sección ninguno
-  document.querySelectorAll('.bottom-nav-item').forEach(el => el.classList.remove('activo'));
-  const el = (idBtn === 'navWallet' || idBtn === 'navPerfil' || idBtn === 'navGrafico' || idBtn === 'navOrbe') ? document.getElementById(idBtn) : null;
-  if (el) el.classList.add('activo');
+function activarItemNav(idBtn) {   // el selector Inicio / Noticias marca la sección; en cualquier otra pantalla no marca ninguna
+  const seg = document.getElementById('nbSeg'); if (!seg) return;
+  const v = idBtn === 'navWallet' ? 'inicio' : (idBtn === 'navNoticias' ? 'noticias' : 'ninguno');
+  seg.dataset.activo = v;
+  seg.querySelectorAll('.nb-op').forEach(b => b.setAttribute('aria-selected', b.dataset.v === v ? 'true' : 'false'));
 }
 
 // Compatibilidad con los scripts externos (cube-listas.js, etc.): ganchos que existen en cube-home.html.
@@ -1202,14 +1196,13 @@ function cerrarModales() {
 }
 
 // Barra inferior: Inicio es esta página; Cube (el catálogo) vive en cube-home.html.
-document.getElementById('navWallet').onclick = () => { cerrarModales(); };
+document.getElementById('navWallet').onclick = () => { cerrarModales(); };   // Inicio
 
 function abrirPerfilDesdeBoton() {
   const u = window.usuario();
   if (u) { activarItemNav('navPerfil'); window.abrirModal('perfil'); }
   else window.abrirModal('auth');
 }
-document.getElementById('navPerfil').onclick = abrirPerfilDesdeBoton;
 document.getElementById('btnPerfilTop').onclick = abrirPerfilDesdeBoton;
 document.getElementById('btnPerfilBuscar').onclick = abrirPerfilDesdeBoton;
 document.getElementById('btnPerfilEnviar').onclick = abrirPerfilDesdeBoton;
@@ -1412,62 +1405,24 @@ actualizarHeader();
 })();
 </script>
 
-<!-- ================= INICIO: pestañas, créditos y accesos ================= -->
+<!-- ================= INICIO: créditos y accesos ================= -->
 <script>
 (function () {
   const $ = id => document.getElementById(id);
   const aviso = t => { if (window.cubeAviso) window.cubeAviso(t); else alert(t); };
 
-  // ---- Pestañas Inicio / Portafolio ----
-  const fold = $('fold');
-  const T = { inicio: [$('tabInicio'), $('paneInicio')], portafolio: [$('tabPortafolio'), $('panePortafolio')] };
-  function irTab(n, enfocar) {
-    fold.dataset.tab = n;
-    Object.keys(T).forEach(k => {
-      const on = k === n;
-      T[k][0].setAttribute('aria-selected', on ? 'true' : 'false');
-      T[k][0].tabIndex = on ? 0 : -1;
-      T[k][1].hidden = !on;
-    });
-    if (enfocar) T[n][0].focus();
-  }
-  $('tabInicio').onclick = () => irTab('inicio');
-  $('tabPortafolio').onclick = () => irTab('portafolio');
-  fold.querySelector('.fold-tabs').addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') { e.preventDefault(); irTab('portafolio', true); }
-    else if (e.key === 'ArrowLeft') { e.preventDefault(); irTab('inicio', true); }
-  });
-
   // ---- Créditos: vienen de Supabase (tabla "wallets"; cada cuenta nueva empieza con 100) ----
-  const fmtC = n => Number(n).toLocaleString('es-AR',{maximumFractionDigits:2});
+  const fmtC = n => Number(n).toLocaleString('es-AR', { maximumFractionDigits: 2 });
   const pintarCreditos = txt => document.querySelectorAll('.js-creditos').forEach(e => { e.textContent = txt; });
-  // "Ganaste X créditos este día": se compara con el saldo con el que se abrió Cube hoy en este dispositivo
-  function pintarGanancia(saldo, pagosHoy) {
-    const u = window.usuario(), pill = $('cwGana');
-    if (!u || !u.supa) { pill.hidden = true; return; }
-    const hoy = new Date().toLocaleDateString('sv-SE'), k = 'cube_saldo_dia_' + u.id;
-    let b = null;
-    try { b = JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { b = null; }
-    if (!b || b.d !== hoy || typeof b.s !== 'number') {
-      b = { d: hoy, s: saldo - (pagosHoy || 0) };   // el saldo base excluye lo que ya liquidaron tus inversiones hoy
-      try { localStorage.setItem(k, JSON.stringify(b)); } catch (e) {}
-    }
-    const g = Math.round((saldo - b.s) * 100) / 100, n = window.cubeInvPnlHoy || 0;
-    pill.textContent = g > 0 ? 'Ganaste $' + fmtC(g) + ' créditos hoy' : (n < 0 ? 'Hoy tus inversiones cerraron en −$' + fmtC(-n) : 'Aún no has ganado créditos hoy');
-    pill.hidden = false;
-  }
-  // invertir/retirar mueven el saldo sin ser ganancia: se ajusta la base del día
-  window.cubeAjusteDia = d => { const u = window.usuario(); if (!u) return; const k = 'cube_saldo_dia_' + u.id; try { const b = JSON.parse(localStorage.getItem(k) || 'null'); if (b) { b.s += d; localStorage.setItem(k, JSON.stringify(b)); } } catch (e) {} };
+  window.cubeAjusteDia = window.cubeAjusteDia || function () {};   // compatibilidad con scripts externos
   async function cargarCreditos() {
     const u = window.usuario();
-    if (!u || !u.supa || !window.cubeDb) { window.cubeSaldo = 0; pintarCreditos('0'); pintarGanancia(0); return; }
+    if (!u || !u.supa || !window.cubeDb) { window.cubeSaldo = 0; pintarCreditos('0'); return; }
     try {
       const { data, error } = await window.cubeDb.from('wallets').select('creditos').eq('user_id', u.id).maybeSingle();
       if (error) throw error;
       window.cubeSaldo = Number(data ? data.creditos : 0);
       pintarCreditos(fmtC(window.cubeSaldo));
-      let pagos = 0; try { if (window.cubeInvHoy) pagos = await window.cubeInvHoy(); } catch (e) {}
-      pintarGanancia(window.cubeSaldo, pagos);
     } catch (e) {
       console.warn('No se pudieron cargar los créditos', e);
       pintarCreditos('—');
@@ -1478,10 +1433,8 @@ actualizarHeader();
   cargarCreditos();
   $('anio').textContent = new Date().getFullYear();
 
-  // ---- "Crear lista": cube-listas.js agrega su botón al panel de perfil; se oculta allí y se dispara desde aquí ----
+  // ---- Los scripts externos (cube-listas.js, cube-historial.js) agregan opciones al panel de perfil; aquí se limpian las repetidas ----
   const PROPIAS = ['irFavoritos', 'irNotificaciones', 'btnSalir'];
-  const esCrearLista = el => el && !PROPIAS.includes(el.id) && /list/i.test((el.textContent || '') + ' ' + el.id + ' ' + el.className);
-  const buscarCrearLista = () => Array.from(document.querySelectorAll('#perfilModal .perfil-opciones > *')).find(esCrearLista);
   function ocultarCrearListaDelPerfil() {   // ahora solo oculta "Historial" (cube-historial.js lo agrega al perfil)
     document.querySelectorAll('#perfilModal .perfil-opciones > *').forEach(el => {
       if (PROPIAS.includes(el.id) || el.dataset.a) return;
@@ -1495,24 +1448,19 @@ actualizarHeader();
   // ---- Accesos ----
   const acciones = {
     notificaciones: () => $('irNotificaciones').click(),
-    upgrade: () => { location.href = 'cube-obtener.html'; },
-    listas: () => {
-      if (window.cubeListas) window.cubeListas.ver();
-      else aviso('Las listas no están disponibles.');
-    }
+    listas: () => { if (window.cubeListas) window.cubeListas.ver(); else aviso('Las listas no están disponibles.'); }
   };
   document.querySelectorAll('[data-a]').forEach(b => {
     b.onclick = () => {
       const a = b.dataset.a;
       if (acciones[a]) return acciones[a]();
-      // Colección, Ventas, Lotes, Ofertas, Platinum y las tarjetas del Portafolio avisan con un evento; si nadie lo atiende, "próximamente".
       const ev = new CustomEvent('cube-wallet-accion', { detail: { accion: a }, cancelable: true });
       if (window.dispatchEvent(ev)) aviso('Próximamente.');
     };
   });
-
 })();
 </script>
+
 
 <!-- ================= BÚSQUEDA (catálogo y filtro de cube-home.html) ================= -->
 <script>
@@ -2306,186 +2254,6 @@ window.addEventListener('cube-wallet-accion', function (e) {
   };
 })();
 </script>
-<!-- ================= PORTAFOLIO: inversiones (simulación con créditos) ================= -->
-<script>
-(function () {
-  const $ = id => document.getElementById(id), db = () => window.cubeDb, U = () => window.usuario && window.usuario();
-  const fm = n => Number(n || 0).toLocaleString('es-AR', { maximumFractionDigits: 2 });
-  const pc = x => (x >= 0 ? '+' : '−') + Math.abs(x * 100).toFixed(2) + '%';
-  const aviso = t => window.cubeAviso ? window.cubeAviso(t) : alert(t);
-  const LOGO = {"cube": "data:image/webp;base64,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", "parallax": "data:image/webp;base64,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", "living": "data:image/webp;base64,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", "livent": "data:image/webp;base64,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", "livstu": "data:image/webp;base64,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", "umbral": "data:image/webp;base64,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", "vizio": "data:image/webp;base64,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"};
-  const EMP = {
-    cube:{n:'Cube',s:'Plataforma de historias',l:'cube',r:'bajo',f:['Base de usuarios recurrente y estable','Ingresos diversificados (historias, cards, Platinum)','Baja correlación con los ciclos de moda'],k:['Crecimiento más lento que el sector','Dependiente de nuevos estrenos de historias']},
-    living:{n:'Living',s:'Holding tecnológico',l:'living',r:'bajo',f:['Diversificada: gaming, streaming y estudios','Caja sólida y recompras frecuentes','Amortigua las caídas de sus divisiones'],k:['Rendimiento medio: rara vez lidera','Afectada si varias divisiones caen a la vez']},
-    vizio:{n:'Vizio',s:'Hardware y dispositivos',l:'vizio',r:'medio',f:['Productos físicos con demanda constante','Márgenes crecientes en pantallas','Buena reputación en reseñas'],k:['Cadena de suministro y chips','Ciclos de consumo y guerra de precios']},
-    livent:{n:'Living Entertainment',s:'Streaming',l:'livent',r:'medio',f:['Suscripciones recurrentes','Contenido exclusivo con fuerte audiencia','Poder de fijar precios'],k:['Cancelaciones si el catálogo decepciona','Costos de contenido altos']},
-    umbral:{n:'Umbral',s:'IA y ciberseguridad',l:'umbral',r:'medio',f:['Sector con la mayor tendencia de crecimiento','Contratos empresariales de largo plazo','Tecnología propia difícil de copiar'],k:['Regulación y escrutinio','Competidores con modelos más baratos','Valoraciones exigentes']},
-    parallax:{n:'Parallax',s:'Gaming',l:'parallax',r:'alto',f:['Lanzamientos virales con grandes saltos','Comunidad y torneos muy activos','Alto potencial de ganancia'],k:['Resultados dependen de pocos títulos','Retrasos y errores castigan fuerte','Volatilidad elevada']},
-    livstu:{n:'Living Studios',s:'Cine y producción',l:'livstu',r:'alto',f:['Un éxito de taquilla multiplica el valor','Propiedad intelectual con ingresos futuros','Premios impulsan la marca'],k:['Fracasos de taquilla muy costosos','Huelgas y retrasos de producción','Mayor volatilidad de la cartera']}
-  };
-  const RK = { bajo: 'Riesgo bajo', medio: 'Riesgo medio', alto: 'Riesgo alto' };
-  let E = [], M = null, MOV = [], filtro = 'todas', abierta = null, hoyPnl = 0;
-
-  function stats(e) {
-    const h = e.hist || [e.precio], r = [];
-    for (let i = 1; i < h.length; i++) r.push(h[i] / h[i - 1] - 1);
-    const m = r.reduce((a, b) => a + b, 0) / (r.length || 1), sd = Math.sqrt(r.reduce((a, b) => a + (b - m) ** 2, 0) / (r.length || 1)) || .0001;
-    let pk = h[0], dd = 0; h.forEach(p => { pk = Math.max(pk, p); dd = Math.min(dd, p / pk - 1); });
-    const n = h.length, d1 = n > 1 ? h[n - 1] / h[n - 2] - 1 : 0;
-    return { d1, r30: h[n - 1] / h[0] - 1, r7: n > 7 ? h[n - 1] / h[n - 8] - 1 : 0, sd, dd, sh: m / sd, val: Math.log(e.fund / e.precio) };
-  }
-  function etiquetas() {
-    E.forEach(e => { e.st = stats(e); e.tags = []; });
-    const add = (e, t, c) => { if (e && !e.tags.some(x => x[0] === t)) e.tags.push([t, c]); };
-    const top = (arr, f) => arr.slice().sort((a, b) => f(b) - f(a))[0];
-    // Valoración y caída (por empresa)
-    E.forEach(e => {
-      if (e.st.val > .06) add(e, 'Infravalorada', 't3');
-      if (e.st.val < -.08) add(e, 'Sobrevalorada', 't4');
-      if (e.st.r7 < -.06) add(e, 'En caída', 't4');
-    });
-    const negativa = e => e.st.val < -.08 || e.st.r7 < -.06;
-    // Positivas: solo si el dato es realmente positivo y la empresa no tiene señales negativas
-    const sanas = E.filter(e => !negativa(e));
-    const rec = top(sanas, e => e.st.sh + e.st.val * 2);
-    if (rec && rec.st.sh + rec.st.val * 2 > 0) add(rec, 'Recomendado', 't2');
-    const gan = top(E, e => e.st.r30); if (gan && gan.st.r30 > 0) add(gan, 'Más ganancias', 't2');
-    const tend = top(sanas, e => e.st.r7); if (tend && tend.st.r7 > 0) add(tend, 'En tendencia', 't3');
-    // Riesgo: coherente con la categoría de riesgo de cada empresa
-    const seg = top(E.filter(e => EMP[e.id].r !== 'alto'), e => -e.st.sd); add(seg, 'Menos riesgo', '');
-    const vol = top(E.filter(e => EMP[e.id].r !== 'bajo'), e => e.st.sd); add(vol, 'Más volátil', 't4');
-    // Orden: lo más relevante primero
-    const ORDEN = ['Recomendado', 'Más ganancias', 'En tendencia', 'Infravalorada', 'Menos riesgo', 'Sobrevalorada', 'En caída', 'Más volátil'];
-    E.forEach(e => e.tags.sort((a, b) => ORDEN.indexOf(a[0]) - ORDEN.indexOf(b[0])));
-  }
-  function svg(h, w, ht, area) {
-    const mn = Math.min(...h), mx = Math.max(...h), sp = (mx - mn) || 1, up = h[h.length - 1] >= h[0];
-    const pts = h.map((p, i) => [i / (h.length - 1 || 1) * w, ht - 3 - (p - mn) / sp * (ht - 6)]);
-    const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('');
-    const col = up ? '#2E9E00' : '#E5484D';
-    return `<svg viewBox="0 0 ${w} ${ht}" preserveAspectRatio="none" class="${area ? '' : 'spk'}">${area ? `<path d="${d}L${w} ${ht}L0 ${ht}Z" fill="${col}" opacity=".12"/>` : ''}<path d="${d}" fill="none" stroke="${col}" stroke-width="${area ? 2.2 : 1.8}" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg>`;
-  }
-  const val = e => e.pos ? e.pos.unidades * e.precio : 0;
-
-  async function cargar() {
-    const u = U(); if (!u || !u.supa || !db()) { $('invRoot').innerHTML = '<p class="cw-vacio">Inicia sesión para invertir.</p>'; return; }
-    const { data, error } = await db().rpc('inv_estado');
-    if (error || !data) { $('invRoot').innerHTML = '<p class="cw-vacio">El mercado aún no está disponible. Ejecuta cube-inversiones.sql en Supabase.</p>'; return; }
-    E = (data.empresas || []).filter(e => EMP[e.id] && e.hist); M = data.mercado; MOV = data.movs || [];
-    etiquetas(); await window.cubeInvHoy(); pintar(); if (abierta) pintarSheet();
-  }
-  function pintar() {
-    const inv = E.reduce((a, e) => a + val(e), 0), cost = E.reduce((a, e) => a + (e.pos ? e.pos.aportado : 0), 0), pag = E.reduce((a, e) => a + (e.pos ? e.pos.pagado : 0), 0);
-    const tot = inv + pag - cost, mk = M ? { alcista: 'Alcista', lateral: 'Lateral', bajista: 'Bajista', crisis: 'Crisis' }[M.regimen] : '';
-    const dn = x => Math.abs(x * 100).toFixed(2).replace('.', ',') + '%';
-    const tarjeta = e => { const m = EMP[e.id], s = e.st; return `<button class="inv-card" data-id="${e.id}" type="button"><span class="ic-top"><img src="${LOGO[m.l]}" alt=""><b>${m.n}</b></span>${svg(e.hist, 120, 44)}<span class="ic-min"><small>Mínimo</small> $10</span><span class="ic-pc ${s.d1 >= 0 ? 'up-t' : 'dn-t'}">${s.d1 >= 0 ? '▲' : '▼'} ${dn(s.d1)}</span></button>`; };
-    const mis = E.filter(e => val(e) > 0).map(e => { const m = EMP[e.id], s = e.st; return `<button class="emp" data-id="${e.id}"><img src="${LOGO[m.l]}" alt="${m.n}">
-        <span class="emp-n">${m.n}<span>${m.s}</span></span>
-        <span class="emp-p">$${fm(val(e))}<span class="${s.d1 >= 0 ? 'up-t' : 'dn-t'}">${pc(s.d1)}</span></span>
-        ${svg(e.hist, 120, 28)}
-        <span class="emp-info"><span class="rk">${RK[m.r]}</span><span>Aportado $${fm(e.pos.aportado)}</span></span></button>`; }).join('');
-    if ($('cwInv')) $('cwInv').textContent = 'Invertiste en total $' + fm(cost);
-    $('invRoot').innerHTML = `
-      <div class="inv-cards">${E.map(tarjeta).join('')}</div>
-      <h2 class="pg-h">Tus inversiones</h2>
-      <div class="inv-res"><span class="chip">Invertido $${fm(inv)}</span><span class="chip ${tot > 0 ? 'up' : tot < 0 ? 'dn' : ''}">Resultado total ${tot >= 0 ? '+' : '−'}$${fm(Math.abs(tot))}</span>${hoyPnl ? `<span class="chip ${hoyPnl > 0 ? 'up' : 'dn'}">Hoy ${hoyPnl > 0 ? '+' : '−'}$${fm(Math.abs(hoyPnl))}</span>` : ''}</div>
-      <div class="inv-push" id="invPush" hidden><span>Recibe tu resultado diario aunque Cube esté cerrado.</span><button type="button" id="invPushBtn">Activar</button></div>
-      <div class="inv-lista">${mis || '<p class="en-vacio">Aún no has invertido. Elige una empresa para empezar.</p>'}</div>
-      ${M ? `<div class="inv-mkt"><small>Mercado · cierre ${M.dia}</small><b><i>${mk}</i> — ${M.titular.replace(/^[^:]+: /, '')} (${pc(M.ret)})</b></div>` : ''}
-      ${MOV.length ? `<h3 class="inv-h">Actividad reciente</h3>${MOV.map(m => `<div class="mov"><span>${m.tipo === 'cierre' ? 'Cierre' : m.tipo === 'compra' ? 'Inversión' : 'Retiro'} · ${EMP[m.empresa] ? EMP[m.empresa].n : m.empresa}</span><b class="${m.tipo === 'cierre' ? (m.pnl >= 0 ? 'up-t' : 'dn-t') : ''}">${m.tipo === 'cierre' ? (m.pnl >= 0 ? '+' : '−') + '$' + fm(Math.abs(m.pnl)) : '$' + fm(m.monto)}</b></div>`).join('')}` : ''}
-      <p style="margin-top:16px;font-size:.7rem;color:var(--texto-suave);line-height:1.4">Simulación con créditos de juego: no es dinero real ni asesoría financiera. Comisión de 0,5 % al invertir y al retirar. Los resultados se liquidan al cierre diario.</p>`;
-    $('invRoot').querySelectorAll('.emp,.inv-card').forEach(b => b.onclick = () => abrir(b.dataset.id));
-    pushVisible();
-  }
-  function abrir(id) { abierta = id; pintarSheet(); $('invSheet').classList.add('on'); $('invSheet').scrollTop = 0; document.body.style.overflow = 'hidden'; }
-  function cerrar() { abierta = null; $('invSheet').classList.remove('on'); document.body.style.overflow = ''; }
-  function pintarSheet() {
-    const e = E.find(x => x.id === abierta); if (!e) return; const m = EMP[e.id], s = e.st, v = val(e), p = e.pos, saldo = window.cubeSaldo || 0;
-    const outlook = s.val > .06 ? 'Cotiza por debajo de su valor estimado: perspectiva favorable' : s.val < -.08 ? 'Cotiza por encima de su valor estimado: riesgo de corrección' : 'Cotiza cerca de su valor estimado';
-    $('invSheet').innerHTML = `<div class="sh"><div class="sh-top"><button class="sh-back" id="shBack" aria-label="Volver"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><span class="tags">${e.tags.map(t => `<span class="tag ${t[1]}">${t[0]}</span>`).join('')}</span></div>
-      <div class="sh-card"><div style="display:flex;gap:14px;align-items:center"><img class="sh-logo" src="${LOGO[m.l]}" alt="${m.n}"><div><b style="font-size:1.1rem">${m.n}</b><div style="font-size:.78rem;color:var(--texto-suave)">${m.s} · ${RK[m.r]}</div></div></div>
-        <div class="sh-px" style="margin-top:14px">$${fm(e.precio)} <span class="${s.d1 >= 0 ? 'up-t' : 'dn-t'}" style="font-size:.95rem">${pc(s.d1)} hoy</span></div>
-        <div class="sh-ch">${svg(e.hist, 300, 150, true)}</div><div style="font-size:.68rem;color:var(--texto-suave);text-align:center">Últimos ${e.hist.length} cierres</div>
-        <div class="grid2"><div>Retorno 30 días<b class="${s.r30 >= 0 ? 'up-t' : 'dn-t'}">${pc(s.r30)}</b></div><div>Volatilidad diaria<b>±${(s.sd * 100).toFixed(2)}%</b></div><div>Caída máxima<b>${pc(s.dd)}</b></div><div>Valoración<b>${s.val > .06 ? 'Infravalorada' : s.val < -.08 ? 'Sobrevalorada' : 'Justa'}</b></div></div></div>
-      <div class="sh-card"><h3>Información del mercado</h3><p style="font-size:.85rem;line-height:1.45">${e.noticia ? '📰 ' + e.noticia + '.' : 'Sin noticias relevantes recientes.'}</p><p style="font-size:.8rem;line-height:1.45;color:var(--texto-suave);margin-top:6px">${outlook}. Mercado ${M ? M.regimen : ''}; esta empresa reacciona ×${(EMP[e.id].r === 'alto' ? 1.4 : EMP[e.id].r === 'medio' ? 1.1 : .7)} al mercado general.</p></div>
-      <div class="sh-card"><h3>Fortalezas</h3><ul>${m.f.map(x => `<li>${x}</li>`).join('')}</ul><h3 style="margin-top:14px">Riesgos</h3><ul>${m.k.map(x => `<li class="r">${x}</li>`).join('')}</ul></div>
-      ${p ? `<div class="sh-card"><h3>Tu posición</h3><div class="grid2"><div>Valor actual<b>$${fm(v)}</b></div><div>Capital aportado<b>$${fm(p.aportado)}</b></div><div>Ganancias pagadas<b class="up-t">$${fm(p.pagado)}</b></div><div>Resultado<b class="${v + p.pagado - p.aportado >= 0 ? 'up-t' : 'dn-t'}">${fm(v + p.pagado - p.aportado)}</b></div></div></div>` : ''}
-      <div class="trade"><b>Invertir en ${m.n}</b><div style="font-size:.74rem;color:#858D87">Disponible $${fm(saldo)} · mínimo $10</div>
-        <input id="invMonto" type="number" inputmode="decimal" min="10" placeholder="10" aria-label="Monto a invertir">
-        <div class="trade-q">${[10, 25, 50, 100].map(x => `<button type="button" data-q="${x}">$${x}</button>`).join('')}<button type="button" data-q="max">Máx</button></div>
-        <div class="trade-b"><button class="b-inv" id="invGo">Invertir</button><button class="b-ret" id="invOut" ${p ? '' : 'disabled'}>Retirar</button></div>
-        <small>Las ganancias del día se pagan a tus créditos al cierre; las pérdidas reducen tu inversión. En "Retirar" pones un monto o lo dejas vacío para sacar todo.</small></div></div>`;
-    $('shBack').onclick = cerrar;
-    $('invSheet').querySelectorAll('[data-q]').forEach(b => b.onclick = () => { $('invMonto').value = b.dataset.q === 'max' ? Math.floor(saldo * 100) / 100 : b.dataset.q; });
-    $('invGo').onclick = () => operar('inv_invertir', e);
-    $('invOut').onclick = () => operar('inv_retirar', e);
-  }
-  async function operar(fn, e) {
-    const x = parseFloat($('invMonto').value), ok = fn === 'inv_invertir';
-    if (ok && !(x >= 10)) return aviso('El mínimo para invertir es de 10 créditos.');
-    if (ok && x > (window.cubeSaldo || 0)) return aviso('No tienes créditos suficientes.');
-    $('invGo').disabled = $('invOut').disabled = true;
-    const { data, error } = await db().rpc(fn, ok ? { p_empresa: e.id, p_monto: x } : { p_empresa: e.id, p_monto: isNaN(x) ? null : x });
-    if (error) { const m = error.message || ''; aviso(m.includes('MINIMO') ? 'El mínimo es de 10 créditos.' : m.includes('SALDO') ? 'No tienes créditos suficientes.' : 'No se pudo completar la operación.'); }
-    else {
-      if (window.cubeAjusteDia) window.cubeAjusteDia(ok ? -x : data.neto);
-      aviso(ok ? 'Invertiste $' + fm(x) + ' en ' + EMP[e.id].n : 'Retiraste $' + fm(data.neto) + ' créditos');
-      if (ok && window.cubeGrafico) window.cubeGrafico.gasto(x);
-      if (window.cubeRefrescarCreditos) await window.cubeRefrescarCreditos(); await cargar();
-    }
-  }
-  // Ganancias/pérdidas ya liquidadas hoy (día local): alimentan "Ganaste X créditos este día"
-  window.cubeInvHoy = async function () {
-    const u = U(); if (!u || !u.supa || !db()) return 0;
-    try {
-      const d0 = new Date(); d0.setHours(0, 0, 0, 0);
-      const { data, error } = await db().from('inv_mov').select('monto,pnl').eq('tipo', 'cierre').gte('creado', d0.toISOString());
-      if (error) throw error;
-      hoyPnl = window.cubeInvPnlHoy = (data || []).reduce((a, m) => a + Number(m.pnl), 0);
-      return (data || []).reduce((a, m) => a + Number(m.monto), 0);
-    } catch (e) { hoyPnl = window.cubeInvPnlHoy = 0; return 0; }
-  };
-  // Avisos diarios → bandeja de notificaciones (y notificación del sistema si la página está abierta)
-  async function avisos() {
-    const u = U(); if (!u || !u.supa || !db() || !window.cubeNotificar) return;
-    try {
-      const { data } = await db().from('inv_avisos').select('*').eq('leido', false).order('creado');
-      for (const a of data || []) {
-        window.cubeNotificar({ id: 'inv-' + a.id, tipo: 'inversion', titulo: a.titulo, texto: a.texto, ts: new Date(a.creado).getTime() });
-        if ('Notification' in window && Notification.permission === 'granted' && Date.now() - new Date(a.creado) < 6 * 3600e3) {
-          const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration();
-          if (reg) reg.showNotification(a.titulo, { body: a.texto, tag: 'inv-' + a.id, icon: 'cube-logo.png' });
-        }
-      }
-      if (data && data.length) { await db().from('inv_avisos').update({ leido: true }).in('id', data.map(a => a.id)); if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos(); }
-    } catch (e) { console.warn(e); }
-  }
-  async function pushVisible() {
-    const box = $('invPush'); if (!box || !('serviceWorker' in navigator) || !('PushManager' in window)) return;
-    const reg = await navigator.serviceWorker.getRegistration(), sub = reg && await reg.pushManager.getSubscription();
-    box.hidden = !!sub && Notification.permission === 'granted';
-    $('invPushBtn').onclick = activarPush;
-  }
-  async function activarPush() {
-    const key = window.CUBE_VAPID_PUBLIC;
-    if (!key) return aviso('Falta CUBE_VAPID_PUBLIC en cube-config.js.');
-    try {
-      if (await Notification.requestPermission() !== 'granted') return aviso('Activa los permisos de notificación en tu navegador.');
-      let reg = await navigator.serviceWorker.getRegistration(); if (!reg) reg = await navigator.serviceWorker.register('cube-sw.js'); await navigator.serviceWorker.ready;
-      const b = key.replace(/-/g, '+').replace(/_/g, '/'), raw = atob(b + '='.repeat((4 - b.length % 4) % 4));
-      const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: Uint8Array.from(raw, c => c.charCodeAt(0)) }), j = sub.toJSON();
-      const { error } = await db().from('inv_push_subs').upsert({ user_id: U().id, endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth }, { onConflict: 'endpoint' });
-      if (error) throw error;
-      aviso('Listo: recibirás tu resultado diario.'); pushVisible();
-    } catch (e) { console.error('Push', e); aviso('No se pudo activar el aviso diario.'); }
-  }
-  $('tabPortafolio').addEventListener('click', cargar);
-  window.cubeInvCargar = cargar;
-  window.addEventListener('cube:usuario-listo', () => { avisos(); cargar(); });
-  setTimeout(avisos, 2500);
-  try { const ch = db() && db().channel('inv-av').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'inv_avisos' }, avisos).subscribe(); } catch (e) {}
-})();
-</script>
 
 <!-- ================= AJUSTAR FOTO DE PERFIL ================= -->
 <script>
@@ -2552,132 +2320,33 @@ window.addEventListener('cube-wallet-accion', function (e) {
 <script src="cube-push.js"></script>
 
 <script>
-/* ===== Ventas · Caridad · Inversiones · navegación ===== */
+/* ===== NUEVO INICIO: tarjeta que se desliza sola (créditos ⇄ La sagrada continuidad), Sugerencias, Noticias y barra inferior ===== */
 (function () {
   const $ = id => document.getElementById(id), body = document.body;
   const aviso = t => window.cubeAviso ? window.cubeAviso(t) : alert(t);
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const fm = n => Number(n || 0).toLocaleString('es-AR', { maximumFractionDigits: 2 });
-  const VISTAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico'];
-  const user = () => window.usuario && window.usuario();
-  function mostrar(c) {
-    body.classList.remove(...VISTAS); body.classList.add(c);
-    if (typeof detenerAuto === 'function') detenerAuto();
-    activarItemNav(null); window.scrollTo(0, 0);
-  }
+  const reducido = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const homeVisible = () => { const h = $('home'); return !!h && h.offsetParent !== null; };
 
-  // Hoja modal reutilizable
-  const sh = document.createElement('div');
-  sh.className = 'v-sheet'; sh.hidden = true;
-  sh.innerHTML = '<div class="v-card" role="dialog" aria-modal="true"><div id="mxCuerpo"></div></div>';
-  body.appendChild(sh);
-  const cerrar = () => { sh.hidden = true; };
-  sh.addEventListener('click', e => { if (e.target === sh) cerrar(); });
-  const hoja = html => { $('mxCuerpo').innerHTML = html; sh.hidden = false; };
-
-  // ---------- Accesos ----------
-  window.addEventListener('cube-wallet-accion', e => {
-    const a = e.detail && e.detail.accion;
-    const mapa = { ventas: ['en-ventas', pintarVentas], caridad: ['en-caridad', abrirCaridad], invertir: ['en-invertir', () => window.cubeInvCargar && window.cubeInvCargar()] };
-    if (!mapa[a]) return;
-    e.preventDefault(); mostrar(mapa[a][0]); mapa[a][1]();
-  });
-  $('navBuscar').onclick = () => aviso('El ránking llegará pronto.');
-  const tit = $('enTit');
-  $('campoAlias').addEventListener('input', e => { tit.textContent = e.target.value.trim() ? 'Resultados' : 'Recientes'; });
-
-  // ---------- VENTAS ----------
-  const kV = () => { const u = user(); return u ? 'cube_ventas_' + (u.id || u.email || u.nombre) : null; };
-  const leerV = () => { try { return JSON.parse(localStorage.getItem(kV()) || '[]'); } catch (e) { return []; } };
-  const guardarV = l => { try { localStorage.setItem(kV(), JSON.stringify(l)); } catch (e) {} };
-  function pintarVentas() {
-    const l = kV() ? leerV() : [];
-    $('ventasLista').innerHTML = l.length ? l.map(v => `<div class="fila-r"><div class="tx"><b>${esc(v.empresa)}</b><small>${fm(v.pct)}% de las acciones · $${fm(v.precio)}</small></div><button class="del" data-del="${v.id}" type="button" aria-label="Eliminar venta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>`).join('')
-      : '<p class="en-vacio" style="text-align:left;padding:0">Aún no has publicado ventas.</p>';
-  }
-  $('ventasLista').addEventListener('click', e => {
-    const b = e.target.closest('[data-del]'); if (!b) return;
-    guardarV(leerV().filter(v => String(v.id) !== b.dataset.del)); pintarVentas();
-  });
-  $('vtNueva').onclick = () => {
-    if (!user()) return aviso('Inicia sesión para crear una venta.');
-    hoja(`<p class="v-card-t" style="margin-top:6px">Crea una venta</p>
-      <input class="ls-input" id="vtEmp" type="text" maxlength="40" placeholder="Nombre de tu empresa" autocomplete="off">
-      <input class="ls-input" id="vtPct" type="number" inputmode="decimal" min="1" max="49" placeholder="% de acciones a vender (1–49)" style="margin-top:8px">
-      <input class="ls-input" id="vtPre" type="number" inputmode="decimal" min="1" placeholder="Precio total en créditos" style="margin-top:8px">
-      <p class="v-nota" id="vtErr" style="min-height:2.4em;margin:6px 2px 10px"></p>
-      <div class="v-acc"><button class="b-sec" id="vtNo" type="button">Cancelar</button><button class="b-pri" id="vtSi" type="button">Publicar</button></div>`);
-    $('vtNo').onclick = cerrar;
-    $('vtSi').onclick = () => {
-      const empresa = $('vtEmp').value.trim(), pct = parseFloat($('vtPct').value), precio = parseFloat($('vtPre').value), err = $('vtErr');
-      if (empresa.length < 2) { err.textContent = 'Escribe el nombre de tu empresa.'; return; }
-      if (!(pct >= 1 && pct <= 49)) { err.textContent = 'Puedes vender entre 1 % y 49 % de las acciones.'; return; }
-      if (!(precio >= 1)) { err.textContent = 'Indica un precio válido.'; return; }
-      const l = leerV(); l.unshift({ id: Date.now(), empresa, pct, precio }); guardarV(l);
-      cerrar(); pintarVentas(); aviso('Venta publicada.');
-    };
+  /* --- Cabecera: el rango solo se ve con la sesión iniciada --- */
+  const actHeaderBase = window.actualizarHeader;
+  window.actualizarHeader = function () {
+    if (actHeaderBase) actHeaderBase.apply(this, arguments);
+    const r = $('ppRango'); if (r) r.hidden = !(window.usuario && window.usuario());
+    copiarPerfilNoticias();
   };
-
-  // ---------- CARIDAD ----------
-  const W = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
-  const ORGS = [
-    { id: 'raices', n: 'Raíces Verdes', d: 'Reforesta bosques y protege la biodiversidad.', c: '#2E9E00', i: W + '<path d="M12 21v-8M12 13c-4 0-6-3-6-7 4 0 6 2.5 6 7ZM12 15c3.5 0 5.5-2.5 5.5-6-3.5 0-5.5 2-5.5 6Z"/></svg>' },
-    { id: 'mesa', n: 'Mesa Compartida', d: 'Lleva comida a familias que la necesitan.', c: '#F59E0B', i: W + '<path d="M4 11h16a8 8 0 0 1-16 0ZM9 3.5c0 2 2 2 2 4M14 3.5c0 2 2 2 2 4"/></svg>' },
-    { id: 'faro', n: 'Faro Educa', d: 'Útiles y becas para escuelas rurales.', c: '#3B82F6', i: W + '<path d="M12 6C10 4.5 7 4 4 4v14c3 0 6 .5 8 2 2-1.5 5-2 8-2V4c-3 0-6 .5-8 2ZM12 6v14"/></svg>' }
-  ];
-  const org = id => ORGS.find(o => o.id === id);
-  $('chGrid').innerHTML = ORGS.map(o => `<button class="ch-card" type="button" data-o="${o.id}"><span class="ch-logo" style="background:${o.c}">${o.i}</span>${o.n}</button>`).join('');
-  $('chGrid').addEventListener('click', e => { const b = e.target.closest('[data-o]'); if (b) abrirDonar(org(b.dataset.o)); });
-  async function abrirCaridad() {
-    const L = $('donLista'); L.innerHTML = '<p class="en-vacio" style="text-align:left;padding:0">Aún no has hecho donaciones.</p>';
-    if (!user() || !window.cubeDb) return;
-    try {
-      const { data, error } = await window.cubeDb.from('donaciones').select('org,monto,created_at').order('created_at', { ascending: false }).limit(20);
-      if (error || !data || !data.length) return;
-      L.innerHTML = data.map(d => { const o = org(d.org) || { n: d.org, c: '#888', i: '' }; return `<div class="fila-r"><span class="ch-logo" style="background:${o.c}">${o.i}</span><div class="tx"><b>${esc(o.n)}</b><small>${new Date(d.created_at).toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' })}</small></div><span class="mo">$${fm(d.monto)}</span></div>`; }).join('');
-    } catch (e) {}
+  function copiarPerfilNoticias() {
+    const o = $('btnPerfilTop'), d = $('btnPerfilNoticias');
+    if (o && d) d.innerHTML = o.innerHTML.replace(/ id="[^"]*"/g, '');
   }
-  function abrirDonar(o) {
-    if (!user()) return aviso('Inicia sesión para donar.');
-    hoja(`<div style="display:flex;align-items:center;gap:12px;margin-top:6px"><span class="ch-logo" style="background:${o.c}">${o.i}</span><p class="v-card-t" style="margin:0">${o.n}</p></div>
-      <p class="v-nota" style="margin:10px 2px">${o.d}</p>
-      <input class="ls-input" id="dnMonto" type="number" inputmode="decimal" min="1" placeholder="Monto a donar">
-      <div class="sh-q">${[10, 50, 100].map(x => `<button type="button" data-q="${x}">$${x}</button>`).join('')}</div>
-      <p class="v-nota" id="dnErr" style="min-height:2.4em;margin:2px 2px 8px">Disponible: $${fm(window.cubeSaldo || 0)}</p>
-      <div class="v-acc"><button class="b-sec" id="dnNo" type="button">Cancelar</button><button class="b-pri" id="dnSi" type="button">Donar</button></div>`);
-    $('mxCuerpo').querySelectorAll('[data-q]').forEach(b => b.onclick = () => { $('dnMonto').value = b.dataset.q; });
-    $('dnNo').onclick = cerrar;
-    $('dnSi').onclick = async () => {
-      const x = parseFloat($('dnMonto').value), err = $('dnErr');
-      if (!(x >= 1)) { err.textContent = 'Indica un monto válido (mínimo $1).'; return; }
-      if (x > (window.cubeSaldo || 0)) { err.textContent = 'No tienes créditos suficientes.'; return; }
-      $('dnSi').disabled = true;
-      const { error } = await window.cubeDb.rpc('donar_creditos', { p_org: o.id, p_monto: x });
-      $('dnSi').disabled = false;
-      if (error) { const m = (error.message || ''); err.textContent = m.includes('SALDO') ? 'No tienes créditos suficientes.' : (error.code === 'PGRST202' || m.includes('donar_creditos')) ? 'Las donaciones aún no están habilitadas.' : 'No se pudo donar. Inténtalo de nuevo.'; return; }
-      cerrar(); aviso(`Donaste $${fm(x)} a ${o.n}. ¡Gracias!`);
-      if (window.cubeGrafico) window.cubeGrafico.gasto(x);
-      if (window.cubeAjusteDia) window.cubeAjusteDia(-x);
-      if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
-      abrirCaridad();
-    };
-  }
-
-})();
-
-</script>
-
-<script>
-/* ===== Rediseño: ojo, gráfico, pausa global y animaciones ===== */
-(function () {
-  const $ = id => document.getElementById(id), body = document.body;
-  const fmt = n => n.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  $('btnPerfilNoticias').onclick = () => abrirPerfilDesdeBoton();
+  window.actualizarHeader();
 
   /* --- Ojo: ocultar créditos --- */
-  const ojo = $('btnOjo'), caja = $('caja'), montoN = $('montoN');
+  const ojo = $('btnOjo'), montoN = $('montoN');
   function setOjo(on, anim) {
     ojo.setAttribute('aria-pressed', on); ojo.setAttribute('aria-label', on ? 'Mostrar créditos' : 'Ocultar créditos');
-    montoN.classList.toggle('oculto', on); caja.classList.toggle('oculta', on);
+    montoN.classList.toggle('oculto', on);
     if (anim) { montoN.classList.remove('flip'); void montoN.offsetWidth; montoN.classList.add('flip'); }
     try { localStorage.setItem('cube_ojo', on ? '1' : '0'); } catch (e) {}
   }
@@ -2685,765 +2354,124 @@ window.addEventListener('cube-wallet-accion', function (e) {
   setOjo(o0, false);
   ojo.onclick = () => setOjo(ojo.getAttribute('aria-pressed') !== 'true', true);
 
-  /* --- Pausa global --- */
-  let pausado = false;
-  const veil = $('pausaVeil'), bp = $('btnPausa');
-  function pausar(p) {
-    pausado = window.cubePausado = p; body.classList.toggle('pausado', p); veil.hidden = !p;
-    bp.setAttribute('aria-pressed', p); bp.setAttribute('aria-label', p ? 'Reanudar' : 'Pausar');
-    Array.from(body.children).forEach(el => { if (el.id !== 'pausaVeil' && el.tagName !== 'SCRIPT') el.inert = p; });   // toda la página queda inactiva
-    let desde = Date.now();
-    try { const d = Number(localStorage.getItem('cube_pausa')); if (p) { if (!d) localStorage.setItem('cube_pausa', String(desde)); } else { if (d) desde = d; localStorage.removeItem('cube_pausa'); } } catch (e) {}
-    window.dispatchEvent(new CustomEvent('cube:pausa', { detail: { pausado: p, desde } }));
-    if (document.activeElement && p) document.activeElement.blur();
-    if (p) sirenaOff(); else if (alarma) sirenaOn();
+  /* --- Tarjetas: cada 6 segundos pasa sola entre la Caja de créditos y La sagrada continuidad --- */
+  const tr = $('nhTrack'), dots = $('nhDots').children, tarjetas = tr.querySelectorAll('.nh-slide');
+  let idx = 0, timer = null;
+  const paso = () => tarjetas[1].offsetLeft - tarjetas[0].offsetLeft;
+  const pintarDots = () => Array.from(dots).forEach((d, k) => d.classList.toggle('on', k === idx));
+  const irA = n => { idx = n; tr.scrollTo({ left: paso() * n, behavior: reducido ? 'auto' : 'smooth' }); pintarDots(); };
+  function auto() {
+    clearInterval(timer);
+    timer = setInterval(() => { if (document.hidden || !homeVisible()) return; irA((idx + 1) % 2); }, 6000);
   }
-  bp.onclick = () => pausar(!pausado);
-  veil.onclick = () => pausar(false);
-  ['keydown', 'keypress', 'keyup'].forEach(t => document.addEventListener(t, e => { if (pausado) { e.preventDefault(); e.stopPropagation(); } }, true));
+  tr.addEventListener('scroll', () => {
+    const n = Math.round(tr.scrollLeft / Math.max(1, paso()));
+    if (n !== idx) { idx = n; pintarDots(); }
+  }, { passive: true });
+  ['pointerdown', 'touchstart'].forEach(ev => tr.addEventListener(ev, () => clearInterval(timer), { passive: true }));
+  ['pointerup', 'pointercancel', 'touchend'].forEach(ev => tr.addEventListener(ev, auto, { passive: true }));
+  tr.addEventListener('wheel', () => { clearInterval(timer); clearTimeout(tr._w); tr._w = setTimeout(auto, 1200); }, { passive: true });
+  window.addEventListener('resize', () => { tr.scrollLeft = paso() * idx; });
+  auto();
 
-  /* --- Gráfico --- */
-  const TICK = 700, N0 = 300, BASE = 1000;
-  const UP = BASE + 6, LOW = BASE - 6;   // líneas de referencia: sobre UP el rendimiento sube (+5%), bajo LOW baja (−3%), en medio no cambia
-  const CICLO = 14, META_ALZA = .64;      // CICLO: ticks por ciclo (~10 s) · META_ALZA: tras una alza favorable la gráfica sigue sobre la línea hasta rendir +64%
-  let zona = 0;
-  let serie = [], v = BASE, nVis = 60, cur = null, acc = 0, prev = performance.now(), minC = 0, maxC = 1, escala = false;
-  const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) * 1.15;
-  /* --- Motor: presión (impulsos), rendimiento, caída sostenida, alarma --- */
-  let presion = 0, caidaMs = 0, calma = 0, nivelCast = 0, alarma = false, silencio = false, ac = null, sirena = null;
-  let costoAlarma = 1000, pagando = false, abandono = false;
-  let modo = 'neutral', bajada = 0, alzaF = 1;   // modo: neutral (quieta) · alza (sobre la línea hasta +64%) · baja (caída y recuperación lenta)
-  /* La gráfica es neutral y se mantiene entre las dos líneas. Solo sale de ahí por: operaciones sin resolver (caída violenta),
-     decisiones favorables (alza), desfavorables (caída) o un retiro con mala suerte (caída violenta). */
-  const paso = () => {
-    if (abandono) { modo = 'baja'; v -= 2.6 + Math.random() * 2; if (v < BASE - 60) v = BASE - 60 + gauss() * .6; }   // caída violenta y sostenida
-    else if (modo === 'alza') { v += (UP + 9 - v) * .06 + gauss() * .9 + presion; if (v > UP) v = Math.max(v, UP + 1.2); }   // sube y se mantiene sobre la línea aunque baje un poco
-    else if (modo === 'baja') { v += .14 + gauss() * .5 + presion; if (v >= LOW + 2 && bajada < .5) modo = 'neutral'; }   // sube poco a poco, pero bajo la línea el rendimiento sigue bajando
-    else { v += (BASE - v) * .1 + gauss() * .55 + presion; if (v >= LOW && v <= UP) v = Math.min(Math.max(v, LOW + 2), UP - 2); }
-    if (bajada > .05) { const d = bajada * .25; v -= d; bajada -= d; } else bajada = 0;
-    presion *= .8; if (Math.abs(presion) < .05) presion = 0;
-    return v;
-  };
-  const caer = t => { bajada += t; modo = 'baja'; alzaF = 1; };
-  const sis = o => { try { if (window.cubeOps) window.cubeOps.sistema(o); } catch (e) {} };
-  const miles = n => Math.round(n).toLocaleString('es-AR');
-  function desbloquear() { try { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); } catch (e) {} }
-  ['pointerdown', 'keydown', 'touchstart'].forEach(t => document.addEventListener(t, desbloquear, { passive: true }));
-  function sirenaOn() {
-    if (silencio || sirena) return;
-    if (!ac) desbloquear();
-    if (!ac) return;
-    try {
-      const o = ac.createOscillator(), g = ac.createGain(), lfo = ac.createOscillator(), lg = ac.createGain();
-      o.type = 'square'; o.frequency.value = 780; lfo.type = 'triangle'; lfo.frequency.value = 1.4; lg.gain.value = 240;
-      lfo.connect(lg); lg.connect(o.frequency); o.connect(g); g.connect(ac.destination);
-      g.gain.setValueAtTime(0, ac.currentTime); g.gain.linearRampToValueAtTime(.12, ac.currentTime + .25);
-      o.start(); lfo.start(); sirena = { o, g, lfo };
-    } catch (e) { sirena = null; }
-  }
-  function sirenaOff() {
-    if (!sirena) return;
-    const { o, g, lfo } = sirena; sirena = null;
-    try { g.gain.cancelScheduledValues(ac.currentTime); g.gain.setTargetAtTime(0, ac.currentTime, .08); setTimeout(() => { try { o.stop(); lfo.stop(); } catch (e) {} }, 400); } catch (e) {}
-  }
-  function alarmaOn() {
-    alarma = true; body.classList.add('alarma'); sirenaOn();
-    costoAlarma = [1000, 2000, 3000][Math.floor(Math.random() * 3)]; pintarAlarmaBtn();
-    try { if (navigator.vibrate) navigator.vibrate([300, 150, 300]); } catch (e) {}
-    sis({ tipo: 'alerta', efecto: 'down', titulo: 'ALERTA: La Sagrada Continuidad se desploma', cuerpo: 'Tu rendimiento acumulado llegó a cero y la gráfica sigue bajo la línea inferior. Cube activó el modo alarma y descuenta las pérdidas directamente de tu caja de créditos hasta que el mercado se estabilice.' });
-  }
-  function alarmaOff(o) {
-    alarma = false; body.classList.remove('alarma'); sirenaOff();
-    sis(o || { tipo: 'recuperacion', efecto: 'up', titulo: 'Cube cancela la alarma: la Sagrada Continuidad se estabiliza', cuerpo: 'La caída se detuvo y la gráfica vuelve a una zona segura. Los descuentos de créditos han cesado.' });
-  }
-  function motor() {
-    zona = v > UP ? 1 : v < LOW ? -1 : 0;   // 1 sube el rendimiento · 0 neutral · -1 baja el rendimiento (solo importa la posición, no si la gráfica sube o baja)
-    const r = window.cubeOps ? window.cubeOps.zona(zona) : null;   // 'caja' = el rendimiento llegó a cero y se pierde de la caja
-    if (modo === 'alza' && zona > 0) { alzaF *= 1 + .05 / CICLO; if (alzaF >= 1 + META_ALZA) { modo = 'neutral'; alzaF = 1; } }   // al rendir +64% vuelve al estado neutro
-    if (r === 'caja') { calma = 0; if (!alarma) alarmaOn(); }
-    else if (alarma && zona >= 0 && ++calma >= 4) { calma = 0; alarmaOff(); }
-    const t = $('alarmaTxt'); if (alarma && t) t.textContent = 'Alarma · −$50 de tu caja cada 2 s hasta que se estabilice';
-  }
-  // Gastar o retirar créditos presiona la gráfica según el monto
-  function gasto() { return 0; }   // la gráfica permanece neutral: gastar créditos ya no la mueve
-  window.cubeGrafico = { valor: () => v, impulso: n => { presion += Number(n) || 0; }, gasto, noticia, retiro, zona: () => zona, abandono: b => { b = !!b; if (b === abandono) return; abandono = b; if (b) { modo = 'baja'; alzaF = 1; } }, enAlarma: () => alarma };
-  /* Retiro de rendimientos: 25% → 10% de probabilidad de caída violenta · 50% → 50% · 100% → caída segura */
-  function retiro(q, m) {
-    const p = q >= 100 ? 1 : q >= 50 ? .5 : .1, cae = Math.random() < p;
-    if (cae) {
-      caer((q >= 100 ? 40 : 32) + Math.random() * 6);
-      sis({ tipo: 'alerta', efecto: 'down', titulo: 'Caída violenta tras retirar el ' + q + '% del rendimiento', cuerpo: 'La salida de $' + miles(m) + ' créditos desató una venta masiva y la Sagrada Continuidad se desploma. Mientras siga bajo la línea inferior tu rendimiento seguirá bajando, aunque la gráfica suba poco a poco.' });
+  /* --- La sagrada continuidad: la línea fluye como una marea (ondas suaves que avanzan sin parar) --- */
+  const NP = 120, linea = $('scLinea'), area = $('scArea');
+  function marea(t) {
+    let d = '', pts = [];
+    for (let i = 0; i <= NP; i++) {
+      const x = i / NP, k = x * Math.PI * 2;
+      const amp = 1 + .35 * Math.sin(t * .00035 + 1.7);                        // la marea respira lentamente
+      const y = 50 + amp * (5.2 * Math.sin(k * 1.15 - t * .0011) + 2.6 * Math.sin(k * 2.6 + t * .0016 + 1.3) + 1.1 * Math.sin(k * 5.1 - t * .0023));
+      pts.push([x * 300, y]);
     }
-    return cae;
+    pts.forEach((p, i) => { d += (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(2); });
+    linea.setAttribute('d', d);
+    area.setAttribute('d', d + 'L300 100L0 100Z');
   }
-  /* Noticias → gráfica: favorable = alza (sobre la línea hasta rendir +64%), neutra = sin cambios, desfavorable = caída */
-  function noticia(tipo) {
-    const r = (a, b) => a + Math.random() * (b - a);
-    if (tipo === 'correcta' || tipo === 'riesgo_gana') { modo = 'alza'; alzaF = 1; bajada = 0; presion += tipo === 'riesgo_gana' ? 3 : 2; }
-    else if (tipo === 'incorrecta') caer(r(14, 18));
-    else if (tipo === 'riesgo_pierde') caer(r(24, 30));
-  }
-
-  /* Alarma: no se silencia. Se estabiliza pagando 1000, 2000 o 3000 créditos */
-  const avisoG = t => { if (window.cubeAviso) window.cubeAviso(t); };
-  function pintarAlarmaBtn() {
-    const b = $('alarmaPagar'); if (!b) return;
-    const ok = Number(window.cubeSaldo || 0) >= costoAlarma;
-    b.textContent = 'Estabilizar · −$' + miles(costoAlarma); b.disabled = !ok || pagando;
-  }
-  setInterval(() => { if (alarma) pintarAlarmaBtn(); }, 1500);
-  function estabilizar(o) { presion = 0; bajada = 0; modo = 'neutral'; alzaF = 1; if (v < LOW + 3) { v = LOW + 3; serie[serie.length - 1] = v; } calma = 0; alarmaOff(o); }
-  const pay = $('alarmaPagar');
-  if (pay) pay.onclick = async () => {
-    if (!alarma || pagando || pausado) return;
-    if (Number(window.cubeSaldo || 0) >= costoAlarma && window.cubeOps) {
-      pagando = true; pay.disabled = true; let ok = false;
-      try { ok = await window.cubeOps.pagar(costoAlarma); } catch (e) {}
-      pagando = false; pintarAlarmaBtn();
-      if (ok) estabilizar({ tipo: 'recuperacion', efecto: 'up', titulo: 'Estabilización pagada: Cube cancela la alarma', cuerpo: 'Pagaste $' + miles(costoAlarma) + ' créditos de tu caja y la Sagrada Continuidad volvió a una zona segura.' });
-    }
-  };
-  for (let i = 0; i < N0; i++) serie.push(paso());
-  const visible = () => body.classList.contains('en-grafico');
-  const svg = $('gSvg');
-  svg.innerHTML = '<defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6FF00" stop-opacity=".3"/><stop offset="1" stop-color="#C6FF00" stop-opacity="0"/></linearGradient></defs><g id="gGrid"><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/><line class="gl" x1="0" x2="100%"/></g><line id="gUp" class="gref" stroke="#C6FF00" x1="0" x2="100%"/><line id="gLo" class="gref" stroke="#ff5a5a" x1="0" x2="100%"/><path id="gArea" fill="url(#gA)"/><path id="gLine" fill="none" stroke="#C6FF00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><line id="gCur" y1="0" stroke="rgba(255,255,255,.35)"/><circle id="gHalo" r="9" fill="#C6FF00"/><circle id="gDot" r="5.5" fill="#fff" stroke="#C6FF00" stroke-width="2.5"/>';
-  const gArea = $('gArea'), gLine = $('gLine'), gCur = $('gCur'), gHalo = $('gHalo'), gDot = $('gDot'), grid = $('gGrid').children, gUp = $('gUp'), gLo = $('gLo');
-  const f1 = x => x.toFixed(1);
-  function curva(P) {
-    let d = 'M' + f1(P[0][0]) + ' ' + f1(P[0][1]);
-    for (let i = 0; i < P.length - 1; i++) {
-      const p0 = P[i - 1] || P[i], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2] || p2;
-      d += 'C' + f1(p1[0] + (p2[0] - p0[0]) / 6) + ' ' + f1(p1[1] + (p2[1] - p0[1]) / 6) + ' ' + f1(p2[0] - (p3[0] - p1[0]) / 6) + ' ' + f1(p2[1] - (p3[1] - p1[1]) / 6) + ' ' + f1(p2[0]) + ' ' + f1(p2[1]);
-    }
-    return d;
-  }
-  function dibujar(frac) {
-    const W = svg.clientWidth, H = svg.clientHeight; if (!W || !H) return;
-    const w = serie.slice(-(nVis + 1)), step = W / (nVis - 1);
-    let lo = Math.min(...w, LOW), hi = Math.max(...w, UP); const pad = (hi - lo) * .2 + .5; lo -= pad; hi += pad * 1.5;
-    if (!escala) { minC = lo; maxC = hi; escala = true; } else { minC += (lo - minC) * .12; maxC += (hi - maxC) * .12; }
-    const P = w.map((x, i) => [(i - frac) * step, H - (x - minC) / (maxC - minC) * H]);
-    const yU = H - (UP - minC) / (maxC - minC) * H, yL = H - (LOW - minC) / (maxC - minC) * H;
-    gUp.setAttribute('y1', yU); gUp.setAttribute('y2', yU); gLo.setAttribute('y1', yL); gLo.setAttribute('y2', yL);
-    const d = curva(P); gLine.setAttribute('d', d);
-    gArea.setAttribute('d', d + 'L' + f1(P[P.length - 1][0]) + ' ' + H + 'L' + f1(P[0][0]) + ' ' + H + 'Z');
-    for (let i = 0; i < 3; i++) { const y = H * (i + 1) / 4; grid[i].setAttribute('y1', y); grid[i].setAttribute('y2', y); }
-    const xc = cur == null ? W : Math.min(W, Math.max(0, cur));
-    let j = 0; while (j < P.length - 2 && P[j + 1][0] < xc) j++;
-    const a = P[j], b = P[j + 1], t = b[0] === a[0] ? 0 : Math.min(1, Math.max(0, (xc - a[0]) / (b[0] - a[0])));
-    const y = a[1] + (b[1] - a[1]) * t;
-    gDot.setAttribute('cx', xc); gDot.setAttribute('cy', y); gHalo.setAttribute('cx', xc); gHalo.setAttribute('cy', y);
-    gCur.setAttribute('x1', xc); gCur.setAttribute('x2', xc); gCur.setAttribute('y2', H); gCur.style.opacity = cur == null ? 0 : 1;
-    if (cur != null) $('gVal').textContent = fmt(w[j] + (w[j + 1] - w[j]) * t);
-  }
-  function txt() {
-    const w = serie.slice(-nVis), lo = Math.min(...w), hi = Math.max(...w), ult = w[w.length - 1], ch = (ult / w[0] - 1) * 100;
-    $('gMin').textContent = fmt(lo); $('gMax').textContent = fmt(hi); $('gAct').textContent = fmt(ult);
-    const d = $('gDelta'); d.textContent = (ch >= 0 ? '▲ ' : '▼ ') + fmt(Math.abs(ch)) + '%'; d.className = ch >= 0 ? 'up' : 'dn';
-    if (cur == null) $('gVal').textContent = fmt(ult);
-    let s = 0; for (let i = 1; i < w.length; i++) s += Math.abs(w[i] / w[i - 1] - 1);
-    const vol = s / (w.length - 1) * 100;
-    const e = vol > .22 ? 'Inestable' : ch > .35 ? 'Creciendo' : ch < -.35 ? 'Decayendo' : 'Estable';
-    const h1 = $('gEstado'); if (h1.textContent !== e) { h1.textContent = e; h1.classList.remove('flash'); void h1.offsetWidth; h1.classList.add('flash'); }
-  }
-  function loop(now) {
-    const dt = Math.min(now - prev, 120); prev = now;
-    if (!pausado) {
-      acc += dt;
-      while (acc >= TICK) { acc -= TICK; serie.push(paso()); if (serie.length > N0 + 50) serie.shift(); motor(); if (visible()) txt(); }
-      if (visible()) dibujar(acc / TICK);
-    }
+  marea(0);
+  if (!reducido) {
+    let ult = 0;
+    const loop = t => {
+      if (!document.hidden && homeVisible() && idx === 1 && t - ult > 28) { ult = t; marea(t); }
+      requestAnimationFrame(loop);
+    };
     requestAnimationFrame(loop);
   }
-  requestAnimationFrame(loop);
-  try { if (localStorage.getItem('cube_pausa')) pausar(true); } catch (e) {}   // si cerró la página en pausa, vuelve en pausa
-  $('gRng').onclick = e => {
-    const b = e.target.closest('button'); if (!b) return;
-    nVis = +b.dataset.n; $('gRng').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); txt();
-  };
-  const ch = $('gChart'), mover = e => { cur = e.clientX - ch.getBoundingClientRect().left; };
-  ch.addEventListener('pointerdown', e => { ch.setPointerCapture(e.pointerId); mover(e); });
-  ch.addEventListener('pointermove', e => { if (e.buttons || e.pointerType === 'mouse') mover(e); });
-  const soltar = () => { cur = null; txt(); };
-  ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => ch.addEventListener(t, soltar));
 
-  /* --- Navegación --- */
-  $('navGrafico').onclick = () => {
-    if (visible()) return;
-    cerrarModales(); body.classList.add('en-grafico'); activarItemNav('navGrafico');
-    $('btnPerfilG').innerHTML = $('btnPerfilTop').innerHTML.replace(/ id="[^"]*"/g, '');
-    escala = false; txt(); window.scrollTo(0, 0);
-  };
-  $('btnPerfilG').onclick = () => abrirPerfilDesdeBoton();
+  /* --- Sugerencias --- */
+  const SUG = [
+    { img: 'sug-cube.webp', alt: 'Cube', a: 'cube' },
+    { img: 'sug-festival-offscript.webp', alt: 'Festival Offscript', a: 'festival' },
+    { img: 'sug-crear-lista.webp', alt: 'Crear lista', a: 'lista' }
+  ];
+  $('sugRow').innerHTML = SUG.map(s => `<button class="sug" type="button" data-s="${s.a}" aria-label="${esc(s.alt)}"><img src="${IMG_BASE}${s.img}" alt="" loading="lazy" draggable="false" onerror="this.style.display='none'"></button>`).join('');
+  $('sugRow').addEventListener('click', e => {
+    const b = e.target.closest('.sug'); if (!b) return;
+    if (b.dataset.s === 'lista') { if (window.cubeCrearLista) window.cubeCrearLista(); else aviso('Las listas no están disponibles.'); }
+    else aviso('Próximamente.');
+  });
 
-  /* --- Onda al tocar cualquier botón --- */
-  const SEL = '.circ,.bottom-nav-item,.perfil-opcion,.pg-btn,.b-pri,.b-sec,.tr-btn,.top-ico,.perfil-pill,.emp,.inv-card,.ch-card,.bs-lupa,.en-fila,.pausa,.ojo,#gRng button';
+  /* --- Noticias (de ejemplo; las oficiales llegarán después) --- */
+  const NOTICIAS = [
+    { f: '14 nov 2026 · 09:12', t: 'La Sagrada Continuidad resiste una jornada de máxima tensión', r: 'Cube confirma que la línea conserva su equilibrio tras horas críticas. Sus analistas advierten que otro acontecimiento podría llegar pronto.', tono: 'estable', s: 3 },
+    { f: '13 nov 2026 · 18:40', t: 'Festival Offscript abre su convocatoria y elige a Cube como sede', r: 'La primera edición reunirá historias, proyecciones y actividades interactivas. Los participantes podrán inscribirse desde hoy con cualquier relato propio inédito.', tono: 'estable', s: 7 },
+    { f: '13 nov 2026 · 11:05', t: 'Ratman: aparecen nuevas grabaciones en el archivo central', r: 'Un comité halló cintas sin catalogar relacionadas con el caso. Cube revisará cada una antes de decidir si serán públicas.', tono: 'alterada', s: 11 },
+    { f: '12 nov 2026 · 20:30', t: 'Cube suspende un acontecimiento por riesgo de ruptura', r: 'La medida busca proteger el orden establecido mientras se evalúan sus consecuencias. La actividad volverá cuando la línea se estabilice.', tono: 'alerta', s: 5 },
+    { f: '11 nov 2026 · 16:15', t: 'Ya puedes crear tus propias listas dentro de Cube', r: 'La nueva función permite reunir tus historias favoritas en un solo lugar. Cada lista conserva tu orden y es editable.', tono: 'estable', s: 9 },
+    { f: '10 nov 2026 · 07:48', t: 'Eternamente Vivo vuelve a alterar la línea, confirma el comité', r: 'Los registros muestran una oscilación breve pero inusual durante la madrugada. El comité descarta peligro inmediato y mantiene la vigilancia.', tono: 'alterada', s: 2 },
+    { f: '8 nov 2026 · 14:20', t: 'Cube reorganiza su división de acontecimientos', r: 'La estructura se amplía para atender más sucesos simultáneos. El cambio promete respuestas rápidas cuando la ficción invada lo real.', tono: 'estable', s: 13 }
+  ];
+  // miniatura: la sagrada continuidad en cada noticia (recta si está estable; con un pico si la altera; roja si amenaza con romperse)
+  function miniatura(n) {
+    let x = n.s * 9301 + 49297; const rnd = () => (x = (x * 9301 + 49297) % 233280) / 233280;
+    const pts = 40, pk = 8 + Math.floor(rnd() * 22); let d = '', y = 50;
+    for (let i = 0; i < pts; i++) {
+      y += (50 - y) * .3 + (rnd() - .5) * 1.4;
+      let v = y;
+      if (n.tono !== 'estable') { const k = Math.abs(i - pk); if (k < 4) v -= (n.tono === 'alerta' ? 34 : 20) * (1 - k / 4) * (i % 2 ? .85 : 1); }
+      d += (i ? 'L' : 'M') + (i * 200 / (pts - 1)).toFixed(1) + ' ' + Math.max(3, v).toFixed(1);
+    }
+    const c = n.tono === 'alerta' ? '#ff4d4d' : '#C6FF00';
+    return `<svg viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><line x1="0" x2="200" y1="24" y2="24" stroke="#ff4d4d" stroke-opacity=".28" stroke-dasharray="3 4"/><line x1="0" x2="200" y1="76" y2="76" stroke="#ff4d4d" stroke-opacity=".28" stroke-dasharray="3 4"/><path d="${d}" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 3px ${c}88)"/></svg>`;
+  }
+  const TAG = { estable: 'Estable', alterada: 'Alteración', alerta: 'Alerta' };
+  let pintado = false;
+  function pintarNoticias() {
+    if (pintado) return; pintado = true;
+    const [p, ...resto] = NOTICIAS;
+    $('nwLista').innerHTML =
+      `<article class="nw-dest"><div class="nw-img">${miniatura(p)}</div><span class="nw-fecha"><span class="nw-tag ${p.tono}">${TAG[p.tono]}</span><span>${esc(p.f)}</span></span><h3 class="nw-t">${esc(p.t)}</h3><p class="nw-res">${esc(p.r)}</p></article><div class="nw-sep"></div>` +
+      resto.map(n => `<button class="nw-fila" type="button" aria-expanded="false"><span class="nw-fila-in"><span class="nw-tx"><span class="nw-fecha"><span class="nw-tag ${n.tono}">${TAG[n.tono]}</span><span>${esc(n.f)}</span></span><span class="nw-t">${esc(n.t)}</span><span class="nw-res">${esc(n.r)}</span></span><span class="nw-img">${miniatura(n)}</span></span><span class="nw-sep" style="display:block"></span></button>`).join('');
+  }
+  $('nwLista').addEventListener('click', e => {
+    const f = e.target.closest('.nw-fila'); if (!f) return;
+    const on = !f.classList.contains('abierta'); f.classList.toggle('abierta', on); f.setAttribute('aria-expanded', on);
+  });
+
+  /* --- Barra inferior --- */
+  function abrirNoticias() {
+    cerrarModales();
+    pintarNoticias(); copiarPerfilNoticias();
+    body.classList.add('en-noticias');
+    activarItemNav('navNoticias');
+    window.scrollTo(0, 0);
+  }
+  $('navNoticias').onclick = abrirNoticias;
+  $('navLupa').onclick = () => $('navBuscar').click();
+  $('navLuna').onclick = () => aviso('Próximamente.');
+  activarItemNav('navWallet');
+
+  /* --- Onda al tocar los botones --- */
+  const SEL = '.nb-c,.nb-op,.perfil-opcion,.b-pri,.b-sec,.tr-btn,.top-ico,.perfil-pill,.bs-lupa,.en-fila,.ojo';
   document.addEventListener('pointerdown', e => {
     const t = e.target.closest(SEL); if (!t || t.disabled) return;
-    const h = t.classList.contains('circ') ? t.querySelector('.circ-ico') : t; if (!h) return;
-    h.classList.add('rp');
-    const r = h.getBoundingClientRect(), s = Math.max(r.width, r.height) * 1.6, sp = document.createElement('span');
+    t.classList.add('rp');
+    const r = t.getBoundingClientRect(), s = Math.max(r.width, r.height) * 1.6, sp = document.createElement('span');
     sp.className = 'rip'; sp.style.cssText = 'width:' + s + 'px;height:' + s + 'px;left:' + (e.clientX - r.left - s / 2) + 'px;top:' + (e.clientY - r.top - s / 2) + 'px';
-    h.appendChild(sp); setTimeout(() => sp.remove(), 600);
+    t.appendChild(sp); setTimeout(() => sp.remove(), 600);
   }, true);
 })();
 </script>
-<script>
-/* ===== Sagradas operaciones · Noticias · Rendimiento de la gráfica ===== */
-(function () {
-  const $ = id => document.getElementById(id), body = document.body;
-  const db = () => window.cubeDb, U = () => window.usuario && window.usuario();
-  const sesion = () => { const u = U(); return u && u.supa ? u : null; };
-  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const fm = n => Number(n || 0).toLocaleString('es-AR', { maximumFractionDigits: 2 });
-  const aviso = t => window.cubeAviso ? window.cubeAviso(t) : alert(t);
-  const rnd = (a, b) => a + Math.random() * (b - a);
-  const pick = a => a[Math.floor(Math.random() * a.length)];
-  const hoyKey = () => new Date().toLocaleDateString('sv-SE');
 
-  const IC = {
-    contrato: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 14l2 2 4-4"/>',
-    alerta: '<path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/>',
-    alianza: '<circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/>',
-    banco: '<path d="M3 10 12 4l9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>',
-    precio: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/>',
-    check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
-    luna: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>',
-    ojo: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
-    rayo: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>',
-    estrella: '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z"/>',
-    hoja: '<path d="M5 20c0-9 5-15 15-16 0 10-6 15-15 16Z"/><path d="M5 20c3-5 6-8 10-10"/>'
-  };
-  const svg = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
-
-  /* ---------- Dos modalidades ----------
-     HISTORIA: 4 decisiones (contexto → continuación → problema → decisión definitiva). Cada opción vale puntos [t, consecuencia, puntos]
-               y la suma define el desenlace. Tono: serio con drama, tensión y suspenso; sin absurdismo.
-     CONTRATO: se examina el antes, el presente y la oferta, y se decide contratar o no contratar. */
-  const H = (id, cat, ico, emp, sector, tema, ctx, ok, ko, nt, fases) => ({ id, modo: 'historia', tipo: 'historia', cat, ico, emp, sector, tema, ctx, ok, ko, nt, fases: fases.map(f => ({ t: f[0], o: f[1].map(x => ({ t: x[0], r: x[1], s: x[2] })) })) });
-  const HIST = [
-    H('sombra', 'Crisis en curso', 'alerta', 'Helix Dynamics', 'Sistemas de salud', 'el ciberataque',
-      'Son las 3:12 a. m. Helix Dynamics, proveedor de sistemas para 40 hospitales, detecta que alguien copia sus bases de datos desde dentro. Eres el único socio al que el director logró localizar.',
-      'Los hospitales recuperaron sus sistemas y el atacante quedó expuesto.', 'La filtración se hizo pública y varios hospitales rompieron contrato.', 'La crisis se contuvo, aunque con daños difíciles de medir.', [
-      ['El director te pone al teléfono: el intruso entró con credenciales válidas de una empleada. ¿Cuál es tu primera orden?', [
-        ['Apagar todos los servidores de inmediato', 'Cortas la fuga, pero los 40 hospitales quedan sin sistema y alguien tendrá que responder por eso.', 1],
-        ['Esperar a tener más datos', 'Pasan veinte minutos y los registros copiados se duplican.', -1],
-        ['Aislar solo la red afectada y vigilar', 'El atacante no sabe que lo observas. Ahora tienes un rastro que seguir.', 2]]],
-      ['La credencial es de Marta Rivas, jefa de nóminas, de vacaciones y sin conexión hace tres días. ¿Qué haces?', [
-        ['Acusarla ante la junta', 'La junta se agita y el verdadero responsable gana tiempo.', -1],
-        ['Revisar quién más usó ese equipo', 'La sala de servidores se abrió a las 2:40 con una tarjeta clonada.', 1],
-        ['Llamar a Marta y suspender su cuenta', 'Marta no sabía nada: le robaron el acceso. Descartas, por ahora, a un cómplice interno.', 2]]],
-      ['Llega el mensaje del atacante: cifrará todo a las 6:00 si no recibe 2 millones de créditos. Tu equipo solo puede restaurar copias de hace 48 horas.', [
-        ['Negociar mientras se rastrea la señal', 'Ganas dos horas, pero el atacante empieza a desconfiar.', 1],
-        ['Pagar para ganar tiempo', 'Pagas y el mensaje sube la apuesta. Nadie garantiza nada.', -1],
-        ['Rechazar y activar la restauración', 'Las copias de 48 horas bastan: se pierde poco y no pagas.', 2]]],
-      ['Faltan 40 minutos. Tienes la ubicación aproximada del atacante y los hospitales siguen sin sistema. Debes decidir cómo cerrar la noche.', [
-        ['Contraatacar y borrar sus servidores', 'Borras sus servidores, pero también la única prueba que lo vincula.', -1],
-        ['Entregar el rastro a las autoridades y restaurar', 'Las autoridades llegan antes del amanecer con pruebas intactas.', 2],
-        ['Anunciar el incidente ya para controlar el relato', 'Ganas credibilidad, pero el atacante aprovecha el ruido para escapar.', 1]]]]),
-    H('cumbre', 'Reunión a puerta cerrada', 'alianza', 'Orión Capital', 'Finanzas', 'la filtración en la junta',
-      'La junta de Orión Capital se reúne a puerta cerrada para aprobar una fusión de 900 millones. Horas antes, seguridad recibió un aviso anónimo: alguien en la sala filtra información a la competencia. Sospechas de tres personas: el director financiero Elías Vargas, la abogada Clara Mena y el socio fundador Rubén Ortiz.',
-      'El infiltrado fue descubierto y la fusión se cerró con ventaja.', 'El infiltrado siguió activo y la competencia se adelantó.', 'La reunión terminó sin culpables claros y sin cambios.', [
-      ['Tienes dos minutos antes de entrar. Sabes que la filtración incluye cifras que solo vio quien abrió el borrador del jueves. ¿Cómo empiezas?', [
-        ['Confrontar a los tres a la vez', 'Los tres niegan con la misma calma. Ahora saben que sospechas.', -1],
-        ['Pedir la lista de quién abrió el borrador', 'Solo cuatro personas lo abrieron: Elías, Clara, Rubén y una asistente. La lista se achica.', 2],
-        ['Observar en silencio durante la reunión', 'Notas que Clara mira el teléfono más de lo normal, pero no es una prueba.', 1]]],
-      ['Ya en la sala, se te ocurre sembrar una cifra falsa para ver cuál llega a la competencia. ¿Cómo la usas?', [
-        ['Dar la misma cifra falsa a todos', 'Si aparece fuera, no sabrás quién fue.', -1],
-        ['No mentir y vigilar sus teléfonos', 'No encuentras nada concluyente y el tiempo corre.', 1],
-        ['Dar una cifra falsa distinta a cada sospechoso', 'Elías recibe 810, Clara 790, Rubén 830. Quien la filtre se delatará solo.', 2]]],
-      ['Una hora después, un corredor rival llama a Orión ofreciendo comprar con descuento. Usa la cifra 790. Clara acaba de dejar la sala sin explicación.', [
-        ['Sospechar de Elías porque es el que más calla', 'Ignoras la evidencia y pierdes la oportunidad de actuar.', -1],
-        ['Preguntarle primero por qué salió', 'Clara responde con evasivas, pero te da tiempo para reunir más pruebas.', 1],
-        ['Confrontarla con la cifra 790', 'Clara palidece. La cifra no deja dudas.', 2]]],
-      ['Clara admite haber hablado con el rival, pero jura que la presionan: tienen algo contra su familia. La junta espera tu veredicto.', [
-        ['Entregarla a la junta y cerrar el caso', 'La junta la despide, pero el rival queda libre y sigue acechando.', -1],
-        ['Cancelar la fusión por seguridad', 'Proteges a todos, pero pierdes la mejor oportunidad del año.', 1],
-        ['Protegerla y usar su contacto para engañar al rival', 'Clara alimenta al rival con datos falsos mientras la fusión se cierra.', 2]]]]),
-    H('venta', 'Venta de una empresa', 'precio', 'Aurora Studios', 'Animación', 'su posible venta',
-      'Aurora Studios, estudio de animación con 15 años de historia, recibe una oferta de compra de Nimbus Media por 300 millones. Su fundadora, Irene Salas, duda: su equipo teme despidos y el último estreno apenas cubrió costos.',
-      'La venta se cerró en buenos términos y el estudio conservó a su equipo.', 'La venta dejó al estudio sin su equipo y con el catálogo en manos ajenas.', 'La situación del estudio no cambió de forma notable.', [
-      ['Irene te pide opinión antes de reunirse con Nimbus. ¿Qué buscas primero?', [
-        ['Aceptar la oferta de inmediato', 'Irene firma el borrador sin pensar si 300 millones es lo justo.', -1],
-        ['Revisar las cuentas de los últimos tres años', 'Los ingresos por licencias crecen 18 % anual. Aurora vale más de lo que parece.', 2],
-        ['Preguntar a Nimbus por qué compra ahora', 'Nimbus evade la respuesta: quiere cerrar antes de fin de mes.', 1]]],
-      ['Descubres que Nimbus negocia en paralelo con otro estudio, Caleidos. La oferta vence el viernes.', [
-        ['Amenazar con retirarte de la mesa', 'Nimbus duda, pero queda claro que Aurora está nerviosa.', 1],
-        ['Aceptar para no perder la oferta', 'Cedes toda tu ventaja de negociación.', -1],
-        ['Pedir una prórroga y contactar a un segundo comprador', 'Nimbus concede cinco días y Caleidos pide ver las cuentas.', 2]]],
-      ['Nimbus pone una condición nueva: el equipo directivo se va en seis meses y el catálogo pasa a su control total. Irene no duerme hace dos noches.', [
-        ['Proponer una venta parcial del 40 %', 'Nimbus no responde, pero tampoco se levanta de la mesa.', 1],
-        ['Exigir cláusulas de retención del equipo y garantías sobre el catálogo', 'Nimbus acepta revisar las cláusulas. Irene respira por primera vez en días.', 2],
-        ['Aceptar la condición con tal de cerrar', 'Irene firma. El equipo se entera por un rumor.', -1]]],
-      ['Nimbus mejora la oferta a 340 millones con cláusulas de protección, pero Caleidos aún no responde. Es hora de decidir.', [
-        ['Rechazar ambas y mantener el estudio', 'Aurora conserva su independencia, pero con las deudas del último estreno a cuestas.', -1],
-        ['Esperar una semana más a Caleidos', 'Caleidos mejora su oferta, pero Nimbus empieza a retirarse.', 1],
-        ['Cerrar con Nimbus bajo las cláusulas pactadas', 'La venta se firma con el equipo protegido y el catálogo a salvo.', 2]]]])
-  ];
-  const PC = { bueno: { p: { c: .55, n: .15, i: .05, r: .25 }, rg: .85 }, malo: { p: { c: 0, n: .1, i: .5, r: .4 }, rg: .1 }, dudoso: { p: { c: .3, n: .3, i: .2, r: .2 }, rg: .5 } };
-  const CT = (id, emp, sector, tema, antes, hoy, oferta, v) => ({ id, modo: 'contrato', tipo: 'contrato', cat: 'Contrataciones', ico: 'contrato', emp, sector, tema, antes, hoy, oferta, ctx: '',
-    ok: 'Los pagos llegaron a tiempo y el acuerdo rindió ganancias.', ko: 'La empresa incumplió y el acuerdo dejó pérdidas.', nt: 'El panorama de la empresa no cambió de forma notable.',
-    opts: [{ k: 'A', t: 'Contratar', p: PC[v].p, rg: PC[v].rg }, { k: 'B', t: 'No contratar', p: { c: 0, n: 1, i: 0, r: 0 }, rg: .5 }] });
-  const CONT = [
-    CT('ferrovia', 'Ferrovía Norte', 'Transporte', 'su financiamiento',
-      'Su primer tramo abrió hace cuatro años y cubrió sus costos desde el segundo.',
-      'Mueve 120.000 pasajeros al mes, con deuda baja y contratos de carga firmados por tres años.',
-      'Pide 5 millones y ofrece 12 % anual durante 5 años, con la línea como garantía.', 'bueno'),
-    CT('brillo', 'Brillo Digital', 'Aplicaciones', 'su ronda de inversión',
-      'Lanzó dos apps que no pasaron de 10.000 usuarios y cerró una de ellas.',
-      'Gasta 400.000 al mes sin ingresos recurrentes, y su fundador cambió de rumbo por tercera vez.',
-      'Pide 3 millones por el 30 % de la empresa, sin garantías.', 'malo'),
-    CT('cobalto', 'Cobalto Minería', 'Minería', 'su reapertura',
-      'Operó una mina ocho años con buenas ganancias, hasta que una inundación la paralizó el año pasado.',
-      'Ya reabrió, pero produce al 60 % y tiene litigios pendientes por la inundación.',
-      'Pide 6 millones y ofrece 15 % anual por 4 años, con la mina como único respaldo.', 'dudoso'),
-    CT('casaverde', 'Casa Verde Alimentos', 'Alimentación', 'su expansión',
-      'Una cadena local que creció diez años seguidos sin perder rentabilidad.',
-      'Abrirá 8 sucursales nuevas; las 3 más recientes recuperaron su inversión en 14 meses.',
-      'Pide 2 millones, con 9 % anual y 20 % de participación en ganancias.', 'bueno'),
-    CT('titan', 'Titán Logística', 'Transporte de carga', 'su rescate',
-      'Hace tres años lideraba el sector y ganaba cada licitación.',
-      'Perdió sus dos mayores clientes y retrasó pagos a proveedores dos veces este año.',
-      'Pide 8 millones y ofrece 18 % anual: una tasa muy tentadora.', 'malo')
-  ];
-  const CAT = HIST.concat(CONT);
-
-
-  /* ---------- Noticias: plantillas ---------- */
-  const TPL = {
-    correcta: [
-      { t: '{emp} sale fortalecida tras decidir sobre {tema}', c: 'La elección «{op}» fue recibida con entusiasmo por inversionistas y analistas. {extra} La Sagrada Continuidad responde al alza.' },
-      { t: 'Acierto en {emp}: {tema} supera las expectativas', c: 'Fuentes cercanas confirman que «{op}» generó más valor del previsto. {extra} Cube registra un impulso positivo.' },
-      { t: 'El mercado aplaude la jugada de {emp}', c: 'Tras optar por «{op}», la compañía recibe elogios por su criterio. {extra} La gráfica sube con fuerza moderada.' }
-    ],
-    neutra: [
-      { t: '{emp}: {tema} avanza sin sobresaltos', c: 'La decisión «{op}» no movió la aguja: ni sorpresas ni reproches. {extra} La Sagrada Continuidad se mantiene estable.' },
-      { t: 'Jornada tranquila para {emp}', c: 'Analistas describen «{op}» como una medida prudente y sin impacto inmediato. {extra} No hay cambios en la gráfica.' },
-      { t: 'Sin cambios visibles en {emp} tras {tema}', c: 'El mercado recibió «{op}» con indiferencia. {extra} La gráfica sigue igual.' }
-    ],
-    incorrecta: [
-      { t: 'Tropiezo en {emp}: {tema} no sale como se esperaba', c: 'La elección «{op}» generó dudas entre los inversionistas. {extra} La Sagrada Continuidad registra una caída.' },
-      { t: 'Alarma moderada en {emp} por {tema}', c: 'Varios analistas cuestionan que se haya optado por «{op}». {extra} La gráfica cede terreno.' },
-      { t: 'Críticas a {emp} tras optar por «{op}»', c: 'La decisión no convenció al mercado. {extra} Cube registra un retroceso.' }
-    ],
-    riesgo_gana: [
-      { t: '¡Apuesta ganadora! {emp} multiplica el valor de {tema}', c: 'Pocos creían en «{op}», pero el riesgo valió la pena. {extra} La Sagrada Continuidad se dispara.' },
-      { t: 'Jugada audaz y premio mayor para {emp}', c: 'La apuesta por «{op}» salió mejor de lo imaginado. {extra} La gráfica sube con fuerza.' }
-    ],
-    riesgo_pierde: [
-      { t: 'Golpe duro: la apuesta de {emp} en {tema} fracasa', c: 'La decisión «{op}» resultó demasiado arriesgada y el mercado reaccionó con dureza. {extra} La Sagrada Continuidad cae con fuerza.' },
-      { t: 'Pánico en el mercado tras la jugada de {emp}', c: 'Lo que parecía una gran oportunidad con «{op}» se volvió un problema serio. {extra} La gráfica se desploma.' }
-    ]
-  };
-  /* Titulares para las operaciones ficticias: más cinematográficos, absurdos y misteriosos */
-  const TPLF = {
-    correcta: [
-      { t: '¡Increíble pero cierto! {emp} resuelve {tema} con estilo', c: 'Testigos aseguran que «{op}» fue la jugada exacta. {extra} Nadie entiende cómo, pero la Sagrada Continuidad sube.' },
-      { t: 'Fuentes anónimas: {emp} sonríe tras {tema}', c: 'Se filtró un memorando donde «{op}» aparece subrayado tres veces. {extra} La gráfica reacciona con entusiasmo.' },
-      { t: 'Final de película en {emp}: {tema} sale a la perfección', c: 'Cuando todo parecía perdido, «{op}» salvó la escena. {extra} Cube registra un impulso positivo.' }
-    ],
-    neutra: [
-      { t: 'Silencio extraño en {emp} tras {tema}', c: 'Después de «{op}» no pasó nada… o eso dicen. {extra} La gráfica ni se inmuta.' },
-      { t: '{emp}: el misterio de {tema} sigue sin resolverse', c: '«{op}» no aclaró ni empeoró nada. {extra} Todo permanece igual.' }
-    ],
-    incorrecta: [
-      { t: 'Desastre menor y muy raro en {emp}', c: '«{op}» tuvo consecuencias que nadie había previsto. {extra} La gráfica retrocede un poco.' },
-      { t: 'Los analistas se rascan la cabeza: {emp} y {tema}', c: 'Nadie esperaba que «{op}» saliera así. {extra} Cube registra un pequeño tropiezo.' }
-    ],
-    riesgo_gana: [
-      { t: '¡Golpe maestro! {emp} convierte {tema} en leyenda', c: 'Nadie lo vio venir: «{op}» salió redondo. {extra} La Sagrada Continuidad se dispara.' },
-      { t: 'Nadie lo vio venir: la locura de {emp} funciona', c: 'La apuesta por «{op}» parecía un disparate y terminó en triunfo. {extra} La gráfica sube con fuerza.' }
-    ],
-    riesgo_pierde: [
-      { t: 'Catástrofe cinematográfica: {emp} lo pierde todo en {tema}', c: 'La decisión «{op}» terminó en una escena de película de desastres. {extra} La Sagrada Continuidad cae con fuerza.' },
-      { t: 'Pánico absurdo y total en {emp}', c: 'Lo de «{op}» fue una idea espectacular… y espectacularmente mala. {extra} La gráfica se desploma.' }
-    ]
-  };
-  const TAG = { correcta: 'Favorable', neutra: 'Neutral', incorrecta: 'Desfavorable', riesgo_gana: 'Apuesta ganada', riesgo_pierde: 'Apuesta perdida', alerta: 'Alerta', recuperacion: 'Recuperación', mercado: 'Mercado' };
-  const EFECTO_TXT = { up: '▲ La Sagrada Continuidad sube', down: '▼ La Sagrada Continuidad cae', flat: '■ La Sagrada Continuidad se mantiene' };
-  const EFECTO = { correcta: 'up', riesgo_gana: 'up', neutra: 'flat', incorrecta: 'down', riesgo_pierde: 'down' };
-  const IMPULSO = { correcta: () => rnd(2.6, 3.8), riesgo_gana: () => rnd(4, 5.5), neutra: () => 0, incorrecta: () => -rnd(1.6, 2.8), riesgo_pierde: () => -rnd(4, 6) };
-
-  function sortear(o) {
-    const p = o.p, x = Math.random();
-    if (x < p.c) return 'correcta';
-    if (x < p.c + p.n) return 'neutra';
-    if (x < p.c + p.n + p.i) return 'incorrecta';
-    return Math.random() < (o.rg != null ? o.rg : .5) ? 'riesgo_gana' : 'riesgo_pierde';
-  }
-  function armarNoticia(op, o, tipo) {
-    const tp = pick(TPL[tipo]), efecto = EFECTO[tipo];
-    const extra = efecto === 'up' ? op.ok : efecto === 'down' ? op.ko : op.nt;
-    const rep = s => s.replace(/\{emp\}/g, op.emp).replace(/\{tema\}/g, op.tema).replace(/\{op\}/g, o.t).replace(/\{extra\}/g, extra);
-    return { id: 'n' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), ts: Date.now(), op: op.id, tipo, efecto, titulo: rep(tp.t), cuerpo: rep(tp.c), emp: op.emp, leida: false };
-  }
-
-  /* ---------- Estado por usuario ---------- */
-  const clave = () => { const u = U(); return u ? 'cube_ops_' + (u.id || u.email) : null; };
-  function leer() {
-    const k = clave(); let s = null;
-    if (k) { try { s = JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { s = null; } }
-    s = s && typeof s === 'object' ? s : {};
-    s.noticias = Array.isArray(s.noticias) ? s.noticias : []; s.usadas = Array.isArray(s.usadas) ? s.usadas : [];
-    if (!s.lote || !Array.isArray(s.lote.ids) || !s.lote.hechas) s.lote = null;
-    return s;
-  }
-  function guardar(s) { const k = clave(); if (k) { try { localStorage.setItem(k, JSON.stringify(s)); } catch (e) {} } }
-
-  /* ---------- Punto rojo ---------- */
-  document.querySelectorAll('.top-ico[data-a="noticias"]').forEach(b => { const p = document.createElement('span'); p.className = 'punto-n'; p.hidden = true; b.appendChild(p); });
-  { const b = $('navOrbe'); if (b) { const p = document.createElement('span'); p.className = 'punto-n punto-ops'; p.hidden = true; b.appendChild(p); } }
-  function pintarPunto() {
-    const ok = !!sesion(), s = ok ? leer() : null, hay = ok && s.noticias.some(n => !n.leida);
-    document.querySelectorAll('.top-ico .punto-n').forEach(p => { p.hidden = !hay; });
-    const l = s && s.lote, nuevas = !!l && !l.visto && Object.keys(l.hechas).length < l.ids.length;
-    document.querySelectorAll('.punto-ops').forEach(p => { p.hidden = !nuevas; });
-  }
-
-  /* ---------- Navegación ---------- */
-  const MIAS = ['en-ops', 'en-noticias'];
-  const OTRAS = ['perfil-abierto', 'buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico'];
-  new MutationObserver(() => {
-    if (MIAS.some(c => body.classList.contains(c)) && OTRAS.some(c => body.classList.contains(c))) body.classList.remove(...MIAS);
-  }).observe(body, { attributes: true, attributeFilter: ['class'] });
-
-  function copiarPerfil() { const o = $('btnPerfilTop'), d = $('btnPerfilOps'); if (o && d) d.innerHTML = o.innerHTML.replace(/ id="[^"]*"/g, ''); }
-  $('btnPerfilOps').onclick = () => abrirPerfilDesdeBoton();
-  window.addEventListener('cube:usuario-listo', () => { copiarPerfil(); tickOps(); pintarPunto(); cargarEstado(); });
-
-  let origen = 'home';
-  function abrirOps() {
-    if (!sesion()) { window.abrirModal('auth'); return; }
-    cerrarModales(); body.classList.add('en-ops'); activarItemNav('navOrbe'); tickOps();
-    { const s = leer(); if (s.lote && !s.lote.visto) { s.lote.visto = true; guardar(s); } }
-    copiarPerfil(); pintar(); pintarPunto(); window.scrollTo(0, 0);
-  }
-  $('navOrbe').onclick = abrirOps;
-
-  function abrirNoticias() {
-    if (!sesion()) { aviso('Inicia sesión para ver tus noticias.'); return; }
-    origen = body.classList.contains('en-ops') ? 'ops' : body.classList.contains('en-grafico') ? 'grafico' : 'home';
-    if (window.cubeLimpiarVistas) window.cubeLimpiarVistas();
-    body.classList.remove('perfil-abierto', ...MIAS); body.classList.add('en-noticias');
-    activarItemNav(null);
-    const s = leer(); s.noticias.forEach(n => { n.leida = true; }); guardar(s);
-    pintarNoticias(); pintarPunto(); window.scrollTo(0, 0);
-  }
-  $('cerrarNoticias').onclick = () => {
-    if (origen === 'ops') abrirOps();
-    else if (origen === 'grafico') { cerrarModales(); $('navGrafico').click(); }
-    else cerrarModales();
-  };
-  window.addEventListener('cube-wallet-accion', e => {
-    if (e.detail && e.detail.accion === 'noticias') { e.preventDefault(); abrirNoticias(); }
-  });
-
-  /* ---------- Operaciones ---------- */
-  function cabecera(op, hecha) {
-    return `<div class="op-top"><span class="op-ico">${svg(hecha ? 'check' : op.ico)}</span><div><div class="op-cat">${esc(op.cat)}</div><div class="op-emp">${esc(op.emp)} <small>${esc(op.sector)}</small></div></div></div>`;
-  }
-  const optsHtml = l => `<div class="op-opts" role="radiogroup" aria-label="Opciones">${l.map((o, i) => `<button class="op-opt" type="button" role="radio" aria-checked="false" data-k="${o.k}"><span class="op-let">${String.fromCharCode(65 + i)}</span><span class="op-tx"><b>${esc(o.t)}</b>${o.d ? `<span class="d">${esc(o.d)}</span>` : ''}${o.pro ? `<em class="pro">+ ${esc(o.pro)}</em>` : ''}${o.con ? `<em class="con">− ${esc(o.con)}</em>` : ''}</span></button>`).join('')}</div>`;
-  function cardPend(op, i, s) {
-    const ani = `style="animation-delay:${i * 0.06}s"`;
-    if (op.modo === 'contrato') {
-      const bl = (t, x) => `<div class="op-bloque"><small>${t}</small><p>${esc(x)}</p></div>`;
-      return `<article class="op" data-op="${op.id}" ${ani}>${cabecera(op, false)}${bl('Antes', op.antes)}${bl('Presente', op.hoy)}${bl('Lo que ofrece', op.oferta)}
-        ${optsHtml(op.opts)}<button class="op-go" type="button" disabled>Confirmar decisión</button></article>`;
-    }
-    const st = (s && s.lote && s.lote.prog && s.lote.prog[op.id]) || { paso: 0, ruta: [] }, f = op.fases[st.paso], ult = st.paso === op.fases.length - 1;
-    const ruta = st.ruta.length ? `<div class="op-ruta">${st.ruta.map(x => `<p><b>${esc(x.t)}</b> — ${esc(x.r)}</p>`).join('')}</div>` : '';
-    return `<article class="op" data-op="${op.id}" ${ani}>${cabecera(op, false)}<p class="op-ctx">${esc(op.ctx)}</p>${ruta}
-      <p class="op-paso">Decisión ${st.paso + 1} de ${op.fases.length}${ult ? ' · definitiva' : ''}</p><p class="op-ctx" style="margin-top:6px">${esc(f.t)}</p>
-      ${optsHtml(f.o.map((x, j) => ({ k: String(j), t: x.t })))}<button class="op-go" type="button" disabled>${ult ? 'Tomar la decisión definitiva' : 'Continuar'}</button></article>`;
-  }
-  function cardHecha(op, h) {
-    const o = op.opts && op.opts.find(x => x.k === h.k);
-    return `<article class="op hecha" data-op="${op.id}">${cabecera(op, true)}
-      <p class="op-dec">Tu decisión: <b>«${esc(h.t || (o ? o.t : h.k))}»</b></p>
-      <button class="op-lnk" type="button" data-ver-noticia>Ver noticia →</button></article>`;
-  }
-  /* Lotes: al completar todo, las nuevas llegan al azar en 5, 10, 15, 20, 30 o 45 s, o en 1, 2, 3, 4 o 5 min (nunca más de 5 min) */
-  const mezclar = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-  function espera() {
-    return (Math.random() < .5 ? pick([5, 10, 15, 20, 30, 45]) : pick([1, 2, 3, 4, 5]) * 60) * 1000;
-  }
-  function nuevoLote(s) {
-    const n = 3 + Math.floor(Math.random() * 3);
-    let libres = CAT.filter(o => !s.usadas.includes(o.id));
-    if (libres.length < n) { s.usadas = []; libres = CAT.slice(); }
-    const his = mezclar(libres.filter(o => o.modo === 'historia')), con = mezclar(libres.filter(o => o.modo === 'contrato'));
-    let nH = Math.floor(n / 2) + (n % 2 && Math.random() < .5 ? 1 : 0), nC = n - nH;   // ~50% historias, ~50% contrataciones
-    nH = Math.min(nH, his.length); nC = Math.min(n - nH, con.length); nH = Math.min(n - nC, his.length);
-    const ids = mezclar(his.slice(0, nH).concat(con.slice(0, nC))).map(o => o.id);
-    s.usadas = s.usadas.concat(ids); s.lote = { ids, hechas: {}, prog: {}, visto: false, ts: Date.now() }; s.proxima = null;
-  }
-  function opsLote(s) { return (s.lote ? s.lote.ids : []).map(id => CAT.find(o => o.id === id)).filter(Boolean); }
-  function cuenta(ms) { const t = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), x = t % 60; return h ? h + ' h ' + m + ' min' : m ? m + ' min ' + x + ' s' : x + ' s'; }
-  function textoReset(s) {
-    const falta = opsLote(s).filter(o => !s.lote.hechas[o.id]).length;
-    return falta ? 'Faltan ' + falta : (s.proxima ? 'Nuevas en ' + cuenta(s.proxima - Date.now()) : '');
-  }
-  /* Inactividad: si 15 min después de aparecer operaciones nuevas aún quedan sin resolver (tiempo activo, no en pausa), la gráfica cae violentamente hasta resolverlas */
-  let idleMs = 0, limiteMs = 900000, ultimoTick = Date.now(), avisadoIdle = false;
-  function reiniciarIdle() { idleMs = 0; limiteMs = 900000; avisadoIdle = false; if (window.cubeGrafico) window.cubeGrafico.abandono(false); }
-  window.addEventListener('cube:pausa', e => {
-    const d = e.detail || {}; if (d.pausado) return;
-    ultimoTick = Date.now();
-    const dt = Date.now() - (d.desde || Date.now());
-    if (dt > 0 && sesion()) { const s = leer(); if (s.proxima) { s.proxima += dt; guardar(s); } }   // la espera no corre en pausa
-  });
-  function tickOps() {
-    const ahora = Date.now(), dt = Math.min(ahora - ultimoTick, 2000); ultimoTick = ahora;
-    if (window.cubePausado || !sesion()) return;
-    const s = leer(), viendo = body.classList.contains('en-ops');
-    if (!s.lote || opsLote(s).length === 0 || (s.proxima && ahora >= s.proxima)) {
-      nuevoLote(s); if (viendo) s.lote.visto = true;
-      guardar(s); pintarPunto(); if (viendo) pintar(); reiniciarIdle();
-    } else if (viendo) $('opsReset').textContent = textoReset(s);
-    const hayPend = opsLote(s).some(o => !s.lote.hechas[o.id]);
-    if (hayPend) {
-      idleMs += dt;
-      if (idleMs > limiteMs) {
-        if (!avisadoIdle) { avisadoIdle = true; sistema({ tipo: 'mercado', efecto: 'down', titulo: 'Sin decisiones: la Sagrada Continuidad empieza a caer', cuerpo: 'Pasaron 15 minutos sin resolver las operaciones y el mercado pierde la paciencia. Resuélvelas para frenar la caída, o pausa si vas a ausentarte.' }); }
-        if (window.cubeGrafico) window.cubeGrafico.abandono(true);
-      }
-    } else if (idleMs || avisadoIdle) reiniciarIdle();
-  }
-  setInterval(tickOps, 1000);
-  function pintar() {
-    const s = leer(); if (!s.lote) { $('opsLista').innerHTML = ''; return; }
-    const ops = opsLote(s), H = s.lote.hechas, hechas = ops.filter(o => H[o.id]), pend = ops.filter(o => !H[o.id]);
-    $('opsEstado').textContent = pend.length ? 'Incompletas' : 'Completadas';
-    $('opsSeg').innerHTML = ops.map(o => `<i class="${H[o.id] ? 'on' : ''}"></i>`).join('');
-    $('opsCuenta').textContent = hechas.length + ' de ' + ops.length + ' completadas';
-    $('opsReset').textContent = textoReset(s);
-    $('opsLista').innerHTML = pend.map((o, i) => cardPend(o, i, s)).join('') + (hechas.length ? '<h2 class="op-h">Completadas</h2>' + hechas.map(o => cardHecha(o, H[o.id])).join('') : '');
-  }
-  $('opsLista').addEventListener('click', e => {
-    const opt = e.target.closest('.op-opt');
-    if (opt) {
-      const card = opt.closest('.op');
-      card.querySelectorAll('.op-opt').forEach(b => { const on = b === opt; b.classList.toggle('on', on); b.setAttribute('aria-checked', on); });
-      card.querySelector('.op-go').disabled = false; card.dataset.sel = opt.dataset.k; return;
-    }
-    const go = e.target.closest('.op-go');
-    if (go && !go.disabled) { const c = go.closest('.op'); decidir(c.dataset.op, c.dataset.sel); return; }
-    if (e.target.closest('[data-ver-noticia]')) abrirNoticias();
-  });
-  function resolver(op, k, label, tipo, s) {
-    const n = armarNoticia(op, { t: label }, tipo);
-    s.lote.hechas[op.id] = { k, t: label, tipo, noticia: n.id, ts: Date.now() };
-    if (s.lote.prog) delete s.lote.prog[op.id];
-    s.noticias.unshift(n); s.noticias = s.noticias.slice(0, 80);
-    if (s.lote.ids.every(x => s.lote.hechas[x])) s.proxima = Date.now() + espera();
-    guardar(s);
-    if (s.lote.ids.every(x => s.lote.hechas[x])) reiniciarIdle();   // el reloj de 15 min solo se detiene al resolver todas
-    if (window.cubeGrafico) window.cubeGrafico.noticia(tipo);   // favorable: sube y rinde; neutra: igual; desfavorable: baja
-    const f = tipo === 'incorrecta' ? rnd(.02, .04) : tipo === 'riesgo_pierde' ? rnd(.04, .08) : 0, perdida = Math.round(acum * f * 100) / 100;
-    if (perdida >= .01) perder(perdida);
-    pintar(); pintarPunto();
-    aviso('Decisión registrada.' + (perdida >= .01 ? ' Rendimiento −$' + fm(perdida) + '.' : '') + ' Revisa Noticias.');
-  }
-  function decidir(id, k) {
-    if (!sesion()) { aviso('Inicia sesión para tomar decisiones.'); return; }
-    const op = CAT.find(o => o.id === id), s = leer();
-    if (!op || !s.lote || !s.lote.ids.includes(id) || s.lote.hechas[id]) return;
-    if (op.modo === 'contrato') {
-      const opt = op.opts.find(x => x.k === k); if (!opt) return;
-      resolver(op, k, opt.t, sortear(opt), s); return;
-    }
-    const pr = s.lote.prog = s.lote.prog || {}, st = pr[id] = pr[id] || { paso: 0, score: 0, ruta: [] }, opt = op.fases[st.paso].o[+k];
-    if (!opt) return;
-    st.score += opt.s; st.ruta.push({ t: opt.t, r: opt.r }); st.paso++;
-    if (st.paso >= op.fases.length) {   // la suma de puntos define el desenlace
-      const sc = st.score, tipo = sc >= 7 ? 'riesgo_gana' : sc >= 5 ? 'correcta' : sc >= 3 ? 'neutra' : sc >= 0 ? 'incorrecta' : 'riesgo_pierde';
-      resolver(op, 'F', opt.t, tipo, s); return;
-    }
-    guardar(s); pintar();
-    const c = document.querySelector('#opsLista .op[data-op="' + id + '"]'); if (c) c.scrollIntoView({ block: 'start', behavior: 'smooth' });
-  }
-
-  /* ---------- Noticias ---------- */
-  function hace(ts) {
-    const m = Math.floor((Date.now() - ts) / 6e4);
-    if (m < 1) return 'ahora'; if (m < 60) return 'hace ' + m + ' min';
-    const h = Math.floor(m / 60); if (h < 24) return 'hace ' + h + ' h';
-    const d = Math.floor(h / 24); return d === 1 ? 'ayer' : 'hace ' + d + ' días';
-  }
-  function pintarNoticias() {
-    const l = leer().noticias;
-    $('nwLista').innerHTML = l.map((n, i) => `<article class="nw ${n.tipo === 'alerta' ? 'alerta' : n.efecto}" style="animation-delay:${Math.min(i, 8) * 0.04}s"><div class="nw-top"><span class="nw-tag">${esc(TAG[n.tipo] || 'Noticia')}</span><span class="nw-t">${hace(n.ts)}</span></div><h3>${esc(n.titulo)}</h3><p>${esc(n.cuerpo)}</p><div class="nw-ft"><b>${EFECTO_TXT[n.efecto] || ''}</b></div></article>`).join('');
-    $('nwVacio').hidden = l.length > 0;
-  }
-  function sistema(o) {
-    if (!sesion()) return;
-    const s = leer();
-    s.noticias.unshift({ id: 'n' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), ts: Date.now(), op: null, tipo: o.tipo || 'mercado', efecto: o.efecto || 'flat', titulo: o.titulo, cuerpo: o.cuerpo, leida: false });
-    s.noticias = s.noticias.slice(0, 80); guardar(s); pintarPunto();
-    if (body.classList.contains('en-noticias')) { s.noticias.forEach(n => { n.leida = true; }); guardar(s); pintarNoticias(); pintarPunto(); }
-  }
-
-  /* ---------- Rendimiento acumulado (servidor: ver cube-operaciones.sql) ---------- */
-  let acum = 0, pend = 0, srv = 0, negOK = true, busy = false, hab = false, avisoSql = false, refrescando = false;
-  const noInstalado = err => { const m = (err && (err.message || '')) || ''; return (err && err.code === 'PGRST202') || /ops_/.test(m) && /function|exist|schema/i.test(m); };
-  function pintarRend() { const e = $('gRend'); if (e) e.textContent = '$' + fm(acum); }
-  async function cargarEstado() {
-    acum = 0; pend = 0; srv = 0; hab = false;
-    if (!sesion() || !db()) { pintarRend(); return; }
-    const { data, error } = await db().rpc('ops_estado_get');
-    if (error) { console.warn('ops_estado_get', error); if (noInstalado(error) && !avisoSql) { avisoSql = true; console.warn('Ejecuta cube-operaciones.sql en Supabase para activar el rendimiento.'); } pintarRend(); return; }
-    srv = Number(data) || 0; try { pend = Number(localStorage.getItem(kPend())) || 0; } catch (e) { pend = 0; }
-    acum = Math.max(0, srv + pend); hab = true; pintarRend();
-  }
-  const kPend = () => (clave() || 'cube_ops') + '_pend';
-  setInterval(() => { if (hab && sesion()) { try { localStorage.setItem(kPend(), String(Math.round(pend * 100) / 100)); } catch (e) {} } }, 1500);
-  /* El rendimiento siempre es servidor + pendiente local. Si el servidor no aplica una pérdida (rechaza o ignora montos negativos),
-     la pérdida se queda en el pendiente local: así el número nunca vuelve a un valor anterior. */
-  async function flush() {
-    if (busy || !hab || Math.abs(pend) < .01 || !sesion() || window.cubePausado) return;
-    if (pend < 0 && !negOK) return;
-    busy = true; const m = Math.round(Math.max(-2000, Math.min(pend, 2000)) * 100) / 100;
-    try {
-      const { data, error } = await db().rpc('ops_acumular', { p_monto: m });
-      if (error) throw error;
-      const nv = Number(data);
-      if (m < 0 && nv > srv + m + .05) { negOK = false; srv = nv; }   // el servidor ignoró la pérdida: se mantiene local
-      else { srv = nv; pend -= m; }
-      acum = Math.max(0, srv + pend);
-    } catch (e) { console.warn('ops_acumular', e); if (m < 0) negOK = false; }
-    busy = false;
-  }
-  function refrescarCreditos() {
-    if (refrescando || !window.cubeRefrescarCreditos) return;
-    refrescando = true; Promise.resolve(window.cubeRefrescarCreditos()).finally(() => setTimeout(() => { refrescando = false; }, 1500));
-  }
-  async function castigo(n) {
-    if (!sesion() || !hab) return;
-    acum = Math.max(0, acum - n); pend -= Math.min(n, srv + pend > 0 ? srv + pend : 0); pintarRend();
-    aviso('ALERTA · −$' + fm(n) + ' créditos de tu caja');
-    try {
-      const { data, error } = await db().rpc('ops_penalizar', { p_monto: n });
-      if (error) throw error;
-      srv = Number(data.acumulado); acum = Math.max(0, srv + pend); pintarRend();
-    } catch (e) { console.warn('ops_penalizar', e); }
-    refrescarCreditos();
-  }
-  const exponer = m => { expuesto = Math.max(expuesto, m); };
-  function restar(x) { const t = Math.min(acum, x); acum -= t; pend -= t; return t; }   // la pérdida sale primero del rendimiento acumulado
-  async function perder(x) {
-    if (!hab || !sesion()) return;
-    const t = Math.round(Math.min(x, acum) * 100) / 100; if (t < .01) return;
-    restar(t); pintarRend();
-  }
-  /* ---------- Zonas: dos líneas de referencia ----------
-     Sobre la línea superior: +5% cada ciclo (~10 s). Entre ambas: sin cambios. Bajo la inferior: −3% cada ciclo.
-     Con rendimiento en cero, la pérdida sale de la caja de créditos y se activa la alarma.
-     Las pérdidas son el 3% del rendimiento actual; las ganancias, el 5% (con una semilla mínima solo para poder arrancar desde cero).
-     Con la alarma sonando se descuentan 50 créditos de la caja cada 2 segundos. */
-  let expuesto = 0;   // (ya no influye en las pérdidas; se conserva por compatibilidad)
-  const SEMILLA = 20, CICLO = 14;   // la semilla solo permite arrancar desde cero; con rendimiento sobre 20 el % es exacto
-  let cajaBusy = false;
-  function zona(z) {
-    if (!hab || !sesion() || window.cubePausado) return null;
-    if (z > 0) { const g = Math.max(acum, SEMILLA) * .05 / CICLO; acum += g; pend += g; return null; }   // +5% por ciclo
-    if (z < 0) {   // −3% por ciclo, siempre que la gráfica esté bajo la línea, aunque vaya subiendo
-      if (acum <= 0) return 'caja';
-      restar(acum * .03 / CICLO);
-      if (acum < .5) restar(acum);   // cuando queda casi nada, llega a cero
-      return acum <= 0 ? 'caja' : null;
-    }
-    return null;
-  }
-  // Con la alarma sonando: −50 créditos de la caja cada 2 segundos
-  async function cobrarAlarma() {
-    if (cajaBusy || !hab || !sesion() || window.cubePausado || !(window.cubeGrafico && window.cubeGrafico.enAlarma())) return;
-    cajaBusy = true;
-    try {
-      const { error } = await db().rpc('ops_penalizar', { p_monto: 50 });
-      if (error) throw error;
-      refrescarCreditos();
-    } catch (e) { console.warn('ops_penalizar', e); }
-    cajaBusy = false;
-  }
-  setInterval(cobrarAlarma, 2000);
-  // Pagar la estabilización de la alarma con créditos propios
-  async function pagar(c) {
-    if (!sesion()) return false;
-    if (!hab) { aviso('Falta ejecutar cube-operaciones.sql en Supabase para cobrar la estabilización.'); return false; }
-    if (Number(window.cubeSaldo || 0) < c) return false;
-    try {
-      const { data, error } = await db().rpc('ops_penalizar', { p_monto: c });
-      if (error) throw error;
-      if (data && data.acumulado != null) { srv = Number(data.acumulado); acum = Math.max(0, srv + pend); }
-    } catch (e) { console.warn('ops_pagar', e); aviso('No se pudo cobrar. Inténtalo de nuevo.'); return false; }
-    pintarRend(); aviso('Pagaste $' + fm(c) + ' · la gráfica se estabiliza.');
-    if (window.cubeAjusteDia) window.cubeAjusteDia(-c);
-    refrescarCreditos(); return true;
-  }
-  window.cubeOps = {
-    rendir(y) { if (hab && y > 0 && sesion()) { acum += y; pend += y; } },
-    castigo, sistema, perder, pagar, zona, exponer(m) { expuesto = Math.max(expuesto, m); }, acum: () => acum
-  };
-  setInterval(() => { if (body.classList.contains('en-grafico')) pintarRend(); }, 700);
-  setInterval(flush, 10000);
-
-  /* ---------- Retirar ---------- */
-  const sh = document.createElement('div');
-  sh.className = 'v-sheet'; sh.hidden = true;
-  sh.innerHTML = '<div class="v-card" role="dialog" aria-modal="true" aria-label="Retirar rendimiento"><div id="rtCuerpo"></div></div>';
-  body.appendChild(sh);
-  const cerrarSh = () => { sh.hidden = true; };
-  sh.addEventListener('click', e => { if (e.target === sh) cerrarSh(); });
-  const impacto = m => m >= 10000 ? 'Impacto severo: la gráfica puede desplomarse y activar la alarma.' : m >= 5000 ? 'Impacto alto: podría iniciarse una caída fuerte.' : m >= 1000 ? 'Impacto moderado: la gráfica bajará un poco.' : 'Impacto bajo: la gráfica se mantiene estable.';
-
-  const RIESGO = {
-    25: { cls: 'rk1', nom: 'Riesgo bajo', det: 'Pocas probabilidades (~10%) de una caída violenta.' },
-    50: { cls: 'rk2', nom: 'Riesgo medio', det: '50 % de probabilidad de una caída violenta.' },
-    100: { cls: 'rk3', nom: 'Riesgo extremo', det: 'La caída es instantánea y segura.' }
-  };
-  $('btnRetirar').onclick = async () => {
-    if (!sesion()) { window.abrirModal('auth'); return; }
-    if (!hab) { aviso('El rendimiento aún no está habilitado. Falta ejecutar cube-operaciones.sql en Supabase.'); return; }
-    await flush();
-        const monto = q => Math.floor(acum * q / 100 * 100) / 100;
-    $('rtCuerpo').innerHTML = `<p class="v-card-t" style="margin-top:6px">Retirar rendimiento</p>
-      <p class="v-nota" style="min-height:0;margin:8px 2px 4px">Disponible: <b>$${fm(acum)}</b></p>
-      <div class="rt-opc">${[25, 50, 100].map(q => `<button type="button" class="${RIESGO[q].cls}" data-q="${q}"><b>${q === 100 ? 'Todo (100%)' : q + '%'} · $${fm(monto(q))}</b><small><span>${RIESGO[q].nom}</span> · ${RIESGO[q].det}</small></button>`).join('')}</div>
-      <p class="v-nota" id="rtNota" style="min-height:3em;margin:2px 2px 10px">Elige cuánto retirar. Cuanto más retiras, más riesgo de que la gráfica caiga bajo la línea inferior y pierdas créditos.</p>
-      <div class="v-acc"><button class="b-sec" id="rtNo" type="button">Cancelar</button><button class="b-pri" id="rtSi" type="button" disabled>Retirar</button></div>`;
-    sh.hidden = false;
-    const nota = $('rtNota'); let q = 0;
-    $('rtCuerpo').querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
-      q = +b.dataset.q;
-      $('rtCuerpo').querySelectorAll('[data-q]').forEach(x => x.classList.toggle('on', x === b));
-      nota.textContent = monto(q) >= 1 ? RIESGO[q].nom + ': ' + RIESGO[q].det : 'Con ese porcentaje el monto sería menor a $1.';
-      $('rtSi').disabled = !(monto(q) >= 1);
-    });
-    $('rtNo').onclick = cerrarSh;
-    $('rtSi').onclick = async () => {
-      const m = monto(q);
-      if (!q || !(m >= 1)) { nota.textContent = 'Elige una opción con al menos $1.'; return; }
-      if (m > acum + .001) { nota.textContent = 'No tienes tanto rendimiento acumulado.'; return; }
-      $('rtSi').disabled = true;
-      await flush();
-      const { data, error } = await db().rpc('ops_retirar', { p_monto: m });
-      $('rtSi').disabled = false;
-      if (error) {
-        const msg = error.message || '';
-        nota.textContent = msg.includes('ACUM_INSUFICIENTE') ? 'No tienes tanto rendimiento acumulado.' : noInstalado(error) ? 'Falta ejecutar cube-operaciones.sql en Supabase.' : 'No se pudo retirar. Inténtalo de nuevo.';
-        return;
-      }
-      srv = Number(data.acumulado); acum = Math.max(0, srv + pend); pintarRend();
-      cerrarSh();
-      const cae = window.cubeGrafico ? window.cubeGrafico.retiro(q, m) : false;
-      if (cae) exponer(m);
-      aviso('Retiraste $' + fm(m) + ' (' + q + '%). ' + (cae ? '¡Caída violenta! La gráfica se desploma.' : 'El mercado lo absorbió sin sobresaltos.'));
-      if (window.cubeRefrescarCreditos) window.cubeRefrescarCreditos();
-    };
-  };
-
-  pintarPunto(); pintarRend(); copiarPerfil(); tickOps();
-})();
-</script>
 </body>
 </html>
