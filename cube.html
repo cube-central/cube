@@ -847,6 +847,13 @@ body.en-noticias #noticiasN{display:block}
 .nw-fila .nw-img{flex:none;width:20.2cqw;height:20.2cqw;border-radius:6cqw}
 .nw-fila .nw-sep{margin:5.6cqw 0 0}
 
+.nw-dec{margin:0 9cqw}.nw-dest .nw-dec{margin:0}
+.nw-dec:not([hidden]){padding-top:3cqw}
+.nw-dec-t{margin-top:5cqw;font:500 2.3cqw/1 'Poppins',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#6b706a}
+.nw-op{display:block;width:100%;text-align:left;margin-top:2.4cqw;padding:3.4cqw 4.4cqw;border-radius:5cqw;background:#121212;border:1px solid rgba(255,255,255,.08);font:500 3.3cqw/1.35 'Poppins',sans-serif;color:#fff}
+.nw-op.on{border-color:var(--verde)}
+.nw-op:disabled{opacity:.6}
+.nw-mas{display:block;margin:7cqw auto 0;padding:3cqw 8cqw;border-radius:99px;background:#121212;border:1px solid rgba(255,255,255,.08);color:#fff;font:600 3cqw 'Poppins',sans-serif}
 /* Barra inferior: luna · Inicio | Noticias · lupa */
 .nb{--u:min(1vw,4.8px);position:fixed;left:50%;bottom:calc(var(--u)*5 + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:100;display:flex;align-items:center;gap:calc(var(--u)*2.3);transition:opacity .35s ease,visibility .35s ease,transform .35s ease}
 .nb.oculto{opacity:0;visibility:hidden;transform:translate(-50%,30px)}
@@ -2318,6 +2325,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
 })();
 </script>
 <script src="cube-push.js"></script>
+<script src="cube-noticias.js"></script>
 
 <script>
 /* ===== NUEVO INICIO: tarjeta que se desliza sola (créditos ⇄ La sagrada continuidad), Sugerencias, Noticias y barra inferior ===== */
@@ -2411,16 +2419,8 @@ window.addEventListener('cube-wallet-accion', function (e) {
     else aviso('Próximamente.');
   });
 
-  /* --- Noticias (de ejemplo; las oficiales llegarán después) --- */
-  const NOTICIAS = [
-    { f: '14 nov 2026 · 09:12', t: 'La Sagrada Continuidad resiste una jornada de máxima tensión', r: 'Cube confirma que la línea conserva su equilibrio tras horas críticas. Sus analistas advierten que otro acontecimiento podría llegar pronto.', tono: 'estable', s: 3 },
-    { f: '13 nov 2026 · 18:40', t: 'Festival Offscript abre su convocatoria y elige a Cube como sede', r: 'La primera edición reunirá historias, proyecciones y actividades interactivas. Los participantes podrán inscribirse desde hoy con cualquier relato propio inédito.', tono: 'estable', s: 7 },
-    { f: '13 nov 2026 · 11:05', t: 'Ratman: aparecen nuevas grabaciones en el archivo central', r: 'Un comité halló cintas sin catalogar relacionadas con el caso. Cube revisará cada una antes de decidir si serán públicas.', tono: 'alterada', s: 11 },
-    { f: '12 nov 2026 · 20:30', t: 'Cube suspende un acontecimiento por riesgo de ruptura', r: 'La medida busca proteger el orden establecido mientras se evalúan sus consecuencias. La actividad volverá cuando la línea se estabilice.', tono: 'alerta', s: 5 },
-    { f: '11 nov 2026 · 16:15', t: 'Ya puedes crear tus propias listas dentro de Cube', r: 'La nueva función permite reunir tus historias favoritas en un solo lugar. Cada lista conserva tu orden y es editable.', tono: 'estable', s: 9 },
-    { f: '10 nov 2026 · 07:48', t: 'Eternamente Vivo vuelve a alterar la línea, confirma el comité', r: 'Los registros muestran una oscilación breve pero inusual durante la madrugada. El comité descarta peligro inmediato y mantiene la vigilancia.', tono: 'alterada', s: 2 },
-    { f: '8 nov 2026 · 14:20', t: 'Cube reorganiza su división de acontecimientos', r: 'La estructura se amplía para atender más sucesos simultáneos. El cambio promete respuestas rápidas cuando la ficción invada lo real.', tono: 'estable', s: 13 }
-  ];
+  /* --- Noticias: vienen de Supabase (cube-noticias.js) --- */
+  let NOTICIAS = [];
   // miniatura: la sagrada continuidad en cada noticia (recta si está estable; con un pico si la altera; roja si amenaza con romperse)
   function miniatura(n) {
     let x = n.s * 9301 + 49297; const rnd = () => (x = (x * 9301 + 49297) % 233280) / 233280;
@@ -2435,18 +2435,78 @@ window.addEventListener('cube-wallet-accion', function (e) {
     return `<svg viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><line x1="0" x2="200" y1="24" y2="24" stroke="#ff4d4d" stroke-opacity=".28" stroke-dasharray="3 4"/><line x1="0" x2="200" y1="76" y2="76" stroke="#ff4d4d" stroke-opacity=".28" stroke-dasharray="3 4"/><path d="${d}" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 3px ${c}88)"/></svg>`;
   }
   const TAG = { estable: 'Estable', alterada: 'Alteración', alerta: 'Alerta' };
-  let pintado = false;
-  function pintarNoticias() {
-    if (pintado) return; pintado = true;
-    const [p, ...resto] = NOTICIAS;
-    $('nwLista').innerHTML =
-      `<article class="nw-dest"><div class="nw-img">${miniatura(p)}</div><span class="nw-fecha"><span class="nw-tag ${p.tono}">${TAG[p.tono]}</span><span>${esc(p.f)}</span></span><h3 class="nw-t">${esc(p.t)}</h3><p class="nw-res">${esc(p.r)}</p></article><div class="nw-sep"></div>` +
-      resto.map(n => `<button class="nw-fila" type="button" aria-expanded="false"><span class="nw-fila-in"><span class="nw-tx"><span class="nw-fecha"><span class="nw-tag ${n.tono}">${TAG[n.tono]}</span><span>${esc(n.f)}</span></span><span class="nw-t">${esc(n.t)}</span><span class="nw-res">${esc(n.r)}</span></span><span class="nw-img">${miniatura(n)}</span></span><span class="nw-sep" style="display:block"></span></button>`).join('');
+  let pintado = false, cargando = false, fin = false;
+  const api = () => window.cubeNoticias;
+  const vis = n => n.img ? `<img src="${esc(n.img)}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover">` : miniatura(n);
+  const fechaHtml = n => `<span class="nw-fecha"><span class="nw-tag ${n.tono}">${TAG[n.tono] || TAG.estable}</span><span>${esc(n.f)}</span></span>`;
+  const destHtml = n => `<article class="nw-dest" data-id="${n.id}"><div class="nw-img">${vis(n)}</div>${fechaHtml(n)}<h3 class="nw-t">${esc(n.t)}</h3><p class="nw-res">${esc(n.r)}</p><div class="nw-dec" data-dec="${n.id}" hidden></div></article><div class="nw-sep"></div>`;
+  const filaHtml = n => `<button class="nw-fila" type="button" data-id="${n.id}" aria-expanded="false"><span class="nw-fila-in"><span class="nw-tx">${fechaHtml(n)}<span class="nw-t">${esc(n.t)}</span><span class="nw-res">${esc(n.r)}</span></span><span class="nw-img">${vis(n)}</span></span><span class="nw-sep" style="display:block"></span></button><div class="nw-dec" data-dec="${n.id}" hidden></div>`;
+  const masHtml = () => fin ? '' : '<button class="nw-mas" type="button">Cargar más</button>';
+
+  async function pintarNoticias() {
+    if (pintado || cargando) return; cargando = true;
+    const L = $('nwLista');
+    L.innerHTML = '<p class="nw-vacio">Cargando…</p>';
+    try {
+      NOTICIAS = await api().cargar(0);
+      fin = NOTICIAS.length < api().LOTE;
+      pintado = true;
+      if (!NOTICIAS.length) { L.innerHTML = '<p class="nw-vacio">Aún no hay noticias.</p>'; }
+      else {
+        const [p, ...resto] = NOTICIAS;
+        L.innerHTML = destHtml(p) + resto.map(filaHtml).join('') + masHtml();
+        abrirDetalle(p.id, true);
+      }
+    } catch (e) { L.innerHTML = '<p class="nw-vacio">No se pudieron cargar las noticias.</p>'; }
+    cargando = false;
   }
+  async function cargarMas(btn) {
+    if (cargando) return; cargando = true; btn.disabled = true;
+    try {
+      const lote = await api().cargar(NOTICIAS.length);
+      NOTICIAS = NOTICIAS.concat(lote); fin = lote.length < api().LOTE;
+      btn.insertAdjacentHTML('beforebegin', lote.map(filaHtml).join(''));
+      if (fin) btn.remove(); else btn.disabled = false;
+    } catch (e) { btn.disabled = false; aviso('No se pudieron cargar más noticias.'); }
+    cargando = false;
+  }
+
+  // detalle (cuerpo + opciones + decisión ya tomada), se pide solo al abrir
+  const hechos = new Set();
+  function pintarDec(box, id, d) {
+    let h = (d.b || '').split(/\n\s*\n/).filter(x => x.trim()).map(x => `<p class="nw-res">${esc(x)}</p>`).join('');
+    if (d.decision) {
+      h += `<div class="nw-dec-t">Tu decisión</div><div class="nw-op on">${esc(d.decision.opcion)}</div>` +
+           (d.decision.texto ? `<p class="nw-res">${esc(d.decision.texto)}</p>` : '');
+    } else if (d.opciones.length) {
+      h += `<div class="nw-dec-t">¿Qué decides?</div>` +
+           d.opciones.map(o => `<button class="nw-op" type="button" data-opc="${o.id}" data-news="${id}">${esc(o.label)}</button>`).join('');
+    }
+    box.innerHTML = h; box.hidden = !h;
+  }
+  async function abrirDetalle(id, forzar) {
+    const box = document.querySelector(`[data-dec="${id}"]`); if (!box) return;
+    if (hechos.has(id) && !forzar) { box.hidden = !box.innerHTML; return; }
+    try { const d = await api().detalle(id); hechos.add(id); pintarDec(box, id, d); } catch (e) {}
+  }
+  async function elegirOpcion(btn) {
+    if (!(window.usuario && window.usuario())) { aviso('Inicia sesión para tomar decisiones.'); return; }
+    const id = btn.dataset.news, box = document.querySelector(`[data-dec="${id}"]`);
+    box.querySelectorAll('.nw-op').forEach(b => b.disabled = true);
+    try { const d = await api().elegir(id, btn.dataset.opc); pintarDec(box, id, d); }
+    catch (e) { box.querySelectorAll('.nw-op').forEach(b => b.disabled = false); aviso('No se pudo guardar tu decisión.'); }
+  }
+
   $('nwLista').addEventListener('click', e => {
+    const mas = e.target.closest('.nw-mas'); if (mas) { cargarMas(mas); return; }
+    const op = e.target.closest('[data-opc]'); if (op) { elegirOpcion(op); return; }
     const f = e.target.closest('.nw-fila'); if (!f) return;
     const on = !f.classList.contains('abierta'); f.classList.toggle('abierta', on); f.setAttribute('aria-expanded', on);
+    const box = document.querySelector(`[data-dec="${f.dataset.id}"]`);
+    if (on) abrirDetalle(f.dataset.id); else if (box) box.hidden = true;
   });
+  // si el usuario inicia/cierra sesión, se vuelven a leer las decisiones
+  window.addEventListener('cube:usuario-listo', () => { hechos.clear(); document.querySelectorAll('.nw-dec').forEach(b => { b.hidden = true; b.innerHTML = ''; }); if (pintado && NOTICIAS[0]) abrirDetalle(NOTICIAS[0].id, true); });
 
   /* --- Barra inferior --- */
   function abrirNoticias() {
