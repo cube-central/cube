@@ -868,6 +868,7 @@ body{background:#000}
 .ch-fila{display:flex;align-items:center;justify-content:space-between}
 .ch-logo{font:800 7cqw/1 'Poppins',sans-serif;letter-spacing:-.025em;text-transform:lowercase;color:#C6FF00}
 .ch-der{display:flex;align-items:center;gap:2.4cqw}
+.ch-cred{display:flex;align-items:baseline;margin-right:.6cqw;font:600 3.5cqw/1 'Poppins',sans-serif;color:#fff;white-space:nowrap}
 .ch-lupa{width:8cqw;height:8cqw;display:grid;place-items:center;color:#fff}
 .ch-lupa svg{width:5cqw;height:5cqw}
 .ch-top .nh-user{display:block;width:auto}
@@ -903,7 +904,7 @@ body{background:#000}
 .sug-sec .nh-h,.hl-sec .nh-h{padding:0 var(--m);font-size:4.6cqw}
 .sug-row,.hl-row{padding-left:var(--m);padding-right:var(--m);scroll-padding-left:var(--m)}
 .sug-row{gap:3cqw;margin-top:3.6cqw}
-.sug{flex:0 0 60cqw;border-radius:3.4cqw;border:0;box-shadow:none;background:#111}
+.sug{flex:0 0 60cqw;border-radius:3.4cqw;border:1px solid rgba(255,255,255,.05);box-shadow:none;background:#111}
 .sug::after{content:none}
 .hl-vacio{padding:0 var(--m)}
 
@@ -936,6 +937,7 @@ body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.
     <div class="ch-fila">
       <span class="ch-logo">cube</span>
       <div class="ch-der">
+        <span class="ch-cred" hidden aria-label="Créditos"><span>$</span><span class="js-creditos">0</span></span>
         <button class="ch-lupa" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.4" y2="16.4"/></svg></button>
         <button class="nh-user" id="btnPerfilTop" type="button" aria-label="Abrir perfil">
           <span class="pp-av nh-av" id="ppAv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
@@ -991,7 +993,8 @@ body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.
       <div class="ch-fila">
         <span class="ch-logo">cube</span>
         <div class="ch-der">
-          <button class="ch-lupa" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.4" y2="16.4"/></svg></button>
+          <span class="ch-cred" hidden aria-label="Créditos"><span>$</span><span class="js-creditos">0</span></span>
+        <button class="ch-lupa" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.4" y2="16.4"/></svg></button>
           <button class="nh-user" id="btnPerfilNoticias" type="button" aria-label="Abrir perfil"></button>
         </div>
       </div>
@@ -1475,19 +1478,30 @@ actualizarHeader();
 
   // ---- Créditos: vienen de Supabase (tabla "wallets"; cada cuenta nueva empieza con 100) ----
   const fmtC = n => Number(n).toLocaleString('es-AR', { maximumFractionDigits: 2 });
-  const pintarCreditos = txt => document.querySelectorAll('.js-creditos').forEach(e => { e.textContent = txt; });
+  // Arriba se muestra corto: 850 · 1Mil · 1,5Mil · 900Mil. Desde un millón no se muestra nada (el máximo es 900.000).
+  const fmtCorto = n => {
+    n = Number(n) || 0;
+    if (n < 1000) return fmtC(n);
+    const v = n / 1000;
+    if (v >= 1000) return '';
+    return (Number.isInteger(v) ? String(v) : (Math.floor(v * 10) / 10).toLocaleString('es-AR')) + 'Mil';
+  };
+  const pintarCreditos = (txt, corto) => {
+    document.querySelectorAll('.js-creditos').forEach(e => { e.textContent = corto === undefined ? txt : corto; });
+    document.querySelectorAll('.ch-cred').forEach(c => { c.hidden = (corto === undefined ? txt : corto) === ''; });
+  };
   window.cubeAjusteDia = window.cubeAjusteDia || function () {};   // compatibilidad con scripts externos
   async function cargarCreditos() {
     const u = window.usuario();
-    if (!u || !u.supa || !window.cubeDb) { window.cubeSaldo = 0; pintarCreditos('0'); return; }
+    if (!u || !u.supa || !window.cubeDb) { window.cubeSaldo = 0; pintarCreditos('0', ''); return; }
     try {
       const { data, error } = await window.cubeDb.from('wallets').select('creditos').eq('user_id', u.id).maybeSingle();
       if (error) throw error;
       window.cubeSaldo = Number(data ? data.creditos : 0);
-      pintarCreditos(fmtC(window.cubeSaldo));
+      pintarCreditos(fmtC(window.cubeSaldo), fmtCorto(window.cubeSaldo));
     } catch (e) {
       console.warn('No se pudieron cargar los créditos', e);
-      pintarCreditos('—');
+      pintarCreditos('—', '');
     }
   }
   window.cubeRefrescarCreditos = cargarCreditos;
@@ -2451,9 +2465,8 @@ window.addEventListener('cube-wallet-accion', function (e) {
 
   /* --- Sugerencias --- */
   const SUG = [
-    { img: 'sug-cube.webp', alt: 'Cube', a: 'cube' },
-    { img: 'sug-festival-offscript-2.webp', alt: 'Festival Offscript', a: 'festival' },
-    { img: 'sug-crear-mis-listas.webp', alt: 'Crear mis listas', a: 'lista' }
+    { img: 'sug-crear-mis-listas.webp', alt: 'Crear mis listas', a: 'lista' },
+    { img: 'sug-festival-offscript-2.webp', alt: 'Festival Offscript', a: 'festival' }
   ];
   $('sugRow').innerHTML = SUG.map(s => `<button class="sug" type="button" data-s="${s.a}" aria-label="${esc(s.alt)}"><img src="${IMG_BASE}${s.img}" alt="" loading="lazy" draggable="false" onerror="this.style.display='none'"></button>`).join('');
   $('sugRow').addEventListener('click', e => {
