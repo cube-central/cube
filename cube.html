@@ -773,16 +773,16 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 .sug:active{transform:scale(.97)}
 
 /* Tus listas · círculos con aro degradado */
-.tl-sec{margin-top:7cqw}
-.tl-sec .nh-h{padding:0 9cqw}
-.tl-row{--s:19cqw;display:flex;gap:4cqw;margin-top:3.6cqw;padding:1cqw 9cqw 3cqw;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.tl-row::-webkit-scrollbar{display:none}
-.tl-it{flex:none}
-.tl-vacio{padding:0 9cqw;margin-top:3.6cqw;font:400 3.2cqw/1.5 'Open Sans',sans-serif;color:#8a8d87}
+.hl-sec{margin-top:7cqw}
+.hl-sec .nh-h{padding:0 9cqw}
+.hl-row{--s:19cqw;display:flex;gap:4cqw;margin-top:3.6cqw;padding:1cqw 9cqw 3cqw;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.hl-row::-webkit-scrollbar{display:none}
+.hl-it{flex:none}
+.hl-vacio{padding:0 9cqw;margin-top:3.6cqw;font:400 3.2cqw/1.5 'Open Sans',sans-serif;color:#8a8d87}
 .cl-b{display:flex;flex-direction:column;align-items:center;gap:calc(var(--s)*.13);color:#fff;text-align:center;transition:transform .15s}
 .cl-b:active{transform:translateY(2px) scale(.96)}
 .cl-ring{display:block;width:var(--s);height:var(--s);padding:calc(var(--s)*.05);border-radius:50%;background:conic-gradient(from 200deg,var(--c1),var(--c2) 45%,var(--c1) 70%,var(--c2));box-shadow:inset 0 2px 2px rgba(255,255,255,.55),inset 0 -3px 4px rgba(0,0,0,.35),0 calc(var(--s)*.12) calc(var(--s)*.2) calc(var(--s)*-.06) rgba(0,0,0,.95),0 0 calc(var(--s)*.28) calc(var(--s)*-.1) var(--c1)}
-.cl-in{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;border:calc(var(--s)*.06) solid #0A0A0A;background:radial-gradient(circle at 30% 22%,rgba(255,255,255,.62),rgba(255,255,255,0) 46%),linear-gradient(150deg,var(--c1),var(--c2));box-shadow:inset 0 calc(var(--s)*-.1) calc(var(--s)*.16) rgba(0,0,0,.42),inset 0 2px 3px rgba(255,255,255,.4);font:700 calc(var(--s)*.34)/1 'Poppins',sans-serif;color:rgba(10,10,10,.78);text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.cl-in{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;border:calc(var(--s)*.06) solid #0A0A0A;background:radial-gradient(circle at 30% 22%,rgba(255,255,255,.62),rgba(255,255,255,0) 46%),linear-gradient(150deg,var(--c1),var(--c2));box-shadow:inset 0 calc(var(--s)*-.1) calc(var(--s)*.16) rgba(0,0,0,.42),inset 0 2px 3px rgba(255,255,255,.4);font:700 calc(var(--s)*.34)/1 'Poppins',sans-serif;color:var(--tx,#fff);text-shadow:0 2px 4px rgba(0,0,0,.35)}
 .cl-n{display:block;width:calc(var(--s)*1.2);font:500 .74rem/1.2 'Open Sans',sans-serif;color:#d9dcd6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* Mis listas */
 .ls-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -896,9 +896,9 @@ body.en-noticias #noticiasN{display:block}
       <div class="sug-row" id="sugRow"></div>
     </section>
 
-    <section class="tl-sec" aria-label="Tus listas">
+    <section class="hl-sec" aria-label="Tus listas">
       <h2 class="nh-h">Tus listas</h2>
-      <div class="tl-row" id="tlRow"></div>
+      <div class="hl-row" id="tlRow"></div>
     </section>
   </main>
 </div><!-- /home -->
@@ -1931,10 +1931,10 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const guardar = a => { const k = clave(); if (!k) return; try { localStorage.setItem(k, JSON.stringify(a)); } catch (e) { aviso('No hay espacio para guardar la lista. Prueba con otra imagen.'); } document.dispatchEvent(new Event('cubelistas')); };
   const nuevoId = () => 'l' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   const MAX = 12;
-  // 12 colores predeterminados (aro degradado) en la línea del verde ácido de Cube
-  const PAL = [['Verde ácido','#C6FF00','#6FA300'],['Lima','#9EF01A','#2B8A0E'],['Esmeralda','#38F28C','#067A4A'],['Menta','#8CFFDC','#1AA58E'],['Turquesa','#19F0D8','#0A6F86'],['Cian','#5CE1FF','#1456B8'],['Limón','#F7FF5A','#B8A300'],['Oro','#FFDD4A','#C97A00'],['Ámbar','#FFA83A','#B84A00'],['Pino','#2FD16A','#0A3D26'],['Oliva','#B5C900','#4A5200'],['Hielo','#E8FFC2','#7FA84A']];
+  // 12 colores predeterminados (aro degradado)
+  const PAL = [['Ácido','#DFFF00','#7D9400'],['Naranja','#FF4D00','#9E1F00'],['Rosa','#FF00A8','#8E005F'],['Violeta','#8A2BFF','#3A0F9E'],['Celeste','#00CFFF','#0059A8'],['Amarillo','#FFEA00','#A68400'],['Rojo','#FF1744','#8A0A25'],['Menta','#00E5A8','#00705A'],['Mandarina','#FF7B00','#A33A00'],['Lima','#B6FF00','#4F8A00'],['Azul','#0066FF','#0A2A9E'],['Blanco','#FFFFFF','#8E9490']];
   const colorDe = l => { if (typeof l.c === 'number' && PAL[l.c]) return l.c; let h = 0; for (const c of String(l.id)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h % PAL.length; };
-  const estilo = l => { const p = PAL[colorDe(l)]; return '--c1:' + p[1] + ';--c2:' + p[2]; };
+  const estilo = l => { const p = PAL[colorDe(l)], n = parseInt(p[1].slice(1), 16), lum = ((n >> 16) * .299 + ((n >> 8) & 255) * .587 + (n & 255) * .114) / 255; return '--c1:' + p[1] + ';--c2:' + p[2] + ';--tx:' + (lum > .6 ? 'rgba(10,10,10,.78)' : '#fff'); };
   const circ = l => '<span class="cl-ring"><span class="cl-in">' + esc((l.nombre.trim()[0] || '?').toUpperCase()) + '</span></span>';
   const pideSesion = () => { if (window.usuario()) return false; aviso('Inicia sesión para usar las listas.'); return true; };
 
@@ -2385,8 +2385,8 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const row = $('tlRow'); if (!row) return;
     const u = window.usuario && window.usuario(), L = window.cubeListas;
     const ls = u && L ? L.leer() : [];
-    if (!ls.length) { row.innerHTML = '<p class="tl-vacio">No tienes listas creadas.</p>'; return; }
-    row.innerHTML = ls.map(l => `<button class="cl-b tl-it" type="button" data-id="${esc(l.id)}" style="${L.estilo(l)}" aria-label="${esc(l.nombre)}">${L.circ(l)}<span class="cl-n">${esc(l.nombre)}</span></button>`).join('');
+    if (!ls.length) { row.innerHTML = '<p class="hl-vacio">No tienes listas creadas.</p>'; return; }
+    row.innerHTML = ls.map(l => `<button class="cl-b hl-it" type="button" data-id="${esc(l.id)}" style="${L.estilo(l)}" aria-label="${esc(l.nombre)}">${L.circ(l)}<span class="cl-n">${esc(l.nombre)}</span></button>`).join('');
   }
   $('tlRow').addEventListener('click', e => {
     const b = e.target.closest('.tl-it'); if (b && window.cubeListas) window.cubeListas.detalle(b.dataset.id);
