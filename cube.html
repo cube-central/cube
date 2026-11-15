@@ -848,21 +848,80 @@ body.en-noticias #noticiasN{display:block}
 @media (prefers-reduced-motion:reduce){.nb-ind{transition:none}}
 
 </style>
-<style id="cube-3d">
-/* ===== Estilo 3D: relieve, luz arriba y sombra abajo (misma paleta de Cube) ===== */
-:root{--b3d:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -3px 8px rgba(0,0,0,.5),0 18px 30px -16px rgba(0,0,0,.95),0 3px 6px rgba(0,0,0,.5);--lima3d:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -4px 0 rgba(0,0,0,.2),0 10px 20px -8px rgba(198,255,0,.4),0 3px 5px rgba(0,0,0,.5)}
-.nh-slide,.tr-card,.v-card,.nw-op,.perfil-pill,.buscador,#enviar .buscador,.en-fila,#enviar .en-fila,.ls-fila,.nb-seg,.nb-c,.nav-pill,.perfil-opcion{background-image:linear-gradient(155deg,#1d211a 0%,#10120e 55%,#080907 100%)!important;background-color:#0e100d!important;border:1px solid rgba(255,255,255,.06)!important;box-shadow:var(--b3d)!important}
-.nh-slide::after,.sug::after,.portada::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 38%);pointer-events:none}
-.sug,.portada,.nw-img,.ls-th,.sec-cov{box-shadow:0 16px 26px -14px rgba(0,0,0,.95),0 3px 6px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.14)}
-.b-pri,.tr-btn,.ls-nuevo,.nb-ind,.bs-lupa,#navPerfil,.pp-av,.nh-av{background-image:linear-gradient(180deg,#e2ff52 0%,#c6ff00 48%,#8fc700 100%)!important;background-color:#c6ff00!important;box-shadow:var(--lima3d)!important}
-.b-sec,.tr-btn.tr-no{background-image:linear-gradient(180deg,#2a2d28,#141613)!important;border:1px solid rgba(255,255,255,.07)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -3px 0 rgba(0,0,0,.4),0 8px 14px -8px rgba(0,0,0,.9)!important}
-.b-pri,.b-sec,.tr-btn,.ls-nuevo{transition:transform .1s,box-shadow .1s}
-.b-pri:active,.b-sec:active,.tr-btn:active,.ls-nuevo:active{transform:translateY(2px)}
-.ls-input,.tr-input,#campoBuscar{box-shadow:inset 0 3px 8px rgba(0,0,0,.65),0 1px 0 rgba(255,255,255,.06)}
-.v-sheet{backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.monto-n{text-shadow:0 2px 0 rgba(0,0,0,.65),0 10px 22px rgba(198,255,0,.18)}
-.nh-h,.pg-t{text-shadow:0 2px 6px rgba(0,0,0,.6)}
-.nb-op[aria-selected="true"]{text-shadow:0 1px 0 rgba(255,255,255,.4)}
+<style id="cube-plano">
+/* ===== DISEÑO PLANO · sin relieve, sin degradados, sin sombras ===== */
+:root,:root[data-tema],:root[data-tema="dark"],:root[data-tema="light"]{--grad:#C6FF00;--m:5.5cqw}
+body.alarma{--grad:#ff3b3b}
+html{background:#000}
+body{background:#000}
+.nb-c,.nb-seg,.nw-op,.nw-mas{box-shadow:none}
+.cl-ring{background:#C6FF00;box-shadow:none}
+.cl-in{background:var(--c1);box-shadow:none;text-shadow:none;border-color:#000}
+.cl-sw{background:var(--c1);box-shadow:none}
+.ls-x{background:#262826;box-shadow:none}
+.monto-n,.nh-h,.pg-t{text-shadow:none}
+
+/* ---- Cabecera (logo · buscar · perfil · pestañas) ---- */
+#home{position:relative;min-height:0;padding-bottom:28px}
+.ch-top{position:absolute;left:0;right:0;top:0;z-index:6;padding:calc(env(safe-area-inset-top,0px) + 3.6cqw) var(--m) 6cqw;background:linear-gradient(180deg,rgba(0,0,0,.86) 0%,rgba(0,0,0,.5) 58%,rgba(0,0,0,0) 100%)}
+.ch-top.est{position:relative;background:#000;padding-bottom:1cqw}
+.ch-fila{display:flex;align-items:center;justify-content:space-between}
+.ch-logo{font:800 7cqw/1 'Poppins',sans-serif;letter-spacing:-.025em;text-transform:lowercase;color:#C6FF00}
+.ch-der{display:flex;align-items:center;gap:2.4cqw}
+.ch-lupa{width:8cqw;height:8cqw;display:grid;place-items:center;color:#fff}
+.ch-lupa svg{width:5cqw;height:5cqw}
+.ch-top .nh-user{display:block;width:auto}
+.ch-top .nh-av{width:6.8cqw;height:6.8cqw;background:#C6FF00;box-shadow:none}
+.ch-top .nh-av svg{width:3.8cqw;height:3.8cqw}
+.ch-tabs{display:flex;justify-content:center;gap:6.4cqw;margin-top:2.4cqw}
+.ch-tab{position:relative;padding:1.6cqw 0 2.8cqw;font:500 3.3cqw/1 'Poppins',sans-serif;color:rgba(255,255,255,.7);white-space:nowrap}
+.ch-tab[aria-selected="true"]{color:#fff;font-weight:600}
+.ch-tab[aria-selected="true"]::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:.6cqw;border-radius:99px;background:#fff}
+.ch-tab:active{opacity:.6;transform:none}
+
+/* ---- Hero ---- */
+.ch-hero{position:relative}
+.ch-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.ch-track::-webkit-scrollbar{display:none}
+.ch-slide{position:relative;flex:0 0 100%;height:156cqw;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;background:#000}
+.ch-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 16%;display:block;-webkit-user-drag:none;user-select:none}
+.ch-fade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.55) 66%,rgba(0,0,0,.92) 82%,#000 94%);pointer-events:none}
+.ch-info{position:absolute;left:0;right:0;bottom:0;padding:0 6cqw 11.5cqw;text-align:center;display:flex;flex-direction:column;align-items:center}
+.ch-solo .ch-info{padding-bottom:6cqw}
+.ch-tit{display:block;width:63cqw;height:auto;margin:0 auto}
+.ch-tit-txt{font:700 9cqw/1.1 'Poppins',sans-serif;color:#fff}
+.ch-meta{margin-top:5.2cqw;font:400 3.7cqw/1.2 'Poppins',sans-serif;color:rgba(255,255,255,.88)}
+.ch-sin{margin-top:3.6cqw;font:400 3.25cqw/1.58 'Poppins',sans-serif;color:rgba(255,255,255,.92);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.ch-dots{position:absolute;left:0;right:0;bottom:4.6cqw;display:flex;justify-content:center;gap:2cqw}
+.ch-dot{width:1.9cqw;height:1.9cqw;padding:0;border-radius:50%;background:rgba(255,255,255,.3);transition:background-color .2s,transform .2s}
+.ch-dot.on{background:#fff}
+.ch-dot:active{transform:none}
+
+/* ---- Secciones del inicio ---- */
+.sug-sec,.hl-sec{margin-top:1.5cqw}
+.hl-sec{margin-top:8cqw}
+.sug-sec .nh-h,.hl-sec .nh-h{padding:0 var(--m);font-size:4.6cqw}
+.sug-row,.hl-row{padding-left:var(--m);padding-right:var(--m);scroll-padding-left:var(--m)}
+.sug-row{gap:3cqw;margin-top:3.6cqw}
+.sug{flex:0 0 60cqw;border-radius:3.4cqw;border:0;box-shadow:none;background:#111}
+.sug::after{content:none}
+.hl-vacio{padding:0 var(--m)}
+
+/* ---- Noticias ---- */
+.nw-in{padding-bottom:28px}
+body.en-noticias{padding-bottom:0}
+.nw-h{padding:5cqw var(--m) 0;font-size:4.6cqw}
+.nw-dest{padding:0 var(--m)}
+.nw-img{border-radius:3.4cqw;border:0;box-shadow:none;background:#0d0f0c}
+.nw-fila .nw-img{border-radius:2.6cqw}
+.nw-sep{margin-left:var(--m);margin-right:var(--m)}
+.nw-fila{width:calc(100% - 2*var(--m));margin-left:var(--m);margin-right:var(--m)}
+.nw-dec{margin-left:var(--m);margin-right:var(--m)}.nw-dest .nw-dec{margin:0}
+.nw-op{border-radius:2.6cqw;background:#111}
+
+/* ---- Barra inferior: solo aparece en las pantallas secundarias ---- */
+#bottomNav{display:none}
+body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.en-almacen #bottomNav,body.en-profit #bottomNav,body.en-enviar #bottomNav,body.en-transf #bottomNav,body.en-ventas #bottomNav,body.en-caridad #bottomNav,body.en-invertir #bottomNav,body.en-grafico #bottomNav,body.en-ops #bottomNav,body.perfil-abierto #bottomNav{display:flex}
 </style>
 </head>
 <body>
@@ -873,25 +932,27 @@ body.en-noticias #noticiasN{display:block}
 
 <div class="app">
 <div id="home">
-  <header class="nh-top">
-    <button class="nh-user" id="btnPerfilTop" type="button" aria-label="Abrir perfil">
-      <span class="pp-av nh-av" id="ppAv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
-      <span class="nh-tx"><b class="pp-nombre" id="ppNombre">Iniciar sesión</b><small id="ppRango" hidden>Obrero</small></span>
-    </button>
+  <header class="ch-top">
+    <div class="ch-fila">
+      <span class="ch-logo">cube</span>
+      <div class="ch-der">
+        <button class="ch-lupa" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.4" y2="16.4"/></svg></button>
+        <button class="nh-user" id="btnPerfilTop" type="button" aria-label="Abrir perfil">
+          <span class="pp-av nh-av" id="ppAv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+          <span class="nh-tx" hidden><b class="pp-nombre" id="ppNombre">Iniciar sesión</b><small id="ppRango" hidden>Obrero</small></span>
+        </button>
+      </div>
+    </div>
+    <nav class="ch-tabs" role="tablist" aria-label="Secciones"><button class="ch-tab" type="button" role="tab" data-tab="inicio" aria-selected="true">Inicio</button><button class="ch-tab" type="button" role="tab" data-tab="noticias" aria-selected="false">Noticias</button><button class="ch-tab" type="button" role="tab" data-tab="discusiones" aria-selected="false">Discusiones</button><button class="ch-tab" type="button" role="tab" data-tab="upgrade" aria-selected="false">Upgrade</button></nav>
   </header>
 
   <main id="nuevoHome">
-    <section class="nh-card" id="nhCard" aria-label="Caja de créditos">
-      <div class="nh-track" id="nhTrack">
-        <article class="nh-slide" id="caja" aria-label="Caja de créditos">
-          <span class="caja-lbl">Caja de créditos</span>
-          <button class="ojo" id="btnOjo" type="button" aria-pressed="false" aria-label="Ocultar créditos"><svg class="e-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><svg class="e-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 5.1A9.7 9.7 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.5C3.8 8.3 2 12 2 12s3.6 7 10 7c1.7 0 3.2-.4 4.5-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></button>
-          <div class="monto-n" id="montoN"><span>$</span><span class="js-creditos">0</span></div>
-        </article>
-      </div>
+    <section class="ch-hero" id="chHero" aria-label="Destacado">
+      <div class="ch-track" id="chTrack"></div>
+      <div class="ch-dots" id="chDots"></div>
     </section>
 
-    <section class="sug-sec" aria-label="Sugerencias">
+<section class="sug-sec" aria-label="Sugerencias">
       <h2 class="nh-h">Sugerencias</h2>
       <div class="sug-row" id="sugRow"></div>
     </section>
@@ -926,8 +987,15 @@ body.en-noticias #noticiasN{display:block}
 <!-- NOTICIAS -->
 <section id="noticiasN" aria-label="Noticias">
   <div class="nw-in">
-    <header class="nh-top">
-      <button class="nh-user" id="btnPerfilNoticias" type="button" aria-label="Abrir perfil"></button>
+    <header class="ch-top est">
+      <div class="ch-fila">
+        <span class="ch-logo">cube</span>
+        <div class="ch-der">
+          <button class="ch-lupa" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.4" y2="16.4"/></svg></button>
+          <button class="nh-user" id="btnPerfilNoticias" type="button" aria-label="Abrir perfil"></button>
+        </div>
+      </div>
+      <nav class="ch-tabs" role="tablist" aria-label="Secciones"><button class="ch-tab" type="button" role="tab" data-tab="inicio" aria-selected="false">Inicio</button><button class="ch-tab" type="button" role="tab" data-tab="noticias" aria-selected="true">Noticias</button><button class="ch-tab" type="button" role="tab" data-tab="discusiones" aria-selected="false">Discusiones</button><button class="ch-tab" type="button" role="tab" data-tab="upgrade" aria-selected="false">Upgrade</button></nav>
     </header>
     <h2 class="nh-h nw-h">Recientes</h2>
     <div id="nwLista"></div>
@@ -2334,7 +2402,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
 <script src="cube-difusion.js"></script>
 
 <script>
-/* ===== NUEVO INICIO: Caja de créditos, Sugerencias, Tus listas, Noticias y barra inferior ===== */
+/* ===== INICIO PLANO: hero, Sugerencias, Tus listas, Noticias y pestañas ===== */
 (function () {
   const $ = id => document.getElementById(id), body = document.body;
   const aviso = t => window.cubeAviso ? window.cubeAviso(t) : alert(t);
@@ -2356,23 +2424,36 @@ window.addEventListener('cube-wallet-accion', function (e) {
   $('btnPerfilNoticias').onclick = () => abrirPerfilDesdeBoton();
   window.actualizarHeader();
 
-  /* --- Ojo: ocultar créditos --- */
-  const ojo = $('btnOjo'), montoN = $('montoN');
-  function setOjo(on, anim) {
-    ojo.setAttribute('aria-pressed', on); ojo.setAttribute('aria-label', on ? 'Mostrar créditos' : 'Ocultar créditos');
-    montoN.classList.toggle('oculto', on);
-    if (anim) { montoN.classList.remove('flip'); void montoN.offsetWidth; montoN.classList.add('flip'); }
-    try { localStorage.setItem('cube_ojo', on ? '1' : '0'); } catch (e) {}
-  }
-  let o0 = false; try { o0 = localStorage.getItem('cube_ojo') === '1'; } catch (e) {}
-  setOjo(o0, false);
-  ojo.onclick = () => setOjo(ojo.getAttribute('aria-pressed') !== 'true', true);
+  /* --- Hero (destacados) --- */
+  const HERO = [
+    { img: 'escarlata-hero.webp', logo: 'escarlata-logo.webp', alt: 'Escarlata', genero: 'Enfermedad mental', anio: 2026,
+      sin: "El caso 'Escarlata' revela el trasfondo de una chica que padecía una enfermedad jamás documentada, cuyo tratamiento resulta completamente imposible." }
+    // Para sumar más destacados, agrega otro objeto con el mismo formato: aparecen los puntos y cambian solos cada 6 s.
+  ];
+  const trk = $('chTrack'), dots = $('chDots');
+  trk.innerHTML = HERO.map(h => `<article class="ch-slide"><img class="ch-img" src="${IMG_BASE}${h.img}" alt="" draggable="false" fetchpriority="high" onerror="this.style.display='none'"><div class="ch-fade"></div><div class="ch-info"><img class="ch-tit" src="${IMG_BASE}${h.logo}" alt="${esc(h.alt)}" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement('h2'),{className:'ch-tit-txt',textContent:this.alt}))"><p class="ch-meta">${esc(h.genero)} • ${h.anio}</p><p class="ch-sin">${esc(h.sin)}</p></div></article>`).join('');
+  $('chHero').classList.toggle('ch-solo', HERO.length < 2);
+  dots.innerHTML = HERO.length > 1 ? HERO.map((_, i) => `<button class="ch-dot${i ? '' : ' on'}" type="button" data-i="${i}" aria-label="Destacado ${i + 1}"></button>`).join('') : '';
+  let hi = 0, ht = null;
+  const irHero = i => trk.scrollTo({ left: i * trk.clientWidth, behavior: reducido ? 'auto' : 'smooth' });
+  const autoHero = on => {
+    clearInterval(ht); ht = null;
+    if (on && HERO.length > 1 && !reducido) ht = setInterval(() => { if (homeVisible()) irHero((hi + 1) % HERO.length); }, 6000);
+  };
+  trk.addEventListener('scroll', () => {
+    const i = Math.round(trk.scrollLeft / (trk.clientWidth || 1));
+    if (i !== hi) { hi = i; dots.querySelectorAll('.ch-dot').forEach((d, k) => d.classList.toggle('on', k === i)); }
+  }, { passive: true });
+  trk.addEventListener('touchstart', () => autoHero(false), { passive: true });
+  trk.addEventListener('touchend', () => autoHero(true), { passive: true });
+  dots.addEventListener('click', e => { const d = e.target.closest('.ch-dot'); if (d) { autoHero(false); irHero(+d.dataset.i); autoHero(true); } });
+  window.cubeHeroAuto = autoHero; autoHero(true);
 
   /* --- Sugerencias --- */
   const SUG = [
     { img: 'sug-cube.webp', alt: 'Cube', a: 'cube' },
-    { img: 'sug-festival-offscript.webp', alt: 'Festival Offscript', a: 'festival' },
-    { img: 'sug-crear-lista.webp', alt: 'Crear lista', a: 'lista' }
+    { img: 'sug-festival-offscript-2.webp', alt: 'Festival Offscript', a: 'festival' },
+    { img: 'sug-crear-mis-listas.webp', alt: 'Crear mis listas', a: 'lista' }
   ];
   $('sugRow').innerHTML = SUG.map(s => `<button class="sug" type="button" data-s="${s.a}" aria-label="${esc(s.alt)}"><img src="${IMG_BASE}${s.img}" alt="" loading="lazy" draggable="false" onerror="this.style.display='none'"></button>`).join('');
   $('sugRow').addEventListener('click', e => {
@@ -2498,10 +2579,24 @@ window.addEventListener('cube-wallet-accion', function (e) {
   $('navNoticias').onclick = abrirNoticias;
   $('navLupa').onclick = () => $('navBuscar').click();
   $('navLuna').onclick = () => aviso('Próximamente.');
+
+  /* --- Cabecera: pestañas Inicio · Noticias · Discusiones · Upgrade y lupa --- */
+  document.addEventListener('click', e => {
+    const lp = e.target.closest('.ch-lupa'); if (lp) { $('navBuscar').click(); return; }
+    const t = e.target.closest('.ch-tab'); if (!t) return;
+    const k = t.dataset.tab;
+    if (k === 'inicio') $('navWallet').click();
+    else if (k === 'noticias') abrirNoticias();
+    else if (k === 'discusiones') aviso('Próximamente.');
+    else if (k === 'upgrade') {
+      if (!(window.usuario && window.usuario())) { window.abrirModal('auth'); return; }
+      location.href = 'cube-obtener.html';
+    }
+  });
   activarItemNav('navWallet');
 
   /* --- Onda al tocar los botones --- */
-  const SEL = '.nb-c,.nb-op,.perfil-opcion,.b-pri,.b-sec,.tr-btn,.top-ico,.perfil-pill,.bs-lupa,.en-fila,.ojo';
+  const SEL = '.nb-c,.nb-op,.perfil-opcion,.b-pri,.b-sec,.tr-btn,.top-ico,.perfil-pill,.bs-lupa,.en-fila';
   document.addEventListener('pointerdown', e => {
     const t = e.target.closest(SEL); if (!t || t.disabled) return;
     t.classList.add('rp');
