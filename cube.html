@@ -772,18 +772,31 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 .sug img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;user-select:none}
 .sug:active{transform:scale(.97)}
 
-/* Tus listas */
+/* Tus listas · círculos con aro degradado */
 .tl-sec{margin-top:7cqw}
 .tl-sec .nh-h{padding:0 9cqw}
-.tl-row{display:flex;gap:4.4cqw;margin-top:3.6cqw;padding:0 9cqw 1cqw;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tl-row{--s:19cqw;display:flex;gap:4cqw;margin-top:3.6cqw;padding:1cqw 9cqw 3cqw;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .tl-row::-webkit-scrollbar{display:none}
-.tl-it{flex:none;width:19cqw;display:flex;flex-direction:column;align-items:center;gap:2.2cqw;color:#fff}
-.tl-ring{width:19cqw;height:19cqw;padding:.8cqw;border-radius:50%;background:var(--grad);transition:transform .15s}
-.tl-it:active .tl-ring{transform:scale(.95)}
-.tl-in{width:100%;height:100%;border-radius:50%;border:1.1cqw solid #0A0A0A;overflow:hidden;display:grid;place-items:center;background:#131313;font:600 6.4cqw 'Poppins',sans-serif;color:rgba(255,255,255,.92)}
-.tl-in img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none}
-.tl-n{display:block;max-width:100%;font:500 2.9cqw/1.2 'Open Sans',sans-serif;color:#d9dcd6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tl-it{flex:none}
 .tl-vacio{padding:0 9cqw;margin-top:3.6cqw;font:400 3.2cqw/1.5 'Open Sans',sans-serif;color:#8a8d87}
+.cl-b{display:flex;flex-direction:column;align-items:center;gap:calc(var(--s)*.13);color:#fff;text-align:center;transition:transform .15s}
+.cl-b:active{transform:translateY(2px) scale(.96)}
+.cl-ring{display:block;width:var(--s);height:var(--s);padding:calc(var(--s)*.05);border-radius:50%;background:conic-gradient(from 200deg,var(--c1),var(--c2) 45%,var(--c1) 70%,var(--c2));box-shadow:inset 0 2px 2px rgba(255,255,255,.55),inset 0 -3px 4px rgba(0,0,0,.35),0 calc(var(--s)*.12) calc(var(--s)*.2) calc(var(--s)*-.06) rgba(0,0,0,.95),0 0 calc(var(--s)*.28) calc(var(--s)*-.1) var(--c1)}
+.cl-in{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;border:calc(var(--s)*.06) solid #0A0A0A;background:radial-gradient(circle at 30% 22%,rgba(255,255,255,.62),rgba(255,255,255,0) 46%),linear-gradient(150deg,var(--c1),var(--c2));box-shadow:inset 0 calc(var(--s)*-.1) calc(var(--s)*.16) rgba(0,0,0,.42),inset 0 2px 3px rgba(255,255,255,.4);font:700 calc(var(--s)*.34)/1 'Poppins',sans-serif;color:rgba(10,10,10,.78);text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.cl-n{display:block;width:calc(var(--s)*1.2);font:500 .74rem/1.2 'Open Sans',sans-serif;color:#d9dcd6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Mis listas */
+.ls-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ls-cnt{font:600 .8rem 'Poppins',sans-serif;color:var(--texto-suave)}
+.ls-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 6px;justify-items:center;margin-top:26px}
+.ls-c{--s:clamp(76px,24vw,104px);position:relative}
+.ls-x{position:absolute;top:-4px;right:calc(50% - var(--s)/2 - 8px);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:600 1.05rem/1 'Poppins',sans-serif;color:#fff;background:linear-gradient(180deg,#2a2d28,#121411);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 4px 8px rgba(0,0,0,.7)}
+/* selector de color al crear */
+.cl-lbl{margin:12px 4px 2px;font-size:.78rem;color:var(--texto-suave)}
+.cl-sws{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:8px 2px 0;justify-items:center}
+.cl-sw{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.6),rgba(255,255,255,0) 48%),linear-gradient(150deg,var(--c1),var(--c2));box-shadow:inset 0 -4px 6px rgba(0,0,0,.35),0 4px 8px rgba(0,0,0,.6);transition:transform .12s}
+.cl-sw:active{transform:scale(.9)}
+.cl-sw.on{outline:2px solid #fff;outline-offset:3px}
+.cl-sw.usado{opacity:.22;cursor:default}
 
 /* Noticias */
 #noticiasN{display:none;container-type:inline-size;max-width:480px;margin:0 auto;animation:entra .4s cubic-bezier(.2,.8,.2,1) both}
@@ -834,6 +847,22 @@ body.en-noticias #noticiasN{display:block}
 .nb button:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.nb-ind{transition:none}}
 
+</style>
+<style id="cube-3d">
+/* ===== Estilo 3D: relieve, luz arriba y sombra abajo (misma paleta de Cube) ===== */
+:root{--b3d:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -3px 8px rgba(0,0,0,.5),0 18px 30px -16px rgba(0,0,0,.95),0 3px 6px rgba(0,0,0,.5);--lima3d:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -4px 0 rgba(0,0,0,.2),0 10px 20px -8px rgba(198,255,0,.4),0 3px 5px rgba(0,0,0,.5)}
+.nh-slide,.tr-card,.v-card,.nw-op,.perfil-pill,.buscador,#enviar .buscador,.en-fila,#enviar .en-fila,.ls-fila,.nb-seg,.nb-c,.nav-pill,.perfil-opcion{background-image:linear-gradient(155deg,#1d211a 0%,#10120e 55%,#080907 100%)!important;background-color:#0e100d!important;border:1px solid rgba(255,255,255,.06)!important;box-shadow:var(--b3d)!important}
+.nh-slide::after,.sug::after,.portada::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 38%);pointer-events:none}
+.sug,.portada,.nw-img,.ls-th,.sec-cov{box-shadow:0 16px 26px -14px rgba(0,0,0,.95),0 3px 6px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.14)}
+.b-pri,.tr-btn,.ls-nuevo,.nb-ind,.bs-lupa,#navPerfil,.pp-av,.nh-av{background-image:linear-gradient(180deg,#e2ff52 0%,#c6ff00 48%,#8fc700 100%)!important;background-color:#c6ff00!important;box-shadow:var(--lima3d)!important}
+.b-sec,.tr-btn.tr-no{background-image:linear-gradient(180deg,#2a2d28,#141613)!important;border:1px solid rgba(255,255,255,.07)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -3px 0 rgba(0,0,0,.4),0 8px 14px -8px rgba(0,0,0,.9)!important}
+.b-pri,.b-sec,.tr-btn,.ls-nuevo{transition:transform .1s,box-shadow .1s}
+.b-pri:active,.b-sec:active,.tr-btn:active,.ls-nuevo:active{transform:translateY(2px)}
+.ls-input,.tr-input,#campoBuscar{box-shadow:inset 0 3px 8px rgba(0,0,0,.65),0 1px 0 rgba(255,255,255,.06)}
+.v-sheet{backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.monto-n{text-shadow:0 2px 0 rgba(0,0,0,.65),0 10px 22px rgba(198,255,0,.18)}
+.nh-h,.pg-t{text-shadow:0 2px 6px rgba(0,0,0,.6)}
+.nb-op[aria-selected="true"]{text-shadow:0 1px 0 rgba(255,255,255,.4)}
 </style>
 </head>
 <body>
@@ -1901,19 +1930,12 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const leer = () => { const k = clave(); if (!k) return []; try { const a = JSON.parse(localStorage.getItem(k) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
   const guardar = a => { const k = clave(); if (!k) return; try { localStorage.setItem(k, JSON.stringify(a)); } catch (e) { aviso('No hay espacio para guardar la lista. Prueba con otra imagen.'); } document.dispatchEvent(new Event('cubelistas')); };
   const nuevoId = () => 'l' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-  const COLORES = ['#7C5CFF,#3B2BB8','#FF6B6B,#B3203A','#2EC4B6,#0B6E73','#FFB703,#C2410C','#4CC9F0,#1D4ED8','#F472B6,#9D174D','#9BE564,#3F7D20','#FB923C,#9A3412'];
-  const colorDe = l => { if (l.color) return l.color; let h = 0; for (const c of String(l.id)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return COLORES[h % COLORES.length]; };
-  // Reduce la imagen elegida de la galería para que quepa en el almacenamiento del dispositivo
-  const reducir = file => new Promise((ok, no) => {
-    const fr = new FileReader();
-    fr.onerror = no;
-    fr.onload = () => { const im = new Image(); im.onerror = no; im.onload = () => {
-      const T = 240, c = document.createElement('canvas'); c.width = c.height = T;
-      const m = Math.min(im.width, im.height), sx = (im.width - m) / 2, sy = (im.height - m) / 2;
-      c.getContext('2d').drawImage(im, sx, sy, m, m, 0, 0, T, T);
-      ok(c.toDataURL('image/jpeg', .82)); }; im.src = fr.result; };
-    fr.readAsDataURL(file);
-  });
+  const MAX = 12;
+  // 12 colores predeterminados (aro degradado) en la línea del verde ácido de Cube
+  const PAL = [['Verde ácido','#C6FF00','#6FA300'],['Lima','#9EF01A','#2B8A0E'],['Esmeralda','#38F28C','#067A4A'],['Menta','#8CFFDC','#1AA58E'],['Turquesa','#19F0D8','#0A6F86'],['Cian','#5CE1FF','#1456B8'],['Limón','#F7FF5A','#B8A300'],['Oro','#FFDD4A','#C97A00'],['Ámbar','#FFA83A','#B84A00'],['Pino','#2FD16A','#0A3D26'],['Oliva','#B5C900','#4A5200'],['Hielo','#E8FFC2','#7FA84A']];
+  const colorDe = l => { if (typeof l.c === 'number' && PAL[l.c]) return l.c; let h = 0; for (const c of String(l.id)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h % PAL.length; };
+  const estilo = l => { const p = PAL[colorDe(l)]; return '--c1:' + p[1] + ';--c2:' + p[2]; };
+  const circ = l => '<span class="cl-ring"><span class="cl-in">' + esc((l.nombre.trim()[0] || '?').toUpperCase()) + '</span></span>';
   const pideSesion = () => { if (window.usuario()) return false; aviso('Inicia sesión para usar las listas.'); return true; };
 
   // ---- Hoja modal ----
@@ -1925,32 +1947,34 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const cerrar = () => { sheet.hidden = true; cuerpo.innerHTML = ''; };
   sheet.addEventListener('click', e => { if (e.target === sheet) cerrar(); });
 
-  // Crear lista. Si viene `img`, la historia se agrega a la lista nueva y se vuelve al selector.
+  // Crear lista (máximo 12; cada una con uno de los 12 colores). Si viene `img`, la historia se agrega a la lista nueva.
   function abrirCrear(img) {
     if (pideSesion()) return;
+    const ls = leer();
+    if (ls.length >= MAX) { aviso('Llegaste al máximo de ' + MAX + ' listas.'); return; }
+    const usados = new Set(ls.map(colorDe));
+    let sel = PAL.findIndex((_, i) => !usados.has(i)); if (sel < 0) sel = 0;
     cuerpo.innerHTML = `<p class="v-card-t" style="margin-top:6px">Nueva lista</p>
       <input class="ls-input" id="lsNombre" type="text" maxlength="40" placeholder="Nombre de la lista" autocomplete="off">
-      <div style="display:flex;align-items:center;gap:12px;margin:10px 2px 0"><span id="lsPrev" style="flex:none;width:56px;height:56px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:var(--fondo);color:var(--texto-suave)">${ICO_LS}</span><button class="b-sec" id="lsImgBtn" type="button" style="flex:none;padding:10px 16px">Elegir imagen</button><button id="lsImgQuitar" type="button" hidden style="color:var(--texto-suave);font-size:.8rem;text-decoration:underline">Quitar</button><input id="lsImgFile" type="file" accept="image/*" hidden></div>
-      <p class="v-nota" id="lsErr" style="min-height:1.6em;margin:6px 2px 10px"></p>
+      <p class="cl-lbl">Elige un color</p>
+      <div class="cl-sws" id="lsCols">${PAL.map((p, i) => `<button type="button" class="cl-sw${usados.has(i) ? ' usado' : ''}${i === sel ? ' on' : ''}" data-i="${i}" ${usados.has(i) ? 'disabled' : ''} aria-label="${p[0]}" style="--c1:${p[1]};--c2:${p[2]}"></button>`).join('')}</div>
+      <p class="v-nota" id="lsErr" style="min-height:1.6em;margin:8px 2px 10px"></p>
       <div class="v-acc"><button class="b-sec" id="lsNo" type="button">Cancelar</button><button class="b-pri" id="lsSi" type="button">Crear</button></div>`;
     sheet.hidden = false;
     const inp = $('lsNombre');
     setTimeout(() => inp.focus(), 50);
-    let portada = null;
-    $('lsImgBtn').onclick = () => $('lsImgFile').click();
-    $('lsImgFile').onchange = async () => {
-      const f = $('lsImgFile').files[0]; if (!f) return;
-      try { portada = await reducir(f); $('lsPrev').innerHTML = `<img src="${portada}" alt="" style="width:100%;height:100%;object-fit:cover">`; $('lsImgQuitar').hidden = false; $('lsErr').textContent = ''; }
-      catch (e) { $('lsErr').textContent = 'No se pudo cargar esa imagen.'; }
-    };
-    $('lsImgQuitar').onclick = () => { portada = null; $('lsImgFile').value = ''; $('lsPrev').innerHTML = ICO_LS; $('lsImgQuitar').hidden = true; };
+    $('lsCols').addEventListener('click', e => {
+      const b = e.target.closest('.cl-sw'); if (!b || b.disabled) return;
+      sel = +b.dataset.i;
+      $('lsCols').querySelectorAll('.cl-sw').forEach(x => x.classList.toggle('on', x === b));
+    });
     const crear = () => {
       const nombre = inp.value.trim().replace(/\s+/g, ' ');
       const ls = leer();
       if (!nombre) { $('lsErr').textContent = 'Escribe un nombre para la lista.'; return; }
       if (ls.some(l => l.nombre.toLowerCase() === nombre.toLowerCase())) { $('lsErr').textContent = 'Ya tienes una lista con ese nombre.'; return; }
-      const l = { id: nuevoId(), nombre, items: [] };
-      if (portada) l.portada = portada; else l.color = COLORES[Math.floor(Math.random() * COLORES.length)];
+      if (ls.length >= MAX) { $('lsErr').textContent = 'Llegaste al máximo de ' + MAX + ' listas.'; return; }
+      const l = { id: nuevoId(), nombre, items: [], c: sel };
       if (img) l.items.push({ img, alt: titulo(img) });
       ls.push(l); guardar(ls);
       if (img) { aviso(`“${titulo(img)}” se guardó en “${nombre}”.`); cerrar(); }
@@ -2006,10 +2030,9 @@ window.addEventListener('cube-wallet-accion', function (e) {
     $('listaGrilla').hidden = true; $('listaGrilla').innerHTML = '';
     $('listaVacia').hidden = true;
     cont.hidden = false;
-    cont.innerHTML = '<button class="ls-nuevo" type="button" id="lsCrearDesdeVista">+ Nueva lista</button>' + (ls.length ? ls.map(l => {
-      const portada = l.items[0];
-      return `<div class="ls-fila" data-id="${esc(l.id)}"><button class="ls-abrir" type="button"><span class="ls-th">${l.portada ? `<img src="${esc(l.portada)}" alt="">` : portada ? `<img src="${IMG_BASE}${esc(portada.img)}" alt="">` : ICO_LS}</span><span class="ls-n" style="min-width:0"><b style="display:block;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(l.nombre)}</b><small style="color:var(--texto-suave);font-size:.74rem">${l.items.length} ${l.items.length === 1 ? 'historia' : 'historias'}</small></span></button><button class="ls-del" type="button" aria-label="Eliminar lista ${esc(l.nombre)}">${ICO_DEL}</button></div>`;
-    }).join('') : '<p class="ls-vacio">Aún no tienes listas.</p>');
+    cont.innerHTML = `<div class="ls-top"><button class="ls-nuevo" type="button" id="lsCrearDesdeVista">+ Nueva lista</button><span class="ls-cnt">${ls.length}/${MAX}</span></div>` + (ls.length
+      ? '<div class="ls-grid">' + ls.map(l => `<div class="ls-c" data-id="${esc(l.id)}" style="${estilo(l)}"><button class="ls-abrir cl-b" type="button" aria-label="${esc(l.nombre)}">${circ(l)}<span class="cl-n">${esc(l.nombre)}</span></button><button class="ls-x" type="button" aria-label="Eliminar lista ${esc(l.nombre)}">×</button></div>`).join('') + '</div>'
+      : '<p class="ls-vacio">Aún no tienes listas.</p>');
     mostrarBase();
   }
   function verDetalle(id) {
@@ -2017,9 +2040,9 @@ window.addEventListener('cube-wallet-accion', function (e) {
     modo = 'detalle'; abierta = id;
     $('listaTitulo').textContent = l.nombre;
     cont.hidden = true;
-    $('listaGrilla').hidden = false;
+    $('listaGrilla').hidden = !l.items.length;
     $('listaGrilla').innerHTML = l.items.map(f => window.card(cat().find(p => p.img === f.img) || { img: f.img, alt: titulo(f.img) })).join('');
-    $('listaVacia').textContent = 'Esta lista está vacía.';
+    $('listaVacia').textContent = 'Tu lista está vacía por ahora.';
     $('listaVacia').hidden = l.items.length > 0;
     mostrarBase();
   }
@@ -2028,22 +2051,22 @@ window.addEventListener('cube-wallet-accion', function (e) {
     if (modo === 'listas') verMisListas(); else if (modo === 'detalle') verDetalle(abierta);
   }
   cont.addEventListener('click', e => {
-    const fila = e.target.closest('.ls-fila');
+    const c = e.target.closest('.ls-c');
     if (e.target.closest('#lsCrearDesdeVista')) return abrirCrear();
-    if (!fila) return;
-    if (e.target.closest('.ls-del')) {
-      const l = leer().find(x => x.id === fila.dataset.id);
+    if (!c) return;
+    if (e.target.closest('.ls-x')) {
+      const l = leer().find(x => x.id === c.dataset.id);
       if (l && confirm(`¿Eliminar la lista “${l.nombre}”?`)) { guardar(leer().filter(x => x.id !== l.id)); verMisListas(); }
       return;
     }
-    verDetalle(fila.dataset.id);
+    verDetalle(c.dataset.id);
   });
 
   // Favoritos vuelve al modo normal de la pantalla
   const irFav = $('irFavoritos');
   if (irFav) irFav.addEventListener('click', () => { modo = null; abierta = null; cont.hidden = true; $('listaGrilla').hidden = false; });
-  // Volver: del detalle de una lista regresa a "Mis listas"
-  $('cerrarLista').onclick = () => { if (modo === 'detalle') verMisListas(); else { modo = null; cerrarModales(); } };
+  // Volver: sale directo, sin pasar por "Listas"
+  $('cerrarLista').onclick = () => { modo = null; abierta = null; cerrarModales(); };
 
   // Opción "Mis listas" en el perfil, debajo de Favoritos
   if (irFav && !$('irListas')) {
@@ -2069,7 +2092,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     verMisListas();
   }, true);
 
-  window.cubeListas = { crear: abrirCrear, guardar: abrirSelector, ver: verMisListas, detalle: verDetalle, leer, colorDe };
+  window.cubeListas = { crear: abrirCrear, guardar: abrirSelector, ver: verMisListas, detalle: verDetalle, leer, colorDe, estilo, circ };
   window.cubeCrearLista = () => abrirCrear();
 })();
 </script>
@@ -2360,14 +2383,10 @@ window.addEventListener('cube-wallet-accion', function (e) {
   /* --- Tus listas --- */
   function pintarListas() {
     const row = $('tlRow'); if (!row) return;
-    const u = window.usuario && window.usuario();
-    const ls = u && window.cubeListas ? window.cubeListas.leer() : [];
+    const u = window.usuario && window.usuario(), L = window.cubeListas;
+    const ls = u && L ? L.leer() : [];
     if (!ls.length) { row.innerHTML = '<p class="tl-vacio">No tienes listas creadas.</p>'; return; }
-    row.innerHTML = ls.map(l => {
-      const fondo = l.portada ? `<img src="${esc(l.portada)}" alt="" draggable="false">` : esc((l.nombre.trim()[0] || '?').toUpperCase());
-      const st = l.portada ? '' : ` style="background:linear-gradient(135deg,${window.cubeListas.colorDe(l)})"`;
-      return `<button class="tl-it" type="button" data-id="${esc(l.id)}" aria-label="${esc(l.nombre)}"><span class="tl-ring"><span class="tl-in"${st}>${fondo}</span></span><span class="tl-n">${esc(l.nombre)}</span></button>`;
-    }).join('');
+    row.innerHTML = ls.map(l => `<button class="cl-b tl-it" type="button" data-id="${esc(l.id)}" style="${L.estilo(l)}" aria-label="${esc(l.nombre)}">${L.circ(l)}<span class="cl-n">${esc(l.nombre)}</span></button>`).join('');
   }
   $('tlRow').addEventListener('click', e => {
     const b = e.target.closest('.tl-it'); if (b && window.cubeListas) window.cubeListas.detalle(b.dataset.id);
