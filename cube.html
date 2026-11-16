@@ -772,6 +772,8 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 .sug img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;user-select:none}
 .sug:active{transform:scale(.97)}
 
+/* Listas desactivadas (ver CUBE_LISTAS_ACTIVAS): se ocultan sus accesos sin borrar el código */
+body.sin-listas .hl-sec,body.sin-listas #irListas,body.sin-listas [data-a="listas"],body.sin-listas [data-t="lista"]{display:none !important}
 /* Tus listas · círculos con aro degradado */
 .hl-sec{margin-top:7cqw}
 .hl-sec .nh-h{padding:0 9cqw}
@@ -1997,6 +1999,9 @@ window.addEventListener('cube-wallet-accion', function (e) {
 
 <!-- ================= LISTAS (crear, guardar historias, ver) ================= -->
 <script>
+/* Interruptor de listas: false = función desactivada (oculta y sin acciones); el código se conserva. Pon true para reactivarla. */
+window.CUBE_LISTAS_ACTIVAS = false;
+document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
 (function () {
   const $ = id => document.getElementById(id), body = document.body;
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -2032,6 +2037,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
 
   // Crear lista (máximo 12; cada una con uno de los 12 colores). Si viene `img`, la historia se agrega a la lista nueva.
   function abrirCrear(img) {
+    if (!window.CUBE_LISTAS_ACTIVAS) return;
     if (pideSesion()) return;
     const ls = leer();
     if (ls.length >= MAX) { aviso('Llegaste al máximo de ' + MAX + ' listas.'); return; }
@@ -2070,6 +2076,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
 
   // Elegir en qué listas está una historia (se puede marcar y desmarcar varias)
   function abrirSelector(img) {
+    if (!window.CUBE_LISTAS_ACTIVAS) return;
     if (pideSesion()) return;
     const ls = leer();
     cuerpo.innerHTML = `<p class="v-card-t" style="margin:6px 4px 0">Guardar en una lista</p>
@@ -2106,6 +2113,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     window.scrollTo(0, 0);
   }
   function verMisListas() {
+    if (!window.CUBE_LISTAS_ACTIVAS) return;
     if (pideSesion()) return;
     modo = 'listas'; abierta = null;
     const ls = leer();
@@ -2441,18 +2449,22 @@ window.addEventListener('cube-wallet-accion', function (e) {
   /* --- Hero (destacados) --- */
   const HERO = [
     { img: 'escarlata-hero.webp', logo: 'escarlata-logo.webp', alt: 'Escarlata', genero: 'Enfermedad mental', anio: 2026,
-      sin: "El caso 'Escarlata' revela el trasfondo de una chica que padecía una enfermedad jamás documentada, cuyo tratamiento resulta completamente imposible." }
-    // Para sumar más destacados, agrega otro objeto con el mismo formato: aparecen los puntos y cambian solos cada 6 s.
+      sin: "El caso 'Escarlata' revela el trasfondo de una chica que padecía una enfermedad jamás documentada, cuyo tratamiento resulta completamente imposible." },
+    { img: 'triangle-room-hero.webp', logo: 'triangle-room-logo.webp', alt: 'Triangle Room', genero: 'Romance', anio: 2026, w: '46cqw',
+      sin: "Dann se muda con Alice y Marie, dos mujeres de personalidad doble y enigmática; sin embargo, la verdadera tragedia se levanta, silenciosa, ladrillo a ladrillo." },
+    { img: 'the-factions-tapes-hero.webp', logo: 'the-factions-tapes-logo.webp', alt: "The Faction's Tapes", genero: 'Antología', anio: 2027, y: '-10%',
+      sin: "La trama, en esencia, son cuatro casos independientes conectados con cuatro casos más amplios: Oso Negro, Retorcidos, El Club de Clubes y Las Entrevistas." }
+    // Para sumar más destacados, agrega otro objeto con el mismo formato (w = ancho opcional del título, y = desplazamiento vertical opcional de la imagen): cambian solos cada 9 s.
   ];
   const trk = $('chTrack'), dots = $('chDots');
-  trk.innerHTML = HERO.map(h => `<article class="ch-slide"><img class="ch-img" src="${IMG_BASE}${h.img}" alt="" draggable="false" fetchpriority="high" onerror="this.style.display='none'"><div class="ch-fade"></div><div class="ch-info"><img class="ch-tit" src="${IMG_BASE}${h.logo}" alt="${esc(h.alt)}" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement('h2'),{className:'ch-tit-txt',textContent:this.alt}))"><p class="ch-meta">${esc(h.genero)} • ${h.anio}</p><p class="ch-sin">${esc(h.sin)}</p></div></article>`).join('');
+  trk.innerHTML = HERO.map(h => `<article class="ch-slide"><img class="ch-img" src="${IMG_BASE}${h.img}"${h.y ? ` style="transform:translateY(${h.y})"` : ''} alt="" draggable="false" fetchpriority="high" onerror="this.style.display='none'"><div class="ch-fade"></div><div class="ch-info"><img class="ch-tit" src="${IMG_BASE}${h.logo}"${h.w ? ` style="width:${h.w}"` : ''} alt="${esc(h.alt)}" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement('h2'),{className:'ch-tit-txt',textContent:this.alt}))"><p class="ch-meta">${esc(h.genero)} • ${h.anio}</p><p class="ch-sin">${esc(h.sin)}</p></div></article>`).join('');
   $('chHero').classList.toggle('ch-solo', HERO.length < 2);
   dots.innerHTML = HERO.length > 1 ? HERO.map((_, i) => `<button class="ch-dot${i ? '' : ' on'}" type="button" data-i="${i}" aria-label="Destacado ${i + 1}"></button>`).join('') : '';
   let hi = 0, ht = null;
   const irHero = i => trk.scrollTo({ left: i * trk.clientWidth, behavior: reducido ? 'auto' : 'smooth' });
   const autoHero = on => {
     clearInterval(ht); ht = null;
-    if (on && HERO.length > 1 && !reducido) ht = setInterval(() => { if (homeVisible()) irHero((hi + 1) % HERO.length); }, 6000);
+    if (on && HERO.length > 1 && !reducido) ht = setInterval(() => { if (homeVisible()) irHero((hi + 1) % HERO.length); }, 9000);
   };
   trk.addEventListener('scroll', () => {
     const i = Math.round(trk.scrollLeft / (trk.clientWidth || 1));
@@ -2468,7 +2480,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     { img: 'sug-crear-mis-listas.webp', alt: 'Crear mis listas', a: 'lista' },
     { img: 'sug-festival-offscript-2.webp', alt: 'Festival Offscript', a: 'festival' }
   ];
-  $('sugRow').innerHTML = SUG.map(s => `<button class="sug" type="button" data-s="${s.a}" aria-label="${esc(s.alt)}"><img src="${IMG_BASE}${s.img}" alt="" loading="lazy" draggable="false" onerror="this.style.display='none'"></button>`).join('');
+  $('sugRow').innerHTML = SUG.filter(s => s.a !== 'lista' || window.CUBE_LISTAS_ACTIVAS).map(s => `<button class="sug" type="button" data-s="${s.a}" aria-label="${esc(s.alt)}"><img src="${IMG_BASE}${s.img}" alt="" loading="lazy" draggable="false" onerror="this.style.display='none'"></button>`).join('');
   $('sugRow').addEventListener('click', e => {
     const b = e.target.closest('.sug'); if (!b) return;
     if (b.dataset.s === 'lista') { if (window.cubeCrearLista) window.cubeCrearLista(); else aviso('Las listas no están disponibles.'); }
