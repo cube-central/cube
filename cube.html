@@ -763,7 +763,7 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 .nh-slide .caja-lbl{display:block;font:500 2.5cqw/1 'Poppins',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7d827b}
 .nh-slide .monto-n{margin-top:3.6cqw;font:600 8.2cqw/1.1 'Poppins',sans-serif;letter-spacing:-.02em}
 .nh-slide .ojo{top:5cqw;right:5.4cqw}
-/* Sugerencias */
+/* Recomendados */
 .sug-sec{margin-top:7cqw}
 .sug-sec .nh-h{padding:0 9cqw}
 .sug-row{display:flex;gap:2.8cqw;margin-top:3.2cqw;padding:0 9cqw;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-left:9cqw;scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -771,6 +771,29 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 .sug{flex:0 0 49cqw;aspect-ratio:16/9;border-radius:7cqw;overflow:hidden;scroll-snap-align:start;position:relative;background:#0a0b0a;border:1px solid rgba(255,255,255,.06)}
 .sug img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;user-select:none}
 .sug:active{transform:scale(.97)}
+
+/* Secciones por género */
+.gx-sec{margin-top:8cqw}
+.gx-sec .nh-h{padding:0 9cqw}
+.gx-sub{padding:0 9cqw;margin-top:1.2cqw;font:500 3cqw/1.3 'Poppins',sans-serif;color:#8a8d87}
+.gx-row{display:flex;gap:3cqw;margin-top:3.2cqw;padding:1cqw 9cqw;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-left:9cqw;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.gx-row::-webkit-scrollbar{display:none}
+.gx-c{flex:0 0 62cqw;aspect-ratio:16/9;border-radius:8cqw;overflow:hidden;scroll-snap-align:start;position:relative;background:#0a0b0a;border:1px solid rgba(255,255,255,.06);transition:transform .15s,box-shadow .15s}
+.gx-c img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none}
+.gx-c:active{transform:scale(.97)}
+.gx-c.on{box-shadow:0 0 0 .8cqw #C6FF00}
+.gx-c .sin-img{display:grid;place-items:center;height:100%;padding:3cqw;font:600 4cqw 'Poppins',sans-serif;color:#d9dcd6;text-align:center}
+.gx-info{padding:4cqw 9cqw 0;color:#fff;animation:gxIn .22s ease}
+@keyframes gxIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.gx-t{font:700 4.6cqw/1.2 'Poppins',sans-serif}
+.gx-m{margin-top:2.4cqw;font:400 3.2cqw/1.2 'Poppins',sans-serif;color:#8a8d87}
+.gx-d{margin-top:3.4cqw;max-width:78cqw;font:500 4.3cqw/1.5 'Poppins',sans-serif;color:#f1f2ee}
+.gx-b{display:flex;align-items:center;gap:2.4cqw;margin-top:4cqw}
+.gx-p{min-width:25cqw;height:10.4cqw;padding:0 6cqw;border-radius:999px;background:#C6FF00;color:#0A0A0A;font:600 3.8cqw 'Poppins',sans-serif}
+.gx-p:active{transform:scale(.96)}
+.gx-f{width:10.4cqw;height:10.4cqw;border-radius:50%;display:grid;place-items:center;background:#1c1d1b;color:#d9dcd6}
+.gx-f svg{width:4.6cqw;height:4.6cqw}
+.gx-f.on{background:#C6FF00;color:#0A0A0A}
 
 /* Listas desactivadas (ver CUBE_LISTAS_ACTIVAS): se ocultan sus accesos sin borrar el código */
 body.sin-listas .hl-sec,body.sin-listas #irListas,body.sin-listas [data-a="listas"],body.sin-listas [data-t="lista"]{display:none !important}
@@ -895,8 +918,8 @@ body{background:#000}
 .ch-tit-txt{font:700 9cqw/1.1 'Poppins',sans-serif;color:#fff}
 .ch-meta{margin-top:5.2cqw;font:400 3.7cqw/1.2 'Poppins',sans-serif;color:rgba(255,255,255,.88)}
 .ch-sin{margin-top:3.6cqw;font:400 3.25cqw/1.58 'Poppins',sans-serif;color:rgba(255,255,255,.92);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-.ch-dots{position:absolute;left:0;right:0;bottom:4.6cqw;display:flex;justify-content:center;gap:2cqw}
-.ch-dot{width:1.9cqw;height:1.9cqw;padding:0;border-radius:50%;background:rgba(255,255,255,.3);transition:background-color .2s,transform .2s}
+.ch-dots{position:absolute;left:0;right:0;bottom:4.6cqw;display:flex;justify-content:center;gap:1.6cqw}
+.ch-dot{width:1.4cqw;height:1.4cqw;padding:0;border-radius:50%;background:rgba(255,255,255,.3);transition:background-color .2s,transform .2s}
 .ch-dot.on{background:#fff}
 .ch-dot:active{transform:none}
 
@@ -956,10 +979,11 @@ body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.
       <div class="ch-dots" id="chDots"></div>
     </section>
 
-<section class="sug-sec" aria-label="Sugerencias">
-      <h2 class="nh-h">Sugerencias</h2>
+<section class="sug-sec" aria-label="Recomendados">
+      <h2 class="nh-h">Recomendados</h2>
       <div class="sug-row" id="sugRow"></div>
     </section>
+    <div id="genSecs"></div>
 
     <section class="hl-sec" aria-label="Tus listas">
       <h2 class="nh-h">Tus listas</h2>
@@ -2477,7 +2501,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   dots.addEventListener('click', e => { const d = e.target.closest('.ch-dot'); if (d) { autoHero(false); irHero(+d.dataset.i); autoHero(true); } });
   window.cubeHeroAuto = autoHero; autoHero(true);
 
-  /* --- Sugerencias --- */
+  /* --- Recomendados --- */
   const SUG = [
     { img: 'sug-crear-mis-listas.webp', alt: 'Crear mis listas', a: 'lista' },
     { img: 'sug-festival-offscript-2.webp', alt: 'Festival Offscript', a: 'festival' }
@@ -2487,6 +2511,73 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     const b = e.target.closest('.sug'); if (!b) return;
     if (b.dataset.s === 'lista') { if (window.cubeCrearLista) window.cubeCrearLista(); else aviso('Las listas no están disponibles.'); }
     else aviso('Próximamente.');
+  });
+
+  /* --- Secciones por género --- */
+  // archivo|Título|Género|Año|Precio|Descripción  (precios únicos; textos orientativos)
+  const GEN = [
+    ['No apagues la luz', 'terror que se te queda pegado', [
+      'cuando-el-mal-acecha|Cuando el Mal Acecha|Terror|2027|1890|Un pueblo ignora todas las señales hasta que el mal ya está dentro de casa.',
+      'vigilia|Vigilia|Terror|2027|740|Una guardia nocturna que se alarga mucho más de lo que cualquiera aguantaría.',
+      'triangle-room|Triangle Room|Misterio|2026|1310|Tres paredes, una sala y una pregunta: ¿quién diseñó este lugar?',
+      'dont-hug-me-im-scared|Don\'t Hug Me I\'m Scared|Horror absurdo|2027|1075|Colores felices, canciones pegadizas y una lección que sale muy mal.',
+      'la-dama-roja|La Dama Roja|Terror|2027|960|Una leyenda urbana que todos susurran… hasta que te toca a ti.',
+      'frogman|Frogman|Criatura|2027|615|Algo sale del agua y nadie le cree a quienes lo vieron.',
+      'backrooms|Backrooms|Liminal|2027|1620|Te saliste de la realidad y caíste en pasillos amarillos sin final.']],
+    ['Cámara en mano, pulso a mil', 'monstruos, océanos y mala suerte', [
+      'bigfoot-2.webp|Bigfoot|Criatura|2026|830|Un grupo en el bosque descubre que la leyenda no era un cuento.',
+      'ratman|Ratman|Found footage|2026|1180|Lo grabaron todo, y lo que aparece en el video no debería existir.',
+      'behemoth|Behemoth|Monstruos|2027|1540|Algo enorme despierta y el mapa se queda corto para escapar.',
+      'hydra-the-lost-island|Hydra: The Lost Island|Aventura|2027|1005|Una isla olvidada guarda más de una cabeza y ninguna es amable.',
+      'sharks|Sharks|Supervivencia|2027|1725|Agua abierta, cero salvavidas y aletas dando vueltas.',
+      'moby-dick-profundo|Moby Dick Profundo|Aventura|2027|880|La obsesión clásica baja a profundidades donde ya no hay luz.',
+      'without-warning|Without Warning|Supervivencia|2026|695|Nadie avisó. Ahora toca improvisar para sobrevivir la noche.',
+      'apollo-18|Apollo 18|Found footage|2027|1260|Una misión secreta a la Luna que la NASA jamás quiso mostrar.']],
+    ['Mundo roto, vibra rara', 'sci-fi y futuros que dan escalofrío', [
+      'cuarentena|Cuarentena|Sci-fi|2027|1450|Encerrados por su propia seguridad, descubren que afuera es lo de menos.',
+      'cuarentena-2|Cuarentena 2|Sci-fi|2027|1495|El encierro terminó, pero lo que salió con ellos sigue ahí.',
+      'el-hoyo|El Hoyo|Distopía|2027|1930|Un pozo vertical, una plataforma de comida y mucha desigualdad.',
+      'un-eternauta|Un Eternauta|Sci-fi|2027|1085|Una nevada mortal cae sobre la ciudad y solo los vecinos pueden resistir.',
+      'universe|Universe|Sci-fi|2027|1390|Una señal del espacio cambia lo que creíamos saber de todo.',
+      'viral|Viral|Sci-fi|2027|925|Un contagio que no viaja por el aire sino por tu pantalla.',
+      'las-entrevistas|Las Entrevistas|Sci-fi|2026|1640|Cada entrevista revela una pieza de un rompecabezas imposible.']],
+    ['Cero filtro, casos reales', 'lo que pasó de verdad y da más miedo', [
+      'narcos|Narcos|Crimen|2027|1810|Dinero, poder y cada decisión cuesta más que la anterior.',
+      'los-sapos|Los Sapos|Crimen|2027|770|Un soplón sabe demasiado y todos lo quieren callar.',
+      'imputables|Imputables|Drama|2027|1115|¿Quién responde cuando todos jugaron sucio?',
+      'chernobyl-tapes|The Chernobyl Tapes|Documental|2027|1360|Grabaciones desde la zona cero que alguien quiso esconder.',
+      'atraco|Atraco|Crimen|2027|995|El golpe perfecto existe… hasta que alguien improvisa.']],
+    ['Sonríe, algo anda mal', 'thrillers que juegan con tu cabeza', [
+      'oso-negro|Oso Negro|Thriller|2027|1200|Tras volver a su ciudad natal, donde era recordado como el chico más agradable. Pondrá a prueba su nueva personalidad.',
+      'retorcidos|Retorcidos|Thriller|2026|1425|Todos tienen un lado torcido; esta historia los saca a la luz.',
+      'obedece|Obedece|Psicológico|2026|665|Una sola orden, sin explicación. ¿Hasta dónde llegarías?',
+      'el-telefono|El Teléfono|Suspenso|2026|1030|Suena a las 3:00 a. m. y la voz del otro lado ya te conoce.',
+      'mama-dogs|Mama Dogs|Thriller|2026|1570|Una familia aparentemente normal con reglas que nadie debería cumplir.',
+      'strike|Strike|Suspenso|2026|905|Un golpe, una decisión y el efecto dominó imparable.',
+      'valentine|Valentine|Thriller|2026|1150|Una cita romántica que se convierte en una trampa elegante.',
+      'nada|Nada|Psicológico|2026|1745|Sin pistas, sin respuestas… y aun así sabes que algo pasa.']]
+  ];
+  const SVG_MAS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+  const gxSrc = f => (window.cubeSrc ? window.cubeSrc(f) : IMG_BASE + f);
+  const gxFav = new Set();
+  $('genSecs').innerHTML = GEN.map(([nom, sub, items], i) => `<section class="gx-sec" aria-label="${esc(nom)}" data-g="${i}">
+    <h2 class="nh-h">${esc(nom)}</h2>
+    <div class="gx-row">${items.map((r, j) => { const [f, t] = r.split('|'); const file = f.endsWith('.webp') ? f : f + '.webp'; return `<button class="gx-c" type="button" data-j="${j}" aria-label="${esc(t)}"><img src="${gxSrc(file)}" alt="${esc(t)}" loading="lazy" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sin-img',textContent:this.alt}))"></button>`; }).join('')}</div>
+    <div class="gx-slot"></div></section>`).join('');
+  $('genSecs').addEventListener('click', e => {
+    const sec = e.target.closest('.gx-sec'); if (!sec) return;
+    const items = GEN[+sec.dataset.g][2], slot = sec.querySelector('.gx-slot');
+    const c = e.target.closest('.gx-c'), p = e.target.closest('.gx-p'), fv = e.target.closest('.gx-f');
+    if (p) { aviso('Precio: $' + p.dataset.p); return; }
+    if (fv) { const k = fv.dataset.k; gxFav.has(k) ? gxFav.delete(k) : gxFav.add(k); fv.classList.toggle('on', gxFav.has(k)); aviso(gxFav.has(k) ? 'Agregada a tus pendientes.' : 'Quitada de tus pendientes.'); return; }
+    if (!c) return;
+    const ya = c.classList.contains('on');
+    sec.querySelectorAll('.gx-c.on').forEach(x => x.classList.remove('on'));
+    if (ya) { slot.innerHTML = ''; return; }
+    c.classList.add('on'); c.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    const [f, t, g, a, pr, d] = items[+c.dataset.j].split('|');
+    slot.innerHTML = `<div class="gx-info"><h3 class="gx-t">${esc(t)}</h3><p class="gx-m">${esc(g)} • ${esc(a)}</p><p class="gx-d">${esc(d)}</p>
+      <div class="gx-b"><button class="gx-p" type="button" data-p="${pr}">$${pr}</button><button class="gx-f${gxFav.has(f) ? ' on' : ''}" type="button" data-k="${f}" aria-label="Agregar a pendientes">${SVG_MAS}</button></div></div>`;
   });
 
   /* --- Tus listas --- */
