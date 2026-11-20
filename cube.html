@@ -799,14 +799,15 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 .gx-f.on{background:#C6FF00;color:#0A0A0A}
 
 /* Perfiles */
-html.pf-lock,html.pf-lock body{background:#040604!important;overflow:hidden}
+body.perfil-abierto #bottomNav{display:none!important}
+html.pf-lock,html.pf-lock body{background:#050507!important;overflow:hidden}
 html.pf-lock body>:not(#pfGate){visibility:hidden}
 .pf-av>span{overflow:hidden}.pf-av img{width:100%;height:100%;object-fit:cover;display:block}
 .pf-pv{position:relative;margin-top:5vh}
 .pf-cam{position:absolute;right:2px;bottom:6px;width:46px;height:46px;border-radius:50%;background:#C6FF00;color:#0A0A0A;display:grid;place-items:center;border:4px solid #060806}
 .pf-cam svg{width:20px;height:20px}
 .pf-cam:active{transform:scale(.94)}
-#pfGate{position:fixed;inset:0;z-index:9999;overflow-y:auto;display:flex;justify-content:center;background:radial-gradient(120% 55% at 100% 0%,rgba(198,255,0,.30),transparent 62%),radial-gradient(95% 50% at 0% 58%,rgba(120,200,0,.34),transparent 66%),radial-gradient(110% 55% at 100% 100%,rgba(40,130,30,.5),transparent 62%),#040604;color:#fff;font-family:'Poppins',sans-serif;-webkit-tap-highlight-color:transparent}
+#pfGate{position:fixed;inset:0;z-index:9999;overflow-y:auto;display:flex;justify-content:center;background:linear-gradient(205deg,rgba(150,70,255,.55) 0%,rgba(150,70,255,.18) 22%,transparent 46%),linear-gradient(15deg,rgba(255,50,150,.5) 0%,rgba(255,50,150,.16) 24%,transparent 48%),#050507;color:#fff;font-family:'Poppins',sans-serif;-webkit-tap-highlight-color:transparent}
 #pfGate *{box-sizing:border-box}
 .pf-w{width:100%;max-width:480px;min-height:100%;display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 9vh) 7vw calc(env(safe-area-inset-bottom,0px) + 28px);text-align:center}
 .pf-logo{font-weight:800;font-size:2.3rem;letter-spacing:-.5px;line-height:1;color:#C6FF00}
@@ -2779,7 +2780,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     const p = window.perfilActivo;
     ['ppAv', 'ppAv2', 'ppAv3'].forEach(id => {
       const el = $(id); if (!el || !p) return;
-      el.style.cssText += ';background:' + marco(p.marco) + ';padding:7%;box-sizing:border-box';
+      el.style.cssText += ';background:' + marco(p.marco) + ';padding:5%;box-sizing:border-box';
       el.innerHTML = '<span style="display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0c0c0c;color:#fff;font:600 12px Poppins,sans-serif;overflow:hidden">' + (p.foto ? '<img src="' + p.foto + '" alt="" style="width:100%;height:100%;object-fit:cover">' : esc(p.nombre.trim().charAt(0).toUpperCase())) + '</span>';
     });
   }
