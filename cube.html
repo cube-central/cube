@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script>/* Bloqueo de la portada hasta elegir perfil; sin sesión -> cuenta */
+(function(){try{if(sessionStorage.getItem('cube_perfil_ok'))return;document.documentElement.classList.add('pf-lock');var t=localStorage.getItem('cube_sesion_activa');if(!t){for(var i=0;i<localStorage.length;i++){if(/^sb-.*-auth-token$/.test(localStorage.key(i))){t=1;break}}}if(!t)location.replace('cube-cuenta.html')}catch(e){}})();</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#000000">
@@ -796,7 +799,14 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 .gx-f.on{background:#C6FF00;color:#0A0A0A}
 
 /* Perfiles */
-#pfGate{position:fixed;inset:0;z-index:9999;overflow-y:auto;display:flex;justify-content:center;background:radial-gradient(120% 70% at 85% 0%,rgba(198,255,0,.16),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(198,255,0,.08),transparent 60%),#050505;color:#fff;font-family:'Poppins',sans-serif;-webkit-tap-highlight-color:transparent}
+html.pf-lock,html.pf-lock body{background:#040604!important;overflow:hidden}
+html.pf-lock body>:not(#pfGate){visibility:hidden}
+.pf-av>span{overflow:hidden}.pf-av img{width:100%;height:100%;object-fit:cover;display:block}
+.pf-pv{position:relative;margin-top:5vh}
+.pf-cam{position:absolute;right:2px;bottom:6px;width:46px;height:46px;border-radius:50%;background:#C6FF00;color:#0A0A0A;display:grid;place-items:center;border:4px solid #060806}
+.pf-cam svg{width:20px;height:20px}
+.pf-cam:active{transform:scale(.94)}
+#pfGate{position:fixed;inset:0;z-index:9999;overflow-y:auto;display:flex;justify-content:center;background:radial-gradient(120% 55% at 100% 0%,rgba(198,255,0,.30),transparent 62%),radial-gradient(95% 50% at 0% 58%,rgba(120,200,0,.34),transparent 66%),radial-gradient(110% 55% at 100% 100%,rgba(40,130,30,.5),transparent 62%),#040604;color:#fff;font-family:'Poppins',sans-serif;-webkit-tap-highlight-color:transparent}
 #pfGate *{box-sizing:border-box}
 .pf-w{width:100%;max-width:480px;min-height:100%;display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 9vh) 7vw calc(env(safe-area-inset-bottom,0px) + 28px);text-align:center}
 .pf-logo{font-weight:800;font-size:2.3rem;letter-spacing:-.5px;line-height:1;color:#C6FF00}
@@ -1170,6 +1180,7 @@ body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.
   </div>
   <div class="perfil-opciones">
     <button class="perfil-opcion" id="irFavoritos" hidden><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>Favoritos</span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
+    <button class="perfil-opcion" id="irPerfiles"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.4c2.2.7 3.5 2.6 3.5 5.6"/></svg><span>Perfiles</span></span></button>
     <button class="perfil-opcion" id="irNotificaciones"><span class="opcion-izq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><span>Notificaciones</span><b class="perfil-cuenta" id="notifCuenta" hidden>0</b></span><svg class="opcion-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
   
   </div>
@@ -1566,7 +1577,7 @@ actualizarHeader();
   $('anio').textContent = new Date().getFullYear();
 
   // ---- Los scripts externos (cube-listas.js, cube-historial.js) agregan opciones al panel de perfil; aquí se limpian las repetidas ----
-  const PROPIAS = ['irFavoritos', 'irNotificaciones', 'btnSalir'];
+  const PROPIAS = ['irFavoritos', 'irNotificaciones', 'irPerfiles', 'btnSalir'];
   function ocultarCrearListaDelPerfil() {   // ahora solo oculta "Historial" (cube-historial.js lo agrega al perfil)
     document.querySelectorAll('#perfilModal .perfil-opciones > *').forEach(el => {
       if (PROPIAS.includes(el.id) || el.dataset.a) return;
@@ -2759,9 +2770,24 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   const leer = u => { try { const a = JSON.parse(localStorage.getItem(clave(u)) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
   const guardar = (u, a) => { try { localStorage.setItem(clave(u), JSON.stringify(a)); } catch (e) {} };
   const LAPIZ = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>';
-  let gate = null, u = null, lista = [], modo = 'quien', gestion = false, f = null, borrar = false;
+  let cambio = false, gate = null, u = null, lista = [], modo = 'quien', gestion = false, f = null, borrar = false;
 
-  const av = (p, s) => `<div class="pf-av" style="--s:${s}px;--m:${marco(p.marco)}"><span>${esc((p.nombre || '?').trim().charAt(0).toUpperCase() || '?')}</span></div>`;
+  const av = (p, s) => `<div class="pf-av" style="--s:${s}px;--m:${marco(p.marco)}"><span>${p.foto ? `<img src="${p.foto}" alt="">` : esc((p.nombre || '?').trim().charAt(0).toUpperCase() || '?')}</span></div>`;
+  const CAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg>';
+  const $ = id => document.getElementById(id);
+  function aplicar() {   // marco + foto/inicial del perfil activo, arriba a la derecha
+    const p = window.perfilActivo;
+    ['ppAv', 'ppAv2', 'ppAv3'].forEach(id => {
+      const el = $(id); if (!el || !p) return;
+      el.style.cssText += ';background:' + marco(p.marco) + ';padding:7%;box-sizing:border-box';
+      el.innerHTML = '<span style="display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0c0c0c;color:#fff;font:600 12px Poppins,sans-serif;overflow:hidden">' + (p.foto ? '<img src="' + p.foto + '" alt="" style="width:100%;height:100%;object-fit:cover">' : esc(p.nombre.trim().charAt(0).toUpperCase())) + '</span>';
+    });
+  }
+  function leerFoto(file) {
+    const r = new FileReader();
+    r.onload = () => { const im = new Image(); im.onload = () => { const S = 256, c = document.createElement('canvas'), m = Math.min(im.width, im.height); c.width = c.height = S; c.getContext('2d').drawImage(im, (im.width - m) / 2, (im.height - m) / 2, m, m, 0, 0, S, S); f.foto = c.toDataURL('image/jpeg', .85); vista(); }; im.src = r.result; };
+    r.readAsDataURL(file);
+  }
   const logo = '<div class="pf-logo">cube</div>';
 
   function vista() {
@@ -2775,7 +2801,8 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
       <button class="pf-lnk" type="button" data-a="gest">${gestion ? 'Listo' : 'Gestionar perfiles'}</button>`;
     } else {
       h = `${logo}<h1 class="pf-h">${f.id ? 'Editar perfil' : 'Crear perfil'}</h1>
-      <div style="margin-top:5vh" id="pfPrev">${av(f, 168)}</div>
+      <div class="pf-pv"><div id="pfPrev">${av(f, 168)}</div><button class="pf-cam" type="button" data-a="foto" aria-label="Subir foto">${CAM}</button><input type="file" id="pfFile" accept="image/*" hidden></div>
+      ${f.foto ? '<button class="pf-lnk" style="margin-top:4px" type="button" data-a="qfoto">Quitar foto</button>' : ''}
       <div class="pf-sw">${MARCOS.map(m => `<button type="button" data-a="marco" data-m="${m[0]}" class="${m[0] === f.marco ? 'on' : ''}" style="--m:${m[1]}" aria-label="Marco ${m[0]}"></button>`).join('')}</div>
       <div class="pf-in"><label for="pfNom">Nombre</label><input id="pfNom" maxlength="16" autocomplete="off" autocapitalize="words" spellcheck="false" value="${esc(f.nombre)}"></div>
       <div class="pf-fb">${lista.length ? '<button class="pf-btn g" type="button" data-a="cancel">Cancelar</button>' : ''}<button class="pf-btn" type="button" id="pfSave" data-a="save" ${f.nombre.trim() ? '' : 'disabled'}>Guardar</button></div>
@@ -2786,7 +2813,10 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
 
   function cerrar(p) {
     try { sessionStorage.setItem('cube_perfil_ok', p.id); } catch (e) {}
-    window.perfilActivo = p;
+    window.perfilActivo = p; aplicar();
+    document.documentElement.classList.remove('pf-lock');
+    if (cambio && window.cubeLimpiarVistas) { try { window.cubeLimpiarVistas(); } catch (e) {} window.scrollTo(0, 0); }
+    cambio = false;
     if (gate) { gate.remove(); gate = null; document.body.style.overflow = ''; }
     window.dispatchEvent(new Event('cube:perfil-listo'));
   }
@@ -2799,19 +2829,22 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     if (a === 'nuevo') { modo = 'form'; f = { id: null, nombre: '', marco: 'lima' }; borrar = false; return vista(); }
     if (a === 'edit' && p) { modo = 'form'; f = { ...p }; borrar = false; return vista(); }
     if (a === 'cancel') { modo = 'quien'; return vista(); }
+    if (a === 'foto') return gate.querySelector('#pfFile').click();
+    if (a === 'qfoto') { f.foto = null; return vista(); }
     if (a === 'marco') { f.marco = b.dataset.m; gate.querySelector('#pfPrev').innerHTML = av(f, 168); gate.querySelectorAll('.pf-sw button').forEach(x => x.classList.toggle('on', x === b)); return; }
     if (a === 'save') {
       const nombre = f.nombre.trim(); if (!nombre) return;
-      if (f.id) lista = lista.map(x => x.id === f.id ? { ...x, nombre, marco: f.marco } : x);
-      else { if (lista.length >= MAX_PERFILES) return; lista.push({ id: 'p' + Date.now().toString(36), nombre, marco: f.marco }); }
+      if (f.id) lista = lista.map(x => x.id === f.id ? { ...x, nombre, marco: f.marco, foto: f.foto || null } : x);
+      else { if (lista.length >= MAX_PERFILES) return; lista.push({ id: 'p' + Date.now().toString(36), nombre, marco: f.marco, foto: f.foto || null }); }
       guardar(u, lista); modo = 'quien'; gestion = gestion && lista.length > 0;
-      if (!f.id) return cerrar(lista[lista.length - 1]);
+      if (window.perfilActivo && window.perfilActivo.id === f.id) { window.perfilActivo = lista.find(x => x.id === f.id); aplicar(); }
       return vista();
     }
     if (a === 'del') {
       if (!borrar) { borrar = true; return vista(); }
       lista = lista.filter(x => x.id !== f.id); guardar(u, lista);
       try { if (sessionStorage.getItem('cube_perfil_ok') === f.id) sessionStorage.removeItem('cube_perfil_ok'); } catch (e) {}
+      if (window.perfilActivo && window.perfilActivo.id === f.id) window.perfilActivo = null;
       modo = 'quien'; gestion = false; borrar = false; return vista();
     }
   }
@@ -2821,6 +2854,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     gate = document.createElement('div'); gate.id = 'pfGate'; gate.setAttribute('role', 'dialog'); gate.setAttribute('aria-label', 'Perfiles');
     gate.innerHTML = '<div class="pf-w"></div>';
     gate.addEventListener('click', clic);
+    gate.addEventListener('change', e => { if (e.target.id === 'pfFile' && e.target.files[0]) leerFoto(e.target.files[0]); });
     gate.addEventListener('input', e => {
       if (e.target.id !== 'pfNom') return;
       f.nombre = e.target.value; gate.querySelector('#pfPrev').innerHTML = av(f, 168);
@@ -2844,11 +2878,14 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     lista = leer(u);
     let ok = null; try { ok = sessionStorage.getItem('cube_perfil_ok'); } catch (e) {}
     const act = lista.find(x => x.id === ok);
-    if (act) { window.perfilActivo = act; return; }
+    if (act) { window.perfilActivo = act; aplicar(); document.documentElement.classList.remove('pf-lock'); return; }
     modo = 'quien'; gestion = false; borrar = false;
     mostrar();
   }
-  window.abrirPerfiles = function () { try { sessionStorage.removeItem('cube_perfil_ok'); } catch (e) {} iniciar(); };
+  window.abrirPerfiles = function () { cambio = true; try { sessionStorage.removeItem('cube_perfil_ok'); } catch (e) {} iniciar(); };
+  const ah = window.actualizarHeader;
+  if (ah) window.actualizarHeader = function () { const r = ah.apply(this, arguments); aplicar(); return r; };
+  const bp = $('irPerfiles'); if (bp) bp.addEventListener('click', window.abrirPerfiles);
   window.addEventListener('cube:usuario-listo', iniciar);
   if (window.usuario && window.usuario()) iniciar();
   else setTimeout(() => { if (!window.usuario()) iniciar(); }, 3500);
