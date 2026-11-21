@@ -1006,26 +1006,60 @@ body{background:#000}
 .ch-dot.on{background:#fff}
 .ch-dot:active{transform:none}
 
-/* ---- Cabecera centrada y hero grande ---- */
-.ch-fila{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
-.ch-der{justify-content:flex-end}
-.ch-top .ch-logo{color:#fff}
-.ch-menu{width:8cqw;height:8cqw;display:grid;place-items:center;color:#fff}
-.ch-menu svg{width:6cqw;height:6cqw}
-.ch-slide{height:min(182cqw,calc(100svh - 22cqw))}
-.ch-img{object-position:50% 20%}
-.ch-fade{background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.6) 70%,rgba(0,0,0,.94) 88%,#000 100%)}
-.ch-info{padding:0 6cqw 15cqw}
+/* ---- Cabecera y hero (copia del concepto) ---- */
+.ch-top{padding:calc(env(safe-area-inset-top,0px) + 3cqw) 6.3cqw 9cqw;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 100%)}
+.ch-top.est{background:#000;padding-bottom:3cqw}
+.ch-fila{display:flex;align-items:center;justify-content:space-between}
+.ch-izq{display:flex;align-items:center;gap:6.6cqw}
+.ch-der{display:flex;align-items:center;gap:7.6cqw}
+.ch-top .ch-logo{font:800 7.4cqw/1 'Poppins',sans-serif;letter-spacing:-.025em;text-transform:lowercase;color:#fff}
+.ch-menu{width:5.3cqw;height:5.3cqw;display:grid;place-items:center;color:#fff}
+.ch-menu svg{width:100%;height:auto;display:block}
+.ch-bell{position:relative;width:5.4cqw;height:5.8cqw;display:grid;place-items:center;color:#fff}
+.ch-bell svg{width:100%;height:100%;display:block}
+.ch-pt{position:absolute;top:0;right:0;width:1.9cqw;height:1.9cqw;border-radius:50%;background:#C6FF00}
+.ch-pt[hidden]{display:none}
+.ch-top .nh-av{width:5.6cqw;height:5.6cqw}
+.ch-slide{height:166cqw}
+.ch-img{object-position:50% 14%}
+.ch-fade{background:linear-gradient(180deg,rgba(0,0,0,0) 56%,rgba(0,0,0,.28) 70%,rgba(0,0,0,.72) 86%,rgba(0,0,0,.94) 100%)}
+.ch-info{align-items:flex-start;text-align:left;padding:0 6.9cqw 15.3cqw}
 .ch-solo .ch-info{padding-bottom:6cqw}
-.ch-meta{display:flex;justify-content:center;gap:4.4cqw;margin-top:4cqw;font:400 3.9cqw/1.2 'Poppins',sans-serif;color:rgba(255,255,255,.88)}
-.ch-acc{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:7cqw;padding:0 2cqw}
-.ch-ver{display:flex;align-items:center;gap:3cqw;font:600 4.6cqw/1 'Poppins',sans-serif;color:#fff}
-.ch-ver svg{width:6.4cqw;height:6.4cqw}
-.ch-add{width:10cqw;height:10cqw;display:grid;place-items:center;color:#fff}
-.ch-add svg{width:7.6cqw;height:7.6cqw}
-.ch-dots{bottom:5.2cqw;gap:3.8cqw}
-.ch-dot{width:2.6cqw;height:2.6cqw;background:rgba(255,255,255,.35)}
+.ch-tit{margin:0}
+.ch-meta{display:flex;gap:3cqw;margin-top:3.5cqw;font:400 3.1cqw/1.2 'Open Sans','Poppins',sans-serif;color:rgba(255,255,255,.85)}
+.ch-acc{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:12cqw;padding:0 3cqw 0 1.7cqw}
+.ch-ver{display:flex;align-items:center;gap:1.9cqw;font:600 3.8cqw/1 'Open Sans','Poppins',sans-serif;color:#fff}
+.ch-ver svg{width:4.2cqw;height:4.4cqw}
+.ch-add{width:5.6cqw;height:5.6cqw;display:grid;place-items:center;color:#fff}
+.ch-add svg{width:100%;height:100%}
+.ch-dots{bottom:3.6cqw;gap:4.4cqw}
+.ch-dot{width:2.3cqw;height:2.3cqw;background:rgba(255,255,255,.35)}
 .ch-dot.on{background:#fff}
+/* menú lateral */
+.dr{position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,.55)}
+.dr[hidden]{display:none}
+.dr-card{position:absolute;top:calc(env(safe-area-inset-top,0px) + 64px);left:16px;width:min(78vw,320px);border-radius:18px;background:linear-gradient(160deg,#25282a,#1a1d1c);overflow:hidden}
+.dr-it{display:block;width:100%;min-height:60px;padding:0 20px;text-align:left;font:600 1.02rem 'Poppins',sans-serif;color:#fff;border-bottom:1px solid rgba(255,255,255,.13)}
+.dr-it:last-child{border-bottom:0}
+/* perfil sin extras ni iconos */
+#perfilModal>:not(.volver-btn):not(.pfp-av):not(.pfp-nom):not(.pfp-adm):not(.pfp-card):not([hidden]){display:none!important}
+.pfp-card>:not(#irColecciones):not(#irLogros):not(#irNotificaciones):not(#irSuscripcion):not(#irPrivacidad):not(#btnSalir){display:none!important}
+.pfp-card svg:not(.opcion-flecha){display:none!important}
+.nav-foto{font:600 1.3rem 'Poppins',sans-serif}
+/* notificaciones al estilo del panel de perfil */
+#notifs{max-width:640px;margin:0 auto}
+#notifs .notif-ajustes{margin-top:18px;padding:18px 20px;border-radius:18px;background:linear-gradient(160deg,#25282a,#1a1d1c)}
+#notifs .notif-ajustes-info svg,#notifs .notif-ico{display:none}
+#notifs .notif-ajustes-info b{font-size:1.02rem;font-weight:600;color:#fff}
+#notifs .notif-ajustes-info small{color:#a9adaa}
+#notifs .notif-acciones{justify-content:center;margin:22px 0}
+#notifs .notif-limpiar{padding:15px 34px;border-radius:14px;background:#2f3130;color:#fff;font-weight:600;font-size:1.02rem}
+#notifs .notif-lista{margin-top:0;gap:0;border-radius:18px;background:linear-gradient(160deg,#25282a,#1a1d1c);overflow:hidden}
+#notifs .notif-lista:empty{display:none}
+#notifs .notif{padding:18px 20px;border-radius:0;background:transparent;border-bottom:1px solid rgba(255,255,255,.13)}
+#notifs .notif:last-child{border-bottom:0}
+#notifs .notif-cuerpo b{font-size:1.02rem;font-weight:600;color:#fff}
+#notifs .notif-cuerpo span{color:#c3c6c2}
 
 /* ---- Secciones del inicio ---- */
 .sug-sec,.hl-sec{margin-top:1.5cqw}
@@ -1067,17 +1101,12 @@ body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.
 <div id="home">
   <header class="ch-top">
     <div class="ch-fila">
-      <span></span><span class="ch-logo">cube</span>
-      <div class="ch-der">
-        <span class="ch-cred" hidden aria-label="Créditos"><span>$</span><span class="js-creditos">0</span></span>
-        <button class="nh-user" id="btnPerfilTop" type="button" aria-label="Abrir perfil">
+      <div class="ch-izq"><button class="ch-menu" type="button" aria-label="Menú"><svg viewBox="0 0 24 19.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1.5h22M1 9.75h22M1 18h22"/></svg></button><span class="ch-logo">cube</span></div>
+      <div class="ch-der"><button class="ch-bell" type="button" data-a="notificaciones" aria-label="Notificaciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15.5 6 9.5z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg><i class="ch-pt" hidden></i></button><button class="nh-user" id="btnPerfilTop" type="button" aria-label="Abrir perfil">
           <span class="pp-av nh-av" id="ppAv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
           <span class="nh-tx" hidden><b class="pp-nombre" id="ppNombre">Iniciar sesión</b><small id="ppRango" hidden>Obrero</small></span>
-        </button>
-        <button class="ch-menu" type="button" aria-label="Menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-      </div>
+        </button></div>
     </div>
-    <nav class="ch-tabs" role="tablist" aria-label="Secciones"><button class="ch-tab" type="button" role="tab" data-tab="inicio" aria-selected="true">Inicio</button><button class="ch-tab" type="button" role="tab" data-tab="noticias" aria-selected="false">Noticias</button><button class="ch-tab" type="button" role="tab" data-tab="discusiones" aria-selected="false">Discusiones</button><button class="ch-tab" type="button" role="tab" data-tab="upgrade" aria-selected="false">Upgrade</button></nav>
   </header>
 
   <main id="nuevoHome">
@@ -1120,14 +1149,9 @@ body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.
   <div class="nw-in">
     <header class="ch-top est">
       <div class="ch-fila">
-        <span></span><span class="ch-logo">cube</span>
-        <div class="ch-der">
-          <span class="ch-cred" hidden aria-label="Créditos"><span>$</span><span class="js-creditos">0</span></span>
-          <button class="nh-user" id="btnPerfilNoticias" type="button" aria-label="Abrir perfil"></button>
-          <button class="ch-menu" type="button" aria-label="Menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-        </div>
-      </div>
-      <nav class="ch-tabs" role="tablist" aria-label="Secciones"><button class="ch-tab" type="button" role="tab" data-tab="inicio" aria-selected="false">Inicio</button><button class="ch-tab" type="button" role="tab" data-tab="noticias" aria-selected="true">Noticias</button><button class="ch-tab" type="button" role="tab" data-tab="discusiones" aria-selected="false">Discusiones</button><button class="ch-tab" type="button" role="tab" data-tab="upgrade" aria-selected="false">Upgrade</button></nav>
+      <div class="ch-izq"><button class="ch-menu" type="button" aria-label="Menú"><svg viewBox="0 0 24 19.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1.5h22M1 9.75h22M1 18h22"/></svg></button><span class="ch-logo">cube</span></div>
+      <div class="ch-der"><button class="ch-bell" type="button" data-a="notificaciones" aria-label="Notificaciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15.5 6 9.5z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg><i class="ch-pt" hidden></i></button><button class="nh-user" id="btnPerfilNoticias" type="button" aria-label="Abrir perfil"></button></div>
+    </div>
     </header>
     <h2 class="nh-h nw-h">Recientes</h2>
     <div id="nwLista"></div>
@@ -1228,6 +1252,8 @@ body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.
   </div>
 </div>
 <div class="v-toast" id="vToast" role="status" aria-live="polite"></div>
+
+<div class="dr" id="drMenu" hidden><div class="dr-card"><button class="dr-it" type="button" data-tab="inicio">Inicio</button><button class="dr-it" type="button" data-tab="noticias">Noticias</button><button class="dr-it" type="button" data-tab="discusiones">Discusiones</button><button class="dr-it" type="button" data-tab="upgrade">Upgrade</button></div></div>
 
 <!-- PERFIL MODAL -->
 <section class="perfil-modal" id="perfilModal" aria-label="Perfil">
@@ -1331,7 +1357,7 @@ const IMG_BASE = "https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/";
   function poner_avatar(el, foto, cls) {
     el.textContent = '';
     if (foto) { const im = document.createElement('img'); if (cls) im.className = cls; im.src = foto; im.alt = 'Perfil'; el.appendChild(im); }
-    else el.innerHTML = ICON_PERSONA;
+    else { const p = window.perfilActivo; el.textContent = p && p.nombre ? p.nombre.trim().charAt(0).toUpperCase() : ''; }
   }
   window.actualizarHeader = function() {
     const u = window.usuario();
@@ -1590,6 +1616,7 @@ actualizarHeader();
     if (_contador) _contador();
     const o = document.getElementById('notifCuenta'), w = document.getElementById('cwBadge');
     if (o && w) { w.textContent = o.textContent; w.hidden = o.hidden; }
+    document.querySelectorAll('.ch-pt').forEach(x => { x.hidden = !o || o.hidden; });
   };
   window.actualizarContadorNotif();
 })();
@@ -2578,7 +2605,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     // Para sumar más destacados, agrega otro objeto con el mismo formato (w = ancho opcional del título, y = desplazamiento vertical opcional de la imagen): cambian solos cada 9 s.
   ];
   const trk = $('chTrack'), dots = $('chDots');
-  trk.innerHTML = HERO.map(h => `<article class="ch-slide"><img class="ch-img" src="${IMG_BASE}${h.img}"${h.y ? ` style="transform:translateY(${h.y})"` : ''} alt="" draggable="false" fetchpriority="high" onerror="this.style.display='none'"><div class="ch-fade"></div><div class="ch-info"><img class="ch-tit" src="${IMG_BASE}${h.logo}"${h.w ? ` style="width:${h.w}"` : ''} alt="${esc(h.alt)}" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement('h2'),{className:'ch-tit-txt',textContent:this.alt}))"><p class="ch-meta"><span>${esc(h.edad || '15+')}</span><span>${esc(h.genero)}</span><span>${h.anio}</span></p><div class="ch-acc"><button class="ch-ver" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Ver noticia</button><button class="ch-add" type="button" aria-label="Agregar a una lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg></button></div></div></article>`).join('');
+  trk.innerHTML = HERO.map(h => `<article class="ch-slide"><img class="ch-img" src="${IMG_BASE}${h.img}"${h.y ? ` style="transform:translateY(${h.y})"` : ''} alt="" draggable="false" fetchpriority="high" onerror="this.style.display='none'"><div class="ch-fade"></div><div class="ch-info"><img class="ch-tit" src="${IMG_BASE}${h.logo}"${h.w ? ` style="width:${h.w}"` : ''} alt="${esc(h.alt)}" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement('h2'),{className:'ch-tit-txt',textContent:this.alt}))"><p class="ch-meta"><span>${esc(h.edad || '15+')}</span><span>${esc(h.genero)}</span><span>${h.anio}</span></p><div class="ch-acc"><button class="ch-ver" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 2.5v19l16-9.5z"/></svg>Ver noticia</button><button class="ch-add" type="button" aria-label="Agregar a una lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg></button></div></div></article>`).join('');
   $('chHero').classList.toggle('ch-solo', HERO.length < 2);
   dots.innerHTML = HERO.length > 1 ? HERO.map((_, i) => `<button class="ch-dot${i ? '' : ' on'}" type="button" data-i="${i}" aria-label="Destacado ${i + 1}"></button>`).join('') : '';
   let hi = 0, ht = null;
@@ -2784,8 +2811,9 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
 
   /* --- Cabecera: pestañas Inicio · Noticias · Discusiones · Upgrade y lupa --- */
   document.addEventListener('click', e => {
-    if (e.target.closest('.ch-menu')) { aviso('Próximamente.'); return; }
-    const t = e.target.closest('.ch-tab'); if (!t) return;
+    if (e.target.closest('.ch-menu')) { $('drMenu').hidden = false; return; }
+    const dm = $('drMenu'); if (dm && !dm.hidden && !e.target.closest('.dr-card')) { dm.hidden = true; return; }
+    const t = e.target.closest('.dr-it'); if (!t) return; dm.hidden = true;
     const k = t.dataset.tab;
     if (k === 'inicio') $('navWallet').click();
     else if (k === 'noticias') abrirNoticias();
