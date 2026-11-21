@@ -857,6 +857,11 @@ html.pf-lock body>:not(#pfGate){visibility:hidden}
 .pf-w.c .pf-sub{margin-top:auto;font-size:.8rem}
 @keyframes pfsh{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 .sh{animation:pfsh .35s}
+.pp-av.pf-hav{position:relative;padding:0!important;background:var(--m)!important;color:#fff!important;box-shadow:none}
+.pf-hav>span{position:absolute;inset:max(1.2px,3.5%);border-radius:50%;background:#0c0c0c;overflow:hidden;display:block}
+.pf-hav>span img{width:100%;height:100%;object-fit:cover;display:block}
+.pf-hav>span svg{width:100%!important;height:100%!important;display:block}
+.pf-hav text{font-family:'Poppins',sans-serif;font-weight:500;fill:#fff}
 
 /* Listas desactivadas (ver CUBE_LISTAS_ACTIVAS): se ocultan sus accesos sin borrar el código */
 body.sin-listas .hl-sec,body.sin-listas #irListas,body.sin-listas [data-a="listas"],body.sin-listas [data-t="lista"]{display:none !important}
@@ -2798,13 +2803,15 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   const nuevoDef = () => ({ id: 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 4), nombre: 'User', marco: 'lima', foto: null, ph: null });
   async function hp(pin, salt) { try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(salt + ':' + pin)); return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join(''); } catch (e) { return btoa(salt + ':' + pin); } }
 
-  function aplicar() {   // marco + foto del perfil activo, arriba a la derecha
-    const p = window.perfilActivo;
+  function aplicar() {   // marco + foto o inicial del perfil activo (cabecera)
+    const p = window.perfilActivo; if (!p) return;
+    const L = esc((p.nombre || '?').trim().charAt(0).toUpperCase() || '?');
     ['ppAv','ppAv2','ppAv3'].forEach(id => {
-      const el = $(id); if (!el || !p) return;
-      el.style.cssText += ';background:' + marco(p.marco) + ';padding:5%;box-sizing:border-box;color:#fff';
-      el.innerHTML = '<span style="display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0c0c0c;color:#fff;font:600 12px Poppins,sans-serif;overflow:hidden">' + (p.foto ? '<img src="' + p.foto + '" alt="" style="width:100%;height:100%;object-fit:cover">' : ini(p).replace('<svg ', '<svg style="width:70%;height:70%;margin-top:12%" ')) + '</span>';
+      const el = $(id); if (!el) return;
+      el.removeAttribute('style'); el.classList.add('pf-hav'); el.style.setProperty('--m', marco(p.marco));
+      el.innerHTML = '<span>' + (p.foto ? '<img src="' + p.foto + '" alt="">' : '<svg viewBox="0 0 100 100" aria-hidden="true"><text x="50" y="53" text-anchor="middle" dominant-baseline="central" font-size="50">' + L + '</text></svg>') + '</span>';
     });
+    const o = $('btnPerfilTop'), d = $('btnPerfilNoticias'); if (o && d) d.innerHTML = o.innerHTML.replace(/ id="[^"]*"/g, '');
   }
   function cerrar(p) {
     try { sessionStorage.setItem('cube_perfil_ok', p.id); } catch (e) {}
@@ -2823,7 +2830,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     if (modo === 'quien') {
       const t = acc === 'edit' ? 'Administrar perfiles' : acc === 'del' ? '¿Qué perfil quieres borrar?' : '¿Quién está viendo?';
       h = `${logo}<h1 class="pf-h">${t}</h1><div class="pf-main"><div class="pf-grid">${lista.map(p => `<button class="pf-it" type="button" data-a="${acc || 'elegir'}" data-id="${p.id}">${av(p, 112)}${acc ? `<span class="pf-bdg ${acc === 'del' ? 'r' : ''}">${acc === 'del' ? X : LAPIZ}</span>` : (p.ph ? `<span class="pf-bdg">${LOCK}</span>` : '')}<b>${esc(p.nombre)}</b></button>`).join('')}</div></div>
-      ${acc ? '<button class="pf-lnk" type="button" data-a="listo">Listo</button>' : '<div class="pf-acts"><button class="pf-btn" type="button" data-a="nuevo">+ Crear</button><button class="pf-btn" type="button" data-a="borrar">Borrar</button></div><button class="pf-lnk" type="button" data-a="gest">Administrar perfiles</button>'}`;
+      ${acc ? '<button class="pf-lnk" type="button" data-a="listo">Listo</button>' : '<div class="pf-acts"><button class="pf-btn" type="button" data-a="nuevo">+ Crear</button><button class="pf-btn" type="button" data-a="borrar">− Borrar</button></div><button class="pf-lnk" type="button" data-a="gest">Administrar perfiles</button>'}`;
       if (conf) h += `<div class="pf-md"><div class="pf-card"><b>¿Borrar a ${esc(conf.nombre)}?</b><p>Se borrarán sus datos y su progreso. No se puede deshacer.</p><div class="pf-fb"><button class="pf-btn" type="button" data-a="cn">Cancelar</button><button class="pf-btn d" type="button" data-a="cs">Borrar</button></div></div></div>`;
     } else if (modo === 'form') {
       h = `${logo}<h1 class="pf-h">${f.nuevo ? 'Crear perfil' : 'Editar perfil'}</h1>
