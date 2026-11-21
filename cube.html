@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Playfair+Display:ital,wght@0,400;1,400&family=Open+Sans:wght@400;500;600&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Playfair+Display:ital,wght@0,400;1,400&family=Open+Sans:wght@400;500;600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 /* Diseño nuevo: fondo #ECECEC · verde ácido #C6FF00 · tarjetas blancas · texto negro */
 :root{--verde:#C6FF00;--fondo:#ECECEC;--panel:#FFFFFF;--tarjeta:#FFFFFF;--texto:#0A0A0A;--texto-suave:#6B6F68;--negro:#0A0A0A;--tinta:#0A0A0A;--acento:#0A0A0A;--oscuro:#171917;--linea:#D6D8D3;--sutil:rgba(0,0,0,.06);--margen:3.4vw;color-scheme:light}
@@ -1007,7 +1007,7 @@ body{background:#000}
 .ch-dot:active{transform:none}
 
 /* ---- Cabecera y hero (copia del concepto) ---- */
-.ch-top{padding:calc(env(safe-area-inset-top,0px) + 3cqw) 6.3cqw 9cqw;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 100%)}
+.ch-top{padding:calc(env(safe-area-inset-top,0px) + 3cqw) 6.3cqw 9cqw;background:linear-gradient(180deg,rgba(0,0,0,.14) 0%,rgba(0,0,0,0) 100%)}
 .ch-top.est{background:#000;padding-bottom:3cqw}
 .ch-fila{display:flex;align-items:center;justify-content:space-between}
 .ch-izq{display:flex;align-items:center;gap:6.6cqw}
@@ -1088,7 +1088,7 @@ body.en-noticias{padding-bottom:0}
 
 /* ---- Barra inferior: solo aparece en las pantallas secundarias ---- */
 #bottomNav{display:none}
-body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.en-almacen #bottomNav,body.en-profit #bottomNav,body.en-enviar #bottomNav,body.en-transf #bottomNav,body.en-ventas #bottomNav,body.en-caridad #bottomNav,body.en-invertir #bottomNav,body.en-grafico #bottomNav,body.en-ops #bottomNav,body.perfil-abierto #bottomNav{display:flex}
+body.buscando #bottomNav,body.en-lista #bottomNav,body.en-almacen #bottomNav,body.en-profit #bottomNav,body.en-enviar #bottomNav,body.en-transf #bottomNav,body.en-ventas #bottomNav,body.en-caridad #bottomNav,body.en-invertir #bottomNav,body.en-grafico #bottomNav,body.en-ops #bottomNav,body.perfil-abierto #bottomNav{display:flex}
 /* ---- Fondo general (degradado oscuro) y home limpio ---- */
 html,html.pf-lock{background:#000!important}
 body,html.pf-lock body{background:#000!important}
@@ -1096,7 +1096,8 @@ body,html.pf-lock body{background:#000!important}
 #pfGate.neg{background:#000}
 .ch-top.est{background:transparent}
 .pie,:root[data-tema] .pie{background:transparent!important}
-.ch-fade{background:linear-gradient(180deg,rgba(0,0,0,0) 56%,rgba(0,0,0,.28) 70%,rgba(0,0,0,.72) 86%,rgba(0,0,0,.96) 100%)}
+.ch-fade{background:linear-gradient(180deg,rgba(0,0,0,0) 56%,rgba(0,0,0,.28) 70%,rgba(0,0,0,.74) 86%,#000 99%)}
+.ch-slide:first-child .ch-fade{background:linear-gradient(180deg,rgba(0,0,0,0) 52%,rgba(0,0,0,.34) 66%,rgba(0,0,0,.84) 82%,#000 95%)}
 #genSecs,.hl-sec{display:none!important}
 </style>
 <style id="pf-hbo">
@@ -1118,6 +1119,53 @@ body,html.pf-lock body{background:#000!important}
 #pfGate .pf-btn.p{background:#C6FF00;color:#0A0A0A}
 #pfGate .pf-btn.d{background:#ff5a4d;color:#fff}
 #pfGate .pf-lnk{margin-top:calc(50 * var(--u));padding:calc(8 * var(--u));color:#A98BFF;font-weight:700;font-size:calc(17 * var(--u));letter-spacing:.09em}
+</style>
+<style id="pf-aros">
+/* ===== Perfiles: solo el aro de color (sin fondo interior) ===== */
+.pf-av,.pp-av.pf-hav,.pfp-av{background:none!important}
+.pf-av::before,.pp-av.pf-hav::before,.pfp-av::before{content:"";position:absolute;inset:0;box-sizing:border-box;border-radius:50%;background:var(--m,#C6FF00);pointer-events:none;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.pf-av::before{padding:calc(var(--s) * .034)}
+.pp-av.pf-hav::before{padding:max(1.2px,3.5%)}
+.pfp-av::before{padding:3.6px}
+.pf-av>span,.pf-hav>span,.pfp-av>span{background:transparent!important}
+/* Panel de perfil: mismo fondo que el selector de perfiles */
+body.perfil-abierto,body.en-notif{background:linear-gradient(180deg,#1d1e20 0%,#15161a 28%,#0b0c12 58%,#0a0c0b 62%,#0a0c0b 100%) fixed no-repeat,#0a0c0b!important}
+</style>
+<style id="nt-novedades">
+/* ===== Notificaciones · diseño tipo "Novedades" ===== */
+body.en-notif{padding-bottom:0}
+#notifs{max-width:640px;padding:calc(env(safe-area-inset-top,0px) + 22px) 5.6% 40px;font-family:'Noto Sans','Open Sans',system-ui,sans-serif}
+#notifs .nt-top{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:6px;margin:0 0 18px}
+#notifs .volver-btn{width:44px;height:44px;margin:0 0 0 -10px}
+#notifs .volver-btn svg{width:30px;height:30px}
+#notifs .nt-top h1{font-family:inherit;font-size:clamp(1.1rem,4.9vw,1.4rem)!important;font-weight:700!important;text-align:center;color:#fff}
+#notifs .notif-limpiar{padding:6px 2px;background:none;border-radius:0;color:#63B3FF;font:600 .74rem 'Noto Sans',sans-serif;letter-spacing:.02em}
+#notifs .notif-ajustes{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 20px;padding:8px 12px;border-radius:12px;background:#111214}
+#notifs .notif-ajustes-info b{font-size:.76rem;font-weight:600;color:#fff}
+#notifs .notif-ajustes-info small{margin-top:1px;font-size:.64rem;line-height:1.3;color:#8b9096}
+#notifs .switch{width:34px;height:20px}
+#notifs .switch span:before{width:14px;height:14px;left:3px;top:3px}
+#notifs .switch input:checked + span:before{transform:translateX(14px)}
+#notifs .notif-lista{display:flex;flex-direction:column;gap:20px;margin:0;padding:0;background:none;border-radius:0;overflow:visible}
+#notifs .notif{position:relative;display:flex;align-items:center;gap:2.8%;padding:0;border:0;border-radius:0;background:none}
+#notifs .notif.nueva::after{content:none}
+#notifs .notif-dot{display:none;position:absolute;left:-15px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:#63B3FF}
+#notifs .notif.nueva .notif-dot{display:block}
+#notifs .notif-th{flex:0 0 35.4%;aspect-ratio:16/9;display:grid;place-items:center;overflow:hidden;border-radius:2px;background:#16181b;color:#8b9096}
+#notifs .notif-th img{width:100%;height:100%;object-fit:cover;display:block}
+#notifs .notif-th svg{width:34%;height:auto;max-height:70%}
+#notifs .notif-cuerpo{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;padding:0}
+#notifs .notif-cuerpo b{font-size:clamp(.85rem,3.8vw,1.02rem);font-weight:700;line-height:1.25;color:#fff;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+#notifs .notif-cuerpo span{font-size:clamp(.82rem,3.7vw,1rem);line-height:1.3;color:#d3d6da;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#notifs .notif-cuerpo small{font-size:.74rem;color:#8b9096}
+#notifs .notif-ver{align-self:flex-start;padding:2px 0;font:700 clamp(.8rem,3.5vw,.95rem) 'Noto Sans',sans-serif;color:#63B3FF;text-transform:uppercase}
+#notifs .notif-mas{position:relative;flex:none}
+#notifs .notif-kb{display:grid;place-items:center;width:34px;height:40px;color:#fff}
+#notifs .notif-kb svg{width:20px;height:20px}
+#notifs .notif-pop{position:absolute;right:0;top:100%;z-index:5;min-width:170px;padding:4px;border-radius:10px;background:#222428;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+#notifs .notif-pop[hidden]{display:none}
+#notifs .notif-pop button{display:block;width:100%;padding:11px 12px;text-align:left;font:500 .85rem 'Noto Sans',sans-serif;color:#fff}
+#notifs .sin-resultados{text-align:center;margin-top:40px;color:#8b9096}
 </style>
 </head>
 <body>
@@ -1244,21 +1292,20 @@ body,html.pf-lock body{background:#000!important}
 
 <!-- NOTIFICACIONES -->
 <section id="notifs" aria-label="Notificaciones">
-  <div class="buscar-top">
-    <button class="volver-btn" id="cerrarNotifs" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <h1 style="font-size: 1.3rem; font-weight:700;">Notificaciones</h1>
+  <div class="buscar-top nt-top">
+    <button class="volver-btn" id="cerrarNotifs" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <h1>Novedades</h1>
+    <span></span>
   </div>
   <div class="notif-ajustes">
     <div class="notif-ajustes-info">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
-      <div><b>Notificaciones Push</b><small>Recibe avisos en tu dispositivo cuando CUBE tenga novedades. Requiere permiso del navegador.</small></div>
+      <div><b>Notificaciones push</b><small>Avisos en tu dispositivo. Requiere permiso del navegador.</small></div>
     </div>
     <label class="switch" aria-label="Activar o desactivar notificaciones push">
       <input type="checkbox" id="pushToggle">
       <span></span>
     </label>
   </div>
-  <div class="notif-acciones"><button class="notif-limpiar" id="borrarTodasNotif" type="button">Borrar todas</button></div>
   <div class="notif-lista" id="notifLista"></div>
   <p class="sin-resultados" id="notifVacia" hidden>No tienes notificaciones.</p>
 </section>
@@ -1561,20 +1608,26 @@ actualizarHeader();
   function iconoNotif(tipo) {
     return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONOS_NOTIF[tipo] || ICONOS_NOTIF.sistema}</svg>`;
   }
+  let nuevasIds = new Set();
+  const KEBAB = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
+  const srcImg = f => /^(https?:|data:)/.test(f) ? f : IMG_BASE + f;
   function renderNotificaciones() {
     const est = leer(), lista = generar();
-    document.getElementById('notifLista').innerHTML = lista.map(n =>
-      `<article class="notif${n.leida ? '' : ' nueva'}" data-notif-id="${String(n.id).replace(/"/g, '&quot;')}">
-        <div class="notif-ico">${iconoNotif(n.tipo)}</div>
-        <div class="notif-cuerpo"><b>${n.titulo}</b><span>${n.texto}</span><small>${hace(n.ts)}</small></div>
-        ${n.url ? `<button class="notif-borrar notif-abrir" data-url="${n.url}" aria-label="Abrir notificación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></button>` : ''}
-        <button class="notif-borrar" data-borrar-notif="${String(n.id).replace(/"/g, '&quot;')}" aria-label="Borrar notificación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14M10 10v6M14 10v6"/></svg></button>
-      </article>`).join('');
+    document.getElementById('notifLista').innerHTML = lista.map(n => {
+      const id = String(n.id).replace(/"/g, '&quot;'), nueva = nuevasIds.has(n.id);
+      return `<article class="notif${nueva ? ' nueva' : ''}" data-notif-id="${id}">
+        <i class="notif-dot" aria-hidden="true"></i>
+        <div class="notif-th">${n.img ? `<img src="${srcImg(n.img)}" alt="" loading="lazy">` : iconoNotif(n.tipo)}</div>
+        <div class="notif-cuerpo"><b>${n.titulo}</b><span>${n.texto}</span>${n.url ? `<button class="notif-ver" type="button" data-url="${n.url}">VER AHORA</button>` : ''}</div>
+        <div class="notif-mas"><button class="notif-kb" type="button" data-menu="${id}" aria-label="Más opciones">${KEBAB}</button><div class="notif-pop" hidden><button type="button" data-borrar-notif="${id}">Borrar notificación</button></div></div>
+      </article>`;
+    }).join('');
     document.getElementById('notifVacia').hidden = lista.length > 0;
     const toggle = document.getElementById('pushToggle');
     if (toggle) toggle.checked = !!est.pushEnabled;
   }
   function abrirNotificaciones() {
+    nuevasIds = new Set(generar().filter(n => !n.leida).map(n => n.id));
     const est = leer();
     est.items = (est.items || []).map(n => ({ ...n, leida: true }));
     guardar(est);
@@ -1585,7 +1638,10 @@ actualizarHeader();
     window.scrollTo(0, 0);
     setTimeout(() => window.dispatchEvent(new Event('scroll')), 60);
   }
+  document.addEventListener('click', e => { if (!e.target.closest('.notif-mas')) document.querySelectorAll('.notif-pop').forEach(x => { x.hidden = true; }); });
   document.getElementById('notifLista').addEventListener('click', e => {
+    const kb = e.target.closest('[data-menu]');
+    if (kb) { const pop = kb.parentElement.querySelector('.notif-pop'), abierto = !pop.hidden; document.querySelectorAll('.notif-pop').forEach(x => { x.hidden = true; }); pop.hidden = abierto; return; }
     const borrar = e.target.closest('[data-borrar-notif]');
     if (borrar) {
       const id = borrar.dataset.borrarNotif, est = leer();
@@ -1595,12 +1651,6 @@ actualizarHeader();
     }
     const abrir = e.target.closest('[data-url]');
     if (abrir && abrir.dataset.url) window.location.href = abrir.dataset.url;
-  });
-  document.getElementById('borrarTodasNotif').addEventListener('click', () => {
-    const est = leer();
-    est.borradas = [...new Set([...(est.borradas || []), ...(est.items || []).map(n => n.id)])];
-    est.items = [];
-    guardar(est); renderNotificaciones(); actualizarHeader();
   });
   document.getElementById('pushToggle').addEventListener('change', async e => {
     const toggle = e.target, est = leer();
@@ -2631,23 +2681,37 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     { img: 'triangle-room-hero.webp', logo: 'triangle-room-logo.webp', alt: 'Triangle Room', genero: 'Tragedias amorosas', edad: '16+', anio: 2026, w: '46cqw' },
     { img: 'the-factions-tapes-hero.webp', logo: 'the-factions-tapes-logo.webp', alt: "The Faction's Tapes", genero: 'Conexiones', edad: '13+', anio: 2027, w: '42cqw', y: '-8%' },
     { img: '096-hero.webp', logo: '096-logo.webp', alt: '096', genero: 'Avistamientos', edad: '13+', anio: 2027, w: '36cqw' }
-    // Para sumar más destacados, agrega otro objeto con el mismo formato (w = ancho opcional del título, y = desplazamiento vertical opcional de la imagen): cambian solos cada 9 s.
+    // Para sumar más destacados, agrega otro objeto con el mismo formato (w = ancho opcional del título, y = desplazamiento vertical opcional de la imagen): cambian solos cada 5 s.
   ];
   const trk = $('chTrack'), dots = $('chDots');
   trk.innerHTML = HERO.map(h => `<article class="ch-slide"><img class="ch-img" src="${IMG_BASE}${h.img}"${h.y ? ` style="transform:translateY(${h.y})"` : ''} alt="" draggable="false" fetchpriority="high" onerror="this.style.display='none'"><div class="ch-fade"></div><div class="ch-info"><img class="ch-tit" src="${IMG_BASE}${h.logo}"${h.w ? ` style="width:${h.w}"` : ''} alt="${esc(h.alt)}" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement('h2'),{className:'ch-tit-txt',textContent:this.alt}))"><p class="ch-meta"><span>${esc(h.edad || '15+')}</span><span>${esc(h.genero)}</span><span>${h.anio}</span></p><div class="ch-acc"><button class="ch-ver" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 2.5v19l16-9.5z"/></svg>Ver noticia</button><button class="ch-add" type="button" aria-label="Agregar a una lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg></button></div></div></article>`).join('');
   $('chHero').classList.toggle('ch-solo', HERO.length < 2);
   dots.innerHTML = HERO.length > 1 ? HERO.map((_, i) => `<button class="ch-dot${i ? '' : ' on'}" type="button" data-i="${i}" aria-label="Destacado ${i + 1}"></button>`).join('') : '';
   let hi = 0, ht = null;
-  const irHero = i => trk.scrollTo({ left: i * trk.clientWidth, behavior: reducido ? 'auto' : 'smooth' });
+  let anim = 0;
+  const irHero = i => {
+    const to = i * trk.clientWidth;
+    if (reducido) { trk.scrollTo({ left: to, behavior: 'auto' }); return; }
+    cancelAnimationFrame(anim);
+    const from = trk.scrollLeft, dist = to - from; if (!dist) return;
+    const dur = 480 + Math.min(3, Math.abs(dist) / (trk.clientWidth || 1)) * 70, t0 = performance.now();
+    trk.style.scrollSnapType = 'none';
+    const paso = now => {
+      const k = Math.min(1, (now - t0) / dur), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      trk.scrollLeft = from + dist * e;
+      if (k < 1) anim = requestAnimationFrame(paso); else trk.style.scrollSnapType = '';
+    };
+    anim = requestAnimationFrame(paso);
+  };
   const autoHero = on => {
     clearInterval(ht); ht = null;
-    if (on && HERO.length > 1 && !reducido) ht = setInterval(() => { if (homeVisible()) irHero((hi + 1) % HERO.length); }, 9000);
+    if (on && HERO.length > 1 && !reducido) ht = setInterval(() => { if (homeVisible()) irHero((hi + 1) % HERO.length); }, 5000);
   };
   trk.addEventListener('scroll', () => {
     const i = Math.round(trk.scrollLeft / (trk.clientWidth || 1));
     if (i !== hi) { hi = i; dots.querySelectorAll('.ch-dot').forEach((d, k) => d.classList.toggle('on', k === i)); }
   }, { passive: true });
-  trk.addEventListener('touchstart', () => autoHero(false), { passive: true });
+  trk.addEventListener('touchstart', () => { cancelAnimationFrame(anim); trk.style.scrollSnapType = ''; autoHero(false); }, { passive: true });
   trk.addEventListener('touchend', () => autoHero(true), { passive: true });
   dots.addEventListener('click', e => { const d = e.target.closest('.ch-dot'); if (d) { autoHero(false); irHero(+d.dataset.i); autoHero(true); } });
   trk.addEventListener('click', e => { if (e.target.closest('.ch-ver')) abrirNoticias(); });
@@ -3074,7 +3138,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   window.abrirPerfiles = function () { cambio = true; try { sessionStorage.removeItem('cube_perfil_ok'); } catch (e) {} iniciar(); };
   const ah = window.actualizarHeader;
   if (ah) window.actualizarHeader = function () { const r = ah.apply(this, arguments); aplicar(); return r; };
-  const bp = $('irPerfiles'); if (bp) bp.addEventListener('click', () => { window.abrirPerfiles(); if (gate) { acc = 'edit'; vista(); } });
+  document.addEventListener('click', e => { if (e.target.closest('#irPerfiles')) { e.preventDefault(); e.stopImmediatePropagation(); window.abrirPerfiles(); } }, true);
   ['irColecciones', 'irLogros', 'irSuscripcion', 'irPrivacidad'].forEach(id => { const b = $(id); if (b) b.onclick = () => (window.cubeAviso ? window.cubeAviso('Próximamente.') : alert('Próximamente.')); });
   window.addEventListener('cube:usuario-listo', iniciar);
   if (window.usuario && window.usuario()) iniciar();
