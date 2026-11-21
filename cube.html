@@ -2876,6 +2876,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   const I = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
   const LAPIZ = I('<path d="M4 20h4L19 9l-4-4L4 16z"/>'), X = I('<path d="M6 6l12 12M18 6L6 18"/>'), LOCK = I('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>');
   const CAM = I('<path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/>'), OJO = I('<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>');
+  const MAS = I('<path d="M12 4v16M4 12h16"/>');
   const SIL = '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="50" cy="36" r="14"/><path d="M20 92c0-19 13-30 30-30s30 11 30 30"/></svg>';
   const $ = id => document.getElementById(id);
   const logo = '<div class="pf-logo">cube</div>';
@@ -2914,7 +2915,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     if (modo === 'quien') {
       const t = acc === 'edit' ? 'Administrar perfiles' : acc === 'del' ? '¿Qué perfil quieres borrar?' : '¿Quién está viendo?';
       h = `${logo}<h1 class="pf-h">${t}</h1><div class="pf-main"><div class="pf-grid">${lista.map(p => `<button class="pf-it" type="button" data-a="${acc || 'elegir'}" data-id="${p.id}">${av(p, 150)}${acc ? `<span class="pf-bdg ${acc === 'del' ? 'r' : ''}">${acc === 'del' ? X : LAPIZ}</span>` : (p.ph ? `<span class="pf-bdg">${LOCK}</span>` : '')}<b>${esc(p.nombre)}</b></button>`).join('')}</div></div>
-      ${acc ? '<button class="pf-lnk" type="button" data-a="listo">Listo</button>' : '<div class="pf-acts"><button class="pf-btn" type="button" data-a="nuevo">${I('<path d="M12 4v16M4 12h16"/>')}<span>Agregar</span></button><button class="pf-btn" type="button" data-a="borrar">${I('<path d="M12 4v16M4 12h16"/>')}<span>Borrar</span></button></div><button class="pf-lnk" type="button" data-a="gest">Administrar perfiles</button>'}`;
+      ${acc ? '<button class="pf-lnk" type="button" data-a="listo">Listo</button>' : `<div class="pf-acts"><button class="pf-btn" type="button" data-a="nuevo">${MAS}<span>Agregar</span></button><button class="pf-btn" type="button" data-a="borrar">${MAS}<span>Borrar</span></button></div><button class="pf-lnk" type="button" data-a="gest">Administrar perfiles</button>`}`;
       if (conf) h += `<div class="pf-md"><div class="pf-card"><b>¿Borrar a ${esc(conf.nombre)}?</b><p>Se borrarán sus datos y su progreso. No se puede deshacer.</p><div class="pf-fb"><button class="pf-btn" type="button" data-a="cn">Cancelar</button><button class="pf-btn d" type="button" data-a="cs">Borrar</button></div></div></div>`;
     } else if (modo === 'form') {
       h = `${logo}<h1 class="pf-h">${f.nuevo ? 'Crear perfil' : 'Editar perfil'}</h1>
