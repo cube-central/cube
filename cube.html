@@ -6,7 +6,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0a0c0b">
+<meta name="theme-color" content="#000000">
 <title>Cube</title>
 <script src="cube-tema.js"></script>
 <link rel="manifest" href="manifest.webmanifest">
@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Parallax-Oficial/cube@main/cube-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Playfair+Display:ital,wght@0,400;1,400&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Playfair+Display:ital,wght@0,400;1,400&family=Open+Sans:wght@400;500;600&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* Diseño nuevo: fondo #ECECEC · verde ácido #C6FF00 · tarjetas blancas · texto negro */
 :root{--verde:#C6FF00;--fondo:#ECECEC;--panel:#FFFFFF;--tarjeta:#FFFFFF;--texto:#0A0A0A;--texto-suave:#6B6F68;--negro:#0A0A0A;--tinta:#0A0A0A;--acento:#0A0A0A;--oscuro:#171917;--linea:#D6D8D3;--sutil:rgba(0,0,0,.06);--margen:3.4vw;color-scheme:light}
@@ -1090,14 +1090,32 @@ body.en-noticias{padding-bottom:0}
 #bottomNav{display:none}
 body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.en-almacen #bottomNav,body.en-profit #bottomNav,body.en-enviar #bottomNav,body.en-transf #bottomNav,body.en-ventas #bottomNav,body.en-caridad #bottomNav,body.en-invertir #bottomNav,body.en-grafico #bottomNav,body.en-ops #bottomNav,body.perfil-abierto #bottomNav{display:flex}
 /* ---- Fondo general (degradado oscuro) y home limpio ---- */
-html,html.pf-lock{background:#0a0c0b!important}
-body,html.pf-lock body{background:linear-gradient(180deg,#1d1e20 0%,#15161a 28%,#0b0c12 58%,#0a0c0b 62%,#0a0c0b 100%) fixed no-repeat,#0a0c0b!important}
+html,html.pf-lock{background:#000!important}
+body,html.pf-lock body{background:#000!important}
 #pfGate{background:linear-gradient(180deg,#1d1e20 0%,#15161a 28%,#0b0c12 58%,#0a0c0b 62%,#0a0c0b 100%) fixed no-repeat,#0a0c0b}
 #pfGate.neg{background:#000}
 .ch-top.est{background:transparent}
 .pie,:root[data-tema] .pie{background:transparent!important}
-.ch-fade{background:linear-gradient(180deg,rgba(0,0,0,0) 56%,rgba(0,0,0,.28) 70%,rgba(10,12,11,.72) 86%,rgba(10,12,11,.96) 100%)}
+.ch-fade{background:linear-gradient(180deg,rgba(0,0,0,0) 56%,rgba(0,0,0,.28) 70%,rgba(0,0,0,.72) 86%,rgba(0,0,0,.96) 100%)}
 #genSecs,.hl-sec{display:none!important}
+</style>
+<style id="pf-hbo">
+/* ===== Selector de perfiles · estilo de la referencia ===== */
+#pfGate{font-family:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+#pfGate *:not(.pf-logo){font-family:inherit!important}
+#pfGate .pf-logo{font-family:'Poppins',sans-serif!important;color:#fff;font-size:2.4rem}
+#pfGate .pf-w{padding-top:calc(env(safe-area-inset-top,0px) + 7vh);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 5vh)}
+#pfGate .pf-h{margin-top:5.5vh;font-weight:300;font-size:1.95rem;letter-spacing:.005em}
+#pfGate .pf-grid{gap:30px 56px}
+#pfGate .pf-it{width:150px;gap:12px}
+#pfGate .pf-it b{font-weight:400;font-size:1rem;max-width:150px}
+#pfGate .pf-bdg{right:calc(50% - 75px)}
+#pfGate .pf-acts{gap:5.6%;margin-top:0}
+#pfGate .pf-btn{height:58px;display:flex;align-items:center;justify-content:center;gap:12px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
+#pfGate .pf-btn svg{flex:none;width:24px;height:24px;stroke-width:1.6}
+#pfGate .pf-btn.p{background:#C6FF00;color:#0A0A0A}
+#pfGate .pf-btn.d{background:#ff5a4d;color:#fff}
+#pfGate .pf-lnk{margin-top:5vh;padding:10px;color:#A98BFF;font-weight:700;font-size:1rem;letter-spacing:.1em}
 </style>
 </head>
 <body>
@@ -2895,8 +2913,8 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     gate.classList.toggle('neg', modo === 'crop');
     if (modo === 'quien') {
       const t = acc === 'edit' ? 'Administrar perfiles' : acc === 'del' ? '¿Qué perfil quieres borrar?' : '¿Quién está viendo?';
-      h = `${logo}<h1 class="pf-h">${t}</h1><div class="pf-main"><div class="pf-grid">${lista.map(p => `<button class="pf-it" type="button" data-a="${acc || 'elegir'}" data-id="${p.id}">${av(p, 112)}${acc ? `<span class="pf-bdg ${acc === 'del' ? 'r' : ''}">${acc === 'del' ? X : LAPIZ}</span>` : (p.ph ? `<span class="pf-bdg">${LOCK}</span>` : '')}<b>${esc(p.nombre)}</b></button>`).join('')}</div></div>
-      ${acc ? '<button class="pf-lnk" type="button" data-a="listo">Listo</button>' : '<div class="pf-acts"><button class="pf-btn" type="button" data-a="nuevo">+ Crear</button><button class="pf-btn" type="button" data-a="borrar">− Borrar</button></div><button class="pf-lnk" type="button" data-a="gest">Administrar perfiles</button>'}`;
+      h = `${logo}<h1 class="pf-h">${t}</h1><div class="pf-main"><div class="pf-grid">${lista.map(p => `<button class="pf-it" type="button" data-a="${acc || 'elegir'}" data-id="${p.id}">${av(p, 150)}${acc ? `<span class="pf-bdg ${acc === 'del' ? 'r' : ''}">${acc === 'del' ? X : LAPIZ}</span>` : (p.ph ? `<span class="pf-bdg">${LOCK}</span>` : '')}<b>${esc(p.nombre)}</b></button>`).join('')}</div></div>
+      ${acc ? '<button class="pf-lnk" type="button" data-a="listo">Listo</button>' : '<div class="pf-acts"><button class="pf-btn" type="button" data-a="nuevo">${I('<path d="M12 4v16M4 12h16"/>')}<span>Agregar</span></button><button class="pf-btn" type="button" data-a="borrar">${I('<path d="M12 4v16M4 12h16"/>')}<span>Borrar</span></button></div><button class="pf-lnk" type="button" data-a="gest">Administrar perfiles</button>'}`;
       if (conf) h += `<div class="pf-md"><div class="pf-card"><b>¿Borrar a ${esc(conf.nombre)}?</b><p>Se borrarán sus datos y su progreso. No se puede deshacer.</p><div class="pf-fb"><button class="pf-btn" type="button" data-a="cn">Cancelar</button><button class="pf-btn d" type="button" data-a="cs">Borrar</button></div></div></div>`;
     } else if (modo === 'form') {
       h = `${logo}<h1 class="pf-h">${f.nuevo ? 'Crear perfil' : 'Editar perfil'}</h1>
