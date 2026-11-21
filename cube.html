@@ -3040,8 +3040,19 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     vista();
   }
 
+  // Si hay sesión de Supabase guardada pero el perfil aún no cargó (o falló), se usa el usuario del token para no quedarse en negro ni entrar en bucle con cube-cuenta.html
+  function respaldo() {
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i); if (!/^sb-.*-auth-token$/.test(k)) continue;
+        const j = JSON.parse(localStorage.getItem(k) || 'null'), us = j && (j.user || (j.currentSession && j.currentSession.user));
+        if (us && us.id) return { supa: true, id: us.id, email: us.email || '', nombre: us.email || '', foto: null, favoritos: [], guardados: [] };
+      }
+    } catch (e) {}
+    return null;
+  }
   function iniciar() {
-    const nu = window.usuario && window.usuario();
+    const nu = (window.usuario && window.usuario()) || respaldo();
     if (gate && nu) return;
     u = nu;
     if (!u) {
@@ -3066,6 +3077,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   window.addEventListener('cube:usuario-listo', iniciar);
   if (window.usuario && window.usuario()) iniciar();
   else setTimeout(() => { if (!window.usuario()) iniciar(); }, 3500);
+  setTimeout(() => { if (!document.getElementById('pfGate')) document.documentElement.classList.remove('pf-lock'); }, 8000);
 })();
 </script>
 </body>
