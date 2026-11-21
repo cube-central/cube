@@ -6,7 +6,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0a0c0b">
 <title>Cube</title>
 <script src="cube-tema.js"></script>
 <link rel="manifest" href="manifest.webmanifest">
@@ -1089,6 +1089,15 @@ body.en-noticias{padding-bottom:0}
 /* ---- Barra inferior: solo aparece en las pantallas secundarias ---- */
 #bottomNav{display:none}
 body.buscando #bottomNav,body.en-lista #bottomNav,body.en-notif #bottomNav,body.en-almacen #bottomNav,body.en-profit #bottomNav,body.en-enviar #bottomNav,body.en-transf #bottomNav,body.en-ventas #bottomNav,body.en-caridad #bottomNav,body.en-invertir #bottomNav,body.en-grafico #bottomNav,body.en-ops #bottomNav,body.perfil-abierto #bottomNav{display:flex}
+/* ---- Fondo general (degradado oscuro) y home limpio ---- */
+html,html.pf-lock{background:#0a0c0b!important}
+body,html.pf-lock body{background:linear-gradient(180deg,#1d1e20 0%,#15161a 28%,#0b0c12 58%,#0a0c0b 62%,#0a0c0b 100%) fixed no-repeat,#0a0c0b!important}
+#pfGate{background:linear-gradient(180deg,#1d1e20 0%,#15161a 28%,#0b0c12 58%,#0a0c0b 62%,#0a0c0b 100%) fixed no-repeat,#0a0c0b}
+#pfGate.neg{background:#000}
+.ch-top.est{background:transparent}
+.pie,:root[data-tema] .pie{background:transparent!important}
+.ch-fade{background:linear-gradient(180deg,rgba(0,0,0,0) 56%,rgba(0,0,0,.28) 70%,rgba(10,12,11,.72) 86%,rgba(10,12,11,.96) 100%)}
+#genSecs,.hl-sec{display:none!important}
 </style>
 </head>
 <body>
