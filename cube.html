@@ -800,42 +800,63 @@ body.alarma .punto-n.punto-ops{border-color:#1c0a0a}
 
 /* Perfiles */
 body.perfil-abierto #bottomNav{display:none!important}
-html.pf-lock,html.pf-lock body{background:#050507!important;overflow:hidden}
+html.pf-lock,html.pf-lock body{background:#070907!important;overflow:hidden}
 html.pf-lock body>:not(#pfGate){visibility:hidden}
-.pf-av>span{overflow:hidden}.pf-av img{width:100%;height:100%;object-fit:cover;display:block}
-.pf-pv{position:relative;margin-top:5vh}
-.pf-cam{position:absolute;right:2px;bottom:6px;width:46px;height:46px;border-radius:50%;background:#C6FF00;color:#0A0A0A;display:grid;place-items:center;border:4px solid #060806}
-.pf-cam svg{width:20px;height:20px}
-.pf-cam:active{transform:scale(.94)}
-#pfGate{position:fixed;inset:0;z-index:9999;overflow-y:auto;display:flex;justify-content:center;background:linear-gradient(205deg,rgba(105,62,175,.34) 0%,rgba(105,62,175,.12) 24%,transparent 48%),linear-gradient(15deg,rgba(165,62,120,.30) 0%,rgba(165,62,120,.10) 26%,transparent 50%),#050507;color:#fff;font-family:'Poppins',sans-serif;-webkit-tap-highlight-color:transparent}
+#pfGate{position:fixed;inset:0;z-index:9999;overflow-y:auto;display:flex;justify-content:center;color:#fff;font-family:'Poppins',sans-serif;background:radial-gradient(90% 50% at 100% 0,rgba(150,200,30,.16),transparent 62%),radial-gradient(120% 60% at 0 100%,rgba(95,140,12,.5),transparent 66%),linear-gradient(165deg,#080908 0%,#0b110a 55%,#142209 100%)}
+#pfGate.neg{background:#000}
 #pfGate *{box-sizing:border-box}
-.pf-w{width:100%;max-width:480px;min-height:100%;display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 9vh) 7vw calc(env(safe-area-inset-bottom,0px) + 28px);text-align:center}
-.pf-logo{font-weight:800;font-size:2.3rem;letter-spacing:-.5px;line-height:1;color:#C6FF00}
-.pf-h{margin-top:7vh;font-weight:500;font-size:1.45rem}
-.pf-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:26px 22px;margin:6vh 0 4vh}
+.pf-w{width:100%;max-width:480px;min-height:100%;display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 7vh) 7vw calc(env(safe-area-inset-bottom,0px) + 28px)}
+.pf-logo{font-weight:800;font-size:2.2rem;letter-spacing:-.5px;line-height:1;color:#C6FF00}
+.pf-h{margin-top:6vh;font-weight:400;font-size:1.5rem;text-align:center}
+.pf-sub{margin-top:10px;font-size:.84rem;color:#a9b3a0;text-align:center;max-width:300px}
+.pf-err{margin-top:10px;font-size:.82rem;color:#ff8a7d;text-align:center}
+.pf-main{flex:1;display:flex;align-items:center;justify-content:center;width:100%}
+.pf-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:26px 22px}
 .pf-it{display:flex;flex-direction:column;align-items:center;gap:10px;width:120px;position:relative;color:#fff}
-.pf-it b{font-weight:500;font-size:.95rem;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pf-it b{font-weight:400;font-size:.92rem;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pf-it:active{transform:scale(.96)}
 .pf-av{--s:112px;width:var(--s);height:var(--s);flex:none;border-radius:50%;padding:calc(var(--s)*.034);background:var(--m);position:relative}
-.pf-av>span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0c0c0c;font-weight:500;font-size:calc(var(--s)*.4);line-height:1}
-.pf-ed{position:absolute;right:calc(50% - 56px);top:74px;width:32px;height:32px;border-radius:50%;background:#C6FF00;color:#0A0A0A;display:grid;place-items:center;border:3px solid #050505}
-.pf-ed svg{width:14px;height:14px}
-.pf-btn{height:50px;min-width:150px;padding:0 26px;border-radius:999px;font:600 .95rem 'Poppins',sans-serif;background:#C6FF00;color:#0A0A0A}
-.pf-btn.g{background:rgba(255,255,255,.09);color:#fff}
-.pf-btn:disabled{opacity:.35}
-.pf-btn:active{transform:scale(.97)}
-.pf-lnk{margin-top:22px;font:600 .8rem 'Poppins',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#C6FF00;padding:10px}
-.pf-nota{margin-top:14px;font-size:.78rem;color:#8a8d87}
-.pf-sw{display:flex;gap:18px;margin:5vh 0 4vh}
-.pf-sw button{width:34px;height:34px;border-radius:50%;background:var(--m);border:0;outline:2px solid transparent;outline-offset:4px;transition:outline-color .15s,transform .15s}
+.pf-av>span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0e130c;overflow:hidden;color:#fff}
+.pf-av img{width:100%;height:100%;object-fit:cover;display:block}
+.pf-av svg{width:64%;height:64%;margin-top:14%}
+.pf-bdg{position:absolute;right:calc(50% - 58px);top:0;width:30px;height:30px;border-radius:50%;background:#C6FF00;color:#0A0A0A;display:grid;place-items:center;border:3px solid #0b110a}
+.pf-bdg.r{background:#ff5a4d;color:#fff}.pf-bdg svg{width:14px;height:14px}
+.pf-acts{display:flex;gap:14px;width:100%;margin-top:20px}
+.pf-btn{flex:1;height:52px;min-width:0;padding:0 22px;border-radius:999px;font:700 .82rem 'Poppins',sans-serif;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.1);color:#fff;transition:transform .12s,opacity .2s}
+.pf-btn.p{background:#C6FF00;color:#0A0A0A}.pf-btn.d{background:#ff5a4d;color:#fff}
+.pf-btn:disabled{opacity:.3}.pf-btn:active{transform:scale(.97)}
+.pf-lnk{margin-top:22px;font:600 .8rem 'Poppins',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#C6FF00;padding:10px}
+.pf-pv{position:relative;margin-top:5vh}
+.pf-cam{position:absolute;right:calc(50% - 22px);bottom:-8px;width:46px;height:46px;border-radius:50%;background:#eef2e8;color:#142209;display:grid;place-items:center}
+.pf-cam svg{width:20px;height:20px}
+.pf-sw{display:flex;gap:18px;margin:5vh 0 3vh}
+.pf-sw button{width:34px;height:34px;border-radius:50%;background:var(--m);outline:2px solid transparent;outline-offset:3px;transition:outline-color .15s}
 .pf-sw button.on{outline-color:#fff}
-.pf-in{width:100%;text-align:left}
-.pf-in label{font-size:.8rem;color:#8a8d87}
-.pf-in input{display:block;width:100%;margin-top:4px;padding:10px 0;font:500 1.15rem 'Poppins',sans-serif;color:#fff;background:transparent;border:0;border-bottom:1px solid #4a4d48;outline:0;border-radius:0}
+.pf-in{width:100%}.pf-in label{font-size:.78rem;color:#a9b3a0}
+.pf-in input{display:block;width:100%;margin-top:4px;padding:10px 0;font:500 1.15rem 'Poppins',sans-serif;color:#fff;background:transparent;border:0;border-bottom:1px solid #4d5a46;outline:0;border-radius:0}
 .pf-in input:focus{border-bottom-color:#C6FF00}
-.pf-fb{display:flex;gap:12px;margin-top:6vh;width:100%;justify-content:center}
-.pf-fb .pf-btn{flex:1;min-width:0}
-.pf-del{margin-top:18px;font:600 .85rem 'Poppins',sans-serif;color:#ff5a4d;padding:10px}
+.pf-pr{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;margin-top:22px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.07)}
+.pf-pr b{display:block;font-weight:600;font-size:.9rem}.pf-pr small{color:#a9b3a0;font-size:.74rem}
+.pf-pr .cam{font:600 .74rem 'Poppins',sans-serif;color:#C6FF00;padding:6px 10px}
+.pf-tg{flex:none;width:46px;height:28px;border-radius:999px;background:rgba(255,255,255,.18);position:relative;transition:background .2s}
+.pf-tg::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s}
+.pf-tg.on{background:#C6FF00}.pf-tg.on::after{transform:translateX(18px);background:#0A0A0A}
+.pf-fb{display:flex;gap:12px;margin-top:auto;padding-top:5vh;width:100%}
+.pf-pinrow{display:flex;gap:12px;width:100%;margin-top:6vh}
+.pf-pinrow input{flex:1;min-width:0;height:56px;padding:0 18px;border-radius:12px;border:1.5px solid rgba(198,255,0,.55);background:rgba(0,0,0,.35);color:#fff;font:600 1.4rem 'Poppins',sans-serif;letter-spacing:.5em;outline:0}
+.pf-eye{flex:none;width:56px;height:56px;border-radius:12px;border:1.5px solid rgba(198,255,0,.55);color:#C6FF00;display:grid;place-items:center}
+.pf-eye svg{width:22px;height:22px}
+.pf-md{position:fixed;inset:0;z-index:2;display:grid;place-items:center;padding:24px;background:rgba(0,0,0,.65)}
+.pf-card{width:100%;max-width:340px;padding:24px 22px 20px;border-radius:24px;background:#141a11;text-align:center}
+.pf-card b{font-size:1.05rem;font-weight:600}.pf-card p{margin:8px 0 0;font-size:.86rem;color:#a9b3a0}
+.pf-card .pf-fb{padding-top:22px}
+.pf-cs{position:relative;width:min(86vw,380px);aspect-ratio:1;margin-top:9vh;overflow:hidden;touch-action:none;background:#111;cursor:grab}
+.pf-cs img{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.pf-cs::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 999px rgba(0,0,0,.6);pointer-events:none}
+.pf-cs svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.pf-w.c .pf-sub{margin-top:auto;font-size:.8rem}
+@keyframes pfsh{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.sh{animation:pfsh .35s}
 
 /* Listas desactivadas (ver CUBE_LISTAS_ACTIVAS): se ocultan sus accesos sin borrar el código */
 body.sin-listas .hl-sec,body.sin-listas #irListas,body.sin-listas [data-a="listas"],body.sin-listas [data-t="lista"]{display:none !important}
@@ -2756,62 +2777,34 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
 </script>
 
 <script>
-/* ===== Perfiles: crear, elegir, gestionar ===== */
+/* ===== Perfiles: elegir, crear, borrar, administrar, PIN ===== */
 (function () {
-  const MAX_PERFILES = 1; // límite por cuenta
-  const MARCOS = [
-    ['sol', 'linear-gradient(100deg,#FFE600,#FF7A00)'],
-    ['oceano', 'linear-gradient(100deg,#00D8FF,#0050FF)'],
-    ['lima', '#C6FF00'],
-    ['fuego', 'linear-gradient(100deg,#FF5A00,#FF0000)']
-  ];
-  const marco = id => (MARCOS.find(m => m[0] === id) || MARCOS[2])[1];
-  const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const MARCOS = [['lima','linear-gradient(135deg,#C6FF00,#8fc700)'],['menta','linear-gradient(135deg,#B6FF7A,#16C784)'],['esmeralda','linear-gradient(135deg,#6EE7A0,#0B8F6A)'],['turquesa','linear-gradient(135deg,#5DF2D6,#0891B2)'],['oceano','linear-gradient(135deg,#00D8FF,#2F5BFF)']];
+  const marco = id => (MARCOS.find(m => m[0] === id) || MARCOS[0])[1];
+  const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   const clave = u => 'cube_perfiles_' + (u.id || u.email);
   const leer = u => { try { const a = JSON.parse(localStorage.getItem(clave(u)) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
   const guardar = (u, a) => { try { localStorage.setItem(clave(u), JSON.stringify(a)); } catch (e) {} };
-  const LAPIZ = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>';
-  let cambio = false, gate = null, u = null, lista = [], modo = 'quien', gestion = false, f = null, borrar = false;
-
-  const av = (p, s) => `<div class="pf-av" style="--s:${s}px;--m:${marco(p.marco)}"><span>${p.foto ? `<img src="${p.foto}" alt="">` : esc((p.nombre || '?').trim().charAt(0).toUpperCase() || '?')}</span></div>`;
-  const CAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg>';
+  const I = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const LAPIZ = I('<path d="M4 20h4L19 9l-4-4L4 16z"/>'), X = I('<path d="M6 6l12 12M18 6L6 18"/>'), LOCK = I('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>');
+  const CAM = I('<path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/>'), OJO = I('<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>');
+  const SIL = '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="50" cy="36" r="14"/><path d="M20 92c0-19 13-30 30-30s30 11 30 30"/></svg>';
   const $ = id => document.getElementById(id);
-  function aplicar() {   // marco + foto/inicial del perfil activo, arriba a la derecha
+  const logo = '<div class="pf-logo">cube</div>';
+  let cambio = false, gate = null, u = null, lista = [], modo = 'quien', acc = null, f = null, conf = null, pn = null, cr = null, pidio = false;
+
+  const av = (p, s) => `<div class="pf-av" style="--s:${s}px;--m:${marco(p.marco)}"><span>${p.foto ? `<img src="${p.foto}" alt="">` : SIL}</span></div>`;
+  const nuevoDef = () => ({ id: 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 4), nombre: 'User', marco: 'lima', foto: null, ph: null });
+  async function hp(pin, salt) { try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(salt + ':' + pin)); return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join(''); } catch (e) { return btoa(salt + ':' + pin); } }
+
+  function aplicar() {   // marco + foto del perfil activo, arriba a la derecha
     const p = window.perfilActivo;
-    ['ppAv', 'ppAv2', 'ppAv3'].forEach(id => {
+    ['ppAv','ppAv2','ppAv3'].forEach(id => {
       const el = $(id); if (!el || !p) return;
-      el.style.cssText += ';background:' + marco(p.marco) + ';padding:5%;box-sizing:border-box';
-      el.innerHTML = '<span style="display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0c0c0c;color:#fff;font:600 12px Poppins,sans-serif;overflow:hidden">' + (p.foto ? '<img src="' + p.foto + '" alt="" style="width:100%;height:100%;object-fit:cover">' : esc(p.nombre.trim().charAt(0).toUpperCase())) + '</span>';
+      el.style.cssText += ';background:' + marco(p.marco) + ';padding:5%;box-sizing:border-box;color:#fff';
+      el.innerHTML = '<span style="display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0e130c;overflow:hidden">' + (p.foto ? '<img src="' + p.foto + '" alt="" style="width:100%;height:100%;object-fit:cover">' : SIL.replace('<svg ', '<svg style="width:70%;height:70%;margin-top:12%" ')) + '</span>';
     });
   }
-  function leerFoto(file) {
-    const r = new FileReader();
-    r.onload = () => { const im = new Image(); im.onload = () => { const S = 256, c = document.createElement('canvas'), m = Math.min(im.width, im.height); c.width = c.height = S; c.getContext('2d').drawImage(im, (im.width - m) / 2, (im.height - m) / 2, m, m, 0, 0, S, S); f.foto = c.toDataURL('image/jpeg', .85); vista(); }; im.src = r.result; };
-    r.readAsDataURL(file);
-  }
-  const logo = '<div class="pf-logo">cube</div>';
-
-  function vista() {
-    if (!lista.length && modo === 'quien') { modo = 'form'; f = { id: null, nombre: '', marco: 'lima' }; }
-    let h;
-    if (modo === 'quien') {
-      h = `${logo}<h1 class="pf-h">${gestion ? 'Gestionar perfiles' : '¿Quién está viendo?'}</h1>
-      <div class="pf-grid">${lista.map(p => `<button class="pf-it" type="button" data-a="${gestion ? 'edit' : 'elegir'}" data-id="${p.id}">${av(p, 112)}${gestion ? `<span class="pf-ed">${LAPIZ}</span>` : ''}<b>${esc(p.nombre)}</b></button>`).join('')}</div>
-      ${!gestion && lista.length < MAX_PERFILES ? '<button class="pf-btn" type="button" data-a="nuevo">+ Crear perfil</button>' : ''}
-      ${!gestion && lista.length >= MAX_PERFILES ? `<p class="pf-nota">Tu cuenta permite ${MAX_PERFILES} perfil${MAX_PERFILES > 1 ? 'es' : ''}.</p>` : ''}
-      <button class="pf-lnk" type="button" data-a="gest">${gestion ? 'Listo' : 'Gestionar perfiles'}</button>`;
-    } else {
-      h = `${logo}<h1 class="pf-h">${f.id ? 'Editar perfil' : 'Crear perfil'}</h1>
-      <div class="pf-pv"><div id="pfPrev">${av(f, 168)}</div><button class="pf-cam" type="button" data-a="foto" aria-label="Subir foto">${CAM}</button><input type="file" id="pfFile" accept="image/*" hidden></div>
-      ${f.foto ? '<button class="pf-lnk" style="margin-top:4px" type="button" data-a="qfoto">Quitar foto</button>' : ''}
-      <div class="pf-sw">${MARCOS.map(m => `<button type="button" data-a="marco" data-m="${m[0]}" class="${m[0] === f.marco ? 'on' : ''}" style="--m:${m[1]}" aria-label="Marco ${m[0]}"></button>`).join('')}</div>
-      <div class="pf-in"><label for="pfNom">Nombre</label><input id="pfNom" maxlength="16" autocomplete="off" autocapitalize="words" spellcheck="false" value="${esc(f.nombre)}"></div>
-      <div class="pf-fb">${lista.length ? '<button class="pf-btn g" type="button" data-a="cancel">Cancelar</button>' : ''}<button class="pf-btn" type="button" id="pfSave" data-a="save" ${f.nombre.trim() ? '' : 'disabled'}>Guardar</button></div>
-      ${f.id ? `<button class="pf-del" type="button" data-a="del">${borrar ? '¿Seguro? Toca otra vez para eliminar' : 'Eliminar perfil'}</button>` : ''}`;
-    }
-    gate.firstElementChild.innerHTML = h;
-  }
-
   function cerrar(p) {
     try { sessionStorage.setItem('cube_perfil_ok', p.id); } catch (e) {}
     window.perfilActivo = p; aplicar();
@@ -2821,51 +2814,139 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     if (gate) { gate.remove(); gate = null; document.body.style.overflow = ''; }
     window.dispatchEvent(new Event('cube:perfil-listo'));
   }
+  const pedirPin = (p, ok) => { pn = { t: 'entrar', p, ok }; modo = 'pin'; vista(); };
 
-  function clic(e) {
+  function vista() {
+    let h = '';
+    gate.classList.toggle('neg', modo === 'crop');
+    if (modo === 'quien') {
+      const t = acc === 'edit' ? 'Administrar perfiles' : acc === 'del' ? '¿Qué perfil quieres borrar?' : '¿Quién está viendo?';
+      h = `${logo}<h1 class="pf-h">${t}</h1><div class="pf-main"><div class="pf-grid">${lista.map(p => `<button class="pf-it" type="button" data-a="${acc || 'elegir'}" data-id="${p.id}">${av(p, 112)}${acc ? `<span class="pf-bdg ${acc === 'del' ? 'r' : ''}">${acc === 'del' ? X : LAPIZ}</span>` : (p.ph ? `<span class="pf-bdg">${LOCK}</span>` : '')}<b>${esc(p.nombre)}</b></button>`).join('')}</div></div>
+      ${acc ? '<button class="pf-lnk" type="button" data-a="listo">Listo</button>' : '<div class="pf-acts"><button class="pf-btn" type="button" data-a="nuevo">+ Crear</button><button class="pf-btn" type="button" data-a="borrar">Borrar</button></div><button class="pf-lnk" type="button" data-a="gest">Administrar perfiles</button>'}`;
+      if (conf) h += `<div class="pf-md"><div class="pf-card"><b>¿Borrar a ${esc(conf.nombre)}?</b><p>Se borrarán sus datos y su progreso. No se puede deshacer.</p><div class="pf-fb"><button class="pf-btn" type="button" data-a="cn">Cancelar</button><button class="pf-btn d" type="button" data-a="cs">Borrar</button></div></div></div>`;
+    } else if (modo === 'form') {
+      h = `${logo}<h1 class="pf-h">${f.nuevo ? 'Crear perfil' : 'Editar perfil'}</h1>
+      <div class="pf-pv"><div id="pfPrev">${av(f, 168)}</div><button class="pf-cam" type="button" data-a="foto" aria-label="Subir foto">${CAM}</button><input type="file" id="pfFile" accept="image/*" hidden></div>
+      ${f.foto ? '<button class="pf-lnk" style="margin-top:14px" type="button" data-a="qfoto">Quitar foto</button>' : ''}
+      <div class="pf-sw">${MARCOS.map(m => `<button type="button" data-a="marco" data-m="${m[0]}" class="${m[0] === f.marco ? 'on' : ''}" style="--m:${m[1]}" aria-label="Color ${m[0]}"></button>`).join('')}</div>
+      <div class="pf-in"><label for="pfNom">Nombre</label><input id="pfNom" maxlength="16" autocomplete="off" autocapitalize="words" spellcheck="false" value="${esc(f.nombre)}"></div>
+      <div class="pf-pr"><div><b>PIN del perfil</b><small>${f.ph ? 'Se pedirá cada vez que entres' : 'Opcional · 4 dígitos'}</small></div><div style="display:flex;align-items:center;gap:6px">${f.ph ? '<button class="cam" type="button" data-a="pincam">Cambiar</button>' : ''}<button type="button" class="pf-tg ${f.ph ? 'on' : ''}" data-a="pintog" role="switch" aria-checked="${!!f.ph}" aria-label="PIN"></button></div></div>
+      <div class="pf-fb"><button class="pf-btn" type="button" data-a="cancel">Cancelar</button><button class="pf-btn p" type="button" id="pfSave" data-a="save" ${f.nombre.trim() ? '' : 'disabled'}>Guardar</button></div>`;
+    } else if (modo === 'pin') {
+      const T = { crear: ['Crear un PIN', 'Elige 4 dígitos para proteger este perfil.', 'Guardar'], confirmar: ['Confirma tu PIN', 'Escríbelo otra vez para verificarlo.', 'Guardar'], entrar: ['Ingresa tu PIN', `Perfil de ${pn.p ? esc(pn.p.nombre) : ''}`, 'Entrar'] }[pn.t];
+      h = `${logo}<h1 class="pf-h">${T[0]}</h1><p class="pf-sub">${T[1]}</p>${pn.err ? `<p class="pf-err">${pn.err}</p>` : ''}
+      <div class="pf-pinrow ${pn.err ? 'sh' : ''}"><input id="pfPin" type="password" inputmode="numeric" maxlength="4" pattern="[0-9]*" autocomplete="off" aria-label="PIN"><button class="pf-eye" type="button" data-a="ojo" aria-label="Mostrar PIN">${OJO}</button></div>
+      <div class="pf-fb"><button class="pf-btn" type="button" data-a="pcancel">Cancelar</button><button class="pf-btn p" type="button" id="pfOk" data-a="pok" disabled>${T[2]}</button></div>`;
+    } else {
+      h = `<div class="pf-w c" style="padding-top:calc(env(safe-area-inset-top,0px) + 6vh)">${logo}<div class="pf-cs" id="pfCs"><img id="pfCi" alt=""><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="49.2" fill="none" stroke="#fff" stroke-width=".7" stroke-dasharray="7 3.2"/></svg></div>
+      <p class="pf-sub">Otros usuarios de esta cuenta podrán ver tu foto de perfil.</p>
+      <div class="pf-fb" style="margin-top:0"><button class="pf-btn" type="button" data-a="ccancel">Cancelar</button><button class="pf-btn p" type="button" data-a="cok">Continuar</button></div></div>`;
+      gate.innerHTML = h; return montarCrop();
+    }
+    gate.innerHTML = `<div class="pf-w">${h}</div>`;
+    const pi = $('pfPin'); if (pi) pi.focus();
+  }
+
+  /* ---- ajustar foto: arrastrar y pellizcar ---- */
+  function pintarCrop() {
+    const st = $('pfCs'); if (!st || !cr) return;
+    const S = st.clientWidth, im = cr.img, b = S / Math.min(im.width, im.height), s = b * cr.z;
+    cr.x = Math.min(0, Math.max(S - im.width * s, cr.x)); cr.y = Math.min(0, Math.max(S - im.height * s, cr.y)); cr.s = s; cr.S = S;
+    const el = $('pfCi'); el.style.width = im.width * s + 'px'; el.style.height = im.height * s + 'px'; el.style.transform = `translate(${cr.x}px,${cr.y}px)`;
+  }
+  function zoom(z) {
+    z = Math.min(4, Math.max(1, z)); const S = cr.S, o = cr.s, c = [(S / 2 - cr.x) / o, (S / 2 - cr.y) / o];
+    cr.z = z; const s = (S / Math.min(cr.img.width, cr.img.height)) * z; cr.x = S / 2 - c[0] * s; cr.y = S / 2 - c[1] * s; pintarCrop();
+  }
+  function montarCrop() {
+    const st = $('pfCs'), el = $('pfCi'); el.src = cr.img.src;
+    const ptr = new Map(); let d0 = 0, z0 = 1;
+    st.onpointerdown = e => { st.setPointerCapture(e.pointerId); ptr.set(e.pointerId, [e.clientX, e.clientY]); if (ptr.size === 2) { const [a, b] = [...ptr.values()]; d0 = Math.hypot(a[0] - b[0], a[1] - b[1]); z0 = cr.z; } };
+    st.onpointermove = e => {
+      if (!ptr.has(e.pointerId)) return; const p = ptr.get(e.pointerId);
+      if (ptr.size === 1) { cr.x += e.clientX - p[0]; cr.y += e.clientY - p[1]; ptr.set(e.pointerId, [e.clientX, e.clientY]); pintarCrop(); }
+      else { ptr.set(e.pointerId, [e.clientX, e.clientY]); const [a, b] = [...ptr.values()]; if (d0) zoom(z0 * Math.hypot(a[0] - b[0], a[1] - b[1]) / d0); }
+    };
+    st.onpointerup = st.onpointercancel = e => ptr.delete(e.pointerId);
+    st.onwheel = e => { e.preventDefault(); zoom(cr.z * (e.deltaY < 0 ? 1.08 : 1 / 1.08)); };
+    const ini = () => { const S = st.clientWidth, s = (S / Math.min(cr.img.width, cr.img.height)) * cr.z; cr.x = (S - cr.img.width * s) / 2; cr.y = (S - cr.img.height * s) / 2; pintarCrop(); };
+    el.complete ? ini() : (el.onload = ini);
+  }
+  function leerFoto(file) {
+    const r = new FileReader();
+    r.onload = () => { const im = new Image(); im.onload = () => { cr = { img: im, z: 1, x: 0, y: 0 }; modo = 'crop'; vista(); }; im.src = r.result; };
+    r.readAsDataURL(file);
+  }
+
+  async function pinOk() {
+    const v = ($('pfPin') || {}).value || ''; if (v.length !== 4) return;
+    if (pn.t === 'crear') { pn = { t: 'confirmar', tmp: v }; return vista(); }
+    if (pn.t === 'confirmar') {
+      if (v !== pn.tmp) { pn = { t: 'crear', err: 'Los PIN no coinciden. Inténtalo otra vez.' }; return vista(); }
+      f.ph = await hp(v, f.id); modo = 'form'; return vista();
+    }
+    if (await hp(v, pn.p.id) === pn.p.ph) return pn.ok();
+    pn.err = 'PIN incorrecto'; vista();
+  }
+  function borrarPerfil(p) {
+    lista = lista.filter(x => x.id !== p.id);
+    Object.keys(localStorage).forEach(k => { if (k !== clave(u) && k.indexOf(p.id) > -1) localStorage.removeItem(k); });   // datos y progreso de ese perfil
+    if (!lista.length) lista.push(nuevoDef());
+    guardar(u, lista);
+    try { if (sessionStorage.getItem('cube_perfil_ok') === p.id) sessionStorage.removeItem('cube_perfil_ok'); } catch (e) {}
+    if (window.perfilActivo && window.perfilActivo.id === p.id) window.perfilActivo = null;
+    conf = null; acc = null; vista();
+  }
+
+  async function clic(e) {
     const b = e.target.closest('[data-a]'); if (!b) return;
     const a = b.dataset.a, p = lista.find(x => x.id === b.dataset.id);
-    if (a === 'elegir' && p) return cerrar(p);
-    if (a === 'gest') { gestion = !gestion; return vista(); }
-    if (a === 'nuevo') { modo = 'form'; f = { id: null, nombre: '', marco: 'lima' }; borrar = false; return vista(); }
-    if (a === 'edit' && p) { modo = 'form'; f = { ...p }; borrar = false; return vista(); }
+    if (a === 'elegir' && p) return p.ph ? pedirPin(p, () => cerrar(p)) : cerrar(p);
+    if (a === 'gest') { acc = 'edit'; return vista(); }
+    if (a === 'borrar') { acc = 'del'; return vista(); }
+    if (a === 'listo') { acc = null; return vista(); }
+    if (a === 'nuevo') { f = { ...nuevoDef(), nuevo: true, nombre: '' }; modo = 'form'; return vista(); }
+    if (a === 'edit' && p) { const ir = () => { f = { ...p }; modo = 'form'; vista(); }; return p.ph ? pedirPin(p, ir) : ir(); }
+    if (a === 'del' && p) { const ir = () => { conf = p; modo = 'quien'; vista(); }; return p.ph ? pedirPin(p, ir) : ir(); }
+    if (a === 'cn') { conf = null; return vista(); }
+    if (a === 'cs') return borrarPerfil(conf);
     if (a === 'cancel') { modo = 'quien'; return vista(); }
     if (a === 'foto') return gate.querySelector('#pfFile').click();
     if (a === 'qfoto') { f.foto = null; return vista(); }
     if (a === 'marco') { f.marco = b.dataset.m; gate.querySelector('#pfPrev').innerHTML = av(f, 168); gate.querySelectorAll('.pf-sw button').forEach(x => x.classList.toggle('on', x === b)); return; }
+    if (a === 'pintog' || a === 'pincam') { if (a === 'pintog' && f.ph) { f.ph = null; return vista(); } pn = { t: 'crear' }; modo = 'pin'; return vista(); }
+    if (a === 'ojo') { const i = $('pfPin'); i.type = i.type === 'password' ? 'tel' : 'password'; return i.focus(); }
+    if (a === 'pcancel') { const ent = pn.t === 'entrar'; pn = null; modo = ent ? 'quien' : 'form'; return vista(); }
+    if (a === 'pok') return pinOk();
+    if (a === 'ccancel') { cr = null; modo = 'form'; return vista(); }
+    if (a === 'cok') {
+      const c = document.createElement('canvas'); c.width = c.height = 256;
+      c.getContext('2d').drawImage(cr.img, -cr.x / cr.s, -cr.y / cr.s, cr.S / cr.s, cr.S / cr.s, 0, 0, 256, 256);
+      f.foto = c.toDataURL('image/jpeg', .85); cr = null; modo = 'form'; return vista();
+    }
     if (a === 'save') {
       const nombre = f.nombre.trim(); if (!nombre) return;
-      if (f.id) lista = lista.map(x => x.id === f.id ? { ...x, nombre, marco: f.marco, foto: f.foto || null } : x);
-      else { if (lista.length >= MAX_PERFILES) return; lista.push({ id: 'p' + Date.now().toString(36), nombre, marco: f.marco, foto: f.foto || null }); }
-      guardar(u, lista); modo = 'quien'; gestion = gestion && lista.length > 0;
-      if (window.perfilActivo && window.perfilActivo.id === f.id) { window.perfilActivo = lista.find(x => x.id === f.id); aplicar(); }
+      const q = { id: f.id, nombre, marco: f.marco, foto: f.foto || null, ph: f.ph || null };
+      if (f.nuevo) lista.push(q); else lista = lista.map(x => x.id === q.id ? q : x);
+      guardar(u, lista); modo = 'quien'; acc = f.nuevo ? null : acc;
+      if (window.perfilActivo && window.perfilActivo.id === q.id) { window.perfilActivo = q; aplicar(); }
       return vista();
-    }
-    if (a === 'del') {
-      if (!borrar) { borrar = true; return vista(); }
-      lista = lista.filter(x => x.id !== f.id); guardar(u, lista);
-      try { if (sessionStorage.getItem('cube_perfil_ok') === f.id) sessionStorage.removeItem('cube_perfil_ok'); } catch (e) {}
-      if (window.perfilActivo && window.perfilActivo.id === f.id) window.perfilActivo = null;
-      modo = 'quien'; gestion = false; borrar = false; return vista();
     }
   }
 
   function mostrar() {
     if (gate) return;
     gate = document.createElement('div'); gate.id = 'pfGate'; gate.setAttribute('role', 'dialog'); gate.setAttribute('aria-label', 'Perfiles');
-    gate.innerHTML = '<div class="pf-w"></div>';
     gate.addEventListener('click', clic);
     gate.addEventListener('change', e => { if (e.target.id === 'pfFile' && e.target.files[0]) leerFoto(e.target.files[0]); });
     gate.addEventListener('input', e => {
-      if (e.target.id !== 'pfNom') return;
-      f.nombre = e.target.value; gate.querySelector('#pfPrev').innerHTML = av(f, 168);
-      gate.querySelector('#pfSave').disabled = !f.nombre.trim();
+      if (e.target.id === 'pfNom') { f.nombre = e.target.value; gate.querySelector('#pfPrev').innerHTML = av(f, 168); gate.querySelector('#pfSave').disabled = !f.nombre.trim(); }
+      if (e.target.id === 'pfPin') { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4); $('pfOk').disabled = e.target.value.length !== 4; if (pn.t === 'entrar' && e.target.value.length === 4) pinOk(); }
     });
     document.body.appendChild(gate); document.body.style.overflow = 'hidden';
     vista();
   }
 
-  let pidio = false;
   function iniciar() {
     const nu = window.usuario && window.usuario();
     if (gate && nu) return;
@@ -2873,14 +2954,15 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     if (!u) {
       if (gate) { gate.remove(); gate = null; document.body.style.overflow = ''; }
       try { sessionStorage.removeItem('cube_perfil_ok'); } catch (e) {}
-      if (!pidio) { pidio = true; window.abrirModal('auth'); } // sin sesión: ir a iniciar sesión / registrarse
+      if (!pidio) { pidio = true; window.abrirModal('auth'); }
       return;
     }
     lista = leer(u);
+    if (!lista.length) { lista = [nuevoDef()]; guardar(u, lista); }   // cuenta nueva: perfil "User" por defecto
     let ok = null; try { ok = sessionStorage.getItem('cube_perfil_ok'); } catch (e) {}
     const act = lista.find(x => x.id === ok);
     if (act) { window.perfilActivo = act; aplicar(); document.documentElement.classList.remove('pf-lock'); return; }
-    modo = 'quien'; gestion = false; borrar = false;
+    modo = 'quien'; acc = null; conf = null;
     mostrar();
   }
   window.abrirPerfiles = function () { cambio = true; try { sessionStorage.removeItem('cube_perfil_ok'); } catch (e) {} iniciar(); };

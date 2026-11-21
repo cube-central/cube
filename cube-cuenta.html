@@ -2,221 +2,109 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>cube · cuenta</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080908">
+<title>Cube · Cuenta</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { --fondo:#000; --texto:#f2f2f2; --suave:#8f8f8f; --linea:#262626; --verde:#c6ff00; --error:#ff6b6b; }
-  * { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; }
-  body {
-    background: var(--fondo); color: var(--texto);
-    font-family: "Poppins", system-ui, sans-serif;
-    display: flex; align-items: center; justify-content: center; padding: 20px;
-  }
-  main { width: 100%; max-width: 360px; }
-  .logo { font-weight: 700; font-size: 3.4rem; letter-spacing: -.03em; margin: 0 0 28px; text-align: center; color: var(--verde); line-height: 1; text-transform: lowercase; }
-  .tabs { display: flex; border-bottom: 1px solid var(--linea); margin-bottom: 22px; }
-  .tabs button {
-    flex: 1; background: none; border: 0; color: var(--suave); font: inherit; font-weight: 500;
-    padding: 12px 0; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
-  }
-  .tabs button[aria-selected="true"] { color: var(--verde); border-bottom-color: var(--verde); }
-  label { display: block; font-size: .85rem; color: var(--suave); margin: 14px 0 6px; }
-  input {
-    width: 100%; background: #0c0c0c; color: var(--texto); border: 1px solid var(--linea);
-    border-radius: 10px; padding: 13px 14px; font: inherit; font-size: 1rem;
-  }
-  input:focus { border-color: var(--verde); }
-  input:focus-visible, button:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
-  .primario {
-    width: 100%; margin-top: 24px; padding: 14px; border: 0; border-radius: 10px;
-    background: var(--verde); color: #000; font: inherit; font-weight: 600; font-size: 1rem; cursor: pointer;
-  }
-  .primario:disabled { opacity: .5; cursor: wait; }
-  .enlace { background: none; border: 0; color: var(--suave); font: inherit; font-size: .85rem;
-    text-decoration: underline; cursor: pointer; margin-top: 16px; padding: 0; }
-  #mensaje { min-height: 1.4em; margin-top: 16px; font-size: .9rem; line-height: 1.5; text-align: center; }
-  #mensaje.error { color: var(--error); }
-  #mensaje.ok { color: var(--verde); }
-  .oculto { display: none; }
-  .centro { text-align: center; }
-  #nombre-usuario { font-size: 1.5rem; font-weight: 600; margin: 4px 0 22px; color: var(--verde); }
-  @media (prefers-reduced-motion: no-preference) { button { transition: opacity .15s; } }
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+body{min-height:100vh;min-height:100dvh;display:flex;justify-content:center;color:#fff;font-family:'Poppins',sans-serif;background:radial-gradient(90% 50% at 100% 0,rgba(150,200,30,.16),transparent 62%),radial-gradient(120% 60% at 0 100%,rgba(95,140,12,.5),transparent 66%),linear-gradient(165deg,#080908 0%,#0b110a 55%,#142209 100%) fixed}
+.w{width:100%;max-width:440px;display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 8vh) 7vw calc(env(safe-area-inset-bottom,0px) + 28px)}
+.logo{font-weight:800;font-size:2.4rem;letter-spacing:-.5px;line-height:1;color:#C6FF00}
+h1{margin-top:6vh;font-weight:400;font-size:1.5rem;text-align:center}
+.sub{margin-top:8px;font-size:.84rem;color:#a9b3a0;text-align:center}
+.tabs{display:flex;gap:4px;width:100%;margin-top:5vh;padding:4px;border-radius:999px;background:rgba(255,255,255,.07)}
+.tabs button{flex:1;height:42px;border-radius:999px;font-weight:600;font-size:.84rem;color:#a9b3a0;transition:background .2s,color .2s}
+.tabs button[aria-selected=true]{background:#C6FF00;color:#0A0A0A}
+form{width:100%;margin-top:3vh}
+.f{margin-top:18px;position:relative}
+.f label{font-size:.78rem;color:#a9b3a0}
+.f input{display:block;width:100%;margin-top:2px;padding:10px 0;font:500 1.05rem 'Poppins',sans-serif;color:#fff;background:transparent;border:0;border-bottom:1px solid #4d5a46;outline:0;border-radius:0}
+.f input:focus{border-bottom-color:#C6FF00}
+.f .ojo{position:absolute;right:0;bottom:8px;padding:4px;color:#a9b3a0}
+.f .ojo svg{width:20px;height:20px;display:block}
+.msg{min-height:20px;margin-top:16px;font-size:.82rem;color:#ff8a7d;text-align:center}
+.msg.ok{color:#C6FF00}
+.go{width:100%;height:54px;margin-top:6px;border-radius:999px;background:#C6FF00;color:#0A0A0A;font-weight:700;font-size:.86rem;letter-spacing:.1em;text-transform:uppercase;transition:transform .12s,opacity .2s}
+.go:active{transform:scale(.97)}.go:disabled{opacity:.45}
+.alt{margin-top:22px;font-size:.84rem;color:#a9b3a0}
+.alt button{color:#C6FF00;font-weight:600}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
-<main>
-  <h1 class="logo">cube</h1>
-
-  <!-- Vista: sin sesión -->
-  <section id="vista-entrada">
-    <div class="tabs" role="tablist">
-      <button role="tab" id="tab-entrar" aria-selected="true">Entrar</button>
-      <button role="tab" id="tab-crear" aria-selected="false">Crear cuenta</button>
-    </div>
-
-    <form id="form-entrar" novalidate>
-      <label for="e-correo">Correo o nombre de usuario</label>
-      <input id="e-correo" type="text" autocomplete="username" autocapitalize="none" required>
-      <label for="e-clave">Contraseña</label>
-      <input id="e-clave" type="password" autocomplete="current-password" required>
-      <button class="primario" type="submit">Entrar</button>
-      <div class="centro"><button class="enlace" type="button" id="olvide">Olvidé mi contraseña</button></div>
-    </form>
-
-    <form id="form-crear" class="oculto" novalidate>
-      <label for="c-usuario">Nombre de usuario</label>
-      <input id="c-usuario" type="text" autocomplete="username" maxlength="20" required>
-      <label for="c-correo">Correo electrónico</label>
-      <input id="c-correo" type="email" autocomplete="email" required>
-      <label for="c-clave">Contraseña (mínimo 8 caracteres)</label>
-      <input id="c-clave" type="password" autocomplete="new-password" minlength="8" required>
-      <button class="primario" type="submit">Crear cuenta</button>
-    </form>
-  </section>
-
-  <!-- Vista: con sesión -->
-  <section id="vista-sesion" class="oculto centro">
-    <p>Sesión iniciada como</p>
-    <p id="nombre-usuario"></p>
-    <button class="primario" id="salir" type="button">Salir</button>
-  </section>
-
-  <!-- Vista: nueva contraseña (al llegar desde el correo de recuperación) -->
-  <section id="vista-nueva-clave" class="oculto">
-    <form id="form-nueva-clave" novalidate>
-      <label for="n-clave">Nueva contraseña (mínimo 8 caracteres)</label>
-      <input id="n-clave" type="password" autocomplete="new-password" minlength="8" required>
-      <button class="primario" type="submit">Guardar contraseña</button>
-    </form>
-  </section>
-
-  <p id="mensaje" role="status" aria-live="polite"></p>
+<main class="w">
+  <div class="logo">cube</div>
+  <h1 id="tit">Bienvenido de vuelta</h1>
+  <p class="sub" id="sub">Inicia sesión para continuar.</p>
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" id="tIn" aria-selected="true">Iniciar sesión</button>
+    <button type="button" role="tab" id="tReg" aria-selected="false">Registrarme</button>
+  </div>
+  <form id="fm" novalidate>
+    <div class="f" id="fNom" hidden><label for="nom">Nombre</label><input id="nom" maxlength="30" autocomplete="name"></div>
+    <div class="f"><label for="em">Correo</label><input id="em" type="email" inputmode="email" autocomplete="email" autocapitalize="off"></div>
+    <div class="f"><label for="pw">Contraseña</label><input id="pw" type="password" autocomplete="current-password" style="padding-right:36px">
+      <button type="button" class="ojo" id="ojo" aria-label="Mostrar contraseña"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+    <p class="msg" id="msg" role="alert"></p>
+    <button class="go" id="go" type="submit">Entrar</button>
+  </form>
+  <p class="alt" id="alt">¿No tienes cuenta? <button type="button" id="alt1">Regístrate</button></p>
 </main>
-
-<script src="cube-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="cube-config.js"></script>
 <script>
+(function () {
+  const $ = id => document.getElementById(id);
   const db = supabase.createClient(window.CUBE_SUPABASE_URL, window.CUBE_SUPABASE_ANON_KEY);
-  const $ = (id) => document.getElementById(id);
-  const mensaje = $("mensaje");
+  let reg = false;
+  db.auth.getSession().then(r => { if (r.data && r.data.session) location.replace('cube.html'); });
 
-  function aviso(texto, tipo) { mensaje.textContent = texto; mensaje.className = tipo || ""; }
-
-  function mostrarTab(entrar) {
-    $("tab-entrar").setAttribute("aria-selected", entrar);
-    $("tab-crear").setAttribute("aria-selected", !entrar);
-    $("form-entrar").classList.toggle("oculto", !entrar);
-    $("form-crear").classList.toggle("oculto", entrar);
-    aviso("");
+  function modo(r) {
+    reg = r; $('tIn').setAttribute('aria-selected', !r); $('tReg').setAttribute('aria-selected', r);
+    $('fNom').hidden = !r; $('msg').textContent = ''; $('msg').className = 'msg';
+    $('tit').textContent = r ? 'Crea tu cuenta' : 'Bienvenido de vuelta';
+    $('sub').textContent = r ? 'Empieza con tu perfil User y personalízalo después.' : 'Inicia sesión para continuar.';
+    $('go').textContent = r ? 'Crear cuenta' : 'Entrar';
+    $('pw').autocomplete = r ? 'new-password' : 'current-password';
+    $('alt').innerHTML = r ? '¿Ya tienes cuenta? <button type="button" id="alt1">Inicia sesión</button>' : '¿No tienes cuenta? <button type="button" id="alt1">Regístrate</button>';
+    $('alt1').onclick = () => modo(!reg);
   }
-  $("tab-entrar").onclick = () => mostrarTab(true);
-  $("tab-crear").onclick = () => mostrarTab(false);
+  $('tIn').onclick = () => modo(false); $('tReg').onclick = () => modo(true); $('alt1').onclick = () => modo(true);
+  $('ojo').onclick = () => { const p = $('pw'); p.type = p.type === 'password' ? 'text' : 'password'; };
 
-  const PAGINA_PRINCIPAL = "cube.html";
-
-  async function mostrarVista(sesion) {
-    if (sesion) { location.replace(PAGINA_PRINCIPAL); return; }
-    $("vista-entrada").classList.toggle("oculto", !!sesion);
-    $("vista-sesion").classList.toggle("oculto", !sesion);
-    if (sesion) {
-      const { data } = await db.from("profiles").select("username").eq("id", sesion.user.id).maybeSingle();
-      $("nombre-usuario").textContent = data ? data.username : sesion.user.email;
-    }
+  const err = t => { $('msg').className = 'msg'; $('msg').textContent = t; };
+  function traducir(m) {
+    m = String(m || '');
+    if (/invalid login/i.test(m)) return 'Correo o contraseña incorrectos.';
+    if (/already registered|already been/i.test(m)) return 'Ese correo ya tiene una cuenta.';
+    if (/password/i.test(m) && /6|short|least/i.test(m)) return 'La contraseña debe tener al menos 6 caracteres.';
+    if (/confirm/i.test(m)) return 'Confirma tu correo antes de entrar.';
+    if (/rate|too many/i.test(m)) return 'Demasiados intentos. Espera un momento.';
+    return 'No se pudo completar. Inténtalo de nuevo.';
   }
-
-  function traducirError(e) {
-    const m = (e.message || "").toLowerCase();
-    if (m.includes("invalid login")) return "Correo o contraseña incorrectos.";
-    if (m.includes("email not confirmed")) return "Aún no verificaste tu correo. Revisa tu bandeja (y spam).";
-    if (m.includes("already registered")) return "Ese correo ya tiene una cuenta. Prueba a entrar.";
-    if (m.includes("password")) return "La contraseña debe tener al menos 8 caracteres.";
-    if (m.includes("rate limit")) return "Demasiados intentos. Espera unos minutos.";
-    if (m.includes("database error")) return "Ese nombre de usuario ya está en uso.";
-    return "Algo salió mal: " + e.message;
-  }
-
-  // Crear cuenta
-  $("form-crear").addEventListener("submit", async (ev) => {
-    ev.preventDefault();
-    const usuario = $("c-usuario").value.trim();
-    const correo = $("c-correo").value.trim();
-    const clave = $("c-clave").value;
-    if (!/^[a-zA-Z0-9_]{3,20}$/.test(usuario)) return aviso("El usuario debe tener 3 a 20 caracteres: letras, números o guion bajo.", "error");
-    if (clave.length < 8) return aviso("La contraseña debe tener al menos 8 caracteres.", "error");
-
-    const btn = ev.submitter; btn.disabled = true; aviso("Creando cuenta…");
-    const { data: existe } = await db.from("profiles").select("id").ilike("username", usuario.replace(/[\\%_]/g, "\\$&")).maybeSingle();
-    if (existe) { btn.disabled = false; return aviso("Ese nombre de usuario ya está en uso.", "error"); }
-
-    const { error } = await db.auth.signUp({
-      email: correo, password: clave,
-      options: { data: { username: usuario }, emailRedirectTo: location.href.split("#")[0] }
-    });
-    btn.disabled = false;
-    if (error) return aviso(traducirError(error), "error");
-    aviso("Cuenta creada. Te enviamos un correo: abre el enlace para verificarla y luego entra.", "ok");
-    ev.target.reset();
+  $('fm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = $('em').value.trim(), password = $('pw').value, nombre = $('nom').value.trim();
+    if (!/^\S+@\S+\.\S+$/.test(email)) return err('Escribe un correo válido.');
+    if (password.length < 6) return err('La contraseña debe tener al menos 6 caracteres.');
+    $('go').disabled = true; err('');
+    try {
+      if (reg) {
+        const { data, error } = await db.auth.signUp({ email, password, options: { data: { nombre, name: nombre, full_name: nombre } } });
+        if (error) throw error;
+        if (data.session) return location.replace('cube.html');
+        $('msg').className = 'msg ok'; $('msg').textContent = 'Listo. Revisa tu correo para confirmar tu cuenta.';
+      } else {
+        const { error } = await db.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        location.replace('cube.html');
+      }
+    } catch (x) { err(traducir(x.message)); }
+    $('go').disabled = false;
   });
-
-  // Entrar
-  $("form-entrar").addEventListener("submit", async (ev) => {
-    ev.preventDefault();
-    const btn = ev.submitter; btn.disabled = true; aviso("Entrando…");
-    const ident = $("e-correo").value.trim(), clave = $("e-clave").value;
-    if (ident.includes("@")) {
-      const { error } = await db.auth.signInWithPassword({ email: ident, password: clave });
-      btn.disabled = false;
-      if (error) return aviso(traducirError(error), "error");
-    } else {
-      // con nombre de usuario: lo resuelve el servidor sin mostrar el correo de nadie
-      const { data, error } = await db.functions.invoke("login-usuario", { body: { usuario: ident, password: clave } });
-      if (error || !data) { btn.disabled = false; return aviso("No se pudo iniciar sesión. Intenta de nuevo.", "error"); }
-      if (data.error) { btn.disabled = false; return aviso(data.error, "error"); }
-      const { error: e2 } = await db.auth.setSession({ access_token: data.access_token, refresh_token: data.refresh_token });
-      btn.disabled = false;
-      if (e2) return aviso(traducirError(e2), "error");
-    }
-    aviso("");
-  });
-
-  // Olvidé mi contraseña
-  $("olvide").onclick = async () => {
-    const correo = $("e-correo").value.trim();
-    if (!correo.includes("@")) return aviso("Para recuperar la contraseña escribe tu correo (no el usuario) y vuelve a pulsar.", "error");
-    const { error } = await db.auth.resetPasswordForEmail(correo, { redirectTo: location.href.split("#")[0] });
-    if (error) return aviso(traducirError(error), "error");
-    aviso("Si ese correo tiene cuenta, te enviamos un enlace para cambiar la contraseña.", "ok");
-  };
-
-  // Nueva contraseña
-  $("form-nueva-clave").addEventListener("submit", async (ev) => {
-    ev.preventDefault();
-    const { error } = await db.auth.updateUser({ password: $("n-clave").value });
-    if (error) return aviso(traducirError(error), "error");
-    $("vista-nueva-clave").classList.add("oculto");
-    aviso("Contraseña actualizada.", "ok");
-    const { data } = await db.auth.getSession();
-    mostrarVista(data.session);
-  });
-
-  // Salir
-  $("salir").onclick = async () => { await db.auth.signOut(); aviso(""); };
-
-  // Estado de sesión
-  db.auth.onAuthStateChange((evento, sesion) => {
-    if (evento === "PASSWORD_RECOVERY") {
-      $("vista-entrada").classList.add("oculto");
-      $("vista-sesion").classList.add("oculto");
-      $("vista-nueva-clave").classList.remove("oculto");
-      return;
-    }
-    if (evento === "SIGNED_IN" && !location.hash.includes("type=recovery")) aviso("");
-    mostrarVista(sesion);
-  });
+})();
 </script>
 </body>
 </html>
