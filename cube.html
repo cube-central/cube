@@ -1100,22 +1100,24 @@ body,html.pf-lock body{background:#000!important}
 #genSecs,.hl-sec{display:none!important}
 </style>
 <style id="pf-hbo">
-/* ===== Selector de perfiles · estilo de la referencia ===== */
-#pfGate{font-family:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+/* ===== Selector de perfiles · proporciones de la referencia (pantalla de 540 px de ancho) ===== */
+#pfGate{--u:calc(min(100vw,480px) / 540);font-family:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
 #pfGate *:not(.pf-logo){font-family:inherit!important}
-#pfGate .pf-logo{font-family:'Poppins',sans-serif!important;color:#fff;font-size:2.4rem}
-#pfGate .pf-w{padding-top:calc(env(safe-area-inset-top,0px) + 7vh);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 5vh)}
-#pfGate .pf-h{margin-top:5.5vh;font-weight:300;font-size:1.95rem;letter-spacing:.005em}
-#pfGate .pf-grid{gap:30px 56px}
-#pfGate .pf-it{width:150px;gap:12px}
-#pfGate .pf-it b{font-weight:400;font-size:1rem;max-width:150px}
-#pfGate .pf-bdg{right:calc(50% - 75px)}
-#pfGate .pf-acts{gap:5.6%;margin-top:0}
-#pfGate .pf-btn{height:58px;display:flex;align-items:center;justify-content:center;gap:12px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
-#pfGate .pf-btn svg{flex:none;width:24px;height:24px;stroke-width:1.6}
+#pfGate .pf-w{padding:calc(env(safe-area-inset-top,0px) + 58 * var(--u)) calc(49 * var(--u)) calc(env(safe-area-inset-bottom,0px) + 40 * var(--u))}
+#pfGate .pf-logo{font-family:'Poppins',sans-serif!important;color:#fff;font-size:calc(52 * var(--u));line-height:1}
+#pfGate .pf-h{margin-top:calc(42 * var(--u));font-weight:300;font-size:calc(34 * var(--u));line-height:1.2;letter-spacing:.005em}
+#pfGate .pf-grid{gap:calc(30 * var(--u)) calc(57 * var(--u))}
+#pfGate .pf-it{width:calc(160 * var(--u));gap:calc(12 * var(--u))}
+#pfGate .pf-it .pf-av{--s:calc(160 * var(--u))!important}
+#pfGate .pf-it b{font-weight:400;font-size:calc(17 * var(--u));max-width:calc(160 * var(--u))}
+#pfGate .pf-bdg{right:calc(50% - 80 * var(--u));width:calc(34 * var(--u));height:calc(34 * var(--u));border-width:calc(3 * var(--u))}
+#pfGate .pf-bdg svg{width:50%;height:50%}
+#pfGate .pf-acts{gap:calc(27 * var(--u));margin-top:0}
+#pfGate .pf-btn{height:calc(58 * var(--u));display:flex;align-items:center;justify-content:center;gap:calc(12 * var(--u));padding:0 calc(10 * var(--u));border-radius:999px;background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:calc(17.5 * var(--u));letter-spacing:.1em;text-transform:uppercase}
+#pfGate .pf-btn svg{flex:none;width:calc(24 * var(--u));height:calc(24 * var(--u));stroke-width:1.6}
 #pfGate .pf-btn.p{background:#C6FF00;color:#0A0A0A}
 #pfGate .pf-btn.d{background:#ff5a4d;color:#fff}
-#pfGate .pf-lnk{margin-top:5vh;padding:10px;color:#A98BFF;font-weight:700;font-size:1rem;letter-spacing:.1em}
+#pfGate .pf-lnk{margin-top:calc(50 * var(--u));padding:calc(8 * var(--u));color:#A98BFF;font-weight:700;font-size:calc(17 * var(--u));letter-spacing:.09em}
 </style>
 </head>
 <body>
@@ -2914,7 +2916,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     gate.classList.toggle('neg', modo === 'crop');
     if (modo === 'quien') {
       const t = acc === 'edit' ? 'Administrar perfiles' : acc === 'del' ? '¿Qué perfil quieres borrar?' : '¿Quién está viendo?';
-      h = `${logo}<h1 class="pf-h">${t}</h1><div class="pf-main"><div class="pf-grid">${lista.map(p => `<button class="pf-it" type="button" data-a="${acc || 'elegir'}" data-id="${p.id}">${av(p, 150)}${acc ? `<span class="pf-bdg ${acc === 'del' ? 'r' : ''}">${acc === 'del' ? X : LAPIZ}</span>` : (p.ph ? `<span class="pf-bdg">${LOCK}</span>` : '')}<b>${esc(p.nombre)}</b></button>`).join('')}</div></div>
+      h = `${logo}<h1 class="pf-h">${t}</h1><div class="pf-main"><div class="pf-grid">${lista.map(p => `<button class="pf-it" type="button" data-a="${acc || 'elegir'}" data-id="${p.id}">${av(p, 112)}${acc ? `<span class="pf-bdg ${acc === 'del' ? 'r' : ''}">${acc === 'del' ? X : LAPIZ}</span>` : (p.ph ? `<span class="pf-bdg">${LOCK}</span>` : '')}<b>${esc(p.nombre)}</b></button>`).join('')}</div></div>
       ${acc ? '<button class="pf-lnk" type="button" data-a="listo">Listo</button>' : `<div class="pf-acts"><button class="pf-btn" type="button" data-a="nuevo">${MAS}<span>Agregar</span></button><button class="pf-btn" type="button" data-a="borrar">${MAS}<span>Borrar</span></button></div><button class="pf-lnk" type="button" data-a="gest">Administrar perfiles</button>`}`;
       if (conf) h += `<div class="pf-md"><div class="pf-card"><b>¿Borrar a ${esc(conf.nombre)}?</b><p>Se borrarán sus datos y su progreso. No se puede deshacer.</p><div class="pf-fb"><button class="pf-btn" type="button" data-a="cn">Cancelar</button><button class="pf-btn d" type="button" data-a="cs">Borrar</button></div></div></div>`;
     } else if (modo === 'form') {
