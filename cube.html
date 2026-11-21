@@ -816,7 +816,7 @@ html.pf-lock body>:not(#pfGate){visibility:hidden}
 .pf-it b{font-weight:400;font-size:.92rem;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pf-it:active{transform:scale(.96)}
 .pf-av{--s:112px;width:var(--s);height:var(--s);flex:none;border-radius:50%;padding:calc(var(--s)*.034);background:var(--m);position:relative}
-.pf-av>span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0e130c;overflow:hidden;color:#fff}
+.pf-av>span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0c0c0c;overflow:hidden;color:#fff;font-weight:500;font-size:calc(var(--s)*.4);line-height:1}
 .pf-av img{width:100%;height:100%;object-fit:cover;display:block}
 .pf-av svg{width:64%;height:64%;margin-top:14%}
 .pf-bdg{position:absolute;right:calc(50% - 58px);top:0;width:30px;height:30px;border-radius:50%;background:#C6FF00;color:#0A0A0A;display:grid;place-items:center;border:3px solid #0b110a}
@@ -2779,7 +2779,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
 <script>
 /* ===== Perfiles: elegir, crear, borrar, administrar, PIN ===== */
 (function () {
-  const MARCOS = [['lima','linear-gradient(135deg,#C6FF00,#8fc700)'],['menta','linear-gradient(135deg,#B6FF7A,#16C784)'],['esmeralda','linear-gradient(135deg,#6EE7A0,#0B8F6A)'],['turquesa','linear-gradient(135deg,#5DF2D6,#0891B2)'],['oceano','linear-gradient(135deg,#00D8FF,#2F5BFF)']];
+  const MARCOS = [['lima','#C6FF00'],['oceano','linear-gradient(100deg,#00D8FF,#0050FF)'],['sol','linear-gradient(100deg,#FFE600,#FF7A00)'],['fuego','linear-gradient(100deg,#FF9A00 0%,#FF4A00 42%,#FF0000 100%)']];
   const marco = id => (MARCOS.find(m => m[0] === id) || MARCOS[0])[1];
   const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   const clave = u => 'cube_perfiles_' + (u.id || u.email);
@@ -2793,7 +2793,8 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   const logo = '<div class="pf-logo">cube</div>';
   let cambio = false, gate = null, u = null, lista = [], modo = 'quien', acc = null, f = null, conf = null, pn = null, cr = null, pidio = false;
 
-  const av = (p, s) => `<div class="pf-av" style="--s:${s}px;--m:${marco(p.marco)}"><span>${p.foto ? `<img src="${p.foto}" alt="">` : SIL}</span></div>`;
+  const ini = p => (p.nombre || '').trim() ? esc(p.nombre.trim().charAt(0).toUpperCase()) : SIL;
+  const av = (p, s) => `<div class="pf-av" style="--s:${s}px;--m:${marco(p.marco)}"><span>${p.foto ? `<img src="${p.foto}" alt="">` : ini(p)}</span></div>`;
   const nuevoDef = () => ({ id: 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 4), nombre: 'User', marco: 'lima', foto: null, ph: null });
   async function hp(pin, salt) { try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(salt + ':' + pin)); return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join(''); } catch (e) { return btoa(salt + ':' + pin); } }
 
@@ -2802,7 +2803,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     ['ppAv','ppAv2','ppAv3'].forEach(id => {
       const el = $(id); if (!el || !p) return;
       el.style.cssText += ';background:' + marco(p.marco) + ';padding:5%;box-sizing:border-box;color:#fff';
-      el.innerHTML = '<span style="display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0e130c;overflow:hidden">' + (p.foto ? '<img src="' + p.foto + '" alt="" style="width:100%;height:100%;object-fit:cover">' : SIL.replace('<svg ', '<svg style="width:70%;height:70%;margin-top:12%" ')) + '</span>';
+      el.innerHTML = '<span style="display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#0c0c0c;color:#fff;font:600 12px Poppins,sans-serif;overflow:hidden">' + (p.foto ? '<img src="' + p.foto + '" alt="" style="width:100%;height:100%;object-fit:cover">' : ini(p).replace('<svg ', '<svg style="width:70%;height:70%;margin-top:12%" ')) + '</span>';
     });
   }
   function cerrar(p) {
