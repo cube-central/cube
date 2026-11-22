@@ -1226,6 +1226,9 @@ body:is(.buscando,.en-lista,.en-notif,.en-almacen,.perfil-abierto,.en-enviar,.en
 .chx.sc .ch-top,#noticiasN .ch-top.est.sc{background:rgba(0,0,0,.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 .tb{background:rgba(0,0,0,.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:transform .3s ease}
 .tb.oculto{transform:translateY(100%);pointer-events:none}
+/* con el menú abierto la barra inferior no se muestra; al cerrarlo reaparece suavemente */
+.tb{transition:transform .3s ease,opacity .15s ease .2s}
+body.menu-abierto .tb{opacity:0;pointer-events:none;transition:transform .3s ease}
 /* al cerrar el menú, la barra superior reaparece suavemente */
 .chx,#noticiasN .ch-top.est{transition:transform .3s ease,opacity .15s ease .2s}
 @media (prefers-reduced-motion:reduce){.chx,#noticiasN .ch-top.est,.tb{transition:none}}
@@ -3288,6 +3291,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   }
   function barras() {
     pend = false;
+    if (body.classList.contains('menu-abierto')) { ultimo = Math.max(0, window.scrollY); return; }   // con el menú abierto las barras no reaccionan al scroll
     fondo();
     const y = Math.max(0, window.scrollY), d = y - ultimo;
     if (y <= 10) poner(false);
