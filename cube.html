@@ -1223,7 +1223,8 @@ body.perfil-abierto .tb,body.en-notif .tb,body.en-transf .tb{display:none}
 body:is(.buscando,.en-lista,.en-notif,.en-almacen,.perfil-abierto,.en-enviar,.en-transf,.en-ventas,.en-caridad,.en-invertir,.en-ops,.en-noticias) .chx{display:none}
 #noticiasN .ch-top.est{position:sticky;top:0;z-index:90;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,0));transition:transform .3s ease}
 #noticiasN .ch-top.est.oculto{transform:translateY(-110%)}
-.tb{background:linear-gradient(0deg,rgba(0,0,0,.45),rgba(0,0,0,0));transition:transform .3s ease}
+.chx.sc .ch-top,#noticiasN .ch-top.est.sc{background:rgba(0,0,0,.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.tb{background:rgba(0,0,0,.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:transform .3s ease}
 .tb.oculto{transform:translateY(100%);pointer-events:none}
 /* al cerrar el menú, la barra superior reaparece suavemente */
 .chx,#noticiasN .ch-top.est{transition:transform .3s ease,opacity .15s ease .2s}
@@ -2989,10 +2990,18 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   /* --- Cabecera: pestañas Inicio · Noticias · Discusiones · Upgrade y lupa --- */
   const mn = $('drMenu');
   let tMenu = null;
-  function abrirMenu() {
+  function alinearX(origen) {       // pone la X exactamente donde está el icono de menú que se tocó
+    const ico = origen && origen.querySelector('svg'), x = $('mnCerrar'), top = $('mnTop');
+    if (!ico || !x) return;
+    const r = ico.getBoundingClientRect(), t = top.getBoundingClientRect();
+    x.style.left = (r.left + r.width / 2 - t.left - x.offsetWidth / 2) + 'px';
+    x.style.top = (r.top + r.height / 2 - t.top) + 'px';
+  }
+  function abrirMenu(origen) {
     clearTimeout(tMenu);
     mn.classList.remove('cerrando', 'x');
     mn.hidden = false; mn.scrollTop = 0; $('mnTop').classList.remove('sc'); body.style.overflow = 'hidden';
+    alinearX(origen);
     body.classList.add('menu-abierto');
     void mn.offsetWidth;            // las tres líneas arrancan en su sitio y se mueven hasta formar la X
     mn.classList.add('x');
@@ -3006,7 +3015,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   }
   mn.addEventListener('scroll', () => $('mnTop').classList.toggle('sc', mn.scrollTop > 4), { passive: true });
   document.addEventListener('click', e => {
-    if (e.target.closest('.ch-menu')) { abrirMenu(); return; }
+    const m = e.target.closest('.ch-menu'); if (m) { abrirMenu(m); return; }
     if (e.target.closest('#mnCerrar')) cerrarMenu();
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarMenu(); });
@@ -3272,8 +3281,14 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     if (nt) nt.classList.toggle('oculto', ocultar);
     if (tb) tb.classList.toggle('oculto', ocultar);
   }
+  function fondo() {                // el fondo translúcido de la barra superior solo aparece si no está arriba del todo
+    const sc = Math.max(0, window.scrollY) > 10, nt = document.querySelector('#noticiasN .ch-top');
+    if (chx) chx.classList.toggle('sc', sc);
+    if (nt) nt.classList.toggle('sc', sc);
+  }
   function barras() {
     pend = false;
+    fondo();
     const y = Math.max(0, window.scrollY), d = y - ultimo;
     if (y <= 10) poner(false);
     else if (d > 6 && y > 60) poner(true);
@@ -3282,7 +3297,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   }
   const pedir = () => { if (!pend) { pend = true; requestAnimationFrame(barras); } };
   window.addEventListener('scroll', pedir, { passive: true });
-  new MutationObserver(() => { ultimo = Math.max(0, window.scrollY); poner(false); }).observe(body, { attributes: true, attributeFilter: ['class'] });
+  new MutationObserver(() => { ultimo = Math.max(0, window.scrollY); poner(false); fondo(); }).observe(body, { attributes: true, attributeFilter: ['class'] });
   barras();
 })();
 </script>
