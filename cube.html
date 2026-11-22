@@ -1173,7 +1173,7 @@ body.en-notif{padding-bottom:0}
 </style>
 <style id="menu-panel">
 /* ===== Menú ===== */
-.mn{--u:calc(min(100vw,480px) / 1080);position:fixed;inset:0;z-index:5000;overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(90deg,rgba(10,11,14,.96) 0%,rgba(10,11,14,.82) 50%,rgba(10,11,14,.68) 100%);font-family:'Noto Sans','Open Sans',system-ui,sans-serif;color:#fff;animation:mnIn .18s ease-out}
+.mn{--u:calc(min(100vw,480px) / 1080);position:fixed;inset:0;z-index:5000;overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(90deg,rgba(8,9,12,.985) 0%,rgba(8,9,12,.9) 50%,rgba(8,9,12,.8) 100%);font-family:'Noto Sans','Open Sans',system-ui,sans-serif;color:#fff;animation:mnIn .18s ease-out}
 .mn[hidden]{display:none}
 @keyframes mnIn{from{opacity:0}}
 .mn-in{position:relative;width:min(100vw,480px);margin:0 auto;padding-bottom:calc(160 * var(--u) + env(safe-area-inset-bottom,0px))}
@@ -1181,8 +1181,14 @@ body.en-notif{padding-bottom:0}
 .mn-top.sc{background:linear-gradient(180deg,rgba(10,11,14,.98) 75%,rgba(10,11,14,0))}
 .mn-top>*{position:absolute;top:calc(73 * var(--u) + env(safe-area-inset-top,0px));transform:translateY(-50%)}
 .mn-x{left:calc(52 * var(--u));width:calc(88 * var(--u));height:calc(88 * var(--u));display:grid;place-items:center;color:#fff}
-.mn-x svg{width:calc(42 * var(--u));height:calc(42 * var(--u))}
-.mn-logo{left:calc(197 * var(--u));font:800 calc(66 * var(--u))/1 'Poppins',sans-serif;letter-spacing:-.025em;opacity:.22;pointer-events:none}
+.mn-x svg{width:calc(57 * var(--u));height:auto;overflow:visible}
+.mn-x path{transform-origin:12px 9.75px;transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .2s ease}
+.mn.x .mn-x .l1{transform:rotate(45deg) translateY(8.25px)}
+.mn.x .mn-x .l3{transform:rotate(-45deg) translateY(-8.25px)}
+.mn.x .mn-x .l2{opacity:0;transform:scaleX(.2)}
+.mn.cerrando{opacity:0;transition:opacity .3s ease}
+body.menu-abierto .chx,body.menu-abierto #noticiasN .ch-top.est{opacity:0;transition:transform .3s ease}
+@media (prefers-reduced-motion:reduce){.mn-x path,.mn.cerrando{transition:none}}
 .mn ul{list-style:none;margin:0;padding:0}
 .mn li{height:calc(144 * var(--u))}
 .mn li button{display:flex;align-items:center;width:100%;height:100%;padding:0 calc(60 * var(--u));text-align:left;color:#fff;font-family:inherit;transition:opacity .15s}
@@ -1219,6 +1225,8 @@ body:is(.buscando,.en-lista,.en-notif,.en-almacen,.perfil-abierto,.en-enviar,.en
 #noticiasN .ch-top.est.oculto{transform:translateY(-110%)}
 .tb{background:linear-gradient(0deg,rgba(0,0,0,.45),rgba(0,0,0,0));transition:transform .3s ease}
 .tb.oculto{transform:translateY(100%);pointer-events:none}
+/* al cerrar el menú, la barra superior reaparece suavemente */
+.chx,#noticiasN .ch-top.est{transition:transform .3s ease,opacity .15s ease .2s}
 @media (prefers-reduced-motion:reduce){.chx,#noticiasN .ch-top.est,.tb{transition:none}}
 </style>
 </head>
@@ -1389,8 +1397,7 @@ body:is(.buscando,.en-lista,.en-notif,.en-almacen,.perfil-abierto,.en-enviar,.en
 <div class="mn" id="drMenu" role="dialog" aria-modal="true" aria-label="Menú" hidden>
   <div class="mn-in">
     <header class="mn-top" id="mnTop">
-      <button class="mn-x" id="mnCerrar" type="button" aria-label="Cerrar menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 3l18 18M21 3L3 21"/></svg></button>
-      <span class="mn-logo" aria-hidden="true">cube</span>
+      <button class="mn-x" id="mnCerrar" type="button" aria-label="Cerrar menú"><svg viewBox="0 0 24 19.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path class="l1" d="M1 1.5h22"/><path class="l2" d="M1 9.75h22"/><path class="l3" d="M1 18h22"/></svg></button>
     </header>
     <nav class="mn-nav" aria-label="Menú principal">
       <ul class="mn-main"><li><button type="button">Festivales</button></li><li><button type="button">Eventos</button></li><li><button type="button">Mercados</button></li><li><button type="button">Upgrades</button></li></ul>
@@ -2981,10 +2988,22 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
 
   /* --- Cabecera: pestañas Inicio · Noticias · Discusiones · Upgrade y lupa --- */
   const mn = $('drMenu');
+  let tMenu = null;
   function abrirMenu() {
+    clearTimeout(tMenu);
+    mn.classList.remove('cerrando', 'x');
     mn.hidden = false; mn.scrollTop = 0; $('mnTop').classList.remove('sc'); body.style.overflow = 'hidden';
+    body.classList.add('menu-abierto');
+    void mn.offsetWidth;            // las tres líneas arrancan en su sitio y se mueven hasta formar la X
+    mn.classList.add('x');
   }
-  function cerrarMenu() { if (mn.hidden) return; mn.hidden = true; body.style.overflow = ''; }
+  function cerrarMenu() {
+    if (mn.hidden || mn.classList.contains('cerrando')) return;
+    mn.classList.remove('x');       // la X vuelve a ser las tres líneas
+    mn.classList.add('cerrando');
+    body.classList.remove('menu-abierto');
+    tMenu = setTimeout(() => { mn.hidden = true; mn.classList.remove('cerrando'); body.style.overflow = ''; }, 320);
+  }
   mn.addEventListener('scroll', () => $('mnTop').classList.toggle('sc', mn.scrollTop > 4), { passive: true });
   document.addEventListener('click', e => {
     if (e.target.closest('.ch-menu')) { abrirMenu(); return; }
