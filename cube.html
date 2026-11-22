@@ -866,7 +866,7 @@ html.pf-lock body>:not(#pfGate){visibility:hidden}
 /* ---- Panel de perfil ---- */
 .perfil-modal{position:relative;align-items:stretch;padding-top:calc(env(safe-area-inset-top,0px) + 22px)}
 .perfil-modal>.volver-btn{position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);left:var(--margen)}
-.pfp-av{position:relative;flex:none;width:116px;height:116px;margin:14px auto 0;border-radius:50%;background:var(--m,#C6FF00)}
+.pfp-av{position:relative;flex:none;width:116px;height:116px;margin:14px auto 0;border-radius:50%;background:var(--m,linear-gradient(90deg,#FFFC00,#C6FF00))}
 .pfp-av>span{position:absolute;inset:3.6px;border-radius:50%;background:#0c0c0c;overflow:hidden;display:block}
 .pfp-av>span img{width:100%;height:100%;object-fit:cover;display:block}
 .pfp-av>span svg{width:100%;height:100%;display:block}
@@ -1123,7 +1123,7 @@ body,html.pf-lock body{background:#000!important}
 <style id="pf-aros">
 /* ===== Perfiles: solo el aro de color (sin fondo interior) ===== */
 .pf-av,.pp-av.pf-hav,.pfp-av{background:none!important}
-.pf-av::before,.pp-av.pf-hav::before,.pfp-av::before{content:"";position:absolute;inset:0;box-sizing:border-box;border-radius:50%;background:var(--m,#C6FF00);pointer-events:none;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.pf-av::before,.pp-av.pf-hav::before,.pfp-av::before{content:"";position:absolute;inset:0;box-sizing:border-box;border-radius:50%;background:var(--m,linear-gradient(90deg,#FFFC00,#C6FF00));pointer-events:none;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 .pf-av::before{padding:calc(var(--s) * .034)}
 .pp-av.pf-hav::before{padding:max(1.2px,3.5%)}
 .pfp-av::before{padding:3.6px}
@@ -1183,12 +1183,6 @@ body.en-notif{padding-bottom:0}
 .mn-x{left:calc(52 * var(--u));width:calc(88 * var(--u));height:calc(88 * var(--u));display:grid;place-items:center;color:#fff}
 .mn-x svg{width:calc(42 * var(--u));height:calc(42 * var(--u))}
 .mn-logo{left:calc(197 * var(--u));font:800 calc(66 * var(--u))/1 'Poppins',sans-serif;letter-spacing:-.025em;opacity:.22;pointer-events:none}
-.mn-bell{left:calc(775 * var(--u));width:calc(56 * var(--u));height:calc(60 * var(--u));opacity:.4;pointer-events:none}
-.mn-bell svg{width:100%;height:100%;display:block}
-.mn-av{left:calc(920 * var(--u));width:calc(56 * var(--u));height:calc(56 * var(--u));opacity:.5;pointer-events:none}
-.mn-av .nh-user,.mn-av .pp-av{display:block;width:100%;height:100%}
-.mn-av .nh-av{width:100%!important;height:100%!important}
-.mn-av .nh-tx{display:none!important}
 .mn ul{list-style:none;margin:0;padding:0}
 .mn li{height:calc(144 * var(--u))}
 .mn li button{display:flex;align-items:center;width:100%;height:100%;padding:0 calc(60 * var(--u));text-align:left;color:#fff;font-family:inherit;transition:opacity .15s}
@@ -1199,6 +1193,34 @@ body.en-notif{padding-bottom:0}
 .mn-sep{width:calc(534 * var(--u));height:calc(2 * var(--u));margin:calc(46 * var(--u)) 0 calc(48 * var(--u)) calc(60 * var(--u));border:0;background:rgba(255,255,255,.33)}
 .mn-cats button{font-size:calc(42 * var(--u));font-weight:400}
 </style>
+<style id="tab-bar">
+/* Aro del perfil (arriba a la derecha) más fino */
+.ch-top .pp-av.pf-hav::before{padding:.7px}
+.ch-top .pf-hav>span{inset:.7px}
+
+/* ===== Barra inferior: Inicio · Buscar · Listas ===== */
+#bottomNav{display:none!important}
+.tb{position:fixed;left:0;right:0;bottom:0;z-index:100;background:linear-gradient(0deg,rgba(0,0,0,.14),rgba(0,0,0,0));border-top:0;padding-bottom:env(safe-area-inset-bottom,0px)}
+.tb-in{display:flex;max-width:480px;margin:0 auto}
+.tb-b{flex:1;height:56px;display:grid;place-items:center;color:#8a8d87}
+.tb-b svg{width:21px;height:21px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.75))}
+.tb-b[aria-current="page"]{color:#fff}
+.tb-b:focus-visible{outline:2px solid #fff;outline-offset:-8px;border-radius:14px}
+body.perfil-abierto .tb,body.en-notif .tb,body.en-transf .tb{display:none}
+.pie{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+.nw-in{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+
+/* ===== Barras: se ocultan al bajar y reaparecen transparentes al subir ===== */
+.chx{container-type:inline-size;position:fixed;top:0;left:0;right:0;width:min(100%,480px);margin:0 auto;z-index:90;transition:transform .3s ease}
+.chx .ch-top{position:relative;z-index:auto;padding-bottom:3cqw;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,0))}
+.chx.oculto{transform:translateY(-110%)}
+body:is(.buscando,.en-lista,.en-notif,.en-almacen,.perfil-abierto,.en-enviar,.en-transf,.en-ventas,.en-caridad,.en-invertir,.en-ops,.en-noticias) .chx{display:none}
+#noticiasN .ch-top.est{position:sticky;top:0;z-index:90;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,0));transition:transform .3s ease}
+#noticiasN .ch-top.est.oculto{transform:translateY(-110%)}
+.tb{background:linear-gradient(0deg,rgba(0,0,0,.45),rgba(0,0,0,0));transition:transform .3s ease}
+.tb.oculto{transform:translateY(100%);pointer-events:none}
+@media (prefers-reduced-motion:reduce){.chx,#noticiasN .ch-top.est,.tb{transition:none}}
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1206,8 +1228,7 @@ body.en-notif{padding-bottom:0}
   <symbol id="wbx" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M12 2 21 6.6v10.8L12 22 3 17.4V6.6Z"/></symbol>
 </svg>
 
-<div class="app">
-<div id="home">
+<div class="chx" id="chx">
   <header class="ch-top">
     <div class="ch-fila">
       <div class="ch-izq"><button class="ch-menu" type="button" aria-label="Menú"><svg viewBox="0 0 24 19.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1.5h22M1 9.75h22M1 18h22"/></svg></button><span class="ch-logo">cube</span></div>
@@ -1217,6 +1238,10 @@ body.en-notif{padding-bottom:0}
         </button></div>
     </div>
   </header>
+</div>
+
+<div class="app">
+<div id="home">
 
   <main id="nuevoHome">
     <section class="ch-hero" id="chHero" aria-label="Destacado">
@@ -1366,8 +1391,6 @@ body.en-notif{padding-bottom:0}
     <header class="mn-top" id="mnTop">
       <button class="mn-x" id="mnCerrar" type="button" aria-label="Cerrar menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 3l18 18M21 3L3 21"/></svg></button>
       <span class="mn-logo" aria-hidden="true">cube</span>
-      <span class="mn-bell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15.5 6 9.5z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg></span>
-      <span class="mn-av" id="mnAv" aria-hidden="true"></span>
     </header>
     <nav class="mn-nav" aria-label="Menú principal">
       <ul class="mn-main"><li><button type="button">Festivales</button></li><li><button type="button">Eventos</button></li><li><button type="button">Mercados</button></li><li><button type="button">Upgrades</button></li></ul>
@@ -1450,6 +1473,14 @@ body.en-notif{padding-bottom:0}
     </div>
   </div>
 </footer>
+
+<nav class="tb" id="tabBar" aria-label="Navegación principal">
+  <div class="tb-in">
+    <button class="tb-b" id="tbInicio" type="button" aria-label="Inicio" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></button>
+    <button class="tb-b" id="tbBuscar" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.4" y2="16.4"/></svg></button>
+    <button class="tb-b" id="tbListas" type="button" aria-label="Guardados"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1V21L12 16.8 5.5 21V4.5a1 1 0 0 1 1-1z"/></svg></button>
+  </div>
+</nav>
 
 <nav class="nb" id="bottomNav" aria-label="Navegación inferior">
   <button class="nb-c" id="navLuna" type="button" aria-label="Modo noche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg></button>
@@ -2951,7 +2982,6 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   /* --- Cabecera: pestañas Inicio · Noticias · Discusiones · Upgrade y lupa --- */
   const mn = $('drMenu');
   function abrirMenu() {
-    const o = $('btnPerfilTop'); $('mnAv').innerHTML = o ? o.innerHTML.replace(/ id="[^"]*"/g, '') : '';
     mn.hidden = false; mn.scrollTop = 0; $('mnTop').classList.remove('sc'); body.style.overflow = 'hidden';
   }
   function cerrarMenu() { if (mn.hidden) return; mn.hidden = true; body.style.overflow = ''; }
@@ -2978,7 +3008,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
 <script>
 /* ===== Perfiles: elegir, crear, borrar, administrar, PIN ===== */
 (function () {
-  const MARCOS = [['lima','#C6FF00'],['oceano','linear-gradient(100deg,#00D8FF,#0050FF)'],['sol','linear-gradient(100deg,#FFE600,#FF7A00)'],['fuego','linear-gradient(100deg,#FF9A00 0%,#FF4A00 42%,#FF0000 100%)']];
+  const MARCOS = [['lima','linear-gradient(90deg,#FFFC00,#C6FF00)'],['oceano','linear-gradient(100deg,#00D8FF,#0050FF)'],['sol','linear-gradient(100deg,#FFE600,#FF7A00)'],['fuego','linear-gradient(100deg,#FF9A00 0%,#FF4A00 42%,#FF0000 100%)']];
   const marco = id => (MARCOS.find(m => m[0] === id) || MARCOS[0])[1];
   const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   const clave = u => 'cube_perfiles_' + (u.id || u.email);
@@ -3189,6 +3219,52 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   if (window.usuario && window.usuario()) iniciar();
   else setTimeout(() => { if (!window.usuario()) iniciar(); }, 3500);
   setTimeout(() => { if (!document.getElementById('pfGate')) document.documentElement.classList.remove('pf-lock'); }, 8000);
+})();
+</script>
+<script>
+/* ===== Barra inferior: Inicio · Buscar · Listas ===== */
+(function () {
+  const $ = id => document.getElementById(id), body = document.body;
+  const aviso = t => window.cubeAviso ? window.cubeAviso(t) : alert(t);
+  const VISTAS = ['buscando', 'en-lista', 'en-notif', 'en-almacen', 'en-profit', 'en-enviar', 'en-transf', 'en-ventas', 'en-caridad', 'en-invertir', 'en-grafico', 'en-ops', 'en-noticias', 'perfil-abierto'];
+  const btn = { inicio: $('tbInicio'), buscar: $('tbBuscar'), listas: $('tbListas') };
+  function marcar() {
+    const c = body.classList; let a = null;
+    if (c.contains('buscando')) a = 'buscar';
+    else if (c.contains('en-lista')) a = 'listas';
+    else if (!VISTAS.some(v => c.contains(v))) a = 'inicio';
+    Object.keys(btn).forEach(k => { if (k === a) btn[k].setAttribute('aria-current', 'page'); else btn[k].removeAttribute('aria-current'); });
+  }
+  new MutationObserver(marcar).observe(body, { attributes: true, attributeFilter: ['class'] });
+  marcar();
+  btn.inicio.onclick = () => cerrarModales();
+  btn.buscar.onclick = () => $('navBuscar').click();
+  btn.listas.onclick = () => {
+    if (window.CUBE_LISTAS_ACTIVAS && window.cubeListas) window.cubeListas.ver();
+    else aviso('Próximamente.');
+  };
+
+  /* Al bajar se ocultan las dos barras; al subir vuelven (con fondo transparente) */
+  const tb = $('tabBar'), chx = $('chx');
+  let ultimo = Math.max(0, window.scrollY), pend = false;
+  function poner(ocultar) {
+    const nt = document.querySelector('#noticiasN .ch-top');
+    if (chx) chx.classList.toggle('oculto', ocultar);
+    if (nt) nt.classList.toggle('oculto', ocultar);
+    if (tb) tb.classList.toggle('oculto', ocultar);
+  }
+  function barras() {
+    pend = false;
+    const y = Math.max(0, window.scrollY), d = y - ultimo;
+    if (y <= 10) poner(false);
+    else if (d > 6 && y > 60) poner(true);
+    else if (d < -6) poner(false);
+    if (Math.abs(d) > 6 || y <= 10) ultimo = y;
+  }
+  const pedir = () => { if (!pend) { pend = true; requestAnimationFrame(barras); } };
+  window.addEventListener('scroll', pedir, { passive: true });
+  new MutationObserver(() => { ultimo = Math.max(0, window.scrollY); poner(false); }).observe(body, { attributes: true, attributeFilter: ['class'] });
+  barras();
 })();
 </script>
 </body>
