@@ -1248,8 +1248,17 @@ body.en-cosas #cosas{display:block}
 .cs-row::-webkit-scrollbar{display:none}
 .cs-row::after{content:"";flex:0 0 1px}
 #buscar .cs-row,#cosas .cs-row{margin-top:0}
-.cs-row .sec-card{flex:0 0 clamp(158px,52vw,250px);gap:0;cursor:pointer}
-.cs-row .portada,#buscar .res-card .portada{border-radius:7px}
+.cs-row{gap:10px;padding-bottom:4px}
+.cs-row .sec-card{flex:0 0 clamp(104px,29vw,150px);gap:0;cursor:pointer;-webkit-user-select:none;user-select:none}
+#buscar .res-card .portada{border-radius:7px}
+/* Portada vertical 2:3 (estilo plataforma de streaming): título sobre la imagen, abajo */
+.cs-pv{position:relative;aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:#15181a;isolation:isolate}
+.cs-pv>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;-webkit-user-drag:none}
+.cs-pv::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.32) 0,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 48%,rgba(0,0,0,.88) 100%)}
+.cs-pt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:0 9px 10px;font:700 clamp(.74rem,3.3vw,.92rem)/1.15 'Poppins','Noto Sans',sans-serif;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.65);text-wrap:balance;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
+.cs-pv .sin-img{position:absolute;inset:0;display:grid;place-items:center;padding:8px;text-align:center;font:600 .8rem 'Noto Sans',sans-serif;color:#c9ccd0}
+.cs-row .cs-mas{top:5px;right:5px;width:28px;height:28px}
+.cs-row .cs-mas svg{width:16px;height:16px}
 .cs-card .portada{transition:transform .15s}
 .cs-card:active .portada{transform:scale(.97)}
 .cs-t{margin-top:8px;font:600 .84rem/1.25 'Noto Sans',sans-serif;color:#e9ebee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -2304,9 +2313,14 @@ sharks|Sharks|pv`.split('\n').forEach(l => {
   $('tSheet').addEventListener('click', e => { if (e.target === $('tSheet')) cerrar(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('tSheet').hidden) cerrar(); });
 
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const c = e.target.closest && e.target.closest('.cs-card[role="button"]');
+    if (c && e.target === c) { e.preventDefault(); c.click(); }
+  });
   // Cualquier portada de Buscar o Favoritos abre el panel (salvo Próximamente y Premium)
   document.addEventListener('click', e => {
-    const el = e.target.closest('#grilla .res-card, #listaGrilla .portada, .secs .sec-card, #heroTrack .hero-item');
+    const el = e.target.closest('#grilla .res-card, #listaGrilla .portada, .secs .sec-card, #csFilas .cs-card, #csRec .cs-card, #heroTrack .hero-item');
     if (!el || !el.dataset.id || !esVendible(el.dataset.id)) return;
     abrir(el.dataset.id);
   });
@@ -2520,7 +2534,21 @@ window.addEventListener('cube-wallet-accion', function (e) {
   // ---- Tarjetas ----
   const btn = () => '';
   const tarjeta = p => `<div class="cs-it">${esc(p.alt)}</div>`;
-  const fila = () => '';
+  const fila = (tit, items) => {
+    if (!items || !items.length) return '';
+    const src = f => (window.cubeSrc ? window.cubeSrc(f) : IMG_BASE + f);
+    const cards = items.map(p => {
+      const t = titulo(p.img), on = guardada(p.img);
+      return `<div class="sec-card cs-card" role="button" tabindex="0" data-id="${esc(p.img)}" aria-label="${esc(t)}">
+        <div class="cs-cov cs-pv">
+          <img src="${esc(src(p.img))}" alt="" loading="lazy" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sin-img',textContent:'${esc(t).replace(/'/g, '')}'}))">
+          <span class="cs-pt">${esc(t)}</span>
+          <button type="button" class="cs-mas${on ? ' on' : ''}" data-img="${esc(p.img)}" aria-label="Guardar en una lista">${on ? ICO_OK : ICO_MAS}</button>
+        </div>
+      </div>`;
+    }).join('');
+    return `<section class="cs-sec"><h2>${esc(tit)}</h2><div class="cs-row">${cards}</div></section>`;
+  };
   function sincronizar() {
     document.querySelectorAll('.ch-add[data-img]').forEach(b => { const on = guardada(b.dataset.img), cambio = b.classList.contains('on') !== on; b.classList.toggle('on', on); b.innerHTML = on ? HERO_OK : HERO_MAS; if (cambio) { b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); } });
     document.querySelectorAll('.cs-mas').forEach(b => { const on = guardada(b.dataset.img); b.classList.toggle('on', on); b.innerHTML = on ? ICO_OK : ICO_MAS; });
