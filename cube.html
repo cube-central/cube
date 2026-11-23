@@ -1334,9 +1334,68 @@ body.en-cosas #cosas{display:block}
 .cs-hoja .cs-err{text-align:center;font-family:'Poppins',sans-serif}
 .cs-hoja .cs-acc button{font-family:'Poppins',sans-serif;border-radius:14px}
 .v-toast{background:#fff!important;color:#0A0A0A!important}
+.cs-hoja .cs-sub{text-align:center;font-family:'Poppins',sans-serif}
+.cs-hoja .cs-acc #csNueva{font-size:.76rem;padding:0 8px}
 .cs-it{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1);font:500 .95rem 'Noto Sans',sans-serif;color:#fff}
 #buscar .grilla{grid-template-columns:1fr;gap:0}
 #buscar .res-card{padding:14px 2px;border-bottom:1px solid rgba(255,255,255,.1)}
+
+/* ===== Animaciones de interacción ===== */
+@keyframes csEntra{from{opacity:0;transform:translateY(12px)}}
+@keyframes csFade{from{opacity:0}}
+@keyframes csLinea{from{transform:scaleX(0)}}
+@keyframes csPop{0%{transform:scale(.6)}55%{transform:scale(1.22)}100%{transform:scale(1)}}
+@keyframes csSacude{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+@keyframes csNueva{0%{opacity:0;transform:translateY(-10px) scale(.97)}100%{opacity:1;transform:none}}
+@keyframes csSaleLista{to{opacity:0;transform:translateX(-24px)}}
+@keyframes csBaja{to{opacity:0;transform:scale(.94)}}
+@keyframes csIcono{0%{transform:scale(1)}40%{transform:scale(.78)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+/* pestañas */
+.cs-tabs button{transition:color .2s,opacity .15s}
+.cs-tabs button:active{opacity:.6}
+.cs-tabs button[aria-selected="true"]::after{transform-origin:left center;animation:csLinea .3s cubic-bezier(.2,.8,.2,1)}
+/* contenido de las pestañas: entra escalonado */
+#csPanel.cs-anim>*{animation:csEntra .38s cubic-bezier(.2,.8,.2,1) both}
+#csPanel.cs-anim>*:nth-child(2){animation-delay:.05s}
+#csPanel.cs-anim>*:nth-child(3){animation-delay:.1s}
+#csPanel.cs-anim>*:nth-child(4){animation-delay:.15s}
+.cs-lista.cs-nueva{animation:csNueva .4s cubic-bezier(.2,.8,.2,1)}
+.cs-lista.cs-sale{animation:csSaleLista .26s ease-in forwards;pointer-events:none}
+.cs-it{animation:csEntra .3s both}
+.cs-it:nth-child(2){animation-delay:.04s}.cs-it:nth-child(3){animation-delay:.08s}.cs-it:nth-child(4){animation-delay:.12s}
+/* botones */
+.cs-nl,.cs-b1,.cs-b2,.cs-op,.cs-del{transition:transform .12s ease,background .2s,opacity .2s}
+.cs-nl:active,.cs-b1:active,.cs-b2:active,.cs-op:active{transform:scale(.96)}
+.cs-del:active{transform:scale(.85)}
+/* ventana modal */
+#csModal{animation:csFade .2s ease}
+#csModal.sale{animation:csFade .17s ease reverse forwards}
+#csModal.sale .cs-hoja{animation:csBaja .17s ease-in forwards}
+.cs-op.on .cs-chk{animation:csPop .32s cubic-bezier(.2,.8,.3,1.2)}
+.cs-chk{transition:background .2s,border-color .2s}
+.cs-inp{transition:border-color .2s,background .2s}
+.cs-inp.sacude{animation:csSacude .38s ease;border-color:#ff8a80}
+.cs-err:not(:empty){animation:csFade .25s ease}
+/* "+" de los heros */
+.ch-add{transition:transform .12s ease}
+.ch-add:active{transform:scale(.78)}
+.ch-add.pop svg{animation:csPop .38s cubic-bezier(.2,.8,.3,1.2)}
+/* búsqueda */
+#buscar .buscador{transition:background .2s,outline-color .2s}
+#buscar .buscador:focus-within{background:#262b2f}
+#buscar .bs-lupa{transition:transform .2s}
+#buscar .buscador:focus-within .bs-lupa{transform:scale(1.08)}
+#buscar .res-card{animation:csEntra .32s cubic-bezier(.2,.8,.2,1) both;transition:background .15s}
+#buscar .res-card:nth-child(2){animation-delay:.04s}#buscar .res-card:nth-child(3){animation-delay:.08s}#buscar .res-card:nth-child(4){animation-delay:.12s}#buscar .res-card:nth-child(5){animation-delay:.16s}#buscar .res-card:nth-child(n+6){animation-delay:.2s}
+#buscar .res-card:active{background:rgba(255,255,255,.05)}
+/* barra inferior */
+.tb-b svg{transition:transform .15s ease}
+.tb-b:active svg{transform:scale(.82)}
+.tb-b[aria-current="page"] svg{animation:csIcono .35s ease}
+@media (prefers-reduced-motion:reduce){
+  #csPanel>*,.cs-lista,.cs-it,#csModal,.cs-hoja,.cs-op .cs-chk,.cs-inp,.cs-err,.ch-add svg,#buscar .res-card,.tb-b svg,.cs-tabs button::after{animation:none!important}
+  .cs-nl,.cs-b1,.cs-b2,.cs-op,.cs-del,.ch-add,.tb-b svg{transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -1378,7 +1437,7 @@ body.en-cosas #cosas{display:block}
 
 
 <!-- BÚSQUEDA -->
-<section id="buscar" aria-label="Buscar historias">
+<section id="buscar" aria-label="Buscar noticias">
   <header class="bs-top" hidden>
     <button class="perfil-pill" id="btnPerfilBuscar" type="button" aria-label="Abrir perfil">
       <span class="pp-av" id="ppAv2"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
@@ -1388,7 +1447,7 @@ body.en-cosas #cosas{display:block}
   </header>
   <div class="buscador" role="search">
     <button class="bs-lupa" id="btnLupa" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-    <input id="campoBuscar" type="search" placeholder="Encuentra noticias..." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar historias">
+    <input id="campoBuscar" type="search" placeholder="Encuentra noticias..." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Buscar noticias">
   </div>
   <div id="csFilas"></div>
   <h2 id="tituloBuscar">Resultados de búsqueda</h2>
@@ -1470,7 +1529,7 @@ body.en-cosas #cosas{display:block}
   <header class="cs-head">
     <span></span>
     <h1>Mis cosas</h1>
-    <button class="cs-av" id="csPerfil" type="button" aria-label="Abrir perfil"></button>
+    <span></span>
   </header>
   <div class="cs-tabs" role="tablist" aria-label="Mis cosas">
     <button type="button" role="tab" id="csTabListas" aria-selected="true">Mis listas</button>
@@ -1500,9 +1559,9 @@ body.en-cosas #cosas{display:block}
   <p class="sin-resultados" id="notifVacia" hidden>No tienes notificaciones.</p>
 </section>
 
-<!-- HISTORIA · INFO -->
+<!-- NOTICIA · INFO -->
 <div class="v-sheet" id="tSheet" hidden>
-  <div class="v-card" role="dialog" aria-modal="true" aria-label="Historia">
+  <div class="v-card" role="dialog" aria-modal="true" aria-label="Noticia">
     <div class="v-cover"><img id="tImg" alt=""></div>
     <p class="t-titulo" id="tTitulo"></p>
     <div class="hero-meta" id="tMeta"></div>
@@ -1713,7 +1772,7 @@ function renderLista(tipo) {
   const u = window.usuario(), l = ((u && u[tipo]) || []).filter(f => f && f.img);
   document.getElementById('listaTitulo').textContent = tipo === 'favoritos' ? 'Mis favoritos' : 'Guardados para más tarde';
   document.getElementById('listaGrilla').innerHTML = l.map(f => window.card((window.catalogo || []).find(p => p.img === f.img) || { img: f.img, alt: f.img.replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' ') })).join('');
-  document.getElementById('listaVacia').textContent = tipo === 'favoritos' ? 'No tienes historias en favoritos.' : 'No tienes historias guardadas.';
+  document.getElementById('listaVacia').textContent = tipo === 'favoritos' ? 'No tienes noticias en favoritos.' : 'No tienes noticias guardadas.';
   document.getElementById('listaVacia').hidden = l.length > 0;
   document.body.classList.remove('perfil-abierto');
   document.body.classList.add('en-lista');
@@ -2392,7 +2451,7 @@ window.cubeAbrirProfit = window.cubeAbrirObtener = function () { location.href =
           id: 'bienvenida-' + uid,
           tipo: 'bienvenida',
           titulo: 'Bienvenido a CUBE',
-          texto: 'Tu sesión está activa. Descubre historias, programas y novedades.',
+          texto: 'Tu sesión está activa. Descubre noticias, programas y novedades.',
           ts: Date.now()
         });
         // Aviso del sistema si el usuario lo habilitó y el navegador ya concedió permiso.
@@ -2401,10 +2460,10 @@ window.cubeAbrirProfit = window.cubeAbrirObtener = function () { location.href =
           if (pref.pushEnabled && 'Notification' in window && Notification.permission === 'granted') {
             if ('serviceWorker' in navigator) {
               navigator.serviceWorker.ready.then(reg => reg.showNotification('Bienvenido a CUBE', {
-                body: 'Tu sesión está activa. Descubre historias, programas y novedades.',
+                body: 'Tu sesión está activa. Descubre noticias, programas y novedades.',
                 icon: 'cube-logo.png', badge: 'cube-logo.png'
               })).catch(() => {});
-            } else new Notification('Bienvenido a CUBE', { body: 'Tu sesión está activa. Descubre historias, programas y novedades.' });
+            } else new Notification('Bienvenido a CUBE', { body: 'Tu sesión está activa. Descubre noticias, programas y novedades.' });
           }
         } catch (err) { console.warn('No se pudo mostrar la bienvenida del sistema', err); }
       }
@@ -2442,7 +2501,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const cat = () => window.catalogo || [];
   const buscables = () => cat().filter(p => !p.pronto && !p.v);
   const aviso = t => window.cubeAviso ? window.cubeAviso(t) : null;
-  const titulo = img => { const p = cat().find(x => x.img === img); return p ? p.alt : img.replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' '); };
+  const titulo = img => { if (window.cubeTitulos && window.cubeTitulos[img]) return window.cubeTitulos[img]; const p = cat().find(x => x.img === img); return p ? p.alt : img.replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' '); };
   const hist = img => cat().find(p => p.img === img) || { img, alt: titulo(img) };
 
   const ICO_MAS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
@@ -2456,11 +2515,14 @@ window.addEventListener('cube-wallet-accion', function (e) {
   const nuevoId = () => 'l' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
   const guardada = img => leer().some(l => l.items.includes(img));
 
+  const HERO_MAS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg>';
+  const HERO_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>';
   // ---- Tarjetas ----
   const btn = () => '';
   const tarjeta = p => `<div class="cs-it">${esc(p.alt)}</div>`;
   const fila = () => '';
   function sincronizar() {
+    document.querySelectorAll('.ch-add[data-img]').forEach(b => { const on = guardada(b.dataset.img), cambio = b.classList.contains('on') !== on; b.classList.toggle('on', on); b.innerHTML = on ? HERO_OK : HERO_MAS; if (cambio) { b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); } });
     document.querySelectorAll('.cs-mas').forEach(b => { const on = guardada(b.dataset.img); b.classList.toggle('on', on); b.innerHTML = on ? ICO_OK : ICO_MAS; });
   }
 
@@ -2472,7 +2534,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const f2 = b.filter(p => /bigfoot|ratman|oso|shark|sapo|mal|backroom|criatura|monstruo|rani/i.test(p.alt)).slice(0, 10);
     const usados = new Set(f1.concat(f2).map(p => p.img));
     const f3 = b.filter(p => !usados.has(p.img)).slice(0, 10);
-    $('csFilas').innerHTML = fila('Historias que no puedes perderte', f1) + fila('Monstruos y otras criaturas', f2) + fila('Popular en historias', f3.length ? f3 : b.slice(0, 10));
+    $('csFilas').innerHTML = fila('Noticias que no puedes perderte', f1) + fila('Monstruos y otras criaturas', f2) + fila('Popular en noticias', f3.length ? f3 : b.slice(0, 10));
   }
   const campo = $('campoBuscar');
   const modoBuscar = () => $('buscar').classList.toggle('con-q', !!campo.value.trim());
@@ -2487,7 +2549,15 @@ window.addEventListener('cube-wallet-accion', function (e) {
   modal.innerHTML = '<div class="cs-hoja" role="dialog" aria-modal="true"><div id="csCuerpo"></div></div>';
   body.appendChild(modal);
   const cuerpo = $('csCuerpo');
-  const cerrar = () => { modal.hidden = true; cuerpo.innerHTML = ''; };
+  let cierraT = null;
+  const cerrar = () => {
+    if (modal.hidden || modal.classList.contains('sale')) return;
+    if (matchMedia('(prefers-reduced-motion:reduce)').matches) { modal.hidden = true; cuerpo.innerHTML = ''; return; }
+    modal.classList.add('sale');
+    clearTimeout(cierraT);
+    cierraT = setTimeout(() => { modal.hidden = true; modal.classList.remove('sale'); cuerpo.innerHTML = ''; }, 170);
+  };
+  const abreModal = () => { clearTimeout(cierraT); modal.classList.remove('sale'); modal.hidden = false; };
   modal.addEventListener('click', e => { if (e.target === modal) cerrar(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) cerrar(); });
 
@@ -2495,14 +2565,15 @@ window.addEventListener('cube-wallet-accion', function (e) {
     const ls = leer();
     if (ls.length >= MAX) { aviso('Solo puedes crear ' + MAX + ' listas.'); return; }
     cuerpo.innerHTML = `<h3>Nueva lista</h3><input class="cs-inp" id="csNombre" type="text" maxlength="30" placeholder="Nombre de la lista" autocomplete="off"><p class="cs-err" id="csErr"></p><div class="cs-acc"><button type="button" class="cs-b2" id="csNo">Cancelar</button><button type="button" class="cs-b1" id="csSi">Crear</button></div>`;
-    modal.hidden = false;
+    abreModal();
     const inp = $('csNombre'); setTimeout(() => inp.focus(), 60);
+    const sacudir = () => { inp.classList.remove('sacude'); void inp.offsetWidth; inp.classList.add('sacude'); };
     const ok = () => {
       const nombre = inp.value.trim().replace(/\s+/g, ' '), todas = leer();
-      if (!nombre) { $('csErr').textContent = 'Escribe un nombre para la lista.'; return; }
-      if (todas.some(l => l.nombre.toLowerCase() === nombre.toLowerCase())) { $('csErr').textContent = 'Ya tienes una lista con ese nombre.'; return; }
+      if (!nombre) { $('csErr').textContent = 'Escribe un nombre para la lista.'; sacudir(); return; }
+      if (todas.some(l => l.nombre.toLowerCase() === nombre.toLowerCase())) { $('csErr').textContent = 'Ya tienes una lista con ese nombre.'; sacudir(); return; }
       if (todas.length >= MAX) { $('csErr').textContent = 'Solo puedes crear ' + MAX + ' listas.'; return; }
-      todas.push({ id: nuevoId(), nombre, items: img ? [img] : [] });
+      const nid = nuevoId(); todas.push({ id: nid, nombre, items: img ? [img] : [] }); nuevaId = nid;
       guardar(todas);
       aviso(img ? `Guardada en “${nombre}”.` : `Lista “${nombre}” creada.`);
       cerrar(); sincronizar(); pintar();
@@ -2515,9 +2586,9 @@ window.addEventListener('cube-wallet-accion', function (e) {
   function selector(img) {
     const ls = leer();
     cuerpo.innerHTML = `<h3>Guardar en una lista</h3><p class="cs-sub">${esc(titulo(img))}</p>
-      <div class="cs-opts">${ls.length ? ls.map(l => { const on = l.items.includes(img); return `<button type="button" class="cs-op${on ? ' on' : ''}" data-id="${esc(l.id)}" aria-pressed="${on}"><span><b>${esc(l.nombre)}</b><small>${l.items.length} ${l.items.length === 1 ? 'historia' : 'historias'}</small></span><span class="cs-chk">${ICO_OK}</span></button>`; }).join('') : '<p class="cs-nota">Aún no tienes listas. Crea la primera.</p>'}</div>
+      <div class="cs-opts">${ls.length ? ls.map(l => { const on = l.items.includes(img); return `<button type="button" class="cs-op${on ? ' on' : ''}" data-id="${esc(l.id)}" aria-pressed="${on}"><span><b>${esc(l.nombre)}</b><small>${l.items.length} ${l.items.length === 1 ? 'noticia' : 'noticias'}</small></span><span class="cs-chk">${ICO_OK}</span></button>`; }).join('') : '<p class="cs-nota">Aún no tienes listas. Crea la primera.</p>'}</div>
       <div class="cs-acc"><button type="button" class="cs-b2" id="csNueva">Nueva lista (${ls.length}/${MAX})</button><button type="button" class="cs-b1" id="csListo">Listo</button></div>`;
-    modal.hidden = false;
+    abreModal();
     $('csListo').onclick = cerrar;
     $('csNueva').onclick = () => crearLista(img);
     cuerpo.querySelectorAll('.cs-op').forEach(b => b.onclick = () => {
@@ -2526,13 +2597,13 @@ window.addEventListener('cube-wallet-accion', function (e) {
       l.items = esta ? l.items.filter(i => i !== img) : l.items.concat(img);
       guardar(todas);
       b.classList.toggle('on', !esta); b.setAttribute('aria-pressed', String(!esta));
-      b.querySelector('small').textContent = l.items.length + (l.items.length === 1 ? ' historia' : ' historias');
+      b.querySelector('small').textContent = l.items.length + (l.items.length === 1 ? ' noticia' : ' noticias');
       aviso(esta ? `Salió de “${l.nombre}”.` : `Guardada en “${l.nombre}”.`);
       sincronizar(); pintar();
     });
   }
 
-  // El botón "+" va antes que cualquier otro clic (abre el panel de la historia solo si se toca la portada)
+  // El botón "+" va antes que cualquier otro clic (abre el panel de la noticia solo si se toca la portada)
   document.addEventListener('click', e => {
     const b = e.target.closest('.cs-mas'); if (!b) return;
     e.preventDefault(); e.stopPropagation();
@@ -2540,7 +2611,7 @@ window.addEventListener('cube-wallet-accion', function (e) {
   }, true);
 
   // ---- Mis cosas ----
-  let tab = 'listas';
+  let tab = 'listas', animar = false, nuevaId = null;
   function pintarRec() {
     const usados = new Set(leer().flatMap(l => l.items));
     const b = buscables(), r = b.filter(p => !usados.has(p.img));
@@ -2556,33 +2627,36 @@ window.addEventListener('cube-wallet-accion', function (e) {
     } else {
       const ls = leer(), total = ls.reduce((a, l) => a + l.items.length, 0);
       let h = `<div class="cs-bar"><span class="cs-cnt">${ls.length} de ${MAX} listas</span><button type="button" class="cs-nl${ls.length >= MAX ? ' lleno' : ''}" id="csNuevaL">Nueva lista</button></div>`;
-      if (!total) h += `<div class="cs-vacio"><h2>No hay títulos guardados</h2><p>Crea una lista para guardar tus historias. Luego podrás verlas desde este lugar en todos tus dispositivos.</p></div>`;
-      h += ls.map(l => `<section class="cs-lista" data-id="${esc(l.id)}"><div class="cs-lh"><h3>${esc(l.nombre)}</h3><small>${l.items.length} ${l.items.length === 1 ? 'historia' : 'historias'}</small><button type="button" class="cs-del" aria-label="Eliminar lista ${esc(l.nombre)}">${ICO_DEL}</button></div>${l.items.length ? `<div class="cs-its">${l.items.map(i => tarjeta(hist(i))).join('')}</div>` : '<p class="cs-nota">Esta lista está vacía por ahora.</p>'}</section>`).join('');
+      if (!total) h += `<div class="cs-vacio"><h2>No hay títulos guardados</h2><p>Crea una lista para guardar tus noticias. Luego podrás verlas desde este lugar en todos tus dispositivos.</p></div>`;
+      h += ls.map(l => `<section class="cs-lista" data-id="${esc(l.id)}"><div class="cs-lh"><h3>${esc(l.nombre)}</h3><small>${l.items.length} ${l.items.length === 1 ? 'noticia' : 'noticias'}</small><button type="button" class="cs-del" aria-label="Eliminar lista ${esc(l.nombre)}">${ICO_DEL}</button></div>${l.items.length ? `<div class="cs-its">${l.items.map(i => tarjeta(hist(i))).join('')}</div>` : '<p class="cs-nota">Esta lista está vacía por ahora.</p>'}</section>`).join('');
       panel.innerHTML = h;
     }
     pintarRec();
+    panel.classList.toggle('cs-anim', animar); animar = false;
+    if (nuevaId) { const n = panel.querySelector('.cs-lista[data-id="' + nuevaId + '"]'); if (n) n.classList.add('cs-nueva'); nuevaId = null; }
   }
-  $('csTabListas').onclick = () => { tab = 'listas'; pintar(); };
-  $('csTabProx').onclick = () => { tab = 'prox'; pintar(); };
+  $('csTabListas').onclick = () => { if (tab !== 'listas') { tab = 'listas'; animar = true; pintar(); } };
+  $('csTabProx').onclick = () => { if (tab !== 'prox') { tab = 'prox'; animar = true; pintar(); } };
   $('csPanel').addEventListener('click', e => {
     if (e.target.closest('#csNuevaL')) return crearLista();
     const x = e.target.closest('.cs-del');
     if (x) {
       const id = x.closest('.cs-lista').dataset.id, l = leer().find(v => v.id === id);
-      if (l && confirm(`¿Eliminar la lista “${l.nombre}”?`)) { guardar(leer().filter(v => v.id !== id)); sincronizar(); pintar(); }
+      if (l && confirm(`¿Eliminar la lista “${l.nombre}”?`)) {
+        const el = x.closest('.cs-lista'), fin = () => { guardar(leer().filter(v => v.id !== id)); sincronizar(); pintar(); };
+        if (matchMedia('(prefers-reduced-motion:reduce)').matches) fin(); else { el.classList.add('cs-sale'); setTimeout(fin, 260); }
+      }
     }
   });
-  $('csPerfil').onclick = () => $('btnPerfilBuscar').click();
 
   function abrir() {
     if (window.cubeLimpiarVistas) window.cubeLimpiarVistas();
     body.classList.remove('perfil-abierto');
     body.classList.add('en-cosas');
-    const av = $('ppAv'); if (av) { const c = av.cloneNode(true); c.removeAttribute('id'); $('csPerfil').replaceChildren(c); }
-    tab = 'listas'; pintar();
+    tab = 'listas'; animar = true; pintar();
     window.scrollTo(0, 0);
   }
-  window.cubeCosas = { abrir, btn, selector, crear: crearLista };
+  window.cubeCosas = { abrir, btn, selector, crear: crearLista, sync: sincronizar };
   filasBuscar();
 })();
 </script>
@@ -2673,7 +2747,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
       <p class="v-nota" style="min-height:0;margin:4px 2px 0">${esc(titulo(img))}</p>
       <div class="ls-opts">${ls.length ? ls.map(l => {
         const on = l.items.some(i => i.img === img);
-        return `<button class="ls-op${on ? ' on' : ''}" type="button" data-id="${esc(l.id)}" aria-pressed="${on}"><span class="ls-n"><b>${esc(l.nombre)}</b><small>${l.items.length} ${l.items.length === 1 ? 'historia' : 'historias'}</small></span><span class="ls-chk">${ICO_OK}</span></button>`;
+        return `<button class="ls-op${on ? ' on' : ''}" type="button" data-id="${esc(l.id)}" aria-pressed="${on}"><span class="ls-n"><b>${esc(l.nombre)}</b><small>${l.items.length} ${l.items.length === 1 ? 'noticia' : 'noticias'}</small></span><span class="ls-chk">${ICO_OK}</span></button>`;
       }).join('') : '<p class="ls-vacio">Aún no tienes listas. Crea la primera.</p>'}</div>
       <div class="v-acc"><button class="b-sec" id="lsNueva" type="button">Nueva lista</button><button class="b-pri" id="lsListo" type="button">Listo</button></div>`;
     sheet.hidden = false;
@@ -2685,7 +2759,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
       l.items = esta ? l.items.filter(i => i.img !== img) : l.items.concat({ img, alt: titulo(img) });
       guardar(todas);
       b.classList.toggle('on', !esta); b.setAttribute('aria-pressed', String(!esta));
-      b.querySelector('small').textContent = l.items.length + (l.items.length === 1 ? ' historia' : ' historias');
+      b.querySelector('small').textContent = l.items.length + (l.items.length === 1 ? ' noticia' : ' noticias');
       aviso(esta ? `Salió de “${l.nombre}”.` : `Guardada en “${l.nombre}”.`);
       refrescarVista();
     });
@@ -3045,7 +3119,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
     // Para sumar más destacados, agrega otro objeto con el mismo formato (w = ancho opcional del título, y = desplazamiento vertical opcional de la imagen): cambian solos cada 5 s.
   ];
   const trk = $('chTrack'), dots = $('chDots');
-  trk.innerHTML = HERO.map(h => `<article class="ch-slide"><img class="ch-img" src="${IMG_BASE}${h.img}"${h.y ? ` style="transform:translateY(${h.y})"` : ''} alt="" draggable="false" fetchpriority="high" onerror="this.style.display='none'"><div class="ch-fade"></div><div class="ch-info"><img class="ch-tit" src="${IMG_BASE}${h.logo}"${h.w ? ` style="width:${h.w}"` : ''} alt="${esc(h.alt)}" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement('h2'),{className:'ch-tit-txt',textContent:this.alt}))"><p class="ch-meta"><span>${esc(h.edad || '15+')}</span><span>${esc(h.genero)}</span><span>${h.anio}</span></p><div class="ch-acc"><button class="ch-ver" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 2.5v19l16-9.5z"/></svg>Ver noticia</button><button class="ch-add" type="button" aria-label="Agregar a una lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg></button></div></div></article>`).join('');
+  trk.innerHTML = HERO.map(h => `<article class="ch-slide"><img class="ch-img" src="${IMG_BASE}${h.img}"${h.y ? ` style="transform:translateY(${h.y})"` : ''} alt="" draggable="false" fetchpriority="high" onerror="this.style.display='none'"><div class="ch-fade"></div><div class="ch-info"><img class="ch-tit" src="${IMG_BASE}${h.logo}"${h.w ? ` style="width:${h.w}"` : ''} alt="${esc(h.alt)}" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement('h2'),{className:'ch-tit-txt',textContent:this.alt}))"><p class="ch-meta"><span>${esc(h.edad || '15+')}</span><span>${esc(h.genero)}</span><span>${h.anio}</span></p><div class="ch-acc"><button class="ch-ver" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 2.5v19l16-9.5z"/></svg>Ver noticia</button><button class="ch-add" type="button" data-img="${h.img}" aria-label="Guardar noticia en una lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg></button></div></div></article>`).join('');
   $('chHero').classList.toggle('ch-solo', HERO.length < 2);
   dots.innerHTML = HERO.length > 1 ? HERO.map((_, i) => `<button class="ch-dot${i ? '' : ' on'}" type="button" data-i="${i}" aria-label="Destacado ${i + 1}"></button>`).join('') : '';
   let hi = 0, ht = null;
@@ -3075,7 +3149,13 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
   trk.addEventListener('touchstart', () => { cancelAnimationFrame(anim); trk.style.scrollSnapType = ''; autoHero(false); }, { passive: true });
   trk.addEventListener('touchend', () => autoHero(true), { passive: true });
   dots.addEventListener('click', e => { const d = e.target.closest('.ch-dot'); if (d) { autoHero(false); irHero(+d.dataset.i); autoHero(true); } });
-  trk.addEventListener('click', e => { if (e.target.closest('.ch-ver')) abrirNoticias(); });
+  window.cubeTitulos = Object.assign(window.cubeTitulos || {}, Object.fromEntries(HERO.map(h => [h.img, h.alt])));
+  trk.addEventListener('click', e => {
+    if (e.target.closest('.ch-ver')) { abrirNoticias(); return; }
+    const a = e.target.closest('.ch-add');
+    if (a && window.cubeCosas) window.cubeCosas.selector(a.dataset.img);
+  });
+  if (window.cubeCosas) window.cubeCosas.sync();
   window.cubeHeroAuto = autoHero; autoHero(true);
 
   /* --- Secciones por género --- */
@@ -3114,7 +3194,7 @@ document.body.classList.toggle('sin-listas', !window.CUBE_LISTAS_ACTIVAS);
       'atraco|Atraco|Crimen|2027|995|El golpe perfecto existe… hasta que alguien improvisa.']],
     ['Sonríe, algo anda mal', 'thrillers que juegan con tu cabeza', [
       'oso-negro|Oso Negro|Thriller|2027|1200|Tras volver a su ciudad natal, donde era recordado como el chico más agradable. Pondrá a prueba su nueva personalidad.',
-      'retorcidos|Retorcidos|Thriller|2026|1425|Todos tienen un lado torcido; esta historia los saca a la luz.',
+      'retorcidos|Retorcidos|Thriller|2026|1425|Todos tienen un lado torcido; esta noticia los saca a la luz.',
       'obedece|Obedece|Psicológico|2026|665|Una sola orden, sin explicación. ¿Hasta dónde llegarías?',
       'el-telefono|El Teléfono|Suspenso|2026|1030|Suena a las 3:00 a. m. y la voz del otro lado ya te conoce.',
       'mama-dogs|Mama Dogs|Thriller|2026|1570|Una familia aparentemente normal con reglas que nadie debería cumplir.',
